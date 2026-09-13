@@ -1,0 +1,5 @@
+package: oxinsider
+generate:
+  models: true
+  client: true
+output: oxinsider.gen.go
