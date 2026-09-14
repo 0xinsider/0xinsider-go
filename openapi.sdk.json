@@ -18,7 +18,11 @@
   "servers": [
     {
       "url": "https://api.0xinsider.com",
-      "description": "Production (live data). Authenticate with a live key (oxi_sk_live_...); requires an active Pro subscription."
+      "description": "Production (live data). Authenticate with a live key (oxi_sk_live_...); requires an active Pro subscription. A sandbox key (oxi_sk_test_...) is answered with 401 invalid_api_key and error.reason sandbox_api_key."
+    },
+    {
+      "url": "https://0xinsider.com/sandbox",
+      "description": "Sandbox. No credential required and no production data: every documented operation answers with its documented example or a deterministic sample of its response schema. Add ?sandbox_status=<code> to receive one of the error responses the operation documents (for example 429 with Retry-After). Request bodies and parameters are not validated, streams and file downloads are not simulated, and nothing is stored. A sandbox key (oxi_sk_test_..., issued with no account by POST https://api.0xinsider.com/api/v1/agents/register) is optional: on an operation that requires a credential, a well-formed key is answered with X-Oxi-Sandbox-Key: valid and a malformed one with 401 invalid_api_key."
     }
   ],
   "security": [
@@ -247,6 +251,177 @@
                   "$ref": "#/components/schemas/ApiError"
                 }
               }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/agents/register": {
+      "post": {
+        "operationId": "registerAgent",
+        "summary": "Register an agent for a sandbox key",
+        "description": "Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.",
+        "tags": [
+          "Onboarding"
+        ],
+        "security": [],
+        "responses": {
+          "201": {
+            "description": "A new sandbox key. Every call returns a different key, with Cache-Control: private, no-store.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "object",
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "object": {
+                      "type": "string",
+                      "const": "agent_registration"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/AgentRegistration"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/ResponseMeta"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful response",
+                    "value": {
+                      "object": "agent_registration",
+                      "data": {
+                        "api_key": "oxi_sk_test_7c1e9a4b2d6f0835e1a7c9b4d2f60e83a5c17b9d4e2f6a0c8b3d5e715853be48",
+                        "livemode": false,
+                        "environment": "sandbox",
+                        "created_at": "2026-09-14T12:00:00Z",
+                        "sandbox": {
+                          "api_base_url": "https://0xinsider.com/sandbox/api/v1",
+                          "first_request_url": "https://0xinsider.com/sandbox/api/v1/leaderboard",
+                          "openapi_url": "https://0xinsider.com/sandbox/api/v1/openapi.json"
+                        },
+                        "live_access": {
+                          "api_base_url": "https://api.0xinsider.com/api/v1",
+                          "requirement": "An 0xinsider account with an active Pro subscription. A person creates a live key (oxi_sk_live_) at api_keys_url, or approves an OAuth grant for a client registered at oauth_registration_endpoint.",
+                          "api_keys_url": "https://0xinsider.com/developers",
+                          "oauth_authorization_server_metadata_url": "https://api.0xinsider.com/.well-known/oauth-authorization-server",
+                          "oauth_registration_endpoint": "https://api.0xinsider.com/oauth/register",
+                          "pricing_url": "https://0xinsider.com/pricing",
+                          "auth_guide_url": "https://0xinsider.com/auth.md"
+                        }
+                      },
+                      "meta": {
+                        "request_id": "req_example",
+                        "cached": false,
+                        "cost": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request exceeded the server's 30-second transport timeout. The timeout response has an empty body because it is generated before handler-level JSON error shaping.",
+            "x-empty-body": true
+          },
+          "429": {
+            "description": "Rate limit exceeded. Two independent budgets. (1) 100 requests/minute per user (sliding window), on every authenticated route. (2) On the BATCH routes only: 2500 batch item units/minute per user, reserved before any item is executed. A batch with N requested items costs N item units, including duplicate and invalid items. 2500 = 100 requests x 25 items per batch, which is the most item work a key can buy through the request limiter at all: a caller may spend their entire 100-request minute on full 25-item batches without the item budget being what stops them. The REQUEST budget is the effective ceiling, and batching is never the more expensive choice. The item budget can still deny at a sliding-window boundary (both counters carry the previous window forward with a floor, and the item counter runs 25x the request counter), so honor a 429 from either. Over-quota batches return 429 with Retry-After plus RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset before any item work is done.",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until rate limit resets.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "label": "cURL",
+            "source": "curl -sS -X POST 'https://api.0xinsider.com/api/v1/agents/register'"
+          }
+        ],
+        "x-examples": {
+          "success": {
+            "object": "agent_registration",
+            "data": {
+              "api_key": "oxi_sk_test_7c1e9a4b2d6f0835e1a7c9b4d2f60e83a5c17b9d4e2f6a0c8b3d5e715853be48",
+              "livemode": false,
+              "environment": "sandbox",
+              "created_at": "2026-09-14T12:00:00Z",
+              "sandbox": {
+                "api_base_url": "https://0xinsider.com/sandbox/api/v1",
+                "first_request_url": "https://0xinsider.com/sandbox/api/v1/leaderboard",
+                "openapi_url": "https://0xinsider.com/sandbox/api/v1/openapi.json"
+              },
+              "live_access": {
+                "api_base_url": "https://api.0xinsider.com/api/v1",
+                "requirement": "An 0xinsider account with an active Pro subscription. A person creates a live key (oxi_sk_live_) at api_keys_url, or approves an OAuth grant for a client registered at oauth_registration_endpoint.",
+                "api_keys_url": "https://0xinsider.com/developers",
+                "oauth_authorization_server_metadata_url": "https://api.0xinsider.com/.well-known/oauth-authorization-server",
+                "oauth_registration_endpoint": "https://api.0xinsider.com/oauth/register",
+                "pricing_url": "https://0xinsider.com/pricing",
+                "auth_guide_url": "https://0xinsider.com/auth.md"
+              }
+            },
+            "meta": {
+              "request_id": "req_example",
+              "cached": false,
+              "cost": 1
             }
           }
         }
@@ -20679,10 +20854,11 @@
               "database_unavailable",
               "request_accounting_unavailable",
               "idempotency_in_progress",
-              "webhook_delivery_in_progress"
+              "webhook_delivery_in_progress",
+              "sandbox_api_key"
             ],
             "nullable": true,
-            "description": "ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at."
+            "description": "ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here."
           }
         }
       },
@@ -20868,10 +21044,11 @@
                   "database_unavailable",
                   "request_accounting_unavailable",
                   "idempotency_in_progress",
-                  "webhook_delivery_in_progress"
+                  "webhook_delivery_in_progress",
+                  "sandbox_api_key"
                 ],
                 "nullable": true,
-                "description": "ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at."
+                "description": "ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here."
               }
             }
           },
@@ -21729,7 +21906,7 @@
               "D",
               "F"
             ],
-            "description": "All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, insufficient track record to cohort-rank)."
+            "description": "All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, or too little verified record to cohort-rank)."
           },
           "streak_tier": {
             "type": "string",
@@ -21758,7 +21935,7 @@
           },
           "daily_pnl_series": {
             "type": "array",
-            "description": "Shape-only daily P&L sparkline across the window, derived from Polymarket's user-pnl cumulative curve (user-pnl-api.polymarket.com) converted to per-day deltas. It conveys the trend of the curve only and is NOT guaranteed to sum to trending_pnl_usd, which is the canonical leaderboard total.",
+            "description": "Shape-only daily P&L sparkline across the window, derived from Polymarket's documented user-pnl cumulative curve (GET /v2/user-pnl) converted to per-day deltas. It conveys the trend of the curve only and is NOT guaranteed to sum to trending_pnl_usd, which is the canonical leaderboard total.",
             "items": {
               "type": "object",
               "required": [
@@ -22307,6 +22484,112 @@
           }
         },
         "description": "Policy-7 issuance binds one condition, selected token, outcome, canonical event and sport. Reuse the same authorization across public/private discovery and retries. Require a new account-size executable book and current market eligibility; this frozen reference does not prove current liquidity or positive expected value. Absence or expiry cannot authorize a new automated entry."
+      },
+      "AgentRegistration": {
+        "type": "object",
+        "description": "A sandbox key and the path to live access (#13959). Nothing is stored: the key cannot be listed or revoked and does not expire. Register again for a new one.",
+        "required": [
+          "api_key",
+          "livemode",
+          "environment",
+          "created_at",
+          "sandbox",
+          "live_access"
+        ],
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "pattern": "^oxi_sk_test_[0-9a-f]{64}$",
+            "description": "The sandbox key. Send it as Authorization: Bearer <api_key> to the sandbox. The last 8 hex characters are a checksum (the first 4 bytes of SHA-256 over the rest of the key), so the sandbox can tell a mistyped key from a real one. It is not a secret and unlocks no production data."
+          },
+          "livemode": {
+            "type": "boolean",
+            "const": false,
+            "description": "Always false: this key never reaches live data."
+          },
+          "environment": {
+            "type": "string",
+            "const": "sandbox"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sandbox": {
+            "type": "object",
+            "required": [
+              "api_base_url",
+              "first_request_url",
+              "openapi_url"
+            ],
+            "properties": {
+              "api_base_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "The sandbox V1 base URL. Every documented operation answers here with example data."
+              },
+              "first_request_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "A read to send with the key."
+              },
+              "openapi_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "The OpenAPI document, served by the sandbox."
+              }
+            }
+          },
+          "live_access": {
+            "type": "object",
+            "description": "What live data needs, and where each credential comes from. Both need a person: an account with an active Pro subscription.",
+            "required": [
+              "api_base_url",
+              "requirement",
+              "api_keys_url",
+              "oauth_authorization_server_metadata_url",
+              "oauth_registration_endpoint",
+              "pricing_url",
+              "auth_guide_url"
+            ],
+            "properties": {
+              "api_base_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "The production V1 base URL."
+              },
+              "requirement": {
+                "type": "string",
+                "description": "What a live credential needs, in one sentence."
+              },
+              "api_keys_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Where a signed-in Pro user creates a live key (oxi_sk_live_)."
+              },
+              "oauth_authorization_server_metadata_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "RFC 8414 authorization server metadata, for an OAuth 2.1 grant the user approves."
+              },
+              "oauth_registration_endpoint": {
+                "type": "string",
+                "format": "uri",
+                "description": "RFC 7591 dynamic client registration for public OAuth clients."
+              },
+              "pricing_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "The Pro plan."
+              },
+              "auth_guide_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "The authentication walkthrough for agents."
+              }
+            }
+          }
+        }
       }
     },
     "responses": {
@@ -22764,6 +23047,10 @@
     {
       "name": "Usage",
       "description": "Developer API budget and usage introspection."
+    },
+    {
+      "name": "Onboarding",
+      "description": "Self-serve agent registration: a sandbox key with no account, and the path to live access."
     },
     {
       "name": "System",

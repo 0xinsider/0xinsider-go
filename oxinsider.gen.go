@@ -19,6 +19,36 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Defines values for AgentRegistrationEnvironment.
+const (
+	Sandbox AgentRegistrationEnvironment = "sandbox"
+)
+
+// Valid indicates whether the value is a known member of the AgentRegistrationEnvironment enum.
+func (e AgentRegistrationEnvironment) Valid() bool {
+	switch e {
+	case Sandbox:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AgentRegistrationLivemode.
+const (
+	AgentRegistrationLivemodeFalse AgentRegistrationLivemode = false
+)
+
+// Valid indicates whether the value is a known member of the AgentRegistrationLivemode enum.
+func (e AgentRegistrationLivemode) Valid() bool {
+	switch e {
+	case AgentRegistrationLivemodeFalse:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ApiDiscoveryAuthentication.
 const (
 	BearerAPIKeyRequiredForDataEndpointsDiscoveryapiv1Healthapiv1platformsAndTheMCPHandshakeInitializePingToolslistOnapiv1mcpArePublicA401CarriesWWWAuthenticateWithTheResourceMetadataURL ApiDiscoveryAuthentication = "Bearer API key required for data endpoints; discovery (/api/v1), health, /api/v1/platforms, and the MCP handshake (initialize, ping, tools/list on /api/v1/mcp) are public. A 401 carries WWW-Authenticate with the resource_metadata URL."
@@ -81,6 +111,7 @@ const (
 	ApiErrorErrorReasonPickNotReleased              ApiErrorErrorReason = "pick_not_released"
 	ApiErrorErrorReasonReadModelWarming             ApiErrorErrorReason = "read_model_warming"
 	ApiErrorErrorReasonRequestAccountingUnavailable ApiErrorErrorReason = "request_accounting_unavailable"
+	ApiErrorErrorReasonSandboxApiKey                ApiErrorErrorReason = "sandbox_api_key"
 	ApiErrorErrorReasonTraderNotTracked             ApiErrorErrorReason = "trader_not_tracked"
 	ApiErrorErrorReasonUnknownEndpoint              ApiErrorErrorReason = "unknown_endpoint"
 	ApiErrorErrorReasonWebhookDeliveryInProgress    ApiErrorErrorReason = "webhook_delivery_in_progress"
@@ -100,6 +131,8 @@ func (e ApiErrorErrorReason) Valid() bool {
 	case ApiErrorErrorReasonReadModelWarming:
 		return true
 	case ApiErrorErrorReasonRequestAccountingUnavailable:
+		return true
+	case ApiErrorErrorReasonSandboxApiKey:
 		return true
 	case ApiErrorErrorReasonTraderNotTracked:
 		return true
@@ -174,6 +207,7 @@ const (
 	ApiErrorBodyReasonPickNotReleased              ApiErrorBodyReason = "pick_not_released"
 	ApiErrorBodyReasonReadModelWarming             ApiErrorBodyReason = "read_model_warming"
 	ApiErrorBodyReasonRequestAccountingUnavailable ApiErrorBodyReason = "request_accounting_unavailable"
+	ApiErrorBodyReasonSandboxApiKey                ApiErrorBodyReason = "sandbox_api_key"
 	ApiErrorBodyReasonTraderNotTracked             ApiErrorBodyReason = "trader_not_tracked"
 	ApiErrorBodyReasonUnknownEndpoint              ApiErrorBodyReason = "unknown_endpoint"
 	ApiErrorBodyReasonWebhookDeliveryInProgress    ApiErrorBodyReason = "webhook_delivery_in_progress"
@@ -193,6 +227,8 @@ func (e ApiErrorBodyReason) Valid() bool {
 	case ApiErrorBodyReasonReadModelWarming:
 		return true
 	case ApiErrorBodyReasonRequestAccountingUnavailable:
+		return true
+	case ApiErrorBodyReasonSandboxApiKey:
 		return true
 	case ApiErrorBodyReasonTraderNotTracked:
 		return true
@@ -2746,6 +2782,21 @@ func (e GetApiDiscovery200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for RegisterAgent201JSONResponseBodyObject.
+const (
+	RegisterAgent201JSONResponseBodyObjectAgentRegistration RegisterAgent201JSONResponseBodyObject = "agent_registration"
+)
+
+// Valid indicates whether the value is a known member of the RegisterAgent201JSONResponseBodyObject enum.
+func (e RegisterAgent201JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case RegisterAgent201JSONResponseBodyObjectAgentRegistration:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SearchContent200JSONResponseBodyHasMore.
 const (
 	SearchContent200JSONResponseBodyHasMoreFalse SearchContent200JSONResponseBodyHasMore = false
@@ -4315,6 +4366,57 @@ func (e ListWhaleTradeCounterpartyMakers200JSONResponseBodyObject) Valid() bool 
 	}
 }
 
+// AgentRegistration A sandbox key and the path to live access (#13959). Nothing is stored: the key cannot be listed or revoked and does not expire. Register again for a new one.
+type AgentRegistration struct {
+	// ApiKey The sandbox key. Send it as Authorization: Bearer <api_key> to the sandbox. The last 8 hex characters are a checksum (the first 4 bytes of SHA-256 over the rest of the key), so the sandbox can tell a mistyped key from a real one. It is not a secret and unlocks no production data.
+	ApiKey      string                       `json:"api_key"`
+	CreatedAt   time.Time                    `json:"created_at"`
+	Environment AgentRegistrationEnvironment `json:"environment"`
+
+	// LiveAccess What live data needs, and where each credential comes from. Both need a person: an account with an active Pro subscription.
+	LiveAccess struct {
+		// ApiBaseUrl The production V1 base URL.
+		ApiBaseUrl string `json:"api_base_url"`
+
+		// ApiKeysUrl Where a signed-in Pro user creates a live key (oxi_sk_live_).
+		ApiKeysUrl string `json:"api_keys_url"`
+
+		// AuthGuideUrl The authentication walkthrough for agents.
+		AuthGuideUrl string `json:"auth_guide_url"`
+
+		// OauthAuthorizationServerMetadataUrl RFC 8414 authorization server metadata, for an OAuth 2.1 grant the user approves.
+		OauthAuthorizationServerMetadataUrl string `json:"oauth_authorization_server_metadata_url"`
+
+		// OauthRegistrationEndpoint RFC 7591 dynamic client registration for public OAuth clients.
+		OauthRegistrationEndpoint string `json:"oauth_registration_endpoint"`
+
+		// PricingUrl The Pro plan.
+		PricingUrl string `json:"pricing_url"`
+
+		// Requirement What a live credential needs, in one sentence.
+		Requirement string `json:"requirement"`
+	} `json:"live_access"`
+
+	// Livemode Always false: this key never reaches live data.
+	Livemode AgentRegistrationLivemode `json:"livemode"`
+	Sandbox  struct {
+		// ApiBaseUrl The sandbox V1 base URL. Every documented operation answers here with example data.
+		ApiBaseUrl string `json:"api_base_url"`
+
+		// FirstRequestUrl A read to send with the key.
+		FirstRequestUrl string `json:"first_request_url"`
+
+		// OpenapiUrl The OpenAPI document, served by the sandbox.
+		OpenapiUrl string `json:"openapi_url"`
+	} `json:"sandbox"`
+}
+
+// AgentRegistrationEnvironment defines model for AgentRegistration.Environment.
+type AgentRegistrationEnvironment string
+
+// AgentRegistrationLivemode Always false: this key never reaches live data.
+type AgentRegistrationLivemode bool
+
 // ApiDiscovery defines model for ApiDiscovery.
 type ApiDiscovery struct {
 	// ApiBaseUrl Canonical API origin for public V1 requests.
@@ -4348,7 +4450,7 @@ type ApiError struct {
 		Message string            `json:"message"`
 		Param   *string           `json:"param,omitempty"`
 
-		// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at.
+		// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here.
 		Reason *ApiErrorErrorReason `json:"reason,omitempty"`
 
 		// RetryAt The recommended next request instant (RFC3339), always in the future. Present on every retryable error: `pick_not_released`, `rate_limited`, `rate_limit_unavailable`, and `read_model_warming`. Omitted otherwise. The absolute twin of `Retry-After`; prefer the header for the sleep duration. For `pick_not_released`, the earliest of the next scheduled release, the next automatic selector attempt, the operating-window start, or about 60 seconds. See that response.
@@ -4361,7 +4463,7 @@ type ApiError struct {
 // ApiErrorErrorCode defines model for ApiError.Error.Code.
 type ApiErrorErrorCode string
 
-// ApiErrorErrorReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at.
+// ApiErrorErrorReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here.
 type ApiErrorErrorReason string
 
 // ApiErrorObject defines model for ApiError.Object.
@@ -4374,7 +4476,7 @@ type ApiErrorBody struct {
 	Message string           `json:"message"`
 	Param   *string          `json:"param,omitempty"`
 
-	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at.
+	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here.
 	Reason *ApiErrorBodyReason `json:"reason,omitempty"`
 
 	// RetryAt The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 11:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt (~15m). Every value is advisory under supported operator actions: manual publication, release-time override, or admin generation can make a pick available first. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew.
@@ -4384,7 +4486,7 @@ type ApiErrorBody struct {
 // ApiErrorBodyCode defines model for ApiErrorBody.Code.
 type ApiErrorBodyCode string
 
-// ApiErrorBodyReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at.
+// ApiErrorBodyReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here.
 type ApiErrorBodyReason string
 
 // BatchMarketIntelItem defines model for BatchMarketIntelItem.
@@ -6905,13 +7007,13 @@ type TrendingWallet struct {
 	AllTimePnlUsd *float32 `json:"all_time_pnl_usd,omitempty"`
 	AllTimeScore  *float32 `json:"all_time_score,omitempty"`
 
-	// DailyPnlSeries Shape-only daily P&L sparkline across the window, derived from Polymarket's user-pnl cumulative curve (user-pnl-api.polymarket.com) converted to per-day deltas. It conveys the trend of the curve only and is NOT guaranteed to sum to trending_pnl_usd, which is the canonical leaderboard total.
+	// DailyPnlSeries Shape-only daily P&L sparkline across the window, derived from Polymarket's documented user-pnl cumulative curve (GET /v2/user-pnl) converted to per-day deltas. It conveys the trend of the curve only and is NOT guaranteed to sum to trending_pnl_usd, which is the canonical leaderboard total.
 	DailyPnlSeries []struct {
 		Date   openapi_types.Date `json:"date"`
 		PnlUsd float32            `json:"pnl_usd"`
 	} `json:"daily_pnl_series"`
 
-	// Grade All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, insufficient track record to cohort-rank).
+	// Grade All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, or too little verified record to cohort-rank).
 	Grade *TrendingWalletGrade `json:"grade,omitempty"`
 
 	// Id Prefixed trader ID (`trd_...`).
@@ -6940,7 +7042,7 @@ type TrendingWallet struct {
 	WindowVolumeUsd float32 `json:"window_volume_usd"`
 }
 
-// TrendingWalletGrade All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, insufficient track record to cohort-rank).
+// TrendingWalletGrade All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, or too little verified record to cohort-rank).
 type TrendingWalletGrade string
 
 // TrendingWalletPlatform Real provider platform; surfaced, never coerced. Polymarket-only today.
@@ -7272,6 +7374,9 @@ type WhaleTradeHistoryMetaSourceTable string
 
 // GetApiDiscovery200JSONResponseBodyObject defines parameters for GetApiDiscovery.
 type GetApiDiscovery200JSONResponseBodyObject string
+
+// RegisterAgent201JSONResponseBodyObject defines parameters for RegisterAgent.
+type RegisterAgent201JSONResponseBodyObject string
 
 // SearchContentParams defines parameters for SearchContent.
 type SearchContentParams struct {
@@ -8676,6 +8781,13 @@ type ClientInterface interface {
 	// Corresponds with GET /api/v1 (the `GetApiDiscovery` operationId).
 	GetApiDiscovery(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// RegisterAgent Register an agent for a sandbox key
+	//
+	// Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
+	//
+	// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
+	RegisterAgent(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// SearchContent Search editorial content
 	//
 	// Search 0xinsider editorial content by keyword. Returns backend-owned learn, glossary, comparison, research, and trading-strategy items with canonical URLs. Opaque ranking scores are not exposed.
@@ -9156,6 +9268,23 @@ type ClientInterface interface {
 // Corresponds with GET /api/v1 (the `GetApiDiscovery` operationId).
 func (c *Client) GetApiDiscovery(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetApiDiscoveryRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RegisterAgent Register an agent for a sandbox key
+//
+// Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
+//
+// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
+func (c *Client) RegisterAgent(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegisterAgentRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -10277,6 +10406,33 @@ func NewGetApiDiscoveryRequest(server string) (*http.Request, error) {
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewRegisterAgentRequest constructs an http.Request for the RegisterAgent method
+func NewRegisterAgentRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/agents/register")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -14380,6 +14536,15 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /api/v1 (the `GetApiDiscovery` operationId).
 	GetApiDiscoveryWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetApiDiscoveryResponse, error)
 
+	// RegisterAgentWithResponse Register an agent for a sandbox key
+	//
+	// Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
+	RegisterAgentWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RegisterAgentResponse, error)
+
 	// SearchContentWithResponse Search editorial content
 	//
 	// Search 0xinsider editorial content by keyword. Returns backend-owned learn, glossary, comparison, research, and trading-strategy items with canonical URLs. Opaque ranking scores are not exposed.
@@ -15017,6 +15182,85 @@ func (r GetApiDiscoveryResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetApiDiscoveryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// RegisterAgentResponse429Headers the declared response headers of an HTTP 429 response for RegisterAgent
+type RegisterAgentResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+type RegisterAgentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON201 the response for an HTTP 201 `application/json` response
+	JSON201 *struct {
+		// Data A sandbox key and the path to live access (#13959). Nothing is stored: the key cannot be listed or revoked and does not expire. Register again for a new one.
+		Data   AgentRegistration                      `json:"data"`
+		Meta   ResponseMeta                           `json:"meta"`
+		Object RegisterAgent201JSONResponseBodyObject `json:"object"`
+	}
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *RegisterAgentResponse429Headers
+}
+
+// GetJSON201 returns the response for an HTTP 201 `application/json` response
+func (r RegisterAgentResponse) GetJSON201() *struct {
+	// Data A sandbox key and the path to live access (#13959). Nothing is stored: the key cannot be listed or revoked and does not expire. Register again for a new one.
+	Data   AgentRegistration                      `json:"data"`
+	Meta   ResponseMeta                           `json:"meta"`
+	Object RegisterAgent201JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON201
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r RegisterAgentResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r RegisterAgentResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetBody returns the raw response body bytes
+func (r RegisterAgentResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RegisterAgentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegisterAgentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RegisterAgentResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -22844,6 +23088,21 @@ func (c *ClientWithResponses) GetApiDiscoveryWithResponse(ctx context.Context, r
 	return ParseGetApiDiscoveryResponse(rsp)
 }
 
+// RegisterAgentWithResponse Register an agent for a sandbox key
+//
+// Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
+func (c *ClientWithResponses) RegisterAgentWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RegisterAgentResponse, error) {
+	rsp, err := c.RegisterAgent(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegisterAgentResponse(rsp)
+}
+
 // SearchContentWithResponse Search editorial content
 //
 // Search 0xinsider editorial content by keyword. Returns backend-owned learn, glossary, comparison, research, and trading-strategy items with canonical URLs. Opaque ranking scores are not exposed.
@@ -23828,6 +24087,116 @@ func ParseGetApiDiscoveryResponse(rsp *http.Response) (*GetApiDiscoveryResponse,
 	switch {
 	case rsp.StatusCode == 429:
 		var headers GetApiDiscoveryResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseRegisterAgentResponse parses an HTTP response from a RegisterAgentWithResponse call
+func ParseRegisterAgentResponse(rsp *http.Response) (*RegisterAgentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegisterAgentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest struct {
+			// Data A sandbox key and the path to live access (#13959). Nothing is stored: the key cannot be listed or revoked and does not expire. Register again for a new one.
+			Data   AgentRegistration                      `json:"data"`
+			Meta   ResponseMeta                           `json:"meta"`
+			Object RegisterAgent201JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case rsp.StatusCode == 408:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 429:
+		var headers RegisterAgentResponse429Headers
 		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
