@@ -26,7 +26,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	discovery, err := client.GetApiDiscoveryWithResponse(ctx)
+	discovery, err := client.GetApiDiscoveryWithResponse(ctx, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
