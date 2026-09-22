@@ -19,6 +19,69 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Defines values for AccountIdentityDataCredentialKind.
+const (
+	ApiKey     AccountIdentityDataCredentialKind = "api_key"
+	OauthGrant AccountIdentityDataCredentialKind = "oauth_grant"
+)
+
+// Valid indicates whether the value is a known member of the AccountIdentityDataCredentialKind enum.
+func (e AccountIdentityDataCredentialKind) Valid() bool {
+	switch e {
+	case ApiKey:
+		return true
+	case OauthGrant:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AccountIdentityObject.
+const (
+	Account AccountIdentityObject = "account"
+)
+
+// Valid indicates whether the value is a known member of the AccountIdentityObject enum.
+func (e AccountIdentityObject) Valid() bool {
+	switch e {
+	case Account:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AgentRegistrationEnvironment.
+const (
+	Sandbox AgentRegistrationEnvironment = "sandbox"
+)
+
+// Valid indicates whether the value is a known member of the AgentRegistrationEnvironment enum.
+func (e AgentRegistrationEnvironment) Valid() bool {
+	switch e {
+	case Sandbox:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AgentRegistrationLivemode.
+const (
+	AgentRegistrationLivemodeFalse AgentRegistrationLivemode = false
+)
+
+// Valid indicates whether the value is a known member of the AgentRegistrationLivemode enum.
+func (e AgentRegistrationLivemode) Valid() bool {
+	switch e {
+	case AgentRegistrationLivemodeFalse:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ApiDiscoveryAuthentication.
 const (
 	BearerAPIKeyRequiredForDataEndpointsDiscoveryapiv1Healthapiv1platformsAndTheMCPHandshakeInitializePingToolslistOnapiv1mcpArePublicA401CarriesWWWAuthenticateWithTheResourceMetadataURL ApiDiscoveryAuthentication = "Bearer API key required for data endpoints; discovery (/api/v1), health, /api/v1/platforms, and the MCP handshake (initialize, ping, tools/list on /api/v1/mcp) are public. A 401 carries WWW-Authenticate with the resource_metadata URL."
@@ -39,11 +102,13 @@ const (
 	ApiErrorErrorCodeAccountLocked        ApiErrorErrorCode = "account_locked"
 	ApiErrorErrorCodeBadRequest           ApiErrorErrorCode = "bad_request"
 	ApiErrorErrorCodeForbidden            ApiErrorErrorCode = "forbidden"
+	ApiErrorErrorCodeInsufficientScope    ApiErrorErrorCode = "insufficient_scope"
 	ApiErrorErrorCodeInternalError        ApiErrorErrorCode = "internal_error"
 	ApiErrorErrorCodeInvalidApiKey        ApiErrorErrorCode = "invalid_api_key"
 	ApiErrorErrorCodeNotFound             ApiErrorErrorCode = "not_found"
 	ApiErrorErrorCodeRateLimitUnavailable ApiErrorErrorCode = "rate_limit_unavailable"
 	ApiErrorErrorCodeRateLimited          ApiErrorErrorCode = "rate_limited"
+	ApiErrorErrorCodeRequestTimeout       ApiErrorErrorCode = "request_timeout"
 	ApiErrorErrorCodeSubscriptionRequired ApiErrorErrorCode = "subscription_required"
 )
 
@@ -56,6 +121,8 @@ func (e ApiErrorErrorCode) Valid() bool {
 		return true
 	case ApiErrorErrorCodeForbidden:
 		return true
+	case ApiErrorErrorCodeInsufficientScope:
+		return true
 	case ApiErrorErrorCodeInternalError:
 		return true
 	case ApiErrorErrorCodeInvalidApiKey:
@@ -66,6 +133,8 @@ func (e ApiErrorErrorCode) Valid() bool {
 		return true
 	case ApiErrorErrorCodeRateLimited:
 		return true
+	case ApiErrorErrorCodeRequestTimeout:
+		return true
 	case ApiErrorErrorCodeSubscriptionRequired:
 		return true
 	default:
@@ -75,25 +144,49 @@ func (e ApiErrorErrorCode) Valid() bool {
 
 // Defines values for ApiErrorErrorReason.
 const (
+	ApiErrorErrorReasonApiKeyInQuery                ApiErrorErrorReason = "api_key_in_query"
 	ApiErrorErrorReasonCursorExpired                ApiErrorErrorReason = "cursor_expired"
 	ApiErrorErrorReasonDatabaseUnavailable          ApiErrorErrorReason = "database_unavailable"
 	ApiErrorErrorReasonIdempotencyInProgress        ApiErrorErrorReason = "idempotency_in_progress"
+	ApiErrorErrorReasonInvalidBody                  ApiErrorErrorReason = "invalid_body"
+	ApiErrorErrorReasonInvalidPath                  ApiErrorErrorReason = "invalid_path"
+	ApiErrorErrorReasonInvalidQuery                 ApiErrorErrorReason = "invalid_query"
+	ApiErrorErrorReasonMethodNotAllowed             ApiErrorErrorReason = "method_not_allowed"
+	ApiErrorErrorReasonMonthlyQuotaExceeded         ApiErrorErrorReason = "monthly_quota_exceeded"
+	ApiErrorErrorReasonPayloadTooLarge              ApiErrorErrorReason = "payload_too_large"
 	ApiErrorErrorReasonPickNotReleased              ApiErrorErrorReason = "pick_not_released"
 	ApiErrorErrorReasonReadModelWarming             ApiErrorErrorReason = "read_model_warming"
 	ApiErrorErrorReasonRequestAccountingUnavailable ApiErrorErrorReason = "request_accounting_unavailable"
+	ApiErrorErrorReasonSandboxApiKey                ApiErrorErrorReason = "sandbox_api_key"
+	ApiErrorErrorReasonSubscriptionInactive         ApiErrorErrorReason = "subscription_inactive"
 	ApiErrorErrorReasonTraderNotTracked             ApiErrorErrorReason = "trader_not_tracked"
 	ApiErrorErrorReasonUnknownEndpoint              ApiErrorErrorReason = "unknown_endpoint"
+	ApiErrorErrorReasonUnsupportedMediaType         ApiErrorErrorReason = "unsupported_media_type"
 	ApiErrorErrorReasonWebhookDeliveryInProgress    ApiErrorErrorReason = "webhook_delivery_in_progress"
 )
 
 // Valid indicates whether the value is a known member of the ApiErrorErrorReason enum.
 func (e ApiErrorErrorReason) Valid() bool {
 	switch e {
+	case ApiErrorErrorReasonApiKeyInQuery:
+		return true
 	case ApiErrorErrorReasonCursorExpired:
 		return true
 	case ApiErrorErrorReasonDatabaseUnavailable:
 		return true
 	case ApiErrorErrorReasonIdempotencyInProgress:
+		return true
+	case ApiErrorErrorReasonInvalidBody:
+		return true
+	case ApiErrorErrorReasonInvalidPath:
+		return true
+	case ApiErrorErrorReasonInvalidQuery:
+		return true
+	case ApiErrorErrorReasonMethodNotAllowed:
+		return true
+	case ApiErrorErrorReasonMonthlyQuotaExceeded:
+		return true
+	case ApiErrorErrorReasonPayloadTooLarge:
 		return true
 	case ApiErrorErrorReasonPickNotReleased:
 		return true
@@ -101,9 +194,15 @@ func (e ApiErrorErrorReason) Valid() bool {
 		return true
 	case ApiErrorErrorReasonRequestAccountingUnavailable:
 		return true
+	case ApiErrorErrorReasonSandboxApiKey:
+		return true
+	case ApiErrorErrorReasonSubscriptionInactive:
+		return true
 	case ApiErrorErrorReasonTraderNotTracked:
 		return true
 	case ApiErrorErrorReasonUnknownEndpoint:
+		return true
+	case ApiErrorErrorReasonUnsupportedMediaType:
 		return true
 	case ApiErrorErrorReasonWebhookDeliveryInProgress:
 		return true
@@ -132,11 +231,13 @@ const (
 	ApiErrorBodyCodeAccountLocked        ApiErrorBodyCode = "account_locked"
 	ApiErrorBodyCodeBadRequest           ApiErrorBodyCode = "bad_request"
 	ApiErrorBodyCodeForbidden            ApiErrorBodyCode = "forbidden"
+	ApiErrorBodyCodeInsufficientScope    ApiErrorBodyCode = "insufficient_scope"
 	ApiErrorBodyCodeInternalError        ApiErrorBodyCode = "internal_error"
 	ApiErrorBodyCodeInvalidApiKey        ApiErrorBodyCode = "invalid_api_key"
 	ApiErrorBodyCodeNotFound             ApiErrorBodyCode = "not_found"
 	ApiErrorBodyCodeRateLimitUnavailable ApiErrorBodyCode = "rate_limit_unavailable"
 	ApiErrorBodyCodeRateLimited          ApiErrorBodyCode = "rate_limited"
+	ApiErrorBodyCodeRequestTimeout       ApiErrorBodyCode = "request_timeout"
 	ApiErrorBodyCodeSubscriptionRequired ApiErrorBodyCode = "subscription_required"
 )
 
@@ -149,6 +250,8 @@ func (e ApiErrorBodyCode) Valid() bool {
 		return true
 	case ApiErrorBodyCodeForbidden:
 		return true
+	case ApiErrorBodyCodeInsufficientScope:
+		return true
 	case ApiErrorBodyCodeInternalError:
 		return true
 	case ApiErrorBodyCodeInvalidApiKey:
@@ -159,6 +262,8 @@ func (e ApiErrorBodyCode) Valid() bool {
 		return true
 	case ApiErrorBodyCodeRateLimited:
 		return true
+	case ApiErrorBodyCodeRequestTimeout:
+		return true
 	case ApiErrorBodyCodeSubscriptionRequired:
 		return true
 	default:
@@ -168,25 +273,49 @@ func (e ApiErrorBodyCode) Valid() bool {
 
 // Defines values for ApiErrorBodyReason.
 const (
+	ApiErrorBodyReasonApiKeyInQuery                ApiErrorBodyReason = "api_key_in_query"
 	ApiErrorBodyReasonCursorExpired                ApiErrorBodyReason = "cursor_expired"
 	ApiErrorBodyReasonDatabaseUnavailable          ApiErrorBodyReason = "database_unavailable"
 	ApiErrorBodyReasonIdempotencyInProgress        ApiErrorBodyReason = "idempotency_in_progress"
+	ApiErrorBodyReasonInvalidBody                  ApiErrorBodyReason = "invalid_body"
+	ApiErrorBodyReasonInvalidPath                  ApiErrorBodyReason = "invalid_path"
+	ApiErrorBodyReasonInvalidQuery                 ApiErrorBodyReason = "invalid_query"
+	ApiErrorBodyReasonMethodNotAllowed             ApiErrorBodyReason = "method_not_allowed"
+	ApiErrorBodyReasonMonthlyQuotaExceeded         ApiErrorBodyReason = "monthly_quota_exceeded"
+	ApiErrorBodyReasonPayloadTooLarge              ApiErrorBodyReason = "payload_too_large"
 	ApiErrorBodyReasonPickNotReleased              ApiErrorBodyReason = "pick_not_released"
 	ApiErrorBodyReasonReadModelWarming             ApiErrorBodyReason = "read_model_warming"
 	ApiErrorBodyReasonRequestAccountingUnavailable ApiErrorBodyReason = "request_accounting_unavailable"
+	ApiErrorBodyReasonSandboxApiKey                ApiErrorBodyReason = "sandbox_api_key"
+	ApiErrorBodyReasonSubscriptionInactive         ApiErrorBodyReason = "subscription_inactive"
 	ApiErrorBodyReasonTraderNotTracked             ApiErrorBodyReason = "trader_not_tracked"
 	ApiErrorBodyReasonUnknownEndpoint              ApiErrorBodyReason = "unknown_endpoint"
+	ApiErrorBodyReasonUnsupportedMediaType         ApiErrorBodyReason = "unsupported_media_type"
 	ApiErrorBodyReasonWebhookDeliveryInProgress    ApiErrorBodyReason = "webhook_delivery_in_progress"
 )
 
 // Valid indicates whether the value is a known member of the ApiErrorBodyReason enum.
 func (e ApiErrorBodyReason) Valid() bool {
 	switch e {
+	case ApiErrorBodyReasonApiKeyInQuery:
+		return true
 	case ApiErrorBodyReasonCursorExpired:
 		return true
 	case ApiErrorBodyReasonDatabaseUnavailable:
 		return true
 	case ApiErrorBodyReasonIdempotencyInProgress:
+		return true
+	case ApiErrorBodyReasonInvalidBody:
+		return true
+	case ApiErrorBodyReasonInvalidPath:
+		return true
+	case ApiErrorBodyReasonInvalidQuery:
+		return true
+	case ApiErrorBodyReasonMethodNotAllowed:
+		return true
+	case ApiErrorBodyReasonMonthlyQuotaExceeded:
+		return true
+	case ApiErrorBodyReasonPayloadTooLarge:
 		return true
 	case ApiErrorBodyReasonPickNotReleased:
 		return true
@@ -194,9 +323,15 @@ func (e ApiErrorBodyReason) Valid() bool {
 		return true
 	case ApiErrorBodyReasonRequestAccountingUnavailable:
 		return true
+	case ApiErrorBodyReasonSandboxApiKey:
+		return true
+	case ApiErrorBodyReasonSubscriptionInactive:
+		return true
 	case ApiErrorBodyReasonTraderNotTracked:
 		return true
 	case ApiErrorBodyReasonUnknownEndpoint:
+		return true
+	case ApiErrorBodyReasonUnsupportedMediaType:
 		return true
 	case ApiErrorBodyReasonWebhookDeliveryInProgress:
 		return true
@@ -250,6 +385,108 @@ func (e BatchTraderItemStatus) Valid() bool {
 	case BatchTraderItemStatusError:
 		return true
 	case BatchTraderItemStatusOk:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CategorySkillModelReadinessStatus.
+const (
+	CategorySkillModelReadinessStatusDegraded     CategorySkillModelReadinessStatus = "degraded"
+	CategorySkillModelReadinessStatusInsufficient CategorySkillModelReadinessStatus = "insufficient"
+	CategorySkillModelReadinessStatusLive         CategorySkillModelReadinessStatus = "live"
+	CategorySkillModelReadinessStatusStale        CategorySkillModelReadinessStatus = "stale"
+	CategorySkillModelReadinessStatusUnknown      CategorySkillModelReadinessStatus = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the CategorySkillModelReadinessStatus enum.
+func (e CategorySkillModelReadinessStatus) Valid() bool {
+	switch e {
+	case CategorySkillModelReadinessStatusDegraded:
+		return true
+	case CategorySkillModelReadinessStatusInsufficient:
+		return true
+	case CategorySkillModelReadinessStatusLive:
+		return true
+	case CategorySkillModelReadinessStatusStale:
+		return true
+	case CategorySkillModelReadinessStatusUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CategorySkillV2Platform.
+const (
+	CategorySkillV2PlatformPolymarket CategorySkillV2Platform = "polymarket"
+)
+
+// Valid indicates whether the value is a known member of the CategorySkillV2Platform enum.
+func (e CategorySkillV2Platform) Valid() bool {
+	switch e {
+	case CategorySkillV2PlatformPolymarket:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CategorySkillV2Scope.
+const (
+	CategorySkillV2ScopeObservedGoldskyPrimaryTakerFill CategorySkillV2Scope = "observed_goldsky_primary_taker_fill"
+)
+
+// Valid indicates whether the value is a known member of the CategorySkillV2Scope enum.
+func (e CategorySkillV2Scope) Valid() bool {
+	switch e {
+	case CategorySkillV2ScopeObservedGoldskyPrimaryTakerFill:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CategorySkillV2SourceCoverage.
+const (
+	CategorySkillV2SourceCoverageGradedWalletFills          CategorySkillV2SourceCoverage = "graded_wallet_fills"
+	CategorySkillV2SourceCoveragePartialWhaleThresholdFills CategorySkillV2SourceCoverage = "partial_whale_threshold_fills"
+)
+
+// Valid indicates whether the value is a known member of the CategorySkillV2SourceCoverage enum.
+func (e CategorySkillV2SourceCoverage) Valid() bool {
+	switch e {
+	case CategorySkillV2SourceCoverageGradedWalletFills:
+		return true
+	case CategorySkillV2SourceCoveragePartialWhaleThresholdFills:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CategorySkillV2Status.
+const (
+	CategorySkillV2StatusDegraded     CategorySkillV2Status = "degraded"
+	CategorySkillV2StatusInsufficient CategorySkillV2Status = "insufficient"
+	CategorySkillV2StatusLive         CategorySkillV2Status = "live"
+	CategorySkillV2StatusStale        CategorySkillV2Status = "stale"
+	CategorySkillV2StatusUnknown      CategorySkillV2Status = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the CategorySkillV2Status enum.
+func (e CategorySkillV2Status) Valid() bool {
+	switch e {
+	case CategorySkillV2StatusDegraded:
+		return true
+	case CategorySkillV2StatusInsufficient:
+		return true
+	case CategorySkillV2StatusLive:
+		return true
+	case CategorySkillV2StatusStale:
+		return true
+	case CategorySkillV2StatusUnknown:
 		return true
 	default:
 		return false
@@ -414,13 +651,13 @@ func (e EventReplayMetaCompletenessStatus) Valid() bool {
 
 // Defines values for EventReplayMetaReplayOrdering.
 const (
-	WhaleAlertsIdAsc EventReplayMetaReplayOrdering = "whale_alerts_id_asc"
+	CommitVisibilityThenIdAsc EventReplayMetaReplayOrdering = "commit_visibility_then_id_asc"
 )
 
 // Valid indicates whether the value is a known member of the EventReplayMetaReplayOrdering enum.
 func (e EventReplayMetaReplayOrdering) Valid() bool {
 	switch e {
-	case WhaleAlertsIdAsc:
+	case CommitVisibilityThenIdAsc:
 		return true
 	default:
 		return false
@@ -622,6 +859,33 @@ func (e ExportCompletenessStatus) Valid() bool {
 	}
 }
 
+// Defines values for HolderCategoryEvidenceStatus.
+const (
+	HolderCategoryEvidenceStatusDegraded     HolderCategoryEvidenceStatus = "degraded"
+	HolderCategoryEvidenceStatusInsufficient HolderCategoryEvidenceStatus = "insufficient"
+	HolderCategoryEvidenceStatusLive         HolderCategoryEvidenceStatus = "live"
+	HolderCategoryEvidenceStatusStale        HolderCategoryEvidenceStatus = "stale"
+	HolderCategoryEvidenceStatusUnknown      HolderCategoryEvidenceStatus = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the HolderCategoryEvidenceStatus enum.
+func (e HolderCategoryEvidenceStatus) Valid() bool {
+	switch e {
+	case HolderCategoryEvidenceStatusDegraded:
+		return true
+	case HolderCategoryEvidenceStatusInsufficient:
+		return true
+	case HolderCategoryEvidenceStatusLive:
+		return true
+	case HolderCategoryEvidenceStatusStale:
+		return true
+	case HolderCategoryEvidenceStatusUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for LargeExportPolicyMode.
 const (
 	V1AsyncExport LargeExportPolicyMode = "v1_async_export"
@@ -766,6 +1030,105 @@ func (e MarketCandlesResolution) Valid() bool {
 	case MarketCandlesResolutionN1d:
 		return true
 	case MarketCandlesResolutionN1w:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MarketHolderCategoryWinRateStatus.
+const (
+	MarketHolderCategoryWinRateStatusMeasured      MarketHolderCategoryWinRateStatus = "measured"
+	MarketHolderCategoryWinRateStatusNotEnoughData MarketHolderCategoryWinRateStatus = "not_enough_data"
+	MarketHolderCategoryWinRateStatusUnavailable   MarketHolderCategoryWinRateStatus = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the MarketHolderCategoryWinRateStatus enum.
+func (e MarketHolderCategoryWinRateStatus) Valid() bool {
+	switch e {
+	case MarketHolderCategoryWinRateStatusMeasured:
+		return true
+	case MarketHolderCategoryWinRateStatusNotEnoughData:
+		return true
+	case MarketHolderCategoryWinRateStatusUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MarketHolderGrade.
+const (
+	MarketHolderGradeA MarketHolderGrade = "A"
+	MarketHolderGradeB MarketHolderGrade = "B"
+	MarketHolderGradeS MarketHolderGrade = "S"
+)
+
+// Valid indicates whether the value is a known member of the MarketHolderGrade enum.
+func (e MarketHolderGrade) Valid() bool {
+	switch e {
+	case MarketHolderGradeA:
+		return true
+	case MarketHolderGradeB:
+		return true
+	case MarketHolderGradeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MarketHolderSide.
+const (
+	MarketHolderSideNO  MarketHolderSide = "NO"
+	MarketHolderSideYES MarketHolderSide = "YES"
+)
+
+// Valid indicates whether the value is a known member of the MarketHolderSide enum.
+func (e MarketHolderSide) Valid() bool {
+	switch e {
+	case MarketHolderSideNO:
+		return true
+	case MarketHolderSideYES:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MarketHoldersMarketStatus.
+const (
+	MarketHoldersMarketStatusClosed   MarketHoldersMarketStatus = "closed"
+	MarketHoldersMarketStatusOpen     MarketHoldersMarketStatus = "open"
+	MarketHoldersMarketStatusResolved MarketHoldersMarketStatus = "resolved"
+)
+
+// Valid indicates whether the value is a known member of the MarketHoldersMarketStatus enum.
+func (e MarketHoldersMarketStatus) Valid() bool {
+	switch e {
+	case MarketHoldersMarketStatusClosed:
+		return true
+	case MarketHoldersMarketStatusOpen:
+		return true
+	case MarketHoldersMarketStatusResolved:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MarketHoldersScanSource.
+const (
+	MarketHoldersScanSourceCached MarketHoldersScanSource = "cached"
+	MarketHoldersScanSourceLive   MarketHoldersScanSource = "live"
+)
+
+// Valid indicates whether the value is a known member of the MarketHoldersScanSource enum.
+func (e MarketHoldersScanSource) Valid() bool {
+	switch e {
+	case MarketHoldersScanSourceCached:
+		return true
+	case MarketHoldersScanSourceLive:
 		return true
 	default:
 		return false
@@ -1189,6 +1552,24 @@ func (e PickOfTheDayArchiveEntryOutcome) Valid() bool {
 	}
 }
 
+// Defines values for PickOfTheDayCommitmentPayloadPickOutcomeIndex.
+const (
+	PickOfTheDayCommitmentPayloadPickOutcomeIndexN0 PickOfTheDayCommitmentPayloadPickOutcomeIndex = 0
+	PickOfTheDayCommitmentPayloadPickOutcomeIndexN1 PickOfTheDayCommitmentPayloadPickOutcomeIndex = 1
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayCommitmentPayloadPickOutcomeIndex enum.
+func (e PickOfTheDayCommitmentPayloadPickOutcomeIndex) Valid() bool {
+	switch e {
+	case PickOfTheDayCommitmentPayloadPickOutcomeIndexN0:
+		return true
+	case PickOfTheDayCommitmentPayloadPickOutcomeIndexN1:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for PickOfTheDayHitRateClvState.
 const (
 	PickOfTheDayHitRateClvStateMeasured      PickOfTheDayHitRateClvState = "measured"
@@ -1210,6 +1591,159 @@ func (e PickOfTheDayHitRateClvState) Valid() bool {
 	case PickOfTheDayHitRateClvStatePending:
 		return true
 	case PickOfTheDayHitRateClvStateUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerOpenedEntryCommitmentAlgo.
+const (
+	PickOfTheDayLedgerOpenedEntryCommitmentAlgoSha256CanonicalJsonPayloadnonce PickOfTheDayLedgerOpenedEntryCommitmentAlgo = "sha256(canonical_json(payload)||nonce)"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerOpenedEntryCommitmentAlgo enum.
+func (e PickOfTheDayLedgerOpenedEntryCommitmentAlgo) Valid() bool {
+	switch e {
+	case PickOfTheDayLedgerOpenedEntryCommitmentAlgoSha256CanonicalJsonPayloadnonce:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerOpenedEntryOutcome.
+const (
+	PickOfTheDayLedgerOpenedEntryOutcomeLoss PickOfTheDayLedgerOpenedEntryOutcome = "loss"
+	PickOfTheDayLedgerOpenedEntryOutcomeVoid PickOfTheDayLedgerOpenedEntryOutcome = "void"
+	PickOfTheDayLedgerOpenedEntryOutcomeWin  PickOfTheDayLedgerOpenedEntryOutcome = "win"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerOpenedEntryOutcome enum.
+func (e PickOfTheDayLedgerOpenedEntryOutcome) Valid() bool {
+	switch e {
+	case PickOfTheDayLedgerOpenedEntryOutcomeLoss:
+		return true
+	case PickOfTheDayLedgerOpenedEntryOutcomeVoid:
+		return true
+	case PickOfTheDayLedgerOpenedEntryOutcomeWin:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerOpenedEntryState.
+const (
+	Opened PickOfTheDayLedgerOpenedEntryState = "opened"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerOpenedEntryState enum.
+func (e PickOfTheDayLedgerOpenedEntryState) Valid() bool {
+	switch e {
+	case Opened:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerSealedEntryCommitmentAlgo.
+const (
+	PickOfTheDayLedgerSealedEntryCommitmentAlgoSha256CanonicalJsonPayloadnonce PickOfTheDayLedgerSealedEntryCommitmentAlgo = "sha256(canonical_json(payload)||nonce)"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerSealedEntryCommitmentAlgo enum.
+func (e PickOfTheDayLedgerSealedEntryCommitmentAlgo) Valid() bool {
+	switch e {
+	case PickOfTheDayLedgerSealedEntryCommitmentAlgoSha256CanonicalJsonPayloadnonce:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerSealedEntryState.
+const (
+	Sealed PickOfTheDayLedgerSealedEntryState = "sealed"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerSealedEntryState enum.
+func (e PickOfTheDayLedgerSealedEntryState) Valid() bool {
+	switch e {
+	case Sealed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerUncommittedEntryOutcome.
+const (
+	PickOfTheDayLedgerUncommittedEntryOutcomeLoss    PickOfTheDayLedgerUncommittedEntryOutcome = "loss"
+	PickOfTheDayLedgerUncommittedEntryOutcomePending PickOfTheDayLedgerUncommittedEntryOutcome = "pending"
+	PickOfTheDayLedgerUncommittedEntryOutcomeVoid    PickOfTheDayLedgerUncommittedEntryOutcome = "void"
+	PickOfTheDayLedgerUncommittedEntryOutcomeWin     PickOfTheDayLedgerUncommittedEntryOutcome = "win"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerUncommittedEntryOutcome enum.
+func (e PickOfTheDayLedgerUncommittedEntryOutcome) Valid() bool {
+	switch e {
+	case PickOfTheDayLedgerUncommittedEntryOutcomeLoss:
+		return true
+	case PickOfTheDayLedgerUncommittedEntryOutcomePending:
+		return true
+	case PickOfTheDayLedgerUncommittedEntryOutcomeVoid:
+		return true
+	case PickOfTheDayLedgerUncommittedEntryOutcomeWin:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerUncommittedEntryPreCommitment.
+const (
+	PickOfTheDayLedgerUncommittedEntryPreCommitmentTrue PickOfTheDayLedgerUncommittedEntryPreCommitment = true
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerUncommittedEntryPreCommitment enum.
+func (e PickOfTheDayLedgerUncommittedEntryPreCommitment) Valid() bool {
+	switch e {
+	case PickOfTheDayLedgerUncommittedEntryPreCommitmentTrue:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerUncommittedEntryState.
+const (
+	Uncommitted PickOfTheDayLedgerUncommittedEntryState = "uncommitted"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerUncommittedEntryState enum.
+func (e PickOfTheDayLedgerUncommittedEntryState) Valid() bool {
+	switch e {
+	case Uncommitted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayUncommittedPayloadPickOutcomeIndex.
+const (
+	PickOfTheDayUncommittedPayloadPickOutcomeIndexN0 PickOfTheDayUncommittedPayloadPickOutcomeIndex = 0
+	PickOfTheDayUncommittedPayloadPickOutcomeIndexN1 PickOfTheDayUncommittedPayloadPickOutcomeIndex = 1
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayUncommittedPayloadPickOutcomeIndex enum.
+func (e PickOfTheDayUncommittedPayloadPickOutcomeIndex) Valid() bool {
+	switch e {
+	case PickOfTheDayUncommittedPayloadPickOutcomeIndexN0:
+		return true
+	case PickOfTheDayUncommittedPayloadPickOutcomeIndexN1:
 		return true
 	default:
 		return false
@@ -1815,13 +2349,13 @@ func (e SportsEdgeObservationDirectionalStatus) Valid() bool {
 
 // Defines values for SportsEdgeObservationObservationOnly.
 const (
-	True SportsEdgeObservationObservationOnly = true
+	SportsEdgeObservationObservationOnlyTrue SportsEdgeObservationObservationOnly = true
 )
 
 // Valid indicates whether the value is a known member of the SportsEdgeObservationObservationOnly enum.
 func (e SportsEdgeObservationObservationOnly) Valid() bool {
 	switch e {
-	case True:
+	case SportsEdgeObservationObservationOnlyTrue:
 		return true
 	default:
 		return false
@@ -2197,6 +2731,57 @@ func (e TraderStreakTier) Valid() bool {
 	}
 }
 
+// Defines values for TraderCategoryRecordStatus.
+const (
+	TraderCategoryRecordStatusMeasured      TraderCategoryRecordStatus = "measured"
+	TraderCategoryRecordStatusNotEnoughData TraderCategoryRecordStatus = "not_enough_data"
+)
+
+// Valid indicates whether the value is a known member of the TraderCategoryRecordStatus enum.
+func (e TraderCategoryRecordStatus) Valid() bool {
+	switch e {
+	case TraderCategoryRecordStatusMeasured:
+		return true
+	case TraderCategoryRecordStatusNotEnoughData:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TraderCategoryRecordsBasis.
+const (
+	SettledMarketsAllSizes TraderCategoryRecordsBasis = "settled_markets_all_sizes"
+)
+
+// Valid indicates whether the value is a known member of the TraderCategoryRecordsBasis enum.
+func (e TraderCategoryRecordsBasis) Valid() bool {
+	switch e {
+	case SettledMarketsAllSizes:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TraderEsportsGameRecordStatus.
+const (
+	TraderEsportsGameRecordStatusMeasured      TraderEsportsGameRecordStatus = "measured"
+	TraderEsportsGameRecordStatusNotEnoughData TraderEsportsGameRecordStatus = "not_enough_data"
+)
+
+// Valid indicates whether the value is a known member of the TraderEsportsGameRecordStatus enum.
+func (e TraderEsportsGameRecordStatus) Valid() bool {
+	switch e {
+	case TraderEsportsGameRecordStatusMeasured:
+		return true
+	case TraderEsportsGameRecordStatusNotEnoughData:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for TraderExportJobDataFormat.
 const (
 	TraderExportJobDataFormatCsv    TraderExportJobDataFormat = "csv"
@@ -2542,15 +3127,45 @@ func (e WebhookEventType) Valid() bool {
 	}
 }
 
+// Defines values for WebhookRetryPolicyDisableAfterConsecutiveFailures.
+const (
+	WebhookRetryPolicyDisableAfterConsecutiveFailuresN8 WebhookRetryPolicyDisableAfterConsecutiveFailures = 8
+)
+
+// Valid indicates whether the value is a known member of the WebhookRetryPolicyDisableAfterConsecutiveFailures enum.
+func (e WebhookRetryPolicyDisableAfterConsecutiveFailures) Valid() bool {
+	switch e {
+	case WebhookRetryPolicyDisableAfterConsecutiveFailuresN8:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WebhookRetryPolicyMaxAttempts.
 const (
-	N8 WebhookRetryPolicyMaxAttempts = 8
+	WebhookRetryPolicyMaxAttemptsN8 WebhookRetryPolicyMaxAttempts = 8
 )
 
 // Valid indicates whether the value is a known member of the WebhookRetryPolicyMaxAttempts enum.
 func (e WebhookRetryPolicyMaxAttempts) Valid() bool {
 	switch e {
-	case N8:
+	case WebhookRetryPolicyMaxAttemptsN8:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WebhookRetryPolicyRetryHorizonSeconds.
+const (
+	N7380 WebhookRetryPolicyRetryHorizonSeconds = 7380
+)
+
+// Valid indicates whether the value is a known member of the WebhookRetryPolicyRetryHorizonSeconds enum.
+func (e WebhookRetryPolicyRetryHorizonSeconds) Valid() bool {
+	switch e {
+	case N7380:
 		return true
 	default:
 		return false
@@ -2740,6 +3355,21 @@ const (
 func (e GetApiDiscovery200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetApiDiscovery200JSONResponseBodyObjectApiDiscovery:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RegisterAgent201JSONResponseBodyObject.
+const (
+	RegisterAgent201JSONResponseBodyObjectAgentRegistration RegisterAgent201JSONResponseBodyObject = "agent_registration"
+)
+
+// Valid indicates whether the value is a known member of the RegisterAgent201JSONResponseBodyObject enum.
+func (e RegisterAgent201JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case RegisterAgent201JSONResponseBodyObjectAgentRegistration:
 		return true
 	default:
 		return false
@@ -3064,6 +3694,63 @@ const (
 func (e GetMarketCandles200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetMarketCandles200JSONResponseBodyObjectMarketCandles:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetMarketHoldersParamsOutcome.
+const (
+	GetMarketHoldersParamsOutcomeAll GetMarketHoldersParamsOutcome = "all"
+	GetMarketHoldersParamsOutcomeNo  GetMarketHoldersParamsOutcome = "no"
+	GetMarketHoldersParamsOutcomeYes GetMarketHoldersParamsOutcome = "yes"
+)
+
+// Valid indicates whether the value is a known member of the GetMarketHoldersParamsOutcome enum.
+func (e GetMarketHoldersParamsOutcome) Valid() bool {
+	switch e {
+	case GetMarketHoldersParamsOutcomeAll:
+		return true
+	case GetMarketHoldersParamsOutcomeNo:
+		return true
+	case GetMarketHoldersParamsOutcomeYes:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetMarketHoldersParamsMinGrade.
+const (
+	GetMarketHoldersParamsMinGradeA GetMarketHoldersParamsMinGrade = "A"
+	GetMarketHoldersParamsMinGradeB GetMarketHoldersParamsMinGrade = "B"
+	GetMarketHoldersParamsMinGradeS GetMarketHoldersParamsMinGrade = "S"
+)
+
+// Valid indicates whether the value is a known member of the GetMarketHoldersParamsMinGrade enum.
+func (e GetMarketHoldersParamsMinGrade) Valid() bool {
+	switch e {
+	case GetMarketHoldersParamsMinGradeA:
+		return true
+	case GetMarketHoldersParamsMinGradeB:
+		return true
+	case GetMarketHoldersParamsMinGradeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetMarketHolders200JSONResponseBodyObject.
+const (
+	GetMarketHolders200JSONResponseBodyObjectList GetMarketHolders200JSONResponseBodyObject = "list"
+)
+
+// Valid indicates whether the value is a known member of the GetMarketHolders200JSONResponseBodyObject enum.
+func (e GetMarketHolders200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case GetMarketHolders200JSONResponseBodyObjectList:
 		return true
 	default:
 		return false
@@ -3505,6 +4192,54 @@ func (e ListSmartMoneyFlows200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for OpenMcpEventStreamParamsMCPProtocolVersion.
+const (
+	OpenMcpEventStreamParamsMCPProtocolVersionN20241105 OpenMcpEventStreamParamsMCPProtocolVersion = "2024-11-05"
+	OpenMcpEventStreamParamsMCPProtocolVersionN20250326 OpenMcpEventStreamParamsMCPProtocolVersion = "2025-03-26"
+	OpenMcpEventStreamParamsMCPProtocolVersionN20250618 OpenMcpEventStreamParamsMCPProtocolVersion = "2025-06-18"
+	OpenMcpEventStreamParamsMCPProtocolVersionN20251125 OpenMcpEventStreamParamsMCPProtocolVersion = "2025-11-25"
+)
+
+// Valid indicates whether the value is a known member of the OpenMcpEventStreamParamsMCPProtocolVersion enum.
+func (e OpenMcpEventStreamParamsMCPProtocolVersion) Valid() bool {
+	switch e {
+	case OpenMcpEventStreamParamsMCPProtocolVersionN20241105:
+		return true
+	case OpenMcpEventStreamParamsMCPProtocolVersionN20250326:
+		return true
+	case OpenMcpEventStreamParamsMCPProtocolVersionN20250618:
+		return true
+	case OpenMcpEventStreamParamsMCPProtocolVersionN20251125:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CreateMcpJsonRpcResponseParamsMCPProtocolVersion.
+const (
+	CreateMcpJsonRpcResponseParamsMCPProtocolVersionN20241105 CreateMcpJsonRpcResponseParamsMCPProtocolVersion = "2024-11-05"
+	CreateMcpJsonRpcResponseParamsMCPProtocolVersionN20250326 CreateMcpJsonRpcResponseParamsMCPProtocolVersion = "2025-03-26"
+	CreateMcpJsonRpcResponseParamsMCPProtocolVersionN20250618 CreateMcpJsonRpcResponseParamsMCPProtocolVersion = "2025-06-18"
+	CreateMcpJsonRpcResponseParamsMCPProtocolVersionN20251125 CreateMcpJsonRpcResponseParamsMCPProtocolVersion = "2025-11-25"
+)
+
+// Valid indicates whether the value is a known member of the CreateMcpJsonRpcResponseParamsMCPProtocolVersion enum.
+func (e CreateMcpJsonRpcResponseParamsMCPProtocolVersion) Valid() bool {
+	switch e {
+	case CreateMcpJsonRpcResponseParamsMCPProtocolVersionN20241105:
+		return true
+	case CreateMcpJsonRpcResponseParamsMCPProtocolVersionN20250326:
+		return true
+	case CreateMcpJsonRpcResponseParamsMCPProtocolVersionN20250618:
+		return true
+	case CreateMcpJsonRpcResponseParamsMCPProtocolVersionN20251125:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for CreateMcpJsonRpcResponseJSONBodyJsonrpc.
 const (
 	CreateMcpJsonRpcResponseJSONBodyJsonrpcN20 CreateMcpJsonRpcResponseJSONBodyJsonrpc = "2.0"
@@ -3523,6 +4258,7 @@ func (e CreateMcpJsonRpcResponseJSONBodyJsonrpc) Valid() bool {
 // Defines values for CreateMcpJsonRpcResponseJSONBodyMethod.
 const (
 	Initialize               CreateMcpJsonRpcResponseJSONBodyMethod = "initialize"
+	Notificationscancelled   CreateMcpJsonRpcResponseJSONBodyMethod = "notifications/cancelled"
 	Notificationsinitialized CreateMcpJsonRpcResponseJSONBodyMethod = "notifications/initialized"
 	Ping                     CreateMcpJsonRpcResponseJSONBodyMethod = "ping"
 	Toolscall                CreateMcpJsonRpcResponseJSONBodyMethod = "tools/call"
@@ -3533,6 +4269,8 @@ const (
 func (e CreateMcpJsonRpcResponseJSONBodyMethod) Valid() bool {
 	switch e {
 	case Initialize:
+		return true
+	case Notificationscancelled:
 		return true
 	case Notificationsinitialized:
 		return true
@@ -3586,6 +4324,21 @@ const (
 func (e GetPickOfTheDayArchive200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetPickOfTheDayArchive200JSONResponseBodyObjectPickOfTheDayArchive:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetPickOfTheDayLedger200JSONResponseBodyObject.
+const (
+	GetPickOfTheDayLedger200JSONResponseBodyObjectPickOfTheDayLedger GetPickOfTheDayLedger200JSONResponseBodyObject = "pick_of_the_day_ledger"
+)
+
+// Valid indicates whether the value is a known member of the GetPickOfTheDayLedger200JSONResponseBodyObject enum.
+func (e GetPickOfTheDayLedger200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case GetPickOfTheDayLedger200JSONResponseBodyObjectPickOfTheDayLedger:
 		return true
 	default:
 		return false
@@ -3892,6 +4645,21 @@ func (e GetTrader200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for GetTraderCategoryRecords200JSONResponseBodyObject.
+const (
+	GetTraderCategoryRecords200JSONResponseBodyObjectTraderCategoryRecords GetTraderCategoryRecords200JSONResponseBodyObject = "trader_category_records"
+)
+
+// Valid indicates whether the value is a known member of the GetTraderCategoryRecords200JSONResponseBodyObject enum.
+func (e GetTraderCategoryRecords200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case GetTraderCategoryRecords200JSONResponseBodyObjectTraderCategoryRecords:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetTraderContext200JSONResponseBodyObject.
 const (
 	GetTraderContext200JSONResponseBodyObjectTraderContext GetTraderContext200JSONResponseBodyObject = "trader_context"
@@ -4132,6 +4900,21 @@ func (e ListWebhookDeliveries200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for RedeliverWebhookDelivery200JSONResponseBodyObject.
+const (
+	RedeliverWebhookDelivery200JSONResponseBodyObjectWebhookDelivery RedeliverWebhookDelivery200JSONResponseBodyObject = "webhook_delivery"
+)
+
+// Valid indicates whether the value is a known member of the RedeliverWebhookDelivery200JSONResponseBodyObject enum.
+func (e RedeliverWebhookDelivery200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case RedeliverWebhookDelivery200JSONResponseBodyObjectWebhookDelivery:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RotateWebhookSecret200JSONResponseBodyObject.
 const (
 	RotateWebhookSecret200JSONResponseBodyObjectWebhook RotateWebhookSecret200JSONResponseBodyObject = "webhook"
@@ -4315,6 +5098,77 @@ func (e ListWhaleTradeCounterpartyMakers200JSONResponseBodyObject) Valid() bool 
 	}
 }
 
+// AccountIdentity defines model for AccountIdentity.
+type AccountIdentity struct {
+	Data struct {
+		CredentialId   int                               `json:"credential_id"`
+		CredentialKind AccountIdentityDataCredentialKind `json:"credential_kind"`
+
+		// Scopes Approved OAuth scopes; null for full developer-key access.
+		Scopes []string `json:"scopes"`
+		UserId int      `json:"user_id"`
+	} `json:"data"`
+	Meta   ResponseMeta          `json:"meta"`
+	Object AccountIdentityObject `json:"object"`
+}
+
+// AccountIdentityDataCredentialKind defines model for AccountIdentity.Data.CredentialKind.
+type AccountIdentityDataCredentialKind string
+
+// AccountIdentityObject defines model for AccountIdentity.Object.
+type AccountIdentityObject string
+
+// AgentRegistration A sandbox key and the path to live access (#13959). Nothing is stored: the key cannot be listed or revoked and does not expire. Register again for a new one.
+type AgentRegistration struct {
+	// ApiKey The sandbox key. Send it as Authorization: Bearer <api_key> to the sandbox. The last 8 hex characters are a checksum (the first 4 bytes of SHA-256 over the rest of the key), so the sandbox can tell a mistyped key from a real one. It is not a secret and unlocks no production data.
+	ApiKey      string                       `json:"api_key"`
+	CreatedAt   time.Time                    `json:"created_at"`
+	Environment AgentRegistrationEnvironment `json:"environment"`
+
+	// LiveAccess What live data needs, and where each credential comes from. Both need a person: an account with an active Pro subscription.
+	LiveAccess struct {
+		// ApiBaseUrl The production V1 base URL.
+		ApiBaseUrl string `json:"api_base_url"`
+
+		// ApiKeysUrl Where a signed-in Pro user creates a live key (oxi_sk_live_).
+		ApiKeysUrl string `json:"api_keys_url"`
+
+		// AuthGuideUrl The authentication walkthrough for agents.
+		AuthGuideUrl string `json:"auth_guide_url"`
+
+		// OauthAuthorizationServerMetadataUrl RFC 8414 authorization server metadata, for an OAuth 2.1 grant the user approves.
+		OauthAuthorizationServerMetadataUrl string `json:"oauth_authorization_server_metadata_url"`
+
+		// OauthRegistrationEndpoint RFC 7591 dynamic client registration for public OAuth clients.
+		OauthRegistrationEndpoint string `json:"oauth_registration_endpoint"`
+
+		// PricingUrl The Pro plan.
+		PricingUrl string `json:"pricing_url"`
+
+		// Requirement What a live credential needs, in one sentence.
+		Requirement string `json:"requirement"`
+	} `json:"live_access"`
+
+	// Livemode Always false: this key never reaches live data.
+	Livemode AgentRegistrationLivemode `json:"livemode"`
+	Sandbox  struct {
+		// ApiBaseUrl The sandbox V1 base URL. Every documented operation answers here with example data.
+		ApiBaseUrl string `json:"api_base_url"`
+
+		// FirstRequestUrl A read to send with the key.
+		FirstRequestUrl string `json:"first_request_url"`
+
+		// OpenapiUrl The OpenAPI document, served by the sandbox.
+		OpenapiUrl string `json:"openapi_url"`
+	} `json:"sandbox"`
+}
+
+// AgentRegistrationEnvironment defines model for AgentRegistration.Environment.
+type AgentRegistrationEnvironment string
+
+// AgentRegistrationLivemode Always false: this key never reaches live data.
+type AgentRegistrationLivemode bool
+
 // ApiDiscovery defines model for ApiDiscovery.
 type ApiDiscovery struct {
 	// ApiBaseUrl Canonical API origin for public V1 requests.
@@ -4343,12 +5197,13 @@ type ApiDiscoveryAuthentication string
 // ApiError defines model for ApiError.
 type ApiError struct {
 	Error struct {
+		// Code FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 		Code    ApiErrorErrorCode `json:"code"`
 		DocUrl  *string           `json:"doc_url,omitempty"`
 		Message string            `json:"message"`
 		Param   *string           `json:"param,omitempty"`
 
-		// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at.
+		// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves.
 		Reason *ApiErrorErrorReason `json:"reason,omitempty"`
 
 		// RetryAt The recommended next request instant (RFC3339), always in the future. Present on every retryable error: `pick_not_released`, `rate_limited`, `rate_limit_unavailable`, and `read_model_warming`. Omitted otherwise. The absolute twin of `Retry-After`; prefer the header for the sleep duration. For `pick_not_released`, the earliest of the next scheduled release, the next automatic selector attempt, the operating-window start, or about 60 seconds. See that response.
@@ -4358,10 +5213,10 @@ type ApiError struct {
 	Object ApiErrorObject `json:"object"`
 }
 
-// ApiErrorErrorCode defines model for ApiError.Error.Code.
+// ApiErrorErrorCode FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 type ApiErrorErrorCode string
 
-// ApiErrorErrorReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at.
+// ApiErrorErrorReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves.
 type ApiErrorErrorReason string
 
 // ApiErrorObject defines model for ApiError.Object.
@@ -4369,22 +5224,23 @@ type ApiErrorObject string
 
 // ApiErrorBody defines model for ApiErrorBody.
 type ApiErrorBody struct {
+	// Code FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 	Code    ApiErrorBodyCode `json:"code"`
 	DocUrl  *string          `json:"doc_url,omitempty"`
 	Message string           `json:"message"`
 	Param   *string          `json:"param,omitempty"`
 
-	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at.
+	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves.
 	Reason *ApiErrorBodyReason `json:"reason,omitempty"`
 
-	// RetryAt The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 11:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt (~15m). Every value is advisory under supported operator actions: manual publication, release-time override, or admin generation can make a pick available first. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew.
+	// RetryAt The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited including reason=monthly_quota_exceeded, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 11:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt. Every value is advisory under supported operator actions: manual publication, release-time override, or admin generation can make a pick available first. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew.
 	RetryAt *time.Time `json:"retry_at,omitempty"`
 }
 
-// ApiErrorBodyCode defines model for ApiErrorBody.Code.
+// ApiErrorBodyCode FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 type ApiErrorBodyCode string
 
-// ApiErrorBodyReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at.
+// ApiErrorBodyReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves.
 type ApiErrorBodyReason string
 
 // BatchMarketIntelItem defines model for BatchMarketIntelItem.
@@ -4421,7 +5277,9 @@ type BatchResponseMeta struct {
 	RateLimit   BatchRateLimitMeta `json:"rate_limit"`
 
 	// RequestCost Number of batch item units reserved before execution.
-	RequestCost     int    `json:"request_cost"`
+	RequestCost int `json:"request_cost"`
+
+	// RequestId Unique request ID (req_ prefix). The same value as the X-Request-Id response header, the request's usage accounting row and its log lines.
 	RequestId       string `json:"request_id"`
 	SuccessfulItems int    `json:"successful_items"`
 	TotalItems      int    `json:"total_items"`
@@ -4458,6 +5316,54 @@ type Candle struct {
 	// T Bucket-start unix epoch (seconds): UTC midnight for 1d, the ISO-week Monday's UTC midnight for 1w.
 	T int64 `json:"t"`
 }
+
+// CategorySkillModelReadiness Model-wide readiness, read in the same database snapshot as category_records. Individual category rows retain their own status.
+type CategorySkillModelReadiness struct {
+	AsOf                 time.Time                         `json:"as_of"`
+	ModelVersion         string                            `json:"model_version"`
+	ObservationStartedAt time.Time                         `json:"observation_started_at"`
+	SourceLastSuccessAt  time.Time                         `json:"source_last_success_at"`
+	Status               CategorySkillModelReadinessStatus `json:"status"`
+	TaxonomyVersion      string                            `json:"taxonomy_version"`
+}
+
+// CategorySkillModelReadinessStatus defines model for CategorySkillModelReadiness.Status.
+type CategorySkillModelReadinessStatus string
+
+// CategorySkillV2 Forward-only category evidence from observed Polymarket taker fills. Status is category eligibility, not a global letter grade or a guarantee of positive edge. Scores are probability differences. Unknown and degraded rows withhold scores. Coverage is partial; observation counts are not lifetime market counts.
+type CategorySkillV2 struct {
+	AsOf                       time.Time                     `json:"as_of"`
+	BrierEventAvg              float32                       `json:"brier_event_avg"`
+	CanonicalCategory          string                        `json:"canonical_category"`
+	EdgeLower95                float32                       `json:"edge_lower_95"`
+	EdgeMean                   float32                       `json:"edge_mean"`
+	EdgeSd                     float32                       `json:"edge_sd"`
+	EdgeSe                     float32                       `json:"edge_se"`
+	IndependentEventCount      int                           `json:"independent_event_count"`
+	LatestObservationAt        time.Time                     `json:"latest_observation_at"`
+	ModelVersion               string                        `json:"model_version"`
+	ObservationStartedAt       time.Time                     `json:"observation_started_at"`
+	Platform                   CategorySkillV2Platform       `json:"platform"`
+	ResolvedConditionCount     int                           `json:"resolved_condition_count"`
+	Scope                      CategorySkillV2Scope          `json:"scope"`
+	SourceCoverage             CategorySkillV2SourceCoverage `json:"source_coverage"`
+	SourceLastSuccessAt        time.Time                     `json:"source_last_success_at"`
+	Status                     CategorySkillV2Status         `json:"status"`
+	TaxonomyVersion            string                        `json:"taxonomy_version"`
+	UnresolvedObservationCount int                           `json:"unresolved_observation_count"`
+}
+
+// CategorySkillV2Platform defines model for CategorySkillV2.Platform.
+type CategorySkillV2Platform string
+
+// CategorySkillV2Scope defines model for CategorySkillV2.Scope.
+type CategorySkillV2Scope string
+
+// CategorySkillV2SourceCoverage defines model for CategorySkillV2.SourceCoverage.
+type CategorySkillV2SourceCoverage string
+
+// CategorySkillV2Status defines model for CategorySkillV2.Status.
+type CategorySkillV2Status string
 
 // ContentSearchResult defines model for ContentSearchResult.
 type ContentSearchResult struct {
@@ -4557,8 +5463,11 @@ type CounterpartyParticipant struct {
 	FilledUsdc     string                                `json:"filled_usdc"`
 	Grade          *string                               `json:"grade,omitempty"`
 	IdentityStatus CounterpartyParticipantIdentityStatus `json:"identity_status"`
-	MakerFillCount int                                   `json:"maker_fill_count"`
-	MatchBreakdown []CounterpartyMatchBreakdown          `json:"match_breakdown"`
+
+	// LastTradedAt Latest nonfuture recorded wallet-wide trade time for the tracked trader supplying this participant's grade. Omitted when unavailable; not the receipt time or the owner EOA's activity. Trader context is read with the response and is not frozen by execution membership snapshots.
+	LastTradedAt   *time.Time                   `json:"last_traded_at,omitempty"`
+	MakerFillCount int                          `json:"maker_fill_count"`
+	MatchBreakdown []CounterpartyMatchBreakdown `json:"match_breakdown"`
 
 	// ProfileSegment 0xinsider profile path segment for this participant, present only when the execution wallet has a tracked trader: `@<username>` when that username resolves to the trader alone, otherwise the trader's lowercase wallet. Percent-encode the part after `@` and append to `https://0xinsider.com/profile/`.
 	ProfileSegment   *string `json:"profile_segment,omitempty"`
@@ -4585,16 +5494,16 @@ type CreateWebhookRequest struct {
 
 // EventReplayEvent defines model for EventReplayEvent.
 type EventReplayEvent struct {
-	// Cursor Cursor positioned at this event.
+	// Cursor Cursor positioned at this event: its (inserted_xid, id) commit-order position. Store the page's next_cursor to continue; this one resumes from exactly this event.
 	Cursor    string               `json:"cursor"`
 	Freshness EventReplayFreshness `json:"freshness"`
 
-	// Id Opaque event ID; currently identical to cursor for the whale_alerts.id sequence.
+	// Id Opaque event identity: the ef_-encoded whale_alerts.id, stable across cursor formats. Deduplicate on this, never on cursor or sequence.
 	Id          string                 `json:"id"`
 	Payload     map[string]interface{} `json:"payload"`
 	PublishedAt time.Time              `json:"published_at"`
 
-	// Sequence Global whale_alerts.id sequence.
+	// Sequence whale_alerts.id of the event. Not monotonic across a replay: events arrive in commit order, so a lower id can follow a higher one when its write finished later. Order and resume by cursor, deduplicate by id.
 	Sequence int                  `json:"sequence"`
 	Source   EventReplaySource    `json:"source"`
 	Type     EventReplayEventType `json:"type"`
@@ -4624,14 +5533,26 @@ type EventReplayMeta struct {
 	// Cost Advisory request weight (relative compute cost). 1 for simple reads; higher for heavier endpoints. Not a credit/price.
 	Cost   int `json:"cost"`
 	Replay struct {
-		FromCursor   string                        `json:"from_cursor"`
-		FromSequence int                           `json:"from_sequence"`
-		Ordering     EventReplayMetaReplayOrdering `json:"ordering"`
-		ToCursor     string                        `json:"to_cursor"`
-		ToSequence   int                           `json:"to_sequence"`
+		// FromCursor The request cursor in canonical form (an id-only cursor is re-encoded), or the zero position when omitted.
+		FromCursor string `json:"from_cursor"`
+
+		// FromSequence whale_alerts.id component of the request cursor (0 when omitted).
+		FromSequence int `json:"from_sequence"`
+
+		// Ordering Events are ordered by the position at which their write became visible (whale_alerts.inserted_xid), then by whale_alerts.id, and a page is bounded by the oldest write transaction still open when it was read. Before 2026-09-22 this read whale_alerts_id_asc; that order could skip a late-committing lower id (#16180).
+		Ordering EventReplayMetaReplayOrdering `json:"ordering"`
+
+		// PendingBeyondHorizon True when committed whale-trade rows newer than this page's commit-visibility horizon exist. They are held until every older write transaction has finished and are served on a later request, so a caught_up page with this true is not the end of the stream: poll again. A long open write transaction on the database (a single-transaction backfill) is what keeps this true for more than a few seconds.
+		PendingBeyondHorizon bool `json:"pending_beyond_horizon"`
+
+		// ToCursor Cursor of the last event on this page; equals from_cursor when the page is empty. Identical to next_cursor.
+		ToCursor string `json:"to_cursor"`
+
+		// ToSequence whale_alerts.id of the last event on this page, or from_sequence when the page is empty.
+		ToSequence int `json:"to_sequence"`
 	} `json:"replay"`
 
-	// RequestId Unique request ID (req_ prefix).
+	// RequestId Unique request ID (req_ prefix). The same value as the X-Request-Id response header, the request's usage accounting row and its log lines.
 	RequestId string `json:"request_id"`
 	Retention struct {
 		CursorExpired  EventReplayMetaRetentionCursorExpired `json:"cursor_expired"`
@@ -4643,7 +5564,7 @@ type EventReplayMeta struct {
 // EventReplayMetaCompletenessStatus defines model for EventReplayMeta.Completeness.Status.
 type EventReplayMetaCompletenessStatus string
 
-// EventReplayMetaReplayOrdering defines model for EventReplayMeta.Replay.Ordering.
+// EventReplayMetaReplayOrdering Events are ordered by the position at which their write became visible (whale_alerts.inserted_xid), then by whale_alerts.id, and a page is bounded by the oldest write transaction still open when it was read. Before 2026-09-22 this read whale_alerts_id_asc; that order could skip a late-committing lower id (#16180).
 type EventReplayMetaReplayOrdering string
 
 // EventReplayMetaRetentionCursorExpired defines model for EventReplayMeta.Retention.CursorExpired.
@@ -4834,8 +5755,22 @@ type ExportVolumeReconciliation struct {
 	ExportedActivityVolume    float32  `json:"exported_activity_volume"`
 	ExportedMarketCostBasis   float32  `json:"exported_market_cost_basis"`
 	ProviderActivityVolumeGap *float32 `json:"provider_activity_volume_gap,omitempty"`
-	ProviderLifetimeVolume    *float32 `json:"provider_lifetime_volume,omitempty"`
+
+	// ProviderLifetimeVolume Verified full-history both-sides USD cash volume. Null without coverage; the local activity numerator may cover only a subset of history.
+	ProviderLifetimeVolume *float32 `json:"provider_lifetime_volume,omitempty"`
 }
+
+// HolderCategoryEvidence Current category evidence, independent of the global grade. Pick of the Day stamps only the served display roster; frozen entry snapshots remain unchanged.
+type HolderCategoryEvidence struct {
+	CanonicalCategory *string `json:"canonical_category,omitempty"`
+
+	// Skill Forward-only category evidence from observed Polymarket taker fills. Status is category eligibility, not a global letter grade or a guarantee of positive edge. Scores are probability differences. Unknown and degraded rows withhold scores. Coverage is partial; observation counts are not lifetime market counts.
+	Skill  *CategorySkillV2             `json:"skill,omitempty"`
+	Status HolderCategoryEvidenceStatus `json:"status"`
+}
+
+// HolderCategoryEvidenceStatus defines model for HolderCategoryEvidence.Status.
+type HolderCategoryEvidenceStatus string
 
 // LargeExportPolicy defines model for LargeExportPolicy.
 type LargeExportPolicy struct {
@@ -4881,18 +5816,54 @@ type LargePosition struct {
 	// AvgEntryPrice Volume-weighted entry price.
 	AvgEntryPrice *float32 `json:"avg_entry_price,omitempty"`
 
+	// CombinedUnrealizedPnl The wallet's unrealized P&L across every outcome it holds in this market. Equals position_unrealized_pnl unless is_two_sided is true.
+	CombinedUnrealizedPnl *float32 `json:"combined_unrealized_pnl,omitempty"`
+
+	// CombinedValueUsd The wallet's currentValue across every outcome it holds in this market. Equals total_size_usd unless is_two_sided is true, and is the value the feed ranked this row by.
+	CombinedValueUsd *float32 `json:"combined_value_usd,omitempty"`
+
 	// CurrentPrice Latest provider mark price for the position's token.
 	CurrentPrice *float32 `json:"current_price,omitempty"`
 
 	// EventLegCount Legs collapsed into this representative row for one (wallet, event, outcome side) group. 1 means standalone.
 	EventLegCount int `json:"event_leg_count"`
 
-	// EventTotalValueUsd Aggregate provider currentValue across collapsed sibling legs; equals total_size_usd when event_leg_count = 1.
+	// EventTotalValueUsd Sum of the collapsed sibling legs' own holding values for this (wallet, event) group; equals total_size_usd when event_leg_count = 1, and null when any member's value is unknown.
 	EventTotalValueUsd *float32  `json:"event_total_value_usd,omitempty"`
 	FirstSeenAt        time.Time `json:"first_seen_at"`
 
+	// Holdings Every outcome the wallet holds, primary first. holdings[0] restates the top-level per-outcome fields; a further entry is a leg those fields do not describe. No amount here is a share-proportional slice of a both-sides total.
+	Holdings []struct {
+		// AvgEntryPrice Provider average entry price for this outcome.
+		AvgEntryPrice *float32 `json:"avg_entry_price,omitempty"`
+
+		// CurrentPrice Provider mark price for this outcome.
+		CurrentPrice *float32 `json:"current_price,omitempty"`
+
+		// OutcomeIndex 0 = Yes, 1 = No.
+		OutcomeIndex int `json:"outcome_index"`
+
+		// OutcomeLabel The market's label for this outcome.
+		OutcomeLabel *string `json:"outcome_label,omitempty"`
+
+		// ShareCount Shares held on this outcome.
+		ShareCount float32 `json:"share_count"`
+
+		// TokenId Polymarket CLOB token id for this outcome; null for an unsynced market.
+		TokenId string `json:"token_id"`
+
+		// UnrealizedPnl Provider unrealized P&L for this outcome. Null means unavailable, not break-even.
+		UnrealizedPnl *float32 `json:"unrealized_pnl,omitempty"`
+
+		// ValueUsd Provider currentValue for this outcome. Null means unavailable, not zero.
+		ValueUsd *float32 `json:"value_usd,omitempty"`
+	} `json:"holdings"`
+
 	// Id Composite prefixed ID `pos_<wallet>:<condition_id>:<outcome_index>`.
-	Id            string    `json:"id"`
+	Id string `json:"id"`
+
+	// IsTwoSided Whether the wallet holds shares on both outcomes of this market.
+	IsTwoSided    bool      `json:"is_two_sided"`
 	LastUpdatedAt time.Time `json:"last_updated_at"`
 	Market        struct {
 		Category    *string `json:"category,omitempty"`
@@ -4911,7 +5882,7 @@ type LargePosition struct {
 	// Platform Provider discriminator. Always polymarket.
 	Platform LargePositionPlatform `json:"platform"`
 
-	// PositionUnrealizedPnl Provider per-position unrealized P&L (trader_markets.unrealized_pnl_num, from Polymarket cashPnl).
+	// PositionUnrealizedPnl Provider unrealized mark-to-market P&L (Polymarket cashPnl) for that same one outcome. Null means unavailable, not break-even.
 	PositionUnrealizedPnl *float32 `json:"position_unrealized_pnl,omitempty"`
 
 	// ShareCount Live share count for this position.
@@ -4920,7 +5891,7 @@ type LargePosition struct {
 	// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for this outcome; null when unavailable (e.g. unsynced markets).
 	TokenId *string `json:"token_id,omitempty"`
 
-	// TotalSizeUsd Aggregate provider currentValue for this position leg in USD.
+	// TotalSizeUsd Provider currentValue in USD for the outcome named by outcome_label / token_id, and for that outcome only. Null means the provider supplied no value for this leg, not a zero position. combined_value_usd carries the wallet's whole-market total.
 	TotalSizeUsd *float32 `json:"total_size_usd,omitempty"`
 	Trader       struct {
 		Address string                    `json:"address"`
@@ -4955,7 +5926,7 @@ type LeaderboardEntry struct {
 	// Pnl All-time P&L in USD (total_pnl), including unrealized open positions. Kept for back-compat; prefer realized_pnl for the banked figure.
 	Pnl *float32 `json:"pnl,omitempty"`
 
-	// RealizedPnl All-time banked realized P&L in USD (total_pnl - open_pnl), excluding unrealized open positions. Matches the realized-P&L-dominant grade/board.
+	// RealizedPnl Native realized P&L plus credited maker and taker rebates in USD, with fees already included. The exact numeric value is truncated toward zero to cents before JSON conversion. Wallets without a native snapshot retain their historical stored realized P&L. Omitted when the native snapshot has no net realized value.
 	RealizedPnl  *float32 `json:"realized_pnl,omitempty"`
 	Score        *float32 `json:"score,omitempty"`
 	StrategyType *string  `json:"strategy_type,omitempty"`
@@ -4963,8 +5934,12 @@ type LeaderboardEntry struct {
 	// StreakTier Hot-streak tier (trailing-7d cross-sectional percentile); a separate axis from the all-time grade. Null when no recent activity.
 	StreakTier *LeaderboardEntryStreakTier `json:"streak_tier,omitempty"`
 	Username   *string                     `json:"username,omitempty"`
-	Volume     *float32                    `json:"volume,omitempty"`
-	WinRate    *float32                    `json:"win_rate,omitempty"`
+
+	// Volume Full-history both-sides USD cash volume from a verified Polymarket user-volume observation. Omitted without coverage.
+	Volume *float32 `json:"volume,omitempty"`
+
+	// WinRate The wallet's win rate across ALL categories, not the filtered one. ?category= decides WHICH wallets are listed (the wallet must be ranked in that category); it does not rescope this field, so a soccer-filtered list still reports each wallet's overall rate. For a per-category record use GET /api/v1/trader/{address}/categories.
+	WinRate *float32 `json:"win_rate,omitempty"`
 }
 
 // LeaderboardEntryStreakTier Hot-streak tier (trailing-7d cross-sectional percentile); a separate axis from the all-time grade. Null when no recent activity.
@@ -4984,6 +5959,154 @@ type MarketCandles struct {
 
 // MarketCandlesResolution Bucketing granularity that produced these candles.
 type MarketCandlesResolution string
+
+// MarketHolder defines model for MarketHolder.
+type MarketHolder struct {
+	// Address Lowercased proxy wallet.
+	Address string `json:"address"`
+
+	// CategoryEvidence Current category evidence, independent of the global grade. Pick of the Day stamps only the served display roster; frozen entry snapshots remain unchanged.
+	CategoryEvidence *HolderCategoryEvidence `json:"category_evidence,omitempty"`
+
+	// CategoryWinRate This wallet's win rate in the market's canonical category (`market.category`): the share of its resolved markets in that category whose realized P&L closed positive, as a 0..1 fraction. Present only with `category_win_rate_status` = `measured`. The same read `GET /api/v1/trader/{address}/categories` serves per wallet.
+	CategoryWinRate *float32 `json:"category_win_rate,omitempty"`
+
+	// CategoryWinRateGame For an esports market, the game `category_win_rate` and `category_win_record` were measured in: `LoL`, `CS2`, `Dota 2`, `Valorant`, `Call of Duty`, `Honor of Kings`, `Mobile Legends: Bang Bang`, `Overwatch`, `Rainbow Six Siege`, `Rocket League` or `StarCraft II`. Present only when the wallet's record in that game clears the 5-resolved-market floor, in which case the rate and record are the game's rather than the `Esports` bucket's. Absent when the rate is the bucket's (the wallet's game history is under the floor), on every non-esports market, and beside every non-measured status. Label the rate with this when present and with the market's `category` otherwise.
+	CategoryWinRateGame *string `json:"category_win_rate_game,omitempty"`
+
+	// CategoryWinRateStatus Why `category_win_rate` is present or absent: `measured` (rate present), `not_enough_data` (under the floor of 5 decided markets in the category), or `unavailable` (the market has no canonical category, or the read failed; retry later). Always present on this route.
+	CategoryWinRateStatus MarketHolderCategoryWinRateStatus `json:"category_win_rate_status"`
+
+	// CategoryWinRecord The two counts `category_win_rate` is the ratio of, from the same row: `wins / decided` equals the rate. Every resolved Polymarket market the wallet traded in the market's canonical category, at any position size, rebuilt daily. Present only with `category_win_rate_status` = `measured`.
+	CategoryWinRecord *struct {
+		// Decided Resolved markets in the category that this wallet closed with a profit or a loss. A market resolved at zero realized P&L is in neither count.
+		Decided int `json:"decided"`
+
+		// Wins Resolved markets in the category that this wallet closed with a profit.
+		Wins int `json:"wins"`
+	} `json:"category_win_record,omitempty"`
+
+	// CurrentValueUsd Polymarket's own currentValue for this leg, in USD. Null when the snapshot predates the value map.
+	CurrentValueUsd float32 `json:"current_value_usd"`
+
+	// Grade All-time trader grade. This route lists the S/A/B cohort only, the same cohort a Pick of the Day roster lists.
+	Grade MarketHolderGrade `json:"grade"`
+
+	// Id Composite `pos_<wallet>:<condition_id>:<outcome_index>`, the same id `GET /api/v1/positions` gives this leg.
+	Id string `json:"id"`
+
+	// IsBot True when the wallet is flagged as automated.
+	IsBot *bool `json:"is_bot,omitempty"`
+
+	// IsNewWallet True when the wallet's first trade was under 30 days ago.
+	IsNewWallet *bool `json:"is_new_wallet,omitempty"`
+
+	// LastTradedAt The wallet's last recorded trade anywhere, null when unknown.
+	LastTradedAt time.Time `json:"last_traded_at"`
+
+	// MarketsTraded Distinct markets the wallet has traded.
+	MarketsTraded *int `json:"markets_traded,omitempty"`
+
+	// Name Polymarket's public display name from the same holder snapshot; null for a private wallet, which the provider redacts at the source.
+	Name string `json:"name"`
+
+	// OtherOutcomeShares Shares on the other outcome when the wallet holds both. Absent when the wallet is one-sided.
+	OtherOutcomeShares *float32 `json:"other_outcome_shares,omitempty"`
+
+	// Shares Shares held on `side`, from the complete provider scan.
+	Shares float32 `json:"shares"`
+
+	// Side The outcome this wallet nets to. A wallet holding both outcomes is listed once, on its net side; see `other_outcome_shares`.
+	Side MarketHolderSide `json:"side"`
+
+	// TokenId Polymarket CLOB token id (ERC1155 asset id, decimal string) for `side`; null when the market has no stored token id.
+	TokenId string `json:"token_id"`
+
+	// TraderId `trd_`-prefixed trader id, accepted by `GET /api/v1/trader/{address}`.
+	TraderId string `json:"trader_id"`
+
+	// WalletAgeDays Days since this wallet's first trade. The five badge fields are present together, only for a wallet that draws at least one badge.
+	WalletAgeDays *float32 `json:"wallet_age_days,omitempty"`
+
+	// XUsername The wallet's X handle without the @, when linked.
+	XUsername *string `json:"x_username,omitempty"`
+}
+
+// MarketHolderCategoryWinRateStatus Why `category_win_rate` is present or absent: `measured` (rate present), `not_enough_data` (under the floor of 5 decided markets in the category), or `unavailable` (the market has no canonical category, or the read failed; retry later). Always present on this route.
+type MarketHolderCategoryWinRateStatus string
+
+// MarketHolderGrade All-time trader grade. This route lists the S/A/B cohort only, the same cohort a Pick of the Day roster lists.
+type MarketHolderGrade string
+
+// MarketHolderSide The outcome this wallet nets to. A wallet holding both outcomes is listed once, on its net side; see `other_outcome_shares`.
+type MarketHolderSide string
+
+// MarketHoldersMarket defines model for MarketHoldersMarket.
+type MarketHoldersMarket struct {
+	// Category The canonical category bucket `category_win_rate` is measured in.
+	Category    string     `json:"category"`
+	ConditionId string     `json:"condition_id"`
+	EndDate     *time.Time `json:"end_date,omitempty"`
+	EventSlug   *string    `json:"event_slug,omitempty"`
+
+	// Id `mkt_`-prefixed market id.
+	Id         string  `json:"id"`
+	OutcomeNo  string  `json:"outcome_no"`
+	OutcomeYes string  `json:"outcome_yes"`
+	Slug       *string `json:"slug,omitempty"`
+
+	// Status A settled market's roster is whatever the provider still lists as open; it empties as holders redeem.
+	Status     MarketHoldersMarketStatus `json:"status"`
+	Title      string                    `json:"title"`
+	TokenIdNo  string                    `json:"token_id_no"`
+	TokenIdYes string                    `json:"token_id_yes"`
+}
+
+// MarketHoldersMarketStatus A settled market's roster is whatever the provider still lists as open; it empties as holders redeem.
+type MarketHoldersMarketStatus string
+
+// MarketHoldersScan defines model for MarketHoldersScan.
+type MarketHoldersScan struct {
+	// Complete Always true on a served roster. An incomplete or unstable scan is a 503, never a partial list.
+	Complete bool `json:"complete"`
+
+	// FetchedAt When the provider walk that produced the holder population finished.
+	FetchedAt time.Time `json:"fetched_at"`
+
+	// Source `cached`: the shared holder snapshot, at most 180 s old at compute time. `live`: the provider answered a fresh complete walk for this compute.
+	Source MarketHoldersScanSource `json:"source"`
+
+	// WalletCount Every distinct wallet the complete walk saw with open shares, graded or not. The roster lists the graded S/A/B subset.
+	WalletCount int `json:"wallet_count"`
+}
+
+// MarketHoldersScanSource `cached`: the shared holder snapshot, at most 180 s old at compute time. `live`: the provider answered a fresh complete walk for this compute.
+type MarketHoldersScanSource string
+
+// MarketHoldersSideGrades defines model for MarketHoldersSideGrades.
+type MarketHoldersSideGrades struct {
+	A int `json:"a"`
+	B int `json:"b"`
+	S int `json:"s"`
+}
+
+// MarketHoldersTotals Roster totals BEFORE any `outcome` or `min_grade` filter, so a page always knows the whole market it was cut from.
+type MarketHoldersTotals struct {
+	// GradedCount Distinct graded wallets with net exposure; a two-sided wallet counts once.
+	GradedCount int                     `json:"graded_count"`
+	NoCount     int                     `json:"no_count"`
+	NoGrades    MarketHoldersSideGrades `json:"no_grades"`
+	NoShares    float32                 `json:"no_shares"`
+
+	// NoUsd Polymarket currentValue summed over the graded wallets netting NO.
+	NoUsd     float32                 `json:"no_usd"`
+	YesCount  int                     `json:"yes_count"`
+	YesGrades MarketHoldersSideGrades `json:"yes_grades"`
+	YesShares float32                 `json:"yes_shares"`
+
+	// YesUsd Polymarket currentValue summed over the graded wallets netting YES.
+	YesUsd float32 `json:"yes_usd"`
+}
 
 // MarketIntel defines model for MarketIntel.
 type MarketIntel struct {
@@ -5242,19 +6365,49 @@ type OutcomeCandlesOutcome string
 type PickHolder struct {
 	Address string `json:"address"`
 
-	// CategoryWinRate This wallet's win rate in the pick's canonical category bucket (the pick's `category` field, e.g. Basketball -- label the rate with it, never with the narrower `display_category` league): the share of the wallet's resolved markets in that category whose realized P&L closed positive, as a 0..1 fraction. Present only with `category_win_rate_status` = `measured`, on `display_holders` entries, and only when the wallet clears the resolved-market floor; recomputed at serve time from the current category read model, not frozen with the pick. Absent on `holders` entries, legacy rows, and payloads predating the field.
+	// CategoryEvidence Current category evidence, independent of the global grade. Pick of the Day stamps only the served display roster; frozen entry snapshots remain unchanged.
+	CategoryEvidence *HolderCategoryEvidence `json:"category_evidence,omitempty"`
+
+	// CategoryWinRate This wallet's win rate in the pick's canonical category bucket (the pick's `category` field, e.g. Basketball -- label the rate with it, never with the narrower `display_category` league, except when `category_win_rate_game` is present, in which case the rate is that game's and is labelled with it): the share of the wallet's resolved markets in that category whose realized P&L closed positive, as a 0..1 fraction. Present only with `category_win_rate_status` = `measured`, on `display_holders` entries, and only when the wallet clears the resolved-market floor; recomputed at serve time from the current category read model, not frozen with the pick. Absent on `holders` entries, legacy rows, and payloads predating the field.
 	CategoryWinRate *float32 `json:"category_win_rate,omitempty"`
+
+	// CategoryWinRateGame For an esports pick, the game `category_win_rate` and `category_win_record` were measured in, by the same name the pick's `display_category` uses for it: `LoL`, `CS2`, `Dota 2`, `Valorant`, `Call of Duty`, `Honor of Kings`, `Mobile Legends: Bang Bang`, `Overwatch`, `Rainbow Six Siege`, `Rocket League` or `StarCraft II`. Present only when the wallet's record in that game clears the 5-resolved-market floor, in which case the rate and record are the game's rather than the `Esports` bucket's. Absent when the rate is the bucket's (the wallet's game history is under the floor), on every non-esports pick, beside every non-measured status, and on payloads predating the field. Label the rate with this when present and with `category` otherwise.
+	CategoryWinRateGame *string `json:"category_win_rate_game,omitempty"`
 
 	// CategoryWinRateStatus Why `category_win_rate` is present or absent on a `display_holders` entry: `measured` (rate present), `not_enough_data` (the wallet is below the resolved-market floor of 5 in the category), or `unavailable` (the annotation read failed; retry later). Absent entirely on `holders` entries, legacy rows, and payloads predating the field -- absence means the roster was never annotated, not a small sample.
 	CategoryWinRateStatus *PickHolderCategoryWinRateStatus `json:"category_win_rate_status,omitempty"`
 
+	// CategoryWinRecord The two counts `category_win_rate` is the ratio of, read from the same row: `wins / decided` equals the rate. Counts every resolved Polymarket market the wallet traded in the pick's canonical category (or in its game, when `category_win_rate_game` is present), at any position size; the counts are rebuilt daily. Present only with `category_win_rate_status` = `measured`; absent otherwise and on payloads predating the field.
+	CategoryWinRecord *struct {
+		// Decided Resolved markets in the category that this wallet closed with a profit or a loss. A market resolved at zero realized P&L is in neither count.
+		Decided int `json:"decided"`
+
+		// Wins Resolved markets in the category that this wallet closed with a profit.
+		Wins int `json:"wins"`
+	} `json:"category_win_record,omitempty"`
+
 	// Grade All-time trader grade (S, A, B, C, D, F).
 	Grade *string `json:"grade,omitempty"`
-	Name  *string `json:"name,omitempty"`
+
+	// IsBot True when the wallet has traded 10,000 or more distinct markets, the breadth floor 0xinsider uses to mark automated wallets. It is a breadth rule, not proof of automation. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
+	IsBot *bool `json:"is_bot,omitempty"`
+
+	// IsNewWallet True when the wallet's first trade was under 30 days ago. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
+	IsNewWallet *bool `json:"is_new_wallet,omitempty"`
+
+	// MarketsTraded Distinct markets this wallet has traded. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
+	MarketsTraded *int    `json:"markets_traded,omitempty"`
+	Name          *string `json:"name,omitempty"`
 
 	// ProfileSegment 0xinsider profile path segment this wallet links to: `@<username>` when that username resolves to this wallet alone, otherwise the lowercase wallet. Percent-encode the part after `@` and append to `https://0xinsider.com/profile/`. Stamped at serve time; absent on a body cached before the field shipped.
 	ProfileSegment *string `json:"profile_segment,omitempty"`
 	Shares         float32 `json:"shares"`
+
+	// WalletAgeDays Days since this wallet's first trade. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
+	WalletAgeDays *float32 `json:"wallet_age_days,omitempty"`
+
+	// XUsername The wallet's X handle from its Polymarket profile, normalized to 1-15 characters of [A-Za-z0-9_] with no `@`. Link it as `https://x.com/<handle>`. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
+	XUsername *string `json:"x_username,omitempty"`
 }
 
 // PickHolderCategoryWinRateStatus Why `category_win_rate` is present or absent on a `display_holders` entry: `measured` (rate present), `not_enough_data` (the wallet is below the resolved-market floor of 5 in the category), or `unavailable` (the annotation read failed; retry later). Absent entirely on `holders` entries, legacy rows, and payloads predating the field -- absence means the roster was never annotated, not a small sample.
@@ -5262,7 +6415,7 @@ type PickHolderCategoryWinRateStatus string
 
 // PickOfTheDay defines model for PickOfTheDay.
 type PickOfTheDay struct {
-	// BackedPrice Pre-game snapshot probability (0..1) for the backed side.
+	// BackedPrice Frozen pre-game probability (0..1) for the backed side, written once at publication. It is the Polymarket CLOB order book midpoint at release, not an executed fill: a buyer lifts the ask, so a subscriber's own entry is usually a little worse than this price.
 	BackedPrice *float32 `json:"backed_price,omitempty"`
 
 	// BackedSharpUsd Raw backed-side sharp-money USD frozen at generation. This is the Sharp USD value, not the recency-weighted smart_usd which decays. Omitted on current public V1 rows when the B-inclusive value has no reconstructible S/A equivalent.
@@ -5411,7 +6564,7 @@ type PickOfTheDay struct {
 		// IndependentEventCount Independent canonical events behind the edge. At least 10 by construction for a v2 expert.
 		IndependentEventCount *int `json:"independent_event_count,omitempty"`
 
-		// Lane Present from expert policy 6. Current expert policy 10 retains the longshot requirement of live v2 only, with 30 events and a positive lower bound, net backed value at least $10,000 and opposite value below $1. Historical policy 6: a specialist requires net backed value at least $10,000, opposite value below $1, and either live v2 with 30 events and positive lower bound or v1 rate at least 0.65 over 20 resolved markets. Tennis requires v2.
+		// Lane Present from expert policy 6. Current expert policy 10 retains the longshot requirement of live v2 only, with a positive lower bound over a large sample, large net backed value and no meaningful opposite value. Historical policy 6: a specialist required large net backed value, no meaningful opposite value, and either a live v2 positive lower bound over a large sample or a high v1 rate over enough resolved markets. Tennis requires v2. The floors are not published.
 		Lane *PickOfTheDayQualifyingExpertLane `json:"lane,omitempty"`
 
 		// LaneProbability Answered, spread-gated, index-scoped backed probability frozen only on a specialist exception.
@@ -5432,7 +6585,7 @@ type PickOfTheDay struct {
 		// PositionUsd Polymarket's own currentValue for this wallet on the backed outcome, in USD, as of selection. At least 1000 by construction through gate policy v7; the standard floor is 500 from v8. From gate policy v5 the floor is read on the net: position_usd minus opposite_position_usd is at least that floor, and the pick re-verifies that net against the live holder snapshot when it is released.
 		PositionUsd float32 `json:"position_usd"`
 
-		// Source Current expert policy 10 does not require a category-skill v2 specialist in any sport; in every sport a specialist raises the candidate's rank tier rather than gating it. Standard specialists need at least 10 independent events, positive edge_lower_95 and $500 net backing. Fresh healthy records below the shared model's 30-event live floor can qualify; stale, unknown and degraded records cannot. Historical records preserve which definition qualified the wallet: v1, the profitability rate (win_rate over n_resolved), or v2, the forward-only category-skill calibration edge (edge_lower_95 over independent_event_count). Absent on picks frozen before the v2 definition existed; read absence as v1. A Tennis pick frozen under gate policy v4 or later carries v2 only: a v1 rate stopped qualifying a tennis expert at v4. A Tennis pick frozen under an earlier policy can still carry v1 with a win rate.
+		// Source Current expert policy 10 does not require a category-skill v2 specialist in any sport; in every sport a specialist raises the candidate's rank tier rather than gating it. Standard specialists need a positive edge_lower_95 over enough independent events and enough net backing on the backed side; the floors are not published. Fresh healthy records below the shared model's live sample floor can qualify; stale, unknown and degraded records cannot. Historical records preserve which definition qualified the wallet: v1, the profitability rate (win_rate over n_resolved), or v2, the forward-only category-skill calibration edge (edge_lower_95 over independent_event_count). Absent on picks frozen before the v2 definition existed; read absence as v1. A Tennis pick frozen under gate policy v4 or later carries v2 only: a v1 rate stopped qualifying a tennis expert at v4. A Tennis pick frozen under an earlier policy can still carry v1 with a win rate.
 		Source *PickOfTheDayQualifyingExpertSource `json:"source,omitempty"`
 
 		// StatsComputedAt When the skill read model behind the evidence was last rebuilt: trader_category_stats.computed_at for a source=v1 expert, category_skill_v2_current.as_of for a source=v2 expert.
@@ -5445,7 +6598,7 @@ type PickOfTheDay struct {
 	// ReleaseAt The pick's stored release instant. Normally the current provider kickoff minus one hour; an operator may override it. The actual publish instant can trail it because of worker or claim delay.
 	ReleaseAt time.Time `json:"release_at"`
 
-	// ReturnPer100 Gross return on a $100 stake at the snapshotted price (100 / backed_price).
+	// ReturnPer100 Gross return on a $100 stake at the frozen midpoint price (100 / backed_price). A real fill pays the ask, so an executed stake usually returns a little less.
 	ReturnPer100 *float32 `json:"return_per_100,omitempty"`
 
 	// ScheduledPicks Same-day picks selected but not yet released, ordered by pick_rank. Additive and optional: present only while at least one unreleased slot exists. Each slot exposes only its rank and schedule -- no market identity before release. Schedule the next read from the earliest release_at instead of polling.
@@ -5500,13 +6653,13 @@ type PickOfTheDay struct {
 // PickOfTheDayOutcome Settlement outcome of the backed side; 'pending' until the market resolves.
 type PickOfTheDayOutcome string
 
-// PickOfTheDayQualifyingExpertLane Present from expert policy 6. Current expert policy 10 retains the longshot requirement of live v2 only, with 30 events and a positive lower bound, net backed value at least $10,000 and opposite value below $1. Historical policy 6: a specialist requires net backed value at least $10,000, opposite value below $1, and either live v2 with 30 events and positive lower bound or v1 rate at least 0.65 over 20 resolved markets. Tennis requires v2.
+// PickOfTheDayQualifyingExpertLane Present from expert policy 6. Current expert policy 10 retains the longshot requirement of live v2 only, with a positive lower bound over a large sample, large net backed value and no meaningful opposite value. Historical policy 6: a specialist required large net backed value, no meaningful opposite value, and either a live v2 positive lower bound over a large sample or a high v1 rate over enough resolved markets. Tennis requires v2. The floors are not published.
 type PickOfTheDayQualifyingExpertLane string
 
 // PickOfTheDayQualifyingExpertLaneProbabilitySource Canonical provider probability pair branch; absent on standard experts.
 type PickOfTheDayQualifyingExpertLaneProbabilitySource string
 
-// PickOfTheDayQualifyingExpertSource Current expert policy 10 does not require a category-skill v2 specialist in any sport; in every sport a specialist raises the candidate's rank tier rather than gating it. Standard specialists need at least 10 independent events, positive edge_lower_95 and $500 net backing. Fresh healthy records below the shared model's 30-event live floor can qualify; stale, unknown and degraded records cannot. Historical records preserve which definition qualified the wallet: v1, the profitability rate (win_rate over n_resolved), or v2, the forward-only category-skill calibration edge (edge_lower_95 over independent_event_count). Absent on picks frozen before the v2 definition existed; read absence as v1. A Tennis pick frozen under gate policy v4 or later carries v2 only: a v1 rate stopped qualifying a tennis expert at v4. A Tennis pick frozen under an earlier policy can still carry v1 with a win rate.
+// PickOfTheDayQualifyingExpertSource Current expert policy 10 does not require a category-skill v2 specialist in any sport; in every sport a specialist raises the candidate's rank tier rather than gating it. Standard specialists need a positive edge_lower_95 over enough independent events and enough net backing on the backed side; the floors are not published. Fresh healthy records below the shared model's live sample floor can qualify; stale, unknown and degraded records cannot. Historical records preserve which definition qualified the wallet: v1, the profitability rate (win_rate over n_resolved), or v2, the forward-only category-skill calibration edge (edge_lower_95 over independent_event_count). Absent on picks frozen before the v2 definition existed; read absence as v1. A Tennis pick frozen under gate policy v4 or later carries v2 only: a v1 rate stopped qualifying a tennis expert at v4. A Tennis pick frozen under an earlier policy can still carry v1 with a win rate.
 type PickOfTheDayQualifyingExpertSource string
 
 // PickOfTheDaySelectionLane Frozen admission classification, full payload only. The specialist lane exempts two probability rejects and adds no rank bonus. Historical rows remain standard.
@@ -5560,6 +6713,9 @@ type PickOfTheDayArchiveDaySweep string
 
 // PickOfTheDayArchiveEntry defines model for PickOfTheDayArchiveEntry.
 type PickOfTheDayArchiveEntry struct {
+	// BackedPrice Frozen price of the backed side (0..1) that return_per_100 was computed from: on a win, 100 / backed_price equals return_per_100. It is the Polymarket CLOB order book midpoint at release, frozen write-once at publication, not an executed fill: a buyer lifts the ask, so a subscriber's own entry is usually a little worse than this price. Present exactly when return_per_100 is, so it is omitted for a still-pending pick, an unpriced win, and any pick whose backed side is withheld.
+	BackedPrice *float32 `json:"backed_price,omitempty"`
+
 	// Category Frozen canonical calibration/report bucket (e.g. "Basketball", "MMA", or "Soccer"). Existing semantics are unchanged; presentation consumers should prefer display_category when present.
 	Category string `json:"category"`
 
@@ -5569,16 +6725,22 @@ type PickOfTheDayArchiveEntry struct {
 	// ClvBasis Backend-owned CLV evidence basis. Source-null price-match bases preserve unknown original provenance. `historical_provider_nearby_price_match` requires a matching Polymarket point within five minutes before publication.
 	ClvBasis *string `json:"clv_basis,omitempty"`
 
+	// ClvClosePrice Close operand of clv_pct: the last valid Polymarket probability before the close bound (kickoff, or the first instant the live feed reported the game in progress when that came earlier). Present exactly when clv_pct is; the close timestamp stays private.
+	ClvClosePrice *float32 `json:"clv_close_price,omitempty"`
+
 	// ClvDisplay Backend-formatted signed CLV percentage, present exactly when clv_pct is present.
 	ClvDisplay *string `json:"clv_display,omitempty"`
 
-	// ClvExplanation Backend-owned CLV formula text or the reason that CLV does not apply or is unavailable.
+	// ClvEntryPrice Entry operand of clv_pct: the frozen pick probability the close is compared against. It equals backed_price, which CLV eligibility requires. Present exactly when clv_pct is.
+	ClvEntryPrice *float32 `json:"clv_entry_price,omitempty"`
+
+	// ClvExplanation Backend-owned CLV text. A measured row names the entry, then the close, then the formula (close / entry - 1) x 100 and its rounded result; otherwise it gives the reason CLV does not apply or is unavailable.
 	ClvExplanation *string `json:"clv_explanation,omitempty"`
 
 	// ClvPct Closing-line value toward the backed side, computed as (close / entry - 1) * 100. Omitted when the row is gated, ineligible, or not measured.
 	ClvPct *float32 `json:"clv_pct,omitempty"`
 
-	// ClvStatus Exact backend CLV capture disposition for this visible row. Pending and terminal provider or quality statuses are distinguishable; raw close evidence is never serialized.
+	// ClvStatus Exact backend CLV capture disposition for this visible row. Pending and terminal provider or quality statuses are distinguishable; capture timestamps are never serialized, while a measured row's entry and close prices are published as clv_entry_price and clv_close_price.
 	ClvStatus string `json:"clv_status"`
 
 	// DisplayCategory Frozen public presentation category. For supported Polymarket sports this is the exact verified provider event identity: an official league (e.g. "WNBA" or "UFC"), the esports title (e.g. "CS2", "LoL", "Dota 2" or "Valorant"), or a soccer competition whose official mark we vendor (e.g. "LaLiga", "Premier League", "Serie A" or "UEFA Champions League"). Only identities with a vendored official mark are split out; every other competition keeps its canonical bucket, so "Soccer" remains a live value; otherwise it equals category. An esports pick keeps the pooled "Esports" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility.
@@ -5608,7 +6770,7 @@ type PickOfTheDayArchiveEntry struct {
 	// PickRank Stable 1-based slot within the product day's ranked picks.
 	PickRank *int `json:"pick_rank,omitempty"`
 
-	// ReturnPer100 Gross return on a $100 stake on this resolved pick: a win returns 100 / backed_price, a loss returns 0, a void refunds 100. A loss always returns 0 (the whole stake is lost regardless of price). Omitted (not null) only for a still-pending pick or a resolved WIN with no frozen price (a win's payout needs the price); mirrors the backend skip-when-absent behavior and the route-client optional (non-nullable) schema.
+	// ReturnPer100 Gross return on a $100 stake on this resolved pick: a win returns 100 / backed_price, a loss returns 0, a void refunds 100. A loss always returns 0 (the whole stake is lost regardless of price). The operand is published beside it as backed_price on exactly the same rows, so the entry never has to be recovered by inverting this number. Omitted (not null) only for a still-pending pick or a resolved WIN with no frozen price (a win's payout needs the price); mirrors the backend skip-when-absent behavior and the route-client optional (non-nullable) schema.
 	ReturnPer100 *float32 `json:"return_per_100,omitempty"`
 
 	// TopGrade Best public V1-compatible S/A smart-money grade on the backed side; a current B-only grade is omitted by the stable V1 adapter, while historical rows retain their frozen policy's grade. null when no smart-money wallet backs the pick, when a pending legacy proof has not yet upgraded, or when the stored holder policy is unknown-future or structurally invalid. Resolved legacy history remains supported.
@@ -5627,6 +6789,36 @@ type PickOfTheDayArchiveEntryClvApplicability string
 // PickOfTheDayArchiveEntryOutcome Settlement outcome of the backed side; 'pending' until the market resolves.
 type PickOfTheDayArchiveEntryOutcome string
 
+// PickOfTheDayCommitmentPayload The frozen identity of the pick, exactly as the hash was taken over it. Served byte for byte as it was hashed -- keys sorted by UTF-8 byte value, no insignificant whitespace -- so a verifier concatenates and hashes with nothing to reconstruct. Property order below is the wire order. The outcome is deliberately NOT part of it: surviving a corrected outcome unchanged is the case the commitment exists for. Worked example: {"backed_price":"0.545000","condition_id":"0xabc","kickoff":"2026-09-20T23:05:00Z","pick_date":"2026-09-20","pick_outcome_index":1,"pick_outcome_label":"Lakers","pick_rank":1,"platform":"polymarket"} with the nonce 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f hashes to 44d18fa5e2aa3a2bf3c971dcc9317c8ccbdfd5480a4773b6d8ffd5fbeeea84dc.
+type PickOfTheDayCommitmentPayload struct {
+	// BackedPrice Frozen pre-game price of the backed side, 0..1, as the plain decimal text of the stored NUMERIC at full stored precision, trailing zeros included. A string, never a number: a float round-trip would change the bytes and break the hash. Deliberately not normalized -- 0.545000 stays "0.545000".
+	BackedPrice string `json:"backed_price"`
+
+	// ConditionId Provider condition id of the backed market.
+	ConditionId string `json:"condition_id"`
+
+	// Kickoff Frozen provider kickoff, whole seconds, UTC, literal Z. Fixed precision, never a shortest-lossless rendering.
+	Kickoff time.Time `json:"kickoff"`
+
+	// PickDate ET product day (YYYY-MM-DD).
+	PickDate openapi_types.Date `json:"pick_date"`
+
+	// PickOutcomeIndex Index of the backed outcome within the market.
+	PickOutcomeIndex PickOfTheDayCommitmentPayloadPickOutcomeIndex `json:"pick_outcome_index"`
+
+	// PickOutcomeLabel Frozen display label of the backed outcome.
+	PickOutcomeLabel string `json:"pick_outcome_label"`
+
+	// PickRank 1-based daily slot.
+	PickRank int `json:"pick_rank"`
+
+	// Platform Provider platform.
+	Platform string `json:"platform"`
+}
+
+// PickOfTheDayCommitmentPayloadPickOutcomeIndex Index of the backed outcome within the market.
+type PickOfTheDayCommitmentPayloadPickOutcomeIndex int
+
 // PickOfTheDayHitRate defines model for PickOfTheDayHitRate.
 type PickOfTheDayHitRate struct {
 	// ClvApplicable Visible resolved rows published before kickoff. This is the CLV coverage denominator.
@@ -5635,8 +6827,14 @@ type PickOfTheDayHitRate struct {
 	// ClvAvgDisplay Backend-formatted signed average CLV percentage, present when clv_avg_pct is present.
 	ClvAvgDisplay *string `json:"clv_avg_display,omitempty"`
 
-	// ClvAvgPct Arithmetic average measured CLV percentage. Suppressed until at least five measured rows exist.
+	// ClvAvgPct Arithmetic mean of per-pick ratio CLV, (close / entry - 1) * 100. A cheap entry weighs more here than a favorite, so the headline average is clv_avg_pp; this field is kept for continuity. Suppressed until at least five measured rows exist.
 	ClvAvgPct *float32 `json:"clv_avg_pct,omitempty"`
+
+	// ClvAvgPp Arithmetic mean of the measured closing-line move in percentage points, (close - entry) * 100, so every pick counts on the same scale. The headline CLV average. Covers the same measured rows as clv_avg_pct and is suppressed under the same five-row floor.
+	ClvAvgPp *float32 `json:"clv_avg_pp,omitempty"`
+
+	// ClvAvgPpDisplay Backend-formatted signed average in percentage points, for example "+0.4 pp"; a value that rounds to zero reads "0.0 pp". Present when clv_avg_pp is present.
+	ClvAvgPpDisplay *string `json:"clv_avg_pp_display,omitempty"`
 
 	// ClvBeatsClose Measured public rows where close is strictly greater than entry.
 	ClvBeatsClose int `json:"clv_beats_close"`
@@ -5732,6 +6930,182 @@ type PickOfTheDayHitRate struct {
 // PickOfTheDayHitRateClvState Aggregate CLV state. Counts remain available for mixed measured/pending/unavailable populations.
 type PickOfTheDayHitRateClvState string
 
+// PickOfTheDayLedger The commitment ledger: every published pick, ascending, in the state its commitment is actually in. The counts are derived from entries in the same pass that builds it.
+type PickOfTheDayLedger struct {
+	// Entries One entry per published (pick_date, pick_rank), ascending by pick_date then pick_rank.
+	Entries []PickOfTheDayLedgerEntry `json:"entries"`
+
+	// EntryCount Number of entries, all states included.
+	EntryCount int `json:"entry_count"`
+
+	// OpenedCount Entries committed to and verifiable now.
+	OpenedCount int `json:"opened_count"`
+
+	// SealedCount Entries committed to and not yet settled.
+	SealedCount int `json:"sealed_count"`
+
+	// UncommittedCount Entries carrying no commitment, so provable by nothing: the honest size of the unprovable part of the record. It only stops growing; no pick is ever retro-sealed.
+	UncommittedCount int `json:"uncommitted_count"`
+}
+
+// PickOfTheDayLedgerEntry One ledger entry. Read `state` to know which shape you have; the three are disjoint.
+type PickOfTheDayLedgerEntry struct {
+	union json.RawMessage
+}
+
+// PickOfTheDayLedgerOpenedEntry A settled pick whose commitment is open: the nonce plus the exact payload the hash was taken over. Concatenate the payload bytes as received with the decoded nonce and sha256 them to reproduce commitment_hash.
+type PickOfTheDayLedgerOpenedEntry struct {
+	// Category Frozen canonical sport bucket used for selection calibration (Basketball, MMA), not the exact public league identity; the archive owns that.
+	Category string `json:"category"`
+
+	// CommitmentAlgo The construction the hash was taken with, stated in the response so a verifier never has to guess the serialization.
+	CommitmentAlgo PickOfTheDayLedgerOpenedEntryCommitmentAlgo `json:"commitment_algo"`
+
+	// CommitmentHash sha256(canonical_json(payload) || nonce), lowercase hex, no 0x prefix. Publishable the moment the pick releases: without the nonce it is not invertible.
+	CommitmentHash string `json:"commitment_hash"`
+
+	// CommitmentNonce The 32-byte nonce the hash was taken over, lowercase hex, no 0x prefix. Secret while the pick is live: a pick payload is low entropy, so a published nonce on a live pick would hand out the backed side.
+	CommitmentNonce string `json:"commitment_nonce"`
+
+	// Kickoff The frozen provider kickoff in the canonical payload form: whole seconds, UTC, literal Z. This exact string reappears inside payload.kickoff when the pick opens.
+	Kickoff time.Time `json:"kickoff"`
+
+	// Matchup Frozen matchup, for a reader.
+	Matchup string `json:"matchup"`
+
+	// Outcome How the pick settled. Never pending: a pending pick is a sealed entry.
+	Outcome PickOfTheDayLedgerOpenedEntryOutcome `json:"outcome"`
+
+	// Payload The frozen identity of the pick, exactly as the hash was taken over it. Served byte for byte as it was hashed -- keys sorted by UTF-8 byte value, no insignificant whitespace -- so a verifier concatenates and hashes with nothing to reconstruct. Property order below is the wire order. The outcome is deliberately NOT part of it: surviving a corrected outcome unchanged is the case the commitment exists for. Worked example: {"backed_price":"0.545000","condition_id":"0xabc","kickoff":"2026-09-20T23:05:00Z","pick_date":"2026-09-20","pick_outcome_index":1,"pick_outcome_label":"Lakers","pick_rank":1,"platform":"polymarket"} with the nonce 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f hashes to 44d18fa5e2aa3a2bf3c971dcc9317c8ccbdfd5480a4773b6d8ffd5fbeeea84dc.
+	Payload PickOfTheDayCommitmentPayload `json:"payload"`
+
+	// Permalink The pick's public page.
+	Permalink string `json:"permalink"`
+
+	// PickDate ET product day the pick belongs to (YYYY-MM-DD).
+	PickDate openapi_types.Date `json:"pick_date"`
+
+	// PickRank 1-based daily slot within the product day.
+	PickRank int `json:"pick_rank"`
+
+	// ResolvedAt When outcome was LAST written to a settled value, or null when that instant is unknown. It moves with a corrected market re-mapping an already-settled pick, while commitment_hash stays untouched -- which is how a mirror that keeps history sees a correction.
+	ResolvedAt *time.Time `json:"resolved_at"`
+
+	// SealedAt When the hash was frozen. Always strictly before kickoff: a pick that reaches kickoff unsealed stays unsealed forever, because a seal written after the game started would be a backdated proof.
+	SealedAt time.Time                          `json:"sealed_at"`
+	State    PickOfTheDayLedgerOpenedEntryState `json:"state"`
+}
+
+// PickOfTheDayLedgerOpenedEntryCommitmentAlgo The construction the hash was taken with, stated in the response so a verifier never has to guess the serialization.
+type PickOfTheDayLedgerOpenedEntryCommitmentAlgo string
+
+// PickOfTheDayLedgerOpenedEntryOutcome How the pick settled. Never pending: a pending pick is a sealed entry.
+type PickOfTheDayLedgerOpenedEntryOutcome string
+
+// PickOfTheDayLedgerOpenedEntryState defines model for PickOfTheDayLedgerOpenedEntry.State.
+type PickOfTheDayLedgerOpenedEntryState string
+
+// PickOfTheDayLedgerSealedEntry A published pick that has not settled. Carries the commitment and nothing that states a side or a price: no nonce, no payload, no outcome. Publishable the instant the pick releases.
+type PickOfTheDayLedgerSealedEntry struct {
+	// CommitmentAlgo The construction the hash was taken with, stated in the response so a verifier never has to guess the serialization.
+	CommitmentAlgo PickOfTheDayLedgerSealedEntryCommitmentAlgo `json:"commitment_algo"`
+
+	// CommitmentHash sha256(canonical_json(payload) || nonce), lowercase hex, no 0x prefix. Publishable the moment the pick releases: without the nonce it is not invertible.
+	CommitmentHash string `json:"commitment_hash"`
+
+	// Kickoff The frozen provider kickoff in the canonical payload form: whole seconds, UTC, literal Z. This exact string reappears inside payload.kickoff when the pick opens.
+	Kickoff time.Time `json:"kickoff"`
+
+	// Permalink The pick's public page.
+	Permalink string `json:"permalink"`
+
+	// PickDate ET product day the pick belongs to (YYYY-MM-DD).
+	PickDate openapi_types.Date `json:"pick_date"`
+
+	// PickRank 1-based daily slot within the product day.
+	PickRank int `json:"pick_rank"`
+
+	// SealedAt When the hash was frozen. Always strictly before kickoff: a pick that reaches kickoff unsealed stays unsealed forever, because a seal written after the game started would be a backdated proof.
+	SealedAt time.Time                          `json:"sealed_at"`
+	State    PickOfTheDayLedgerSealedEntryState `json:"state"`
+}
+
+// PickOfTheDayLedgerSealedEntryCommitmentAlgo The construction the hash was taken with, stated in the response so a verifier never has to guess the serialization.
+type PickOfTheDayLedgerSealedEntryCommitmentAlgo string
+
+// PickOfTheDayLedgerSealedEntryState defines model for PickOfTheDayLedgerSealedEntry.State.
+type PickOfTheDayLedgerSealedEntryState string
+
+// PickOfTheDayLedgerUncommittedEntry A published pick with no commitment: it predates the scheme, or it reached kickoff unsealed. Nothing here is evidence of WHEN the pick was made. It is emitted rather than skipped, because a ledger with holes where the unprovable picks were would silently flatter the record. Once the pick settles, payload names its market, side and price, so the outcome can still be checked against the market's own resolution.
+type PickOfTheDayLedgerUncommittedEntry struct {
+	// Category Frozen canonical sport bucket used for selection calibration (Basketball, MMA), not the exact public league identity; the archive owns that.
+	Category string `json:"category"`
+
+	// Matchup Frozen matchup, for a reader.
+	Matchup string `json:"matchup"`
+
+	// Outcome How the pick settled, or pending.
+	Outcome PickOfTheDayLedgerUncommittedEntryOutcome `json:"outcome"`
+
+	// Payload The pick's market, side and price once it has settled; null while it is pending, and null for a settled pick whose stored row lacks one of these columns. Not hashed: nothing was committed over these values, which is what pre_commitment: true says.
+	Payload *PickOfTheDayUncommittedPayload `json:"payload"`
+
+	// Permalink The pick's public page.
+	Permalink string `json:"permalink"`
+
+	// PickDate ET product day the pick belongs to (YYYY-MM-DD).
+	PickDate openapi_types.Date `json:"pick_date"`
+
+	// PickRank 1-based daily slot within the product day.
+	PickRank int `json:"pick_rank"`
+
+	// PreCommitment Always true: this pick has no commitment and never will.
+	PreCommitment PickOfTheDayLedgerUncommittedEntryPreCommitment `json:"pre_commitment"`
+
+	// ResolvedAt When outcome was LAST written to a settled value, or null when that instant is unknown. It moves with a corrected market re-mapping an already-settled pick, while commitment_hash stays untouched -- which is how a mirror that keeps history sees a correction.
+	ResolvedAt *time.Time                              `json:"resolved_at"`
+	State      PickOfTheDayLedgerUncommittedEntryState `json:"state"`
+}
+
+// PickOfTheDayLedgerUncommittedEntryOutcome How the pick settled, or pending.
+type PickOfTheDayLedgerUncommittedEntryOutcome string
+
+// PickOfTheDayLedgerUncommittedEntryPreCommitment Always true: this pick has no commitment and never will.
+type PickOfTheDayLedgerUncommittedEntryPreCommitment bool
+
+// PickOfTheDayLedgerUncommittedEntryState defines model for PickOfTheDayLedgerUncommittedEntry.State.
+type PickOfTheDayLedgerUncommittedEntryState string
+
+// PickOfTheDayUncommittedPayload A settled uncommitted pick's market, side and price. The same eight fields as PickOfTheDayCommitmentPayload, in the same key order, so a settled pick's side and price sit under payload whatever the entry's state. It is NOT a commitment: no hash was taken over it before the game, and it proves nothing about when the pick was made.
+type PickOfTheDayUncommittedPayload struct {
+	// BackedPrice Frozen pre-game price of the backed side, 0..1, as the plain decimal text of the stored NUMERIC at full stored precision, trailing zeros included -- rendered exactly as the commitment payload renders it.
+	BackedPrice string `json:"backed_price"`
+
+	// ConditionId Provider condition id of the backed market.
+	ConditionId string `json:"condition_id"`
+
+	// Kickoff Frozen provider kickoff, UTC, literal Z; null when no kickoff was frozen. Whole seconds render exactly as the commitment payload does; a sub-second instant keeps its fraction rather than being truncated, since nothing here is hashed.
+	Kickoff *time.Time `json:"kickoff"`
+
+	// PickDate ET product day (YYYY-MM-DD).
+	PickDate openapi_types.Date `json:"pick_date"`
+
+	// PickOutcomeIndex Index of the backed outcome within the market.
+	PickOutcomeIndex PickOfTheDayUncommittedPayloadPickOutcomeIndex `json:"pick_outcome_index"`
+
+	// PickOutcomeLabel Frozen display label of the backed outcome.
+	PickOutcomeLabel string `json:"pick_outcome_label"`
+
+	// PickRank 1-based daily slot.
+	PickRank int `json:"pick_rank"`
+
+	// Platform Provider platform.
+	Platform string `json:"platform"`
+}
+
+// PickOfTheDayUncommittedPayloadPickOutcomeIndex Index of the backed outcome within the market.
+type PickOfTheDayUncommittedPayloadPickOutcomeIndex int
+
 // PickSportsContext Provider-first sports context for a Pick of the Day market: team crests, league branding, and live score. Team logos and league logo are provider-owned (Polymarket /teams crests for clubs, country flags for national teams and tennis players); no local derivation.
 type PickSportsContext struct {
 	// CompetitionLabel Provider-owned event taxonomy from Gamma eventMetadata, joined in league · serie · tournament order with blanks and case-insensitive duplicates removed. Separate from league_name; omitted when the provider does not supply the metadata.
@@ -5779,7 +7153,7 @@ type PickSportsTeam struct {
 	// Label Team display label as it appears on the market outcome (e.g. "Portugal").
 	Label *string `json:"label,omitempty"`
 
-	// Logo Team crest or flag URL. Provider-owned for most teams (Polymarket /teams crest for clubs, country flag for national teams and tennis players). An NFL club carries its official crest instead, served same-origin as a relative path (`/api/sports/team-logos/nfl/{abbr}.svg?v=<content hash>`, resolve it against this server); the provider's own NFL asset is a text tile.
+	// Logo Team crest or flag URL. Provider-owned for most teams (Polymarket /teams crest for clubs, country flag for national teams and tennis players). A club with a vendored crest carries it instead, served same-origin as a relative path (`/api/sports/team-logos/{league}/{abbr}.svg?v=<content hash>` or `.png`, resolve it against this server): every NFL and WNBA team, whose provider asset is a text tile, and the soccer clubs whose provider asset is an empty object.
 	Logo *string `json:"logo,omitempty"`
 
 	// ProviderId Provider team identifier (Polymarket /teams id).
@@ -6187,7 +7561,7 @@ type ResponseMeta struct {
 	// RankingSource Which ranking-data path produced this response. Only present on endpoints that can degrade a ranking (today: GET /api/v1/sports-edge-signals). "live" is the normal path (the current holder pile from the provider batch); "db_only" is the degraded fallback (a truthful but weaker trader_markets ranking) served when the live sharp-money ranking batch is unavailable (a smart-money DB read failure, not a Polymarket outage) and cached on a shorter TTL, so a consumer can down-weight or skip it. Omitted on endpoints that never degrade.
 	RankingSource *ResponseMetaRankingSource `json:"ranking_source,omitempty"`
 
-	// RequestId Unique request ID (req_ prefix).
+	// RequestId Unique request ID (req_ prefix). The same value as the X-Request-Id response header, the request's usage accounting row and its log lines.
 	RequestId string `json:"request_id"`
 }
 
@@ -6278,26 +7652,40 @@ type SmartMoneyFlowMarketSmartMoneyDirection string
 
 // SnapshotCompleteness defines model for SnapshotCompleteness.
 type SnapshotCompleteness struct {
-	CoveredDaysWithWhaleActivity int                        `json:"covered_days_with_whale_activity"`
-	ExpectedDays                 int                        `json:"expected_days"`
-	Reason                       string                     `json:"reason"`
-	Status                       SnapshotCompletenessStatus `json:"status"`
+	CoveredDaysWithWhaleActivity int    `json:"covered_days_with_whale_activity"`
+	ExpectedDays                 int    `json:"expected_days"`
+	Reason                       string `json:"reason"`
+
+	// Status complete only on a final body (snapshot.status final). partial for a live range and for a closed range whose body was read before final_after; reason says which. empty when the range has no whale activity.
+	Status SnapshotCompletenessStatus `json:"status"`
 }
 
-// SnapshotCompletenessStatus defines model for SnapshotCompleteness.Status.
+// SnapshotCompletenessStatus complete only on a final body (snapshot.status final). partial for a live range and for a closed range whose body was read before final_after; reason says which. empty when the range has no whale activity.
 type SnapshotCompletenessStatus string
 
 // SnapshotState defines model for SnapshotState.
 type SnapshotState struct {
-	GeneratedAt  time.Time           `json:"generated_at"`
+	// FinalAfter The instant a source read must start at or after to produce a final body: the range's UTC close plus 7,530 s, the whale-trade ingestion budget (p95 block lag gate plus the projection retry budget).
+	FinalAfter  time.Time `json:"final_after"`
+	GeneratedAt time.Time `json:"generated_at"`
+
+	// MutableUntil For a rolling body, the UTC date on which a final body can first be built (the date of final_after); null once final.
 	MutableUntil *openapi_types.Date `json:"mutable_until,omitempty"`
-	Status       SnapshotStateStatus `json:"status"`
+
+	// PeriodClosed Whether the source range has ended on the UTC calendar. Closing is not finality: a closed range is rolling until final_after.
+	PeriodClosed bool `json:"period_closed"`
+
+	// SourceReadStartedAt When this body's source read started, the clock finality is judged on. null for a body stored before that clock was recorded.
+	SourceReadStartedAt time.Time `json:"source_read_started_at"`
+
+	// Status final only for a body whose source read started at or after final_after (the UTC close of the range plus the whale-trade ingestion budget). rolling for a live range and for a closed range still inside that budget: such a body refreshes every five minutes, is rebuilt once after final_after, and is then frozen. Before 2026-09-22 a closed range read final from the calendar alone, even for a body built before the range ended (#16225).
+	Status SnapshotStateStatus `json:"status"`
 
 	// Version Immutable content version for this report identity.
 	Version int64 `json:"version"`
 }
 
-// SnapshotStateStatus defines model for SnapshotState.Status.
+// SnapshotStateStatus final only for a body whose source read started at or after final_after (the UTC close of the range plus the whale-trade ingestion budget). rolling for a live range and for a closed range still inside that budget: such a body refreshes every five minutes, is rebuilt once after final_after, and is then frozen. Before 2026-09-22 a closed range read final from the calendar alone, even for a body built before the range ended (#16225).
 type SnapshotStateStatus string
 
 // SportsEdgeFunnelReport Per-sport accountable funnel for the full observation snapshot, returned on every page.
@@ -6589,7 +7977,13 @@ type SportsEdgeSportFunnelReportSport string
 type Trader struct {
 	Address string `json:"address"`
 
-	// CategoryStrengths Per-category performance breakdown (expand=categories or expand[]=categories). Omitted unless expanded. Object keyed by category name; each value is the precomputed trader_rankings.category_ranks payload (rank, total_in_category, total_pnl, scaled_total_pnl, n_markets, wins, losses, win_rate; scaled_total_pnl is a legacy alias that currently equals total_pnl). Pass-through DB JSON: keys and value shape are DB-owned, so the inner shape is intentionally unconstrained and may carry additional compatibility fields.
+	// CategoryRecords Current evidence for observed and known categories (expand=categories or expand[]=categories). Omitted unless expanded. Includes insufficient, stale, unknown and degraded rows; absence of a category is not proof of skill. The global grade is unchanged.
+	CategoryRecords *[]CategorySkillV2 `json:"category_records,omitempty"`
+
+	// CategorySkillModel Model-wide readiness, read in the same database snapshot as category_records. Individual category rows retain their own status.
+	CategorySkillModel *CategorySkillModelReadiness `json:"category_skill_model,omitempty"`
+
+	// CategoryStrengths Per-category performance breakdown (expand=categories or expand[]=categories). Omitted unless expanded. Object keyed by category name; each value is the precomputed trader_rankings.category_ranks payload (rank, total_in_category, total_pnl, scaled_total_pnl, n_markets, wins, losses, win_rate; scaled_total_pnl is a legacy alias that currently equals total_pnl). BASIS: the calibration sample, which admits a position only above a 20 USD notional floor and with a chosen-side entry price strictly inside (0,1), because the ranks and the calibration edge derived from it depend on both rules. That is a different sample from GET /api/v1/trader/{address}/categories, which counts every settled market at any size; on one Soccer wallet the two read 1,457 of 2,733 here against 1,554 of 3,291 there (measured 2026-09-20). Use this for rank context and that route for the wallet's plain record. Pass-through DB JSON: keys and value shape are DB-owned, so the inner shape is intentionally unconstrained and may carry additional compatibility fields.
 	CategoryStrengths *map[string]interface{} `json:"category_strengths,omitempty"`
 	Grade             *TraderGrade            `json:"grade,omitempty"`
 
@@ -6603,7 +7997,7 @@ type Trader struct {
 		// Last7d DEPRECATED, always null. The local pnl_7d rollup over-counted P&L (#5416 class) and is no longer emitted. Read the provider-native weekly window from GET /api/trader/{address}/profile-summary instead.
 		Last7d *float32 `json:"last_7d,omitempty"`
 
-		// Realized For pnl.realized, expand=trust marks a matching native accounting snapshot as computed: native Polymarket realized P&L plus credited maker and taker rebates, with fees already included. Without a matching native accounting snapshot, pnl.realized is omitted and its trust metadata is unavailable. Raw total P&L is never substituted for realized P&L.
+		// Realized For pnl.realized, expand=trust marks a matching native accounting snapshot as computed: native Polymarket realized P&L plus credited maker and taker rebates, with fees already included. The exact numeric value is truncated toward zero to cents before conversion to a JSON number. Without a matching native accounting snapshot, pnl.realized is omitted and its trust metadata is unavailable. Raw total P&L is never substituted for realized P&L.
 		Realized   *float32 `json:"realized,omitempty"`
 		Total      *float32 `json:"total,omitempty"`
 		Unrealized *float32 `json:"unrealized,omitempty"`
@@ -6643,8 +8037,10 @@ type Trader struct {
 	Stats struct {
 		DailyWinRate  *float32 `json:"daily_win_rate,omitempty"`
 		MarketsTraded *int     `json:"markets_traded,omitempty"`
-		TotalVolume   *float32 `json:"total_volume,omitempty"`
-		WinRate       *float32 `json:"win_rate,omitempty"`
+
+		// TotalVolume Full-history both-sides USD cash volume from Polymarket user-volume. Omitted without a verified observation; never leaderboard shares. Volume freshness is unknown in this DTO and does not use synced_at.
+		TotalVolume *float32 `json:"total_volume,omitempty"`
+		WinRate     *float32 `json:"win_rate,omitempty"`
 	} `json:"stats"`
 	Strategy *struct {
 		Confidence   *float32 `json:"confidence,omitempty"`
@@ -6669,6 +8065,54 @@ type TraderGrade string
 
 // TraderStreakTier Hot-streak tier (trailing-7d cross-sectional percentile); a separate axis from the all-time grade. Null when no recent activity.
 type TraderStreakTier string
+
+// TraderCategoryRecord defines model for TraderCategoryRecord.
+type TraderCategoryRecord struct {
+	// Category Canonical category bucket, for example Soccer, Esports, Tennis. Esports is one bucket, and the Esports record carries its per-game records in games.
+	Category string `json:"category"`
+
+	// Decided Markets it closed with a profit or a loss. A market that resolved at exactly zero P&L is in neither count, so this is not the wallet's market count in the category.
+	Decided int `json:"decided"`
+
+	// Games The wallet's record per esports title, busiest first. Present only on the Esports record, and only when the wallet has a settled market in at least one title; absent on every other category and on an Esports record whose markets are all in series that are not games (skin-price indices, streamer props) or carry no series. Absent means no per-game record, the same rule as an absent category. Each entry's decided is a subset of the Esports record's, read in the same statement from the same daily rebuild.
+	Games *[]TraderEsportsGameRecord `json:"games,omitempty"`
+
+	// Status measured: decided cleared min_decided_for_win_rate and win_rate carries the rate. not_enough_data: the counts are real but the sample is under the floor, so no percent is published. A failed read is an error response, never a status value.
+	Status TraderCategoryRecordStatus `json:"status"`
+
+	// WinRate wins / decided in [0,1], truncated to four decimals. Null when status is not_enough_data.
+	WinRate float32 `json:"win_rate"`
+
+	// Wins Markets in this category the wallet closed with a profit.
+	Wins int `json:"wins"`
+}
+
+// TraderCategoryRecordStatus measured: decided cleared min_decided_for_win_rate and win_rate carries the rate. not_enough_data: the counts are real but the sample is under the floor, so no percent is published. A failed read is an error response, never a status value.
+type TraderCategoryRecordStatus string
+
+// TraderCategoryRecords defines model for TraderCategoryRecords.
+type TraderCategoryRecords struct {
+	// Address Resolved wallet address, lowercased.
+	Address string `json:"address"`
+
+	// Basis Which sample the counts come from: every settled market in the category, at any position size. category_strengths on the trader endpoint reads the floored calibration sample instead, so the two can differ.
+	Basis TraderCategoryRecordsBasis `json:"basis"`
+
+	// ComputedAt When the served records were last rebuilt (RFC3339, Z): the newest stamp among every row served, game rows included, which the daily rebuild writes in one transaction. Null when the wallet has no record at all.
+	ComputedAt time.Time `json:"computed_at"`
+
+	// Id Prefixed trader id (trd_<wallet>).
+	Id string `json:"id"`
+
+	// MinDecidedForWinRate Decided markets a category needs before win_rate is served. Published so a caller can apply its own sample rule to the raw counts.
+	MinDecidedForWinRate int `json:"min_decided_for_win_rate"`
+
+	// Records One entry per canonical category with at least one decided market, ordered by decided descending then category. A category with no decided market is omitted. The Esports entry carries its per-game records in games.
+	Records []TraderCategoryRecord `json:"records"`
+}
+
+// TraderCategoryRecordsBasis Which sample the counts come from: every settled market in the category, at any position size. category_strengths on the trader endpoint reads the floored calibration sample instead, so the two can differ.
+type TraderCategoryRecordsBasis string
 
 // TraderContext defines model for TraderContext.
 type TraderContext struct {
@@ -6698,13 +8142,19 @@ type TraderContext struct {
 		// MarketsTotal Provider markets_traded count when known; null when the provider total is unavailable.
 		MarketsTotal int `json:"markets_total"`
 
-		// ResolvedWinRate Win rate as a percentage (0-100) over resolved markets; null when there is no resolved sample.
+		// ResolvedDecided Resolved markets that settled at a non-zero realized P&L: the win-rate denominator. At most markets_resolved; the difference is markets settled at exactly zero or with an unknown P&L. Additive; null only on a summary cached before the field existed.
+		ResolvedDecided *int `json:"resolved_decided,omitempty"`
+
+		// ResolvedWinRate Win rate as a percentage (0-100): resolved_wins over resolved_decided. A resolved market that settled at exactly zero realized P&L (a void, a refund, a fully hedged position) is neither a win nor a loss and is not in the denominator, the same rule the leaderboard applies; null when no resolved market was decided.
 		ResolvedWinRate float32 `json:"resolved_win_rate"`
+
+		// ResolvedWins Resolved markets that settled at positive realized P&L: the win-rate numerator. Additive; null only on a summary cached before the field existed.
+		ResolvedWins *int `json:"resolved_wins,omitempty"`
 
 		// SyncCoverage markets_synced divided by markets_total when the provider total is known (capped at 1.0); 0.0-1.0. When markets_total is unknown or not positive (null, 0, or negative), this is 1.0 if any markets are synced (else 0.0), so cross-check markets_total before treating 1.0 as full coverage.
 		SyncCoverage float32 `json:"sync_coverage"`
 
-		// SyncedRealizedPnl Native net realized P&L (USD) including credited rebates, minus the stored realized component of open positions with positive current value. NUMERIC arithmetic precedes conversion to a JSON number.
+		// SyncedRealizedPnl Native net realized P&L (USD) including credited rebates, minus the stored realized component of open positions with positive current value. Rebates are credited to the account, not to a position, so every credited rebate stays in this figure. NUMERIC arithmetic precedes conversion to a JSON number.
 		SyncedRealizedPnl float32 `json:"synced_realized_pnl"`
 
 		// TotalRealizedPnl Native net realized P&L (USD) including credited rebates, read directly from the accounting snapshot. Position sync_coverage is separate from this accounting basis.
@@ -6715,6 +8165,30 @@ type TraderContext struct {
 	} `json:"position_summary,omitempty"`
 	Trader Trader `json:"trader"`
 }
+
+// TraderEsportsGameRecord defines model for TraderEsportsGameRecord.
+type TraderEsportsGameRecord struct {
+	// Decided Markets in this game it closed with a profit or a loss. A subset of the parent Esports record's decided: the two are read from the same daily rebuild.
+	Decided int `json:"decided"`
+
+	// Game The game, by the same name every holder chip carries in category_win_rate_game: LoL, CS2, Dota 2, Valorant, Call of Duty, Honor of Kings, Mobile Legends: Bang Bang, Overwatch, Rainbow Six Siege, Rocket League or StarCraft II. Match a chip to this row by string equality.
+	Game string `json:"game"`
+
+	// SeriesSlug The Polymarket series slug the record is keyed on: league-of-legends, counter-strike, dota-2, valorant, call-of-duty, honor-of-kings, mobile-legends-bang-bang, overwatch, rainbow-six-siege, rocket-league or starcraft-2. The stable key; game is the label.
+	SeriesSlug string `json:"series_slug"`
+
+	// Status The same rule as the parent record: measured when decided cleared min_decided_for_win_rate, not_enough_data when the counts are real but the sample is under the floor. A chip on a market in this game shows this row's rate when it is measured and the Esports bucket's otherwise.
+	Status TraderEsportsGameRecordStatus `json:"status"`
+
+	// WinRate wins / decided in [0,1], truncated to four decimals. Null when status is not_enough_data.
+	WinRate float32 `json:"win_rate"`
+
+	// Wins Markets in this game the wallet closed with a profit.
+	Wins int `json:"wins"`
+}
+
+// TraderEsportsGameRecordStatus The same rule as the parent record: measured when decided cleared min_decided_for_win_rate, not_enough_data when the counts are real but the sample is under the floor. A chip on a market in this game shows this row's rate when it is measured and the Esports bucket's otherwise.
+type TraderEsportsGameRecordStatus string
 
 // TraderExportJob defines model for TraderExportJob.
 type TraderExportJob struct {
@@ -6847,6 +8321,12 @@ type TraderPnl struct {
 
 // TraderTrust Field-level trust metadata returned only when GET /api/v1/trader/{address} includes expand=trust.
 type TraderTrust struct {
+	// CategoryRecords Shared source/freshness/reconciliation/completeness metadata for public API values that may be cached, stale, partial, computed, or provider-unavailable. Unavailable provider values must be represented with explicit metadata instead of fabricated zeros or empty arrays.
+	CategoryRecords TrustMetadata `json:"category_records"`
+
+	// CategorySkillModel Shared source/freshness/reconciliation/completeness metadata for public API values that may be cached, stale, partial, computed, or provider-unavailable. Unavailable provider values must be represented with explicit metadata instead of fabricated zeros or empty arrays.
+	CategorySkillModel TrustMetadata `json:"category_skill_model"`
+
 	// CategoryStrengths Shared source/freshness/reconciliation/completeness metadata for public API values that may be cached, stale, partial, computed, or provider-unavailable. Unavailable provider values must be represented with explicit metadata instead of fabricated zeros or empty arrays.
 	CategoryStrengths TrustMetadata `json:"category_strengths"`
 
@@ -6905,20 +8385,20 @@ type TrendingWallet struct {
 	AllTimePnlUsd *float32 `json:"all_time_pnl_usd,omitempty"`
 	AllTimeScore  *float32 `json:"all_time_score,omitempty"`
 
-	// DailyPnlSeries Shape-only daily P&L sparkline across the window, derived from Polymarket's user-pnl cumulative curve (user-pnl-api.polymarket.com) converted to per-day deltas. It conveys the trend of the curve only and is NOT guaranteed to sum to trending_pnl_usd, which is the canonical leaderboard total.
+	// DailyPnlSeries Shape-only daily P&L sparkline across the window, derived from Polymarket's documented user-pnl cumulative curve (GET /v2/user-pnl) converted to per-day deltas. It conveys the trend of the curve only and is NOT guaranteed to sum to trending_pnl_usd, which is the canonical leaderboard total.
 	DailyPnlSeries []struct {
 		Date   openapi_types.Date `json:"date"`
 		PnlUsd float32            `json:"pnl_usd"`
 	} `json:"daily_pnl_series"`
 
-	// Grade All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, insufficient track record to cohort-rank).
+	// Grade All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, or too little verified record to cohort-rank).
 	Grade *TrendingWalletGrade `json:"grade,omitempty"`
 
 	// Id Prefixed trader ID (`trd_...`).
 	Id         string     `json:"id"`
 	LastSynced *time.Time `json:"last_synced,omitempty"`
 
-	// Platform Real provider platform; surfaced, never coerced. Polymarket-only today.
+	// Platform Real provider platform; surfaced, never coerced. Polymarket only.
 	Platform TrendingWalletPlatform `json:"platform"`
 
 	// ProfileImageUrl Official Polymarket avatar URL (profileImage).
@@ -6936,14 +8416,19 @@ type TrendingWallet struct {
 	WindowMarketsTraded int     `json:"window_markets_traded"`
 
 	// WindowTradeDays Distinct in-window UTC trade days from our trades (0 if the winner is not in our DB).
-	WindowTradeDays int     `json:"window_trade_days"`
-	WindowVolumeUsd float32 `json:"window_volume_usd"`
+	WindowTradeDays int `json:"window_trade_days"`
+
+	// WindowVolumeShares Both-sides traded volume over the window in SHARES, from the Polymarket leaderboard row, whose own schema states the figure is never USD. Omitted when the row carried none.
+	WindowVolumeShares *float32 `json:"window_volume_shares,omitempty"`
+
+	// WindowVolumeUsd Both-sides cash volume over the window in USD, from Polymarket GET /v2/user-volume (volume_usdc). Omitted when Polymarket served no volume for the wallet: an absent observation, never zero. Polymarket tracks volume in whole UTC days, so this window is the whole-day span covering the requested one, which is not the exact span trending_pnl_usd was scored over.
+	WindowVolumeUsd *float32 `json:"window_volume_usd,omitempty"`
 }
 
-// TrendingWalletGrade All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, insufficient track record to cohort-rank).
+// TrendingWalletGrade All-time trader grade; a separate axis from streak_tier. Led by realized profit (the money actually banked, about 95 percent of the grade), with forecasting calibration, risk-adjusted returns, and consistency as the tie-breaker and proven-trader guardrails: any grade above C requires verified net-positive realized profit, and the top grades also require a real resolved-market track record plus a survivable drawdown. Relative, so it drifts as the cohort moves. Omitted when the trader is Unranked (fewer than 5 markets, or too little verified record to cohort-rank).
 type TrendingWalletGrade string
 
-// TrendingWalletPlatform Real provider platform; surfaced, never coerced. Polymarket-only today.
+// TrendingWalletPlatform Real provider platform; surfaced, never coerced. Polymarket only.
 type TrendingWalletPlatform string
 
 // TrendingWalletStreakTier Hot-streak tier (trailing-7d cross-sectional percentile). Null when no recent activity.
@@ -7026,6 +8511,31 @@ type Usage struct {
 			Used          int  `json:"used"`
 			WindowSeconds int  `json:"window_seconds"`
 		} `json:"daily_usage"`
+
+		// MonthlyQuota The monthly request quota (#16111): where the account stands against the requests Pro includes per UTC calendar month. Reading it here spends nothing. null only when the month's count could not be read for this response.
+		MonthlyQuota *struct {
+			// Binding Whether requests over this account's ceiling are refused right now: false before enforced_from and for an admin account.
+			Binding bool `json:"binding"`
+
+			// Ceiling The most requests this account is admitted in a UTC calendar month once enforcement has begun: limit, or 1,000,000 with pay as you go on. null for an admin account, which no number stops. Additive since 2026-09-22.
+			Ceiling *int `json:"ceiling"`
+
+			// EnforcedFrom Unix seconds: from when request limit + 1 is refused for an account the quota binds.
+			EnforcedFrom int `json:"enforced_from"`
+
+			// Limit Requests Pro includes per UTC calendar month.
+			Limit int `json:"limit"`
+
+			// PayAsYouGo Pay as you go is on: requests over the quota keep answering and bill on a monthly invoice, up to ceiling.
+			PayAsYouGo bool `json:"pay_as_you_go"`
+			Remaining  int  `json:"remaining"`
+
+			// ResetAt Unix seconds: the first instant of the next UTC calendar month.
+			ResetAt int `json:"reset_at"`
+
+			// Used Admitted requests so far this UTC calendar month.
+			Used int `json:"used"`
+		} `json:"monthly_quota"`
 		RateLimit struct {
 			Limit         int `json:"limit"`
 			Remaining     int `json:"remaining"`
@@ -7065,8 +8575,11 @@ type WebhookDelivery struct {
 	LastError *string `json:"last_error,omitempty"`
 
 	// LastResponseStatus HTTP status code of the most recent delivery attempt. Omitted until a response (or transport error) has been recorded.
-	LastResponseStatus *int                  `json:"last_response_status,omitempty"`
-	Object             WebhookDeliveryObject `json:"object"`
+	LastResponseStatus *int `json:"last_response_status,omitempty"`
+
+	// NextAttemptAt When the next delivery attempt is due, for a delivery whose status is pending or retry. null while an attempt is in flight (processing) and once the delivery is terminal (delivered or dead_letter).
+	NextAttemptAt time.Time             `json:"next_attempt_at"`
+	Object        WebhookDeliveryObject `json:"object"`
 
 	// Status Delivery lifecycle state (e.g. pending, delivered, dead_letter).
 	Status string `json:"status"`
@@ -7119,12 +8632,23 @@ type WebhookEventType string
 
 // WebhookRetryPolicy defines model for WebhookRetryPolicy.
 type WebhookRetryPolicy struct {
-	MaxAttempts    WebhookRetryPolicyMaxAttempts    `json:"max_attempts"`
-	TerminalStatus WebhookRetryPolicyTerminalStatus `json:"terminal_status"`
+	// DisableAfterConsecutiveFailures Consecutive failed attempts, across all of this endpoint's deliveries, after which the endpoint is disabled and its queued deliveries are dead-lettered. Any successful attempt resets the count.
+	DisableAfterConsecutiveFailures WebhookRetryPolicyDisableAfterConsecutiveFailures `json:"disable_after_consecutive_failures"`
+	MaxAttempts                     WebhookRetryPolicyMaxAttempts                     `json:"max_attempts"`
+
+	// RetryHorizonSeconds Total wait from a delivery's first failed attempt to its last retry: 60, 120, 240, 480, 960, 1920 and 3600 seconds. A delivery still failing after that is dead_letter.
+	RetryHorizonSeconds WebhookRetryPolicyRetryHorizonSeconds `json:"retry_horizon_seconds"`
+	TerminalStatus      WebhookRetryPolicyTerminalStatus      `json:"terminal_status"`
 }
+
+// WebhookRetryPolicyDisableAfterConsecutiveFailures Consecutive failed attempts, across all of this endpoint's deliveries, after which the endpoint is disabled and its queued deliveries are dead-lettered. Any successful attempt resets the count.
+type WebhookRetryPolicyDisableAfterConsecutiveFailures int
 
 // WebhookRetryPolicyMaxAttempts defines model for WebhookRetryPolicy.MaxAttempts.
 type WebhookRetryPolicyMaxAttempts int
+
+// WebhookRetryPolicyRetryHorizonSeconds Total wait from a delivery's first failed attempt to its last retry: 60, 120, 240, 480, 960, 1920 and 3600 seconds. A delivery still failing after that is dead_letter.
+type WebhookRetryPolicyRetryHorizonSeconds int
 
 // WebhookRetryPolicyTerminalStatus defines model for WebhookRetryPolicy.TerminalStatus.
 type WebhookRetryPolicyTerminalStatus string
@@ -7152,6 +8676,9 @@ type WhaleTrade struct {
 		Slug        *string `json:"slug,omitempty"`
 		Title       string  `json:"title"`
 	} `json:"market"`
+
+	// MarketVolumeShare This fill's size relative to its market: size_usd divided by the market's volume at the moment the trade was inserted. A $10,000 fill is 0.00005 of a $200M market and 0.125 of an $80,000 one, which size_usd alone cannot distinguish. Absent when the market carried no volume figure and on rows written before 2026-09-16; never 0 as a stand-in. Not capped at 1: a fill larger than the stored trailing volume is real, and that is the most significant case.
+	MarketVolumeShare *float32 `json:"market_volume_share,omitempty"`
 
 	// Outcome Traded outcome label (e.g. "Yes"/"No"/team name), resolved provider-first from the trade's outcome_index against market_canonical (index 0 -> yes, 1 -> no). Distinct axis from side (BUY/SELL): side is the trade direction, outcome is which leg was traded. null for multi-outcome (outcome_index >= 2) or unsynced markets, and for a Polymarket trade recorded before 2026-04-02T00:00:00Z, whose stored outcome_index is not trusted (a defaulted 0 for about a third of those rows; the side is unknown, not defaulted).
 	Outcome *string `json:"outcome,omitempty"`
@@ -7203,6 +8730,9 @@ type WhaleTradeDetail struct {
 		Title       string  `json:"title"`
 	} `json:"market"`
 
+	// MarketVolumeShare This fill's size relative to its market: size_usd divided by the market's volume at the moment the trade was inserted. A $10,000 fill is 0.00005 of a $200M market and 0.125 of an $80,000 one, which size_usd alone cannot distinguish. Absent when the market carried no volume figure and on rows written before 2026-09-16; never 0 as a stand-in. Not capped at 1: a fill larger than the stored trailing volume is real, and that is the most significant case.
+	MarketVolumeShare *float32 `json:"market_volume_share,omitempty"`
+
 	// Outcome Traded outcome label (e.g. "Yes"/"No"/team name), resolved provider-first from the trade's outcome_index against market_canonical (index 0 -> yes, 1 -> no). Distinct axis from side (BUY/SELL): side is the trade direction, outcome is which leg was traded. null for multi-outcome (outcome_index >= 2) or unsynced markets, and for a Polymarket trade recorded before 2026-04-02T00:00:00Z, whose stored outcome_index is not trusted (a defaulted 0 for about a third of those rows; the side is unknown, not defaulted).
 	Outcome *string `json:"outcome,omitempty"`
 	Price   float32 `json:"price"`
@@ -7249,7 +8779,7 @@ type WhaleTradeHistoryMeta struct {
 		Status WhaleTradeHistoryMetaCompletenessStatus `json:"status"`
 	} `json:"completeness"`
 
-	// RequestId Unique request ID (req_ prefix).
+	// RequestId Unique request ID (req_ prefix). The same value as the X-Request-Id response header, the request's usage accounting row and its log lines.
 	RequestId string `json:"request_id"`
 	Source    struct {
 		Kind                       WhaleTradeHistoryMetaSourceKind                       `json:"kind"`
@@ -7273,6 +8803,9 @@ type WhaleTradeHistoryMetaSourceTable string
 // GetApiDiscovery200JSONResponseBodyObject defines parameters for GetApiDiscovery.
 type GetApiDiscovery200JSONResponseBodyObject string
 
+// RegisterAgent201JSONResponseBodyObject defines parameters for RegisterAgent.
+type RegisterAgent201JSONResponseBodyObject string
+
 // SearchContentParams defines parameters for SearchContent.
 type SearchContentParams struct {
 	// Q Search query. Must be 1-256 characters before whitespace trimming and non-empty after trimming.
@@ -7290,7 +8823,7 @@ type SearchContent200JSONResponseBodyObject string
 
 // GetEventReplaySinceParams defines parameters for GetEventReplaySince.
 type GetEventReplaySinceParams struct {
-	// Cursor Opaque event replay cursor returned as next_cursor by a prior response. The cursor maps to whale_alerts.id and is valid across backend replicas. Omit to fetch the latest durable public suffix.
+	// Cursor Opaque event replay cursor returned as next_cursor by a prior response. The cursor maps to the global (whale_alerts.inserted_xid, whale_alerts.id) commit-order position and is valid across backend replicas. Cursors issued before 2026-09-22 (id-only) stay accepted; the next_cursor they receive is the current format. Omit to fetch the latest durable public suffix.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// Limit Maximum durable public whale-trade events to return.
@@ -7356,7 +8889,7 @@ type ListLargePositionsParams struct {
 	// Cursor Opaque pagination cursor from a previous response.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// MinSize Minimum position value in USD.
+	// MinSize Minimum position value in USD. Raises the feed's own floor of 50,000 USD; a smaller value does not lower it.
 	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// Category One RFC 4180 CSV record of exact current provider-backed market_canonical.category values. Legacy unquoted lists such as NBA,WNBA remain valid; values containing commas, quotes, or newlines are CSV-quoted. Matching is case-insensitive. Malformed quoted input fails closed as one unknown exact category.
@@ -7437,6 +8970,33 @@ type GetMarketCandlesParamsResolution string
 
 // GetMarketCandles200JSONResponseBodyObject defines parameters for GetMarketCandles.
 type GetMarketCandles200JSONResponseBodyObject string
+
+// GetMarketHoldersParams defines parameters for GetMarketHolders.
+type GetMarketHoldersParams struct {
+	// Outcome Keep holders netting one side. `all` (default) lists both.
+	Outcome *GetMarketHoldersParamsOutcome `form:"outcome,omitempty" json:"outcome,omitempty"`
+
+	// MinGrade Narrow within the graded cohort: `S` keeps S, `A` keeps S and A, `B` (default) keeps S, A and B. `C`, `D` and `F` are rejected with 400: the route lists the S/A/B cohort only.
+	MinGrade *GetMarketHoldersParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
+
+	// Limit Maximum holders per page.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Cursor Pagination cursor from the previous response's next_cursor (prefix mh_). Pages are cut from one shared roster, so a cursor stays valid across the roster's refresh.
+	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
+
+	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
+	IfNoneMatch *string `json:"If-None-Match,omitempty"`
+}
+
+// GetMarketHoldersParamsOutcome defines parameters for GetMarketHolders.
+type GetMarketHoldersParamsOutcome string
+
+// GetMarketHoldersParamsMinGrade defines parameters for GetMarketHolders.
+type GetMarketHoldersParamsMinGrade string
+
+// GetMarketHolders200JSONResponseBodyObject defines parameters for GetMarketHolders.
+type GetMarketHolders200JSONResponseBodyObject string
 
 // GetMarketIntelParams defines parameters for GetMarketIntel.
 type GetMarketIntelParams struct {
@@ -7632,16 +9192,19 @@ type ListSmartMoneyFlows200JSONResponseBodyObject string
 
 // OpenMcpEventStreamParams defines parameters for OpenMcpEventStream.
 type OpenMcpEventStreamParams struct {
-	// Token Legacy API-key query parameter for exact /api/v1/mcp only. Every other protected V1 route rejects it. Same contract as POST.
-	Token *string `form:"token,omitempty" json:"token,omitempty"`
-
 	// McpSessionId Session ID minted by the server on initialize.
 	McpSessionId *string `json:"Mcp-Session-Id,omitempty"`
+
+	// MCPProtocolVersion The negotiated MCP protocol revision, sent on every request after initialize (MCP Streamable HTTP transport). Accepted values: 2025-11-25, 2025-06-18, 2025-03-26, 2024-11-05. Any other value answers HTTP 400 with JSON-RPC error -32600. Absent, the request is served as 2025-03-26.
+	MCPProtocolVersion *OpenMcpEventStreamParamsMCPProtocolVersion `json:"MCP-Protocol-Version,omitempty"`
 }
+
+// OpenMcpEventStreamParamsMCPProtocolVersion defines parameters for OpenMcpEventStream.
+type OpenMcpEventStreamParamsMCPProtocolVersion string
 
 // CreateMcpJsonRpcResponseJSONBody defines parameters for CreateMcpJsonRpcResponse.
 type CreateMcpJsonRpcResponseJSONBody struct {
-	// Id Request identifier echoed in the JSON-RPC response; notifications omit it.
+	// Id Request identifier echoed exactly in one JSON-RPC response; supported notifications omit it and receive an empty HTTP 202.
 	Id *CreateMcpJsonRpcResponseJSONBody_Id `json:"id,omitempty"`
 
 	// Jsonrpc JSON-RPC protocol version; this server accepts 2.0.
@@ -7656,12 +9219,15 @@ type CreateMcpJsonRpcResponseJSONBody struct {
 
 // CreateMcpJsonRpcResponseParams defines parameters for CreateMcpJsonRpcResponse.
 type CreateMcpJsonRpcResponseParams struct {
-	// Token Legacy API-key query parameter for exact /api/v1/mcp only. Every other protected V1 route rejects it. Prefer Authorization: Bearer <token> or the stdio package because URL secrets are easier to leak through logs and history. The retirement date is unknown until external URL-only client compatibility is checked.
-	Token *string `form:"token,omitempty" json:"token,omitempty"`
-
 	// McpSessionId Session ID minted by the server on initialize; echoed on every subsequent request.
 	McpSessionId *string `json:"Mcp-Session-Id,omitempty"`
+
+	// MCPProtocolVersion The negotiated MCP protocol revision, sent on every request after initialize (MCP Streamable HTTP transport). Accepted values: 2025-11-25, 2025-06-18, 2025-03-26, 2024-11-05. Any other value answers HTTP 400 with JSON-RPC error -32600. Absent, the request is served as 2025-03-26.
+	MCPProtocolVersion *CreateMcpJsonRpcResponseParamsMCPProtocolVersion `json:"MCP-Protocol-Version,omitempty"`
 }
+
+// CreateMcpJsonRpcResponseParamsMCPProtocolVersion defines parameters for CreateMcpJsonRpcResponse.
+type CreateMcpJsonRpcResponseParamsMCPProtocolVersion string
 
 // CreateMcpJsonRpcResponseJSONBodyId0 defines parameters for CreateMcpJsonRpcResponse.
 type CreateMcpJsonRpcResponseJSONBodyId0 = string
@@ -7712,6 +9278,15 @@ type GetPickOfTheDayArchiveParams struct {
 // GetPickOfTheDayArchive200JSONResponseBodyObject defines parameters for GetPickOfTheDayArchive.
 type GetPickOfTheDayArchive200JSONResponseBodyObject string
 
+// GetPickOfTheDayLedgerParams defines parameters for GetPickOfTheDayLedger.
+type GetPickOfTheDayLedgerParams struct {
+	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
+	IfNoneMatch *string `json:"If-None-Match,omitempty"`
+}
+
+// GetPickOfTheDayLedger200JSONResponseBodyObject defines parameters for GetPickOfTheDayLedger.
+type GetPickOfTheDayLedger200JSONResponseBodyObject string
+
 // GetPlatforms200JSONResponseBodyObject defines parameters for GetPlatforms.
 type GetPlatforms200JSONResponseBodyObject string
 
@@ -7723,11 +9298,14 @@ type ListPositionsParams struct {
 	// Cursor Pagination cursor from previous response's next_cursor.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// MinSize Minimum current position value in USD.
+	// MinSize Minimum current position value in USD. Defaults to 100 when omitted; send 0 to include every reconciled position.
 	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// Category Exact match against provider-backed market_canonical.category.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// ConditionId Scope to one market. Accepts the raw provider condition_id or the mkt_-prefixed market id emitted by V1 responses. Combine with min_size=0 for every reconciled position in that market; an unknown id returns [].
+	ConditionId *string `form:"condition_id,omitempty" json:"condition_id,omitempty"`
 
 	// MinGrade Minimum trader grade allowlist. `A` matches S and A; `B` matches S, A, B; etc.
 	MinGrade *ListPositionsParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
@@ -7886,6 +9464,18 @@ type GetTraderParamsExpand string
 // GetTrader200JSONResponseBodyObject defines parameters for GetTrader.
 type GetTrader200JSONResponseBodyObject string
 
+// GetTraderCategoryRecordsParams defines parameters for GetTraderCategoryRecords.
+type GetTraderCategoryRecordsParams struct {
+	// Category Filter to one canonical category, matched through the same rollup every other category surface uses: soccer, EPL and champions league all reach Soccer, every esports label folds into Esports, and football is AMERICAN football and reaches Football. A filter that reaches Esports returns the Esports record with all of its games; a game is not a filter of its own, so ask for esports and read games. A value that matches no record answers 200 with an empty records array, never 404.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
+	IfNoneMatch *string `json:"If-None-Match,omitempty"`
+}
+
+// GetTraderCategoryRecords200JSONResponseBodyObject defines parameters for GetTraderCategoryRecords.
+type GetTraderCategoryRecords200JSONResponseBodyObject string
+
 // GetTraderContextParams defines parameters for GetTraderContext.
 type GetTraderContextParams struct {
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
@@ -8020,6 +9610,15 @@ type ListWebhookDeliveriesParams struct {
 
 // ListWebhookDeliveries200JSONResponseBodyObject defines parameters for ListWebhookDeliveries.
 type ListWebhookDeliveries200JSONResponseBodyObject string
+
+// RedeliverWebhookDeliveryParams defines parameters for RedeliverWebhookDelivery.
+type RedeliverWebhookDeliveryParams struct {
+	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
+	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
+}
+
+// RedeliverWebhookDelivery200JSONResponseBodyObject defines parameters for RedeliverWebhookDelivery.
+type RedeliverWebhookDelivery200JSONResponseBodyObject string
 
 // RotateWebhookSecretParams defines parameters for RotateWebhookSecret.
 type RotateWebhookSecretParams struct {
@@ -8471,6 +10070,143 @@ func (t *McpJsonRpcError_Id) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsPickOfTheDayLedgerSealedEntry returns the union data inside the PickOfTheDayLedgerEntry as a PickOfTheDayLedgerSealedEntry
+func (t PickOfTheDayLedgerEntry) AsPickOfTheDayLedgerSealedEntry() (PickOfTheDayLedgerSealedEntry, error) {
+	var body PickOfTheDayLedgerSealedEntry
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPickOfTheDayLedgerSealedEntry overwrites any union data inside the PickOfTheDayLedgerEntry as the provided PickOfTheDayLedgerSealedEntry
+func (t *PickOfTheDayLedgerEntry) FromPickOfTheDayLedgerSealedEntry(v PickOfTheDayLedgerSealedEntry) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+	b, err = runtime.JSONMerge(b, []byte(`{"state":"sealed"}`))
+	t.union = b
+	return err
+}
+
+// MergePickOfTheDayLedgerSealedEntry performs a merge with any union data inside the PickOfTheDayLedgerEntry, using the provided PickOfTheDayLedgerSealedEntry
+func (t *PickOfTheDayLedgerEntry) MergePickOfTheDayLedgerSealedEntry(v PickOfTheDayLedgerSealedEntry) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+	b, err = runtime.JSONMerge(b, []byte(`{"state":"sealed"}`))
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPickOfTheDayLedgerOpenedEntry returns the union data inside the PickOfTheDayLedgerEntry as a PickOfTheDayLedgerOpenedEntry
+func (t PickOfTheDayLedgerEntry) AsPickOfTheDayLedgerOpenedEntry() (PickOfTheDayLedgerOpenedEntry, error) {
+	var body PickOfTheDayLedgerOpenedEntry
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPickOfTheDayLedgerOpenedEntry overwrites any union data inside the PickOfTheDayLedgerEntry as the provided PickOfTheDayLedgerOpenedEntry
+func (t *PickOfTheDayLedgerEntry) FromPickOfTheDayLedgerOpenedEntry(v PickOfTheDayLedgerOpenedEntry) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+	b, err = runtime.JSONMerge(b, []byte(`{"state":"opened"}`))
+	t.union = b
+	return err
+}
+
+// MergePickOfTheDayLedgerOpenedEntry performs a merge with any union data inside the PickOfTheDayLedgerEntry, using the provided PickOfTheDayLedgerOpenedEntry
+func (t *PickOfTheDayLedgerEntry) MergePickOfTheDayLedgerOpenedEntry(v PickOfTheDayLedgerOpenedEntry) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+	b, err = runtime.JSONMerge(b, []byte(`{"state":"opened"}`))
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPickOfTheDayLedgerUncommittedEntry returns the union data inside the PickOfTheDayLedgerEntry as a PickOfTheDayLedgerUncommittedEntry
+func (t PickOfTheDayLedgerEntry) AsPickOfTheDayLedgerUncommittedEntry() (PickOfTheDayLedgerUncommittedEntry, error) {
+	var body PickOfTheDayLedgerUncommittedEntry
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPickOfTheDayLedgerUncommittedEntry overwrites any union data inside the PickOfTheDayLedgerEntry as the provided PickOfTheDayLedgerUncommittedEntry
+func (t *PickOfTheDayLedgerEntry) FromPickOfTheDayLedgerUncommittedEntry(v PickOfTheDayLedgerUncommittedEntry) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+	b, err = runtime.JSONMerge(b, []byte(`{"state":"uncommitted"}`))
+	t.union = b
+	return err
+}
+
+// MergePickOfTheDayLedgerUncommittedEntry performs a merge with any union data inside the PickOfTheDayLedgerEntry, using the provided PickOfTheDayLedgerUncommittedEntry
+func (t *PickOfTheDayLedgerEntry) MergePickOfTheDayLedgerUncommittedEntry(v PickOfTheDayLedgerUncommittedEntry) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+	b, err = runtime.JSONMerge(b, []byte(`{"state":"uncommitted"}`))
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t PickOfTheDayLedgerEntry) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"state"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t PickOfTheDayLedgerEntry) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "opened":
+		return t.AsPickOfTheDayLedgerOpenedEntry()
+	case "sealed":
+		return t.AsPickOfTheDayLedgerSealedEntry()
+	case "uncommitted":
+		return t.AsPickOfTheDayLedgerUncommittedEntry()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t PickOfTheDayLedgerEntry) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *PickOfTheDayLedgerEntry) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsCreateMcpJsonRpcResponseJSONBodyId0 returns the union data inside the CreateMcpJsonRpcResponseJSONBody_Id as a CreateMcpJsonRpcResponseJSONBodyId0
 func (t CreateMcpJsonRpcResponseJSONBody_Id) AsCreateMcpJsonRpcResponseJSONBodyId0() (CreateMcpJsonRpcResponseJSONBodyId0, error) {
 	var body CreateMcpJsonRpcResponseJSONBodyId0
@@ -8676,6 +10412,13 @@ type ClientInterface interface {
 	// Corresponds with GET /api/v1 (the `GetApiDiscovery` operationId).
 	GetApiDiscovery(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// RegisterAgent Register an agent for a sandbox key
+	//
+	// Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
+	//
+	// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
+	RegisterAgent(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// SearchContent Search editorial content
 	//
 	// Search 0xinsider editorial content by keyword. Returns backend-owned learn, glossary, comparison, research, and trading-strategy items with canonical URLs. Opaque ranking scores are not exposed.
@@ -8685,7 +10428,7 @@ type ClientInterface interface {
 
 	// GetEventReplaySince Replay public whale-trade intelligence events
 	//
-	// Returns durable public whale-trade intelligence events strictly after an opaque cursor backed by whale_alerts.id. This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
+	// Returns durable public whale-trade intelligence events strictly after an opaque cursor, in commit order: events are ordered by the position at which their write became visible to every reader (whale_alerts.inserted_xid), then by whale_alerts.id, and a page never reaches past the oldest write transaction still open when it was read. A trade whose id is lower than one already delivered but whose write finished later is therefore delivered on a later request instead of being skipped (#16180). This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
 	//
 	// Corresponds with GET /api/v1/events/feed/since (the `GetEventReplaySince` operationId).
 	GetEventReplaySince(ctx context.Context, params *GetEventReplaySinceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -8713,7 +10456,7 @@ type ClientInterface interface {
 
 	// ListLargePositions List large positions
 	//
-	// Returns the largest current open positions from graded traders, value-descending, with opaque cursor pagination. Polymarket-only by design: the large-positions scanner filters platform = 'polymarket' (backend/crates/large-positions/src/scanner.rs), so only Polymarket rows are scanned and an unknown condition_id filter returns an empty list (never fabricated rows). The teaser cap that the internal product UI applies to anonymous viewers does not apply here: the API key already proves an active Pro subscription (wire tier `insider`), so authed API callers get full access.
+	// Returns the largest current open positions from graded traders, value-descending, with opaque cursor pagination. This is a change-detection feed, not a holder list: a row needs a current value of at least 50,000 USD and a live detection in the last 24 hours, so a wallet that holds a market without moving is not listed. For every graded holder of one market use GET /api/v1/market/{condition_id}/holders. Polymarket-only by design: the large-positions scanner filters platform = 'polymarket' (backend/crates/large-positions/src/scanner.rs), so only Polymarket rows are scanned and an unknown condition_id filter returns an empty list (never fabricated rows). The teaser cap that the internal product UI applies to anonymous viewers does not apply here: the API key already proves an active Pro subscription (wire tier `insider`), so authed API callers get full access.
 	//
 	// Corresponds with GET /api/v1/large-positions (the `ListLargePositions` operationId).
 	ListLargePositions(ctx context.Context, params *ListLargePositionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -8738,6 +10481,20 @@ type ClientInterface interface {
 	//
 	// Corresponds with GET /api/v1/market/{condition_id}/candles (the `GetMarketCandles` operationId).
 	GetMarketCandles(ctx context.Context, conditionId string, params *GetMarketCandlesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetMarketContextMarkdown Get market context (Markdown)
+	//
+	// Authenticated, self-contained Polymarket market evidence document. Renders the same typed data as the market snapshot with trust included: identity, outcome labels and tokens, cached quotes, liquidity, live sports, and per-source freshness or unavailable reasons. Provider text is encoded as indented JSON data. Accepts raw or mkt_-prefixed condition IDs. Unknown markets return 404. No ETag or conditional requests; use the snapshot JSON route for those.
+	//
+	// Corresponds with GET /api/v1/market/{condition_id}/context.md (the `GetMarketContextMarkdown` operationId).
+	GetMarketContextMarkdown(ctx context.Context, conditionId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetMarketHolders List a market's graded holders
+	//
+	// The graded holder roster of one market, the list a Pick of the Day shows for its market, for any Polymarket market: every S/A/B wallet with open shares on either outcome, from a complete provider holder scan, each with its shares, Polymarket's own currentValue for the leg, its grade, its win record in the market's category, and its badges. Both outcomes are listed; a wallet holding both is listed once on its net side. Ordered by current_value_usd DESC, then shares DESC, then address. The roster is computed at most once a minute per market and shared by every caller; a page is cut from that roster, so paging is cheap and `total` is exact. The route never widens past the graded cohort: `scan.wallet_count` reports every wallet the walk saw, graded or not. An incomplete, unstable or failed scan is a 503 with Retry-After, never a shorter list.
+	//
+	// Corresponds with GET /api/v1/market/{condition_id}/holders (the `GetMarketHolders` operationId).
+	GetMarketHolders(ctx context.Context, conditionId string, params *GetMarketHoldersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetMarketIntel Get market intelligence
 	//
@@ -8801,16 +10558,16 @@ type ClientInterface interface {
 	// Deprecated: this operation has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	ListSmartMoneyFlows(ctx context.Context, params *ListSmartMoneyFlowsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// OpenMcpEventStream Open MCP server-to-client stream
+	// OpenMcpEventStream MCP GET: no server-to-client stream (405)
 	//
-	// Opens a text/event-stream connection for server-initiated notifications as described in the MCP Streamable HTTP transport. The endpoint currently sends no notifications — clients that only care about request/response use POST.
+	// The MCP Streamable HTTP transport lets a client GET the endpoint to open a server-to-client text/event-stream, and lets the server answer 405 Method Not Allowed when it offers no such stream. This server sends no notifications, so an authenticated GET answers 405 with Allow: POST, a JSON-RPC error body (code -32004) and X-Mcp-Error-Code: -32004; a conforming client (the reference @modelcontextprotocol/sdk included) reads the 405 as no stream here and does not retry. Without a credential the GET answers 401 with the WWW-Authenticate challenge naming /.well-known/oauth-protected-resource/api/v1/mcp, which is where a client that has only run the public handshake learns to start the OAuth flow. Until 2026-09-22 an authenticated GET answered 200 text/event-stream and closed the body at once, which conforming clients reconnected to every second. Every JSON-RPC request goes over POST.
 	//
 	// Corresponds with GET /api/v1/mcp (the `OpenMcpEventStream` operationId).
 	OpenMcpEventStream(ctx context.Context, params *OpenMcpEventStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateMcpJsonRpcResponseWithBody Remote MCP endpoint (JSON-RPC)
 	//
-	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts a JSON-RPC 2.0 request and returns a JSON-RPC response. Supported methods: initialize, notifications/initialized, ping, tools/list, tools/call. Remote MCP exposes 33 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call and the GET event stream need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. Legacy ?token=<token> authentication works only on exact /api/v1/mcp. Every other protected V1 route rejects query-string API keys. Prefer headers or the stdio package because URL secrets can land in shell history, browser history, and logs. The retirement date is unknown until external URL-only client compatibility is checked. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist.
+	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests receive one same-ID JSON-RPC response. ID-less ping, notifications/initialized, and notifications/cancelled receive HTTP 202 with no body; other ID-less methods and unsolicited response messages receive HTTP 400 with no body. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Remote MCP exposes 35 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_sports_edge_signals, get_sports_edge_observations, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every route with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: a non-object, an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source, directional_source and the category_skill_* fields on get_sports_edge_signals) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST and GET: a value outside 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with JSON-RPC error -32600 before the body is read; an absent header is served as 2025-03-26, the transport specification's compatibility default. Browser preflight allows the header.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -8819,12 +10576,19 @@ type ClientInterface interface {
 
 	// CreateMcpJsonRpcResponse Remote MCP endpoint (JSON-RPC)
 	//
-	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts a JSON-RPC 2.0 request and returns a JSON-RPC response. Supported methods: initialize, notifications/initialized, ping, tools/list, tools/call. Remote MCP exposes 33 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call and the GET event stream need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. Legacy ?token=<token> authentication works only on exact /api/v1/mcp. Every other protected V1 route rejects query-string API keys. Prefer headers or the stdio package because URL secrets can land in shell history, browser history, and logs. The retirement date is unknown until external URL-only client compatibility is checked. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist.
+	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests receive one same-ID JSON-RPC response. ID-less ping, notifications/initialized, and notifications/cancelled receive HTTP 202 with no body; other ID-less methods and unsolicited response messages receive HTTP 400 with no body. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Remote MCP exposes 35 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_sports_edge_signals, get_sports_edge_observations, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every route with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: a non-object, an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source, directional_source and the category_skill_* fields on get_sports_edge_signals) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST and GET: a value outside 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with JSON-RPC error -32600 before the body is read; an absent header is served as 2025-03-26, the transport specification's compatibility default. Browser preflight allows the header.
 	//
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /api/v1/mcp (the `CreateMcpJsonRpcResponse` operationId).
 	CreateMcpJsonRpcResponse(ctx context.Context, params *CreateMcpJsonRpcResponseParams, body CreateMcpJsonRpcResponseJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAccountIdentity Identify the authenticated account and credential
+	//
+	// Returns the account and credential IDs admitted by API authentication, credential kind, and approved scopes. Null scopes mean full developer-key access. Requires an active Pro subscription and read scope for OAuth grants. Does not return credentials or personal contact details.
+	//
+	// Corresponds with GET /api/v1/me (the `GetAccountIdentity` operationId).
+	GetAccountIdentity(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RedirectApiOpenapiSpec Redirect to the canonical OpenAPI spec
 	//
@@ -8859,6 +10623,19 @@ type ClientInterface interface {
 	// Corresponds with GET /api/v1/pick-of-the-day/archive (the `GetPickOfTheDayArchive` operationId).
 	GetPickOfTheDayArchive(ctx context.Context, params *GetPickOfTheDayArchiveParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetPickOfTheDayLedger Get the Pick of the Day commitment ledger
+	//
+	// Returns the pre-game commitment for every published pick, so the public track record can be checked by someone who was not watching when the pick dropped.
+	//
+	// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant and the kickoff, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
+	//
+	// To verify an opened entry: serialize nothing. Take the bytes of the `payload` object exactly as received, append the `commitment_nonce` decoded from hex, and sha256 the result; it equals `commitment_hash`. The payload is canonical JSON -- keys sorted by UTF-8 byte value, no insignificant whitespace, decimals as strings at full stored precision, timestamps whole-second UTC with a literal Z -- and it is served byte for byte as it was hashed.
+	//
+	// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
+	//
+	// Corresponds with GET /api/v1/pick-of-the-day/ledger (the `GetPickOfTheDayLedger` operationId).
+	GetPickOfTheDayLedger(ctx context.Context, params *GetPickOfTheDayLedgerParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetPlatforms Get platform capability matrix
 	//
 	// Unauthenticated discovery endpoint that declares which V1 intelligence surfaces are supported, partial, or unsupported per provider platform.
@@ -8868,7 +10645,7 @@ type ClientInterface interface {
 
 	// ListPositions List current positions (positions-board feed)
 	//
-	// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL.
+	// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top.
 	//
 	// Corresponds with GET /api/v1/positions (the `ListPositions` operationId).
 	ListPositions(ctx context.Context, params *ListPositionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -8929,6 +10706,13 @@ type ClientInterface interface {
 	// Corresponds with GET /api/v1/trader/{address} (the `GetTrader` operationId).
 	GetTrader(ctx context.Context, address string, params *GetTraderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetTraderCategoryRecords Get trader category win records
+	//
+	// Returns one wallet's win record in every canonical category it has a settled market in: wins, decided (wins plus losses) and the rate, per category, busiest category first. These are the same counts the Pick of the Day holder chips carry. The Esports record also carries games: the wallet's record in each esports title it has a settled market in (LoL, CS2, Dota 2, Valorant, ...), the same per-game record the holder chips and GET /api/v1/market/{condition_id}/holders name in category_win_rate_game, with the same counts, floor and status rule; the Esports row itself stays the whole bucket, which is what a chip falls back to when a game record is thin. The basis is every settled market at any position size, which is NOT the basis of category_strengths on GET /api/v1/trader/{address}?expand=categories: that breakdown keeps the 20 USD notional floor and the entry-price rule its ranks depend on, so the two legitimately differ (1,554 of 3,291 here against 1,457 of 2,733 there on one Soccer wallet, measured 2026-09-20). A category or game with fewer than min_decided_for_win_rate decided markets keeps its counts and returns win_rate null with status not_enough_data, so a caller can apply its own sample rule. A category the wallet has no settled market in is omitted entirely, and so is a game: an absent entry means no record, never a 0% record. A resolved trader with no settled market returns an empty records array (HTTP 200); an unknown address returns 404.
+	//
+	// Corresponds with GET /api/v1/trader/{address}/categories (the `GetTraderCategoryRecords` operationId).
+	GetTraderCategoryRecords(ctx context.Context, address string, params *GetTraderCategoryRecordsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetTraderContext Get trader context (JSON)
 	//
 	// Returns a single structured context object for one trader: the full trader profile (same shape as GET /api/v1/trader/{address}) plus a position_summary (sync coverage and realized/unrealized P&L rollups, with an as_of open-position freshness clock), the data_as_of freshness timestamp (the open-position data's latest /positions snapshot, else last completed sync; the snapshot advances only open positions, so resolved counts and win rate still date to the last full sync; native realized P&L follows its accounting snapshot), and a freshness_note describing the point-in-time snapshot semantics. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. position_summary is omitted when the trader is not in the local database or native net economics is unavailable; realized fields remain numeric when present; unknown lookups return 200 with sync_status 'unknown' on the nested trader (no 404). Append .md to the path for the Markdown rendering.
@@ -8973,7 +10757,7 @@ type ClientInterface interface {
 
 	// GetTraderPnl Get trader P&L time series
 	//
-	// Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404. Spans both providers wherever the read model has the trader's series.
+	// Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404.
 	//
 	// Corresponds with GET /api/v1/trader/{address}/pnl (the `GetTraderPnl` operationId).
 	GetTraderPnl(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -9019,14 +10803,14 @@ type ClientInterface interface {
 
 	// ListWebhooks List builder webhook destinations
 	//
-	// Returns webhook destinations owned by the authenticated API key user. Disabled endpoints are omitted. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
+	// Returns webhook destinations owned by the authenticated API key user. Deleted endpoints are omitted; an endpoint paused with PATCH or disabled after consecutive failures is listed with status disabled. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
 	//
 	// Corresponds with GET /api/v1/webhooks (the `ListWebhooks` operationId).
 	ListWebhooks(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateWebhookWithBody Create a builder webhook destination
 	//
-	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers.
+	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -9035,7 +10819,7 @@ type ClientInterface interface {
 
 	// CreateWebhook Create a builder webhook destination
 	//
-	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers.
+	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -9083,10 +10867,17 @@ type ClientInterface interface {
 
 	// ListWebhookDeliveries List webhook delivery log
 	//
-	// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret.
+	// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; it is null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery is retried for up to 7380 seconds; see POST /api/v1/webhooks for the retry schedule and the endpoint disable rule. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
 	//
 	// Corresponds with GET /api/v1/webhooks/{id}/deliveries (the `ListWebhookDeliveries` operationId).
 	ListWebhookDeliveries(ctx context.Context, id int64, params *ListWebhookDeliveriesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RedeliverWebhookDelivery Redeliver a dead-lettered webhook delivery
+	//
+	// Returns one dead_letter delivery to the delivery queue with a fresh attempt budget: status becomes pending, attempt_count resets to 0, and next_attempt_at is now, so the delivery worker claims it like any queued delivery, under the same per-owner and per-origin concurrency limits. Use it after a failed delivery exhausts its retries, or after re-enabling an endpoint whose queued deliveries were dead-lettered when it was disabled: PATCH /api/v1/webhooks/{id} {"enabled": true} resends nothing by itself. The resend is signed with the endpoint's current signing secret and sent to its current URL, and keeps the delivery's event_id and idempotency-key header, so a receiver that already processed the event can deduplicate it; x-0xinsider-delivery-attempt starts again at 1. last_response_status and last_error keep the previous failure until the next attempt records its own. Returns 409 when the delivery is already delivered or still queued (pending, retry, or processing), or when the endpoint would not receive it (disabled, not verified, or no longer subscribed to the delivery's event_type); error.message names the step that lets the same request succeed. Returns 404 for an endpoint or delivery the caller does not own, including a delivery removed by the seven-day retention of delivered and dead_letter history.
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver (the `RedeliverWebhookDelivery` operationId).
+	RedeliverWebhookDelivery(ctx context.Context, id int64, deliveryId int64, params *RedeliverWebhookDeliveryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RotateWebhookSecret Rotate a builder webhook signing secret
 	//
@@ -9166,6 +10957,23 @@ func (c *Client) GetApiDiscovery(ctx context.Context, reqEditors ...RequestEdito
 	return c.Client.Do(req)
 }
 
+// RegisterAgent Register an agent for a sandbox key
+//
+// Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
+//
+// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
+func (c *Client) RegisterAgent(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegisterAgentRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // SearchContent Search editorial content
 //
 // Search 0xinsider editorial content by keyword. Returns backend-owned learn, glossary, comparison, research, and trading-strategy items with canonical URLs. Opaque ranking scores are not exposed.
@@ -9185,7 +10993,7 @@ func (c *Client) SearchContent(ctx context.Context, params *SearchContentParams,
 
 // GetEventReplaySince Replay public whale-trade intelligence events
 //
-// Returns durable public whale-trade intelligence events strictly after an opaque cursor backed by whale_alerts.id. This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
+// Returns durable public whale-trade intelligence events strictly after an opaque cursor, in commit order: events are ordered by the position at which their write became visible to every reader (whale_alerts.inserted_xid), then by whale_alerts.id, and a page never reaches past the oldest write transaction still open when it was read. A trade whose id is lower than one already delivered but whose write finished later is therefore delivered on a later request instead of being skipped (#16180). This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
 //
 // Corresponds with GET /api/v1/events/feed/since (the `GetEventReplaySince` operationId).
 func (c *Client) GetEventReplaySince(ctx context.Context, params *GetEventReplaySinceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -9253,7 +11061,7 @@ func (c *Client) GetInsiderRadarFlag(ctx context.Context, id string, params *Get
 
 // ListLargePositions List large positions
 //
-// Returns the largest current open positions from graded traders, value-descending, with opaque cursor pagination. Polymarket-only by design: the large-positions scanner filters platform = 'polymarket' (backend/crates/large-positions/src/scanner.rs), so only Polymarket rows are scanned and an unknown condition_id filter returns an empty list (never fabricated rows). The teaser cap that the internal product UI applies to anonymous viewers does not apply here: the API key already proves an active Pro subscription (wire tier `insider`), so authed API callers get full access.
+// Returns the largest current open positions from graded traders, value-descending, with opaque cursor pagination. This is a change-detection feed, not a holder list: a row needs a current value of at least 50,000 USD and a live detection in the last 24 hours, so a wallet that holds a market without moving is not listed. For every graded holder of one market use GET /api/v1/market/{condition_id}/holders. Polymarket-only by design: the large-positions scanner filters platform = 'polymarket' (backend/crates/large-positions/src/scanner.rs), so only Polymarket rows are scanned and an unknown condition_id filter returns an empty list (never fabricated rows). The teaser cap that the internal product UI applies to anonymous viewers does not apply here: the API key already proves an active Pro subscription (wire tier `insider`), so authed API callers get full access.
 //
 // Corresponds with GET /api/v1/large-positions (the `ListLargePositions` operationId).
 func (c *Client) ListLargePositions(ctx context.Context, params *ListLargePositionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -9309,6 +11117,40 @@ func (c *Client) ListTrendingWallets(ctx context.Context, params *ListTrendingWa
 // Corresponds with GET /api/v1/market/{condition_id}/candles (the `GetMarketCandles` operationId).
 func (c *Client) GetMarketCandles(ctx context.Context, conditionId string, params *GetMarketCandlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetMarketCandlesRequest(c.Server, conditionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetMarketContextMarkdown Get market context (Markdown)
+//
+// Authenticated, self-contained Polymarket market evidence document. Renders the same typed data as the market snapshot with trust included: identity, outcome labels and tokens, cached quotes, liquidity, live sports, and per-source freshness or unavailable reasons. Provider text is encoded as indented JSON data. Accepts raw or mkt_-prefixed condition IDs. Unknown markets return 404. No ETag or conditional requests; use the snapshot JSON route for those.
+//
+// Corresponds with GET /api/v1/market/{condition_id}/context.md (the `GetMarketContextMarkdown` operationId).
+func (c *Client) GetMarketContextMarkdown(ctx context.Context, conditionId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetMarketContextMarkdownRequest(c.Server, conditionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetMarketHolders List a market's graded holders
+//
+// The graded holder roster of one market, the list a Pick of the Day shows for its market, for any Polymarket market: every S/A/B wallet with open shares on either outcome, from a complete provider holder scan, each with its shares, Polymarket's own currentValue for the leg, its grade, its win record in the market's category, and its badges. Both outcomes are listed; a wallet holding both is listed once on its net side. Ordered by current_value_usd DESC, then shares DESC, then address. The roster is computed at most once a minute per market and shared by every caller; a page is cut from that roster, so paging is cheap and `total` is exact. The route never widens past the graded cohort: `scan.wallet_count` reports every wallet the walk saw, graded or not. An incomplete, unstable or failed scan is a 503 with Retry-After, never a shorter list.
+//
+// Corresponds with GET /api/v1/market/{condition_id}/holders (the `GetMarketHolders` operationId).
+func (c *Client) GetMarketHolders(ctx context.Context, conditionId string, params *GetMarketHoldersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetMarketHoldersRequest(c.Server, conditionId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -9460,9 +11302,9 @@ func (c *Client) ListSmartMoneyFlows(ctx context.Context, params *ListSmartMoney
 	return c.Client.Do(req)
 }
 
-// OpenMcpEventStream Open MCP server-to-client stream
+// OpenMcpEventStream MCP GET: no server-to-client stream (405)
 //
-// Opens a text/event-stream connection for server-initiated notifications as described in the MCP Streamable HTTP transport. The endpoint currently sends no notifications — clients that only care about request/response use POST.
+// The MCP Streamable HTTP transport lets a client GET the endpoint to open a server-to-client text/event-stream, and lets the server answer 405 Method Not Allowed when it offers no such stream. This server sends no notifications, so an authenticated GET answers 405 with Allow: POST, a JSON-RPC error body (code -32004) and X-Mcp-Error-Code: -32004; a conforming client (the reference @modelcontextprotocol/sdk included) reads the 405 as no stream here and does not retry. Without a credential the GET answers 401 with the WWW-Authenticate challenge naming /.well-known/oauth-protected-resource/api/v1/mcp, which is where a client that has only run the public handshake learns to start the OAuth flow. Until 2026-09-22 an authenticated GET answered 200 text/event-stream and closed the body at once, which conforming clients reconnected to every second. Every JSON-RPC request goes over POST.
 //
 // Corresponds with GET /api/v1/mcp (the `OpenMcpEventStream` operationId).
 func (c *Client) OpenMcpEventStream(ctx context.Context, params *OpenMcpEventStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -9479,7 +11321,7 @@ func (c *Client) OpenMcpEventStream(ctx context.Context, params *OpenMcpEventStr
 
 // CreateMcpJsonRpcResponseWithBody Remote MCP endpoint (JSON-RPC)
 //
-// Model Context Protocol (MCP) Streamable HTTP transport. Accepts a JSON-RPC 2.0 request and returns a JSON-RPC response. Supported methods: initialize, notifications/initialized, ping, tools/list, tools/call. Remote MCP exposes 33 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call and the GET event stream need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. Legacy ?token=<token> authentication works only on exact /api/v1/mcp. Every other protected V1 route rejects query-string API keys. Prefer headers or the stdio package because URL secrets can land in shell history, browser history, and logs. The retirement date is unknown until external URL-only client compatibility is checked. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist.
+// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests receive one same-ID JSON-RPC response. ID-less ping, notifications/initialized, and notifications/cancelled receive HTTP 202 with no body; other ID-less methods and unsolicited response messages receive HTTP 400 with no body. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Remote MCP exposes 35 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_sports_edge_signals, get_sports_edge_observations, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every route with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: a non-object, an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source, directional_source and the category_skill_* fields on get_sports_edge_signals) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST and GET: a value outside 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with JSON-RPC error -32600 before the body is read; an absent header is served as 2025-03-26, the transport specification's compatibility default. Browser preflight allows the header.
 //
 // Takes any type of body and a specified content type.
 //
@@ -9498,13 +11340,30 @@ func (c *Client) CreateMcpJsonRpcResponseWithBody(ctx context.Context, params *C
 
 // CreateMcpJsonRpcResponse Remote MCP endpoint (JSON-RPC)
 //
-// Model Context Protocol (MCP) Streamable HTTP transport. Accepts a JSON-RPC 2.0 request and returns a JSON-RPC response. Supported methods: initialize, notifications/initialized, ping, tools/list, tools/call. Remote MCP exposes 33 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call and the GET event stream need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. Legacy ?token=<token> authentication works only on exact /api/v1/mcp. Every other protected V1 route rejects query-string API keys. Prefer headers or the stdio package because URL secrets can land in shell history, browser history, and logs. The retirement date is unknown until external URL-only client compatibility is checked. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist.
+// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests receive one same-ID JSON-RPC response. ID-less ping, notifications/initialized, and notifications/cancelled receive HTTP 202 with no body; other ID-less methods and unsolicited response messages receive HTTP 400 with no body. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Remote MCP exposes 35 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_sports_edge_signals, get_sports_edge_observations, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every route with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: a non-object, an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source, directional_source and the category_skill_* fields on get_sports_edge_signals) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST and GET: a value outside 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with JSON-RPC error -32600 before the body is read; an absent header is served as 2025-03-26, the transport specification's compatibility default. Browser preflight allows the header.
 //
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /api/v1/mcp (the `CreateMcpJsonRpcResponse` operationId).
 func (c *Client) CreateMcpJsonRpcResponse(ctx context.Context, params *CreateMcpJsonRpcResponseParams, body CreateMcpJsonRpcResponseJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateMcpJsonRpcResponseRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetAccountIdentity Identify the authenticated account and credential
+//
+// Returns the account and credential IDs admitted by API authentication, credential kind, and approved scopes. Null scopes mean full developer-key access. Requires an active Pro subscription and read scope for OAuth grants. Does not return credentials or personal contact details.
+//
+// Corresponds with GET /api/v1/me (the `GetAccountIdentity` operationId).
+func (c *Client) GetAccountIdentity(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAccountIdentityRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -9578,6 +11437,29 @@ func (c *Client) GetPickOfTheDayArchive(ctx context.Context, params *GetPickOfTh
 	return c.Client.Do(req)
 }
 
+// GetPickOfTheDayLedger Get the Pick of the Day commitment ledger
+//
+// Returns the pre-game commitment for every published pick, so the public track record can be checked by someone who was not watching when the pick dropped.
+//
+// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant and the kickoff, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
+//
+// To verify an opened entry: serialize nothing. Take the bytes of the `payload` object exactly as received, append the `commitment_nonce` decoded from hex, and sha256 the result; it equals `commitment_hash`. The payload is canonical JSON -- keys sorted by UTF-8 byte value, no insignificant whitespace, decimals as strings at full stored precision, timestamps whole-second UTC with a literal Z -- and it is served byte for byte as it was hashed.
+//
+// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
+//
+// Corresponds with GET /api/v1/pick-of-the-day/ledger (the `GetPickOfTheDayLedger` operationId).
+func (c *Client) GetPickOfTheDayLedger(ctx context.Context, params *GetPickOfTheDayLedgerParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetPickOfTheDayLedgerRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // GetPlatforms Get platform capability matrix
 //
 // Unauthenticated discovery endpoint that declares which V1 intelligence surfaces are supported, partial, or unsupported per provider platform.
@@ -9597,7 +11479,7 @@ func (c *Client) GetPlatforms(ctx context.Context, reqEditors ...RequestEditorFn
 
 // ListPositions List current positions (positions-board feed)
 //
-// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL.
+// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top.
 //
 // Corresponds with GET /api/v1/positions (the `ListPositions` operationId).
 func (c *Client) ListPositions(ctx context.Context, params *ListPositionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -9748,6 +11630,23 @@ func (c *Client) GetTrader(ctx context.Context, address string, params *GetTrade
 	return c.Client.Do(req)
 }
 
+// GetTraderCategoryRecords Get trader category win records
+//
+// Returns one wallet's win record in every canonical category it has a settled market in: wins, decided (wins plus losses) and the rate, per category, busiest category first. These are the same counts the Pick of the Day holder chips carry. The Esports record also carries games: the wallet's record in each esports title it has a settled market in (LoL, CS2, Dota 2, Valorant, ...), the same per-game record the holder chips and GET /api/v1/market/{condition_id}/holders name in category_win_rate_game, with the same counts, floor and status rule; the Esports row itself stays the whole bucket, which is what a chip falls back to when a game record is thin. The basis is every settled market at any position size, which is NOT the basis of category_strengths on GET /api/v1/trader/{address}?expand=categories: that breakdown keeps the 20 USD notional floor and the entry-price rule its ranks depend on, so the two legitimately differ (1,554 of 3,291 here against 1,457 of 2,733 there on one Soccer wallet, measured 2026-09-20). A category or game with fewer than min_decided_for_win_rate decided markets keeps its counts and returns win_rate null with status not_enough_data, so a caller can apply its own sample rule. A category the wallet has no settled market in is omitted entirely, and so is a game: an absent entry means no record, never a 0% record. A resolved trader with no settled market returns an empty records array (HTTP 200); an unknown address returns 404.
+//
+// Corresponds with GET /api/v1/trader/{address}/categories (the `GetTraderCategoryRecords` operationId).
+func (c *Client) GetTraderCategoryRecords(ctx context.Context, address string, params *GetTraderCategoryRecordsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetTraderCategoryRecordsRequest(c.Server, address, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // GetTraderContext Get trader context (JSON)
 //
 // Returns a single structured context object for one trader: the full trader profile (same shape as GET /api/v1/trader/{address}) plus a position_summary (sync coverage and realized/unrealized P&L rollups, with an as_of open-position freshness clock), the data_as_of freshness timestamp (the open-position data's latest /positions snapshot, else last completed sync; the snapshot advances only open positions, so resolved counts and win rate still date to the last full sync; native realized P&L follows its accounting snapshot), and a freshness_note describing the point-in-time snapshot semantics. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. position_summary is omitted when the trader is not in the local database or native net economics is unavailable; realized fields remain numeric when present; unknown lookups return 200 with sync_status 'unknown' on the nested trader (no 404). Append .md to the path for the Markdown rendering.
@@ -9852,7 +11751,7 @@ func (c *Client) GetTraderExportStatus(ctx context.Context, address string, para
 
 // GetTraderPnl Get trader P&L time series
 //
-// Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404. Spans both providers wherever the read model has the trader's series.
+// Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404.
 //
 // Corresponds with GET /api/v1/trader/{address}/pnl (the `GetTraderPnl` operationId).
 func (c *Client) GetTraderPnl(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -9958,7 +11857,7 @@ func (c *Client) GetUsage(ctx context.Context, reqEditors ...RequestEditorFn) (*
 
 // ListWebhooks List builder webhook destinations
 //
-// Returns webhook destinations owned by the authenticated API key user. Disabled endpoints are omitted. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
+// Returns webhook destinations owned by the authenticated API key user. Deleted endpoints are omitted; an endpoint paused with PATCH or disabled after consecutive failures is listed with status disabled. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
 //
 // Corresponds with GET /api/v1/webhooks (the `ListWebhooks` operationId).
 func (c *Client) ListWebhooks(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -9975,7 +11874,7 @@ func (c *Client) ListWebhooks(ctx context.Context, reqEditors ...RequestEditorFn
 
 // CreateWebhookWithBody Create a builder webhook destination
 //
-// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers.
+// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
 //
 // Takes any type of body and a specified content type.
 //
@@ -9994,7 +11893,7 @@ func (c *Client) CreateWebhookWithBody(ctx context.Context, params *CreateWebhoo
 
 // CreateWebhook Create a builder webhook destination
 //
-// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers.
+// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -10102,11 +12001,28 @@ func (c *Client) UpdateWebhook(ctx context.Context, id int64, params *UpdateWebh
 
 // ListWebhookDeliveries List webhook delivery log
 //
-// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret.
+// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; it is null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery is retried for up to 7380 seconds; see POST /api/v1/webhooks for the retry schedule and the endpoint disable rule. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
 //
 // Corresponds with GET /api/v1/webhooks/{id}/deliveries (the `ListWebhookDeliveries` operationId).
 func (c *Client) ListWebhookDeliveries(ctx context.Context, id int64, params *ListWebhookDeliveriesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListWebhookDeliveriesRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RedeliverWebhookDelivery Redeliver a dead-lettered webhook delivery
+//
+// Returns one dead_letter delivery to the delivery queue with a fresh attempt budget: status becomes pending, attempt_count resets to 0, and next_attempt_at is now, so the delivery worker claims it like any queued delivery, under the same per-owner and per-origin concurrency limits. Use it after a failed delivery exhausts its retries, or after re-enabling an endpoint whose queued deliveries were dead-lettered when it was disabled: PATCH /api/v1/webhooks/{id} {"enabled": true} resends nothing by itself. The resend is signed with the endpoint's current signing secret and sent to its current URL, and keeps the delivery's event_id and idempotency-key header, so a receiver that already processed the event can deduplicate it; x-0xinsider-delivery-attempt starts again at 1. last_response_status and last_error keep the previous failure until the next attempt records its own. Returns 409 when the delivery is already delivered or still queued (pending, retry, or processing), or when the endpoint would not receive it (disabled, not verified, or no longer subscribed to the delivery's event_type); error.message names the step that lets the same request succeed. Returns 404 for an endpoint or delivery the caller does not own, including a delivery removed by the seven-day retention of delivered and dead_letter history.
+//
+// Corresponds with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver (the `RedeliverWebhookDelivery` operationId).
+func (c *Client) RedeliverWebhookDelivery(ctx context.Context, id int64, deliveryId int64, params *RedeliverWebhookDeliveryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRedeliverWebhookDeliveryRequest(c.Server, id, deliveryId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -10277,6 +12193,33 @@ func NewGetApiDiscoveryRequest(server string) (*http.Request, error) {
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewRegisterAgentRequest constructs an http.Request for the RegisterAgent method
+func NewRegisterAgentRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/agents/register")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -10967,6 +12910,152 @@ func NewGetMarketCandlesRequest(server string, conditionId string, params *GetMa
 		if params.To != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int64"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IfNoneMatch != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetMarketContextMarkdownRequest constructs an http.Request for the GetMarketContextMarkdown method
+func NewGetMarketContextMarkdownRequest(server string, conditionId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "condition_id", conditionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/market/%s/context.md", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetMarketHoldersRequest constructs an http.Request for the GetMarketHolders method
+func NewGetMarketHoldersRequest(server string, conditionId string, params *GetMarketHoldersParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "condition_id", conditionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/market/%s/holders", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Outcome != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "outcome", *params.Outcome, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.MinGrade != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "min_grade", *params.MinGrade, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Cursor != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "cursor", *params.Cursor, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -11737,33 +13826,6 @@ func NewOpenMcpEventStreamRequest(server string, params *OpenMcpEventStreamParam
 		return nil, err
 	}
 
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.Token != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "token", *params.Token, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -11780,6 +13842,17 @@ func NewOpenMcpEventStreamRequest(server string, params *OpenMcpEventStreamParam
 			}
 
 			req.Header.Set("Mcp-Session-Id", headerParam0)
+		}
+
+		if params.MCPProtocolVersion != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "MCP-Protocol-Version", *params.MCPProtocolVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("MCP-Protocol-Version", headerParam1)
 		}
 
 	}
@@ -11817,33 +13890,6 @@ func NewCreateMcpJsonRpcResponseRequestWithBody(server string, params *CreateMcp
 		return nil, err
 	}
 
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.Token != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "token", *params.Token, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
 	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
 	if err != nil {
 		return nil, err
@@ -11864,6 +13910,44 @@ func NewCreateMcpJsonRpcResponseRequestWithBody(server string, params *CreateMcp
 			req.Header.Set("Mcp-Session-Id", headerParam0)
 		}
 
+		if params.MCPProtocolVersion != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "MCP-Protocol-Version", *params.MCPProtocolVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("MCP-Protocol-Version", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAccountIdentityRequest constructs an http.Request for the GetAccountIdentity method
+func NewGetAccountIdentityRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/me")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
 	}
 
 	return req, nil
@@ -11948,6 +14032,48 @@ func NewGetPickOfTheDayArchiveRequest(server string, params *GetPickOfTheDayArch
 	}
 
 	operationPath := fmt.Sprintf("/api/v1/pick-of-the-day/archive")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IfNoneMatch != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetPickOfTheDayLedgerRequest constructs an http.Request for the GetPickOfTheDayLedger method
+func NewGetPickOfTheDayLedgerRequest(server string, params *GetPickOfTheDayLedgerParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/pick-of-the-day/ledger")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -12074,6 +14200,18 @@ func NewListPositionsRequest(server string, params *ListPositionsParams) (*http.
 		if params.Category != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ConditionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "condition_id", *params.ConditionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -12745,6 +14883,82 @@ func NewGetTraderRequest(server string, address string, params *GetTraderParams)
 		if params.Expand != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "expand", *params.Expand, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IfNoneMatch != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetTraderCategoryRecordsRequest constructs an http.Request for the GetTraderCategoryRecords method
+func NewGetTraderCategoryRecordsRequest(server string, address string, params *GetTraderCategoryRecordsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "address", address, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/trader/%s/categories", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -13695,6 +15909,62 @@ func NewListWebhookDeliveriesRequest(server string, id int64, params *ListWebhoo
 	return req, nil
 }
 
+// NewRedeliverWebhookDeliveryRequest constructs an http.Request for the RedeliverWebhookDelivery method
+func NewRedeliverWebhookDeliveryRequest(server string, id int64, deliveryId int64, params *RedeliverWebhookDeliveryParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "delivery_id", deliveryId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/webhooks/%s/deliveries/%s/redeliver", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewRotateWebhookSecretRequest constructs an http.Request for the RotateWebhookSecret method
 func NewRotateWebhookSecretRequest(server string, id int64, params *RotateWebhookSecretParams) (*http.Request, error) {
 	var err error
@@ -14380,6 +16650,15 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /api/v1 (the `GetApiDiscovery` operationId).
 	GetApiDiscoveryWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetApiDiscoveryResponse, error)
 
+	// RegisterAgentWithResponse Register an agent for a sandbox key
+	//
+	// Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
+	RegisterAgentWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RegisterAgentResponse, error)
+
 	// SearchContentWithResponse Search editorial content
 	//
 	// Search 0xinsider editorial content by keyword. Returns backend-owned learn, glossary, comparison, research, and trading-strategy items with canonical URLs. Opaque ranking scores are not exposed.
@@ -14391,7 +16670,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetEventReplaySinceWithResponse Replay public whale-trade intelligence events
 	//
-	// Returns durable public whale-trade intelligence events strictly after an opaque cursor backed by whale_alerts.id. This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
+	// Returns durable public whale-trade intelligence events strictly after an opaque cursor, in commit order: events are ordered by the position at which their write became visible to every reader (whale_alerts.inserted_xid), then by whale_alerts.id, and a page never reaches past the oldest write transaction still open when it was read. A trade whose id is lower than one already delivered but whose write finished later is therefore delivered on a later request instead of being skipped (#16180). This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -14427,7 +16706,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListLargePositionsWithResponse List large positions
 	//
-	// Returns the largest current open positions from graded traders, value-descending, with opaque cursor pagination. Polymarket-only by design: the large-positions scanner filters platform = 'polymarket' (backend/crates/large-positions/src/scanner.rs), so only Polymarket rows are scanned and an unknown condition_id filter returns an empty list (never fabricated rows). The teaser cap that the internal product UI applies to anonymous viewers does not apply here: the API key already proves an active Pro subscription (wire tier `insider`), so authed API callers get full access.
+	// Returns the largest current open positions from graded traders, value-descending, with opaque cursor pagination. This is a change-detection feed, not a holder list: a row needs a current value of at least 50,000 USD and a live detection in the last 24 hours, so a wallet that holds a market without moving is not listed. For every graded holder of one market use GET /api/v1/market/{condition_id}/holders. Polymarket-only by design: the large-positions scanner filters platform = 'polymarket' (backend/crates/large-positions/src/scanner.rs), so only Polymarket rows are scanned and an unknown condition_id filter returns an empty list (never fabricated rows). The teaser cap that the internal product UI applies to anonymous viewers does not apply here: the API key already proves an active Pro subscription (wire tier `insider`), so authed API callers get full access.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -14460,6 +16739,24 @@ type ClientWithResponsesInterface interface {
 	//
 	// Corresponds with GET /api/v1/market/{condition_id}/candles (the `GetMarketCandles` operationId).
 	GetMarketCandlesWithResponse(ctx context.Context, conditionId string, params *GetMarketCandlesParams, reqEditors ...RequestEditorFn) (*GetMarketCandlesResponse, error)
+
+	// GetMarketContextMarkdownWithResponse Get market context (Markdown)
+	//
+	// Authenticated, self-contained Polymarket market evidence document. Renders the same typed data as the market snapshot with trust included: identity, outcome labels and tokens, cached quotes, liquidity, live sports, and per-source freshness or unavailable reasons. Provider text is encoded as indented JSON data. Accepts raw or mkt_-prefixed condition IDs. Unknown markets return 404. No ETag or conditional requests; use the snapshot JSON route for those.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/market/{condition_id}/context.md (the `GetMarketContextMarkdown` operationId).
+	GetMarketContextMarkdownWithResponse(ctx context.Context, conditionId string, reqEditors ...RequestEditorFn) (*GetMarketContextMarkdownResponse, error)
+
+	// GetMarketHoldersWithResponse List a market's graded holders
+	//
+	// The graded holder roster of one market, the list a Pick of the Day shows for its market, for any Polymarket market: every S/A/B wallet with open shares on either outcome, from a complete provider holder scan, each with its shares, Polymarket's own currentValue for the leg, its grade, its win record in the market's category, and its badges. Both outcomes are listed; a wallet holding both is listed once on its net side. Ordered by current_value_usd DESC, then shares DESC, then address. The roster is computed at most once a minute per market and shared by every caller; a page is cut from that roster, so paging is cheap and `total` is exact. The route never widens past the graded cohort: `scan.wallet_count` reports every wallet the walk saw, graded or not. An incomplete, unstable or failed scan is a 503 with Retry-After, never a shorter list.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/market/{condition_id}/holders (the `GetMarketHolders` operationId).
+	GetMarketHoldersWithResponse(ctx context.Context, conditionId string, params *GetMarketHoldersParams, reqEditors ...RequestEditorFn) (*GetMarketHoldersResponse, error)
 
 	// GetMarketIntelWithResponse Get market intelligence
 	//
@@ -14535,9 +16832,9 @@ type ClientWithResponsesInterface interface {
 	// Deprecated: this operation has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	ListSmartMoneyFlowsWithResponse(ctx context.Context, params *ListSmartMoneyFlowsParams, reqEditors ...RequestEditorFn) (*ListSmartMoneyFlowsResponse, error)
 
-	// OpenMcpEventStreamWithResponse Open MCP server-to-client stream
+	// OpenMcpEventStreamWithResponse MCP GET: no server-to-client stream (405)
 	//
-	// Opens a text/event-stream connection for server-initiated notifications as described in the MCP Streamable HTTP transport. The endpoint currently sends no notifications — clients that only care about request/response use POST.
+	// The MCP Streamable HTTP transport lets a client GET the endpoint to open a server-to-client text/event-stream, and lets the server answer 405 Method Not Allowed when it offers no such stream. This server sends no notifications, so an authenticated GET answers 405 with Allow: POST, a JSON-RPC error body (code -32004) and X-Mcp-Error-Code: -32004; a conforming client (the reference @modelcontextprotocol/sdk included) reads the 405 as no stream here and does not retry. Without a credential the GET answers 401 with the WWW-Authenticate challenge naming /.well-known/oauth-protected-resource/api/v1/mcp, which is where a client that has only run the public handshake learns to start the OAuth flow. Until 2026-09-22 an authenticated GET answered 200 text/event-stream and closed the body at once, which conforming clients reconnected to every second. Every JSON-RPC request goes over POST.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -14546,7 +16843,7 @@ type ClientWithResponsesInterface interface {
 
 	// CreateMcpJsonRpcResponseWithBodyWithResponse Remote MCP endpoint (JSON-RPC)
 	//
-	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts a JSON-RPC 2.0 request and returns a JSON-RPC response. Supported methods: initialize, notifications/initialized, ping, tools/list, tools/call. Remote MCP exposes 33 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call and the GET event stream need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. Legacy ?token=<token> authentication works only on exact /api/v1/mcp. Every other protected V1 route rejects query-string API keys. Prefer headers or the stdio package because URL secrets can land in shell history, browser history, and logs. The retirement date is unknown until external URL-only client compatibility is checked. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist.
+	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests receive one same-ID JSON-RPC response. ID-less ping, notifications/initialized, and notifications/cancelled receive HTTP 202 with no body; other ID-less methods and unsolicited response messages receive HTTP 400 with no body. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Remote MCP exposes 35 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_sports_edge_signals, get_sports_edge_observations, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every route with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: a non-object, an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source, directional_source and the category_skill_* fields on get_sports_edge_signals) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST and GET: a value outside 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with JSON-RPC error -32600 before the body is read; an absent header is served as 2025-03-26, the transport specification's compatibility default. Browser preflight allows the header.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -14555,12 +16852,21 @@ type ClientWithResponsesInterface interface {
 
 	// CreateMcpJsonRpcResponseWithResponse Remote MCP endpoint (JSON-RPC)
 	//
-	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts a JSON-RPC 2.0 request and returns a JSON-RPC response. Supported methods: initialize, notifications/initialized, ping, tools/list, tools/call. Remote MCP exposes 33 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call and the GET event stream need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. Legacy ?token=<token> authentication works only on exact /api/v1/mcp. Every other protected V1 route rejects query-string API keys. Prefer headers or the stdio package because URL secrets can land in shell history, browser history, and logs. The retirement date is unknown until external URL-only client compatibility is checked. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist.
+	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests receive one same-ID JSON-RPC response. ID-less ping, notifications/initialized, and notifications/cancelled receive HTTP 202 with no body; other ID-less methods and unsolicited response messages receive HTTP 400 with no body. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Remote MCP exposes 35 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_sports_edge_signals, get_sports_edge_observations, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every route with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: a non-object, an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source, directional_source and the category_skill_* fields on get_sports_edge_signals) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST and GET: a value outside 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with JSON-RPC error -32600 before the body is read; an absent header is served as 2025-03-26, the transport specification's compatibility default. Browser preflight allows the header.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /api/v1/mcp (the `CreateMcpJsonRpcResponse` operationId).
 	CreateMcpJsonRpcResponseWithResponse(ctx context.Context, params *CreateMcpJsonRpcResponseParams, body CreateMcpJsonRpcResponseJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMcpJsonRpcResponseResponse, error)
+
+	// GetAccountIdentityWithResponse Identify the authenticated account and credential
+	//
+	// Returns the account and credential IDs admitted by API authentication, credential kind, and approved scopes. Null scopes mean full developer-key access. Requires an active Pro subscription and read scope for OAuth grants. Does not return credentials or personal contact details.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/me (the `GetAccountIdentity` operationId).
+	GetAccountIdentityWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetAccountIdentityResponse, error)
 
 	// RedirectApiOpenapiSpecWithResponse Redirect to the canonical OpenAPI spec
 	//
@@ -14601,6 +16907,21 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /api/v1/pick-of-the-day/archive (the `GetPickOfTheDayArchive` operationId).
 	GetPickOfTheDayArchiveWithResponse(ctx context.Context, params *GetPickOfTheDayArchiveParams, reqEditors ...RequestEditorFn) (*GetPickOfTheDayArchiveResponse, error)
 
+	// GetPickOfTheDayLedgerWithResponse Get the Pick of the Day commitment ledger
+	//
+	// Returns the pre-game commitment for every published pick, so the public track record can be checked by someone who was not watching when the pick dropped.
+	//
+	// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant and the kickoff, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
+	//
+	// To verify an opened entry: serialize nothing. Take the bytes of the `payload` object exactly as received, append the `commitment_nonce` decoded from hex, and sha256 the result; it equals `commitment_hash`. The payload is canonical JSON -- keys sorted by UTF-8 byte value, no insignificant whitespace, decimals as strings at full stored precision, timestamps whole-second UTC with a literal Z -- and it is served byte for byte as it was hashed.
+	//
+	// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/pick-of-the-day/ledger (the `GetPickOfTheDayLedger` operationId).
+	GetPickOfTheDayLedgerWithResponse(ctx context.Context, params *GetPickOfTheDayLedgerParams, reqEditors ...RequestEditorFn) (*GetPickOfTheDayLedgerResponse, error)
+
 	// GetPlatformsWithResponse Get platform capability matrix
 	//
 	// Unauthenticated discovery endpoint that declares which V1 intelligence surfaces are supported, partial, or unsupported per provider platform.
@@ -14612,7 +16933,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListPositionsWithResponse List current positions (positions-board feed)
 	//
-	// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL.
+	// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -14691,6 +17012,15 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /api/v1/trader/{address} (the `GetTrader` operationId).
 	GetTraderWithResponse(ctx context.Context, address string, params *GetTraderParams, reqEditors ...RequestEditorFn) (*GetTraderResponse, error)
 
+	// GetTraderCategoryRecordsWithResponse Get trader category win records
+	//
+	// Returns one wallet's win record in every canonical category it has a settled market in: wins, decided (wins plus losses) and the rate, per category, busiest category first. These are the same counts the Pick of the Day holder chips carry. The Esports record also carries games: the wallet's record in each esports title it has a settled market in (LoL, CS2, Dota 2, Valorant, ...), the same per-game record the holder chips and GET /api/v1/market/{condition_id}/holders name in category_win_rate_game, with the same counts, floor and status rule; the Esports row itself stays the whole bucket, which is what a chip falls back to when a game record is thin. The basis is every settled market at any position size, which is NOT the basis of category_strengths on GET /api/v1/trader/{address}?expand=categories: that breakdown keeps the 20 USD notional floor and the entry-price rule its ranks depend on, so the two legitimately differ (1,554 of 3,291 here against 1,457 of 2,733 there on one Soccer wallet, measured 2026-09-20). A category or game with fewer than min_decided_for_win_rate decided markets keeps its counts and returns win_rate null with status not_enough_data, so a caller can apply its own sample rule. A category the wallet has no settled market in is omitted entirely, and so is a game: an absent entry means no record, never a 0% record. A resolved trader with no settled market returns an empty records array (HTTP 200); an unknown address returns 404.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/trader/{address}/categories (the `GetTraderCategoryRecords` operationId).
+	GetTraderCategoryRecordsWithResponse(ctx context.Context, address string, params *GetTraderCategoryRecordsParams, reqEditors ...RequestEditorFn) (*GetTraderCategoryRecordsResponse, error)
+
 	// GetTraderContextWithResponse Get trader context (JSON)
 	//
 	// Returns a single structured context object for one trader: the full trader profile (same shape as GET /api/v1/trader/{address}) plus a position_summary (sync coverage and realized/unrealized P&L rollups, with an as_of open-position freshness clock), the data_as_of freshness timestamp (the open-position data's latest /positions snapshot, else last completed sync; the snapshot advances only open positions, so resolved counts and win rate still date to the last full sync; native realized P&L follows its accounting snapshot), and a freshness_note describing the point-in-time snapshot semantics. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. position_summary is omitted when the trader is not in the local database or native net economics is unavailable; realized fields remain numeric when present; unknown lookups return 200 with sync_status 'unknown' on the nested trader (no 404). Append .md to the path for the Markdown rendering.
@@ -14747,7 +17077,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetTraderPnlWithResponse Get trader P&L time series
 	//
-	// Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404. Spans both providers wherever the read model has the trader's series.
+	// Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -14801,7 +17131,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListWebhooksWithResponse List builder webhook destinations
 	//
-	// Returns webhook destinations owned by the authenticated API key user. Disabled endpoints are omitted. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
+	// Returns webhook destinations owned by the authenticated API key user. Deleted endpoints are omitted; an endpoint paused with PATCH or disabled after consecutive failures is listed with status disabled. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -14810,7 +17140,7 @@ type ClientWithResponsesInterface interface {
 
 	// CreateWebhookWithBodyWithResponse Create a builder webhook destination
 	//
-	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers.
+	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -14819,7 +17149,7 @@ type ClientWithResponsesInterface interface {
 
 	// CreateWebhookWithResponse Create a builder webhook destination
 	//
-	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers.
+	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -14873,12 +17203,21 @@ type ClientWithResponsesInterface interface {
 
 	// ListWebhookDeliveriesWithResponse List webhook delivery log
 	//
-	// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret.
+	// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; it is null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery is retried for up to 7380 seconds; see POST /api/v1/webhooks for the retry schedule and the endpoint disable rule. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/webhooks/{id}/deliveries (the `ListWebhookDeliveries` operationId).
 	ListWebhookDeliveriesWithResponse(ctx context.Context, id int64, params *ListWebhookDeliveriesParams, reqEditors ...RequestEditorFn) (*ListWebhookDeliveriesResponse, error)
+
+	// RedeliverWebhookDeliveryWithResponse Redeliver a dead-lettered webhook delivery
+	//
+	// Returns one dead_letter delivery to the delivery queue with a fresh attempt budget: status becomes pending, attempt_count resets to 0, and next_attempt_at is now, so the delivery worker claims it like any queued delivery, under the same per-owner and per-origin concurrency limits. Use it after a failed delivery exhausts its retries, or after re-enabling an endpoint whose queued deliveries were dead-lettered when it was disabled: PATCH /api/v1/webhooks/{id} {"enabled": true} resends nothing by itself. The resend is signed with the endpoint's current signing secret and sent to its current URL, and keeps the delivery's event_id and idempotency-key header, so a receiver that already processed the event can deduplicate it; x-0xinsider-delivery-attempt starts again at 1. last_response_status and last_error keep the previous failure until the next attempt records its own. Returns 409 when the delivery is already delivered or still queued (pending, retry, or processing), or when the endpoint would not receive it (disabled, not verified, or no longer subscribed to the delivery's event_type); error.message names the step that lets the same request succeed. Returns 404 for an endpoint or delivery the caller does not own, including a delivery removed by the seven-day retention of delivered and dead_letter history.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver (the `RedeliverWebhookDelivery` operationId).
+	RedeliverWebhookDeliveryWithResponse(ctx context.Context, id int64, deliveryId int64, params *RedeliverWebhookDeliveryParams, reqEditors ...RequestEditorFn) (*RedeliverWebhookDeliveryResponse, error)
 
 	// RotateWebhookSecretWithResponse Rotate a builder webhook signing secret
 	//
@@ -14953,6 +17292,17 @@ type ClientWithResponsesInterface interface {
 	ListWhaleTradeCounterpartyMakersWithResponse(ctx context.Context, id string, executionId string, params *ListWhaleTradeCounterpartyMakersParams, reqEditors ...RequestEditorFn) (*ListWhaleTradeCounterpartyMakersResponse, error)
 }
 
+// GetApiDiscoveryResponse200Headers the declared response headers of an HTTP 200 response for GetApiDiscovery
+type GetApiDiscoveryResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+}
+
 // GetApiDiscoveryResponse429Headers the declared response headers of an HTTP 429 response for GetApiDiscovery
 type GetApiDiscoveryResponse429Headers struct {
 	RateLimitLimit      *int
@@ -14974,8 +17324,12 @@ type GetApiDiscoveryResponse struct {
 		Meta   ResponseMeta                             `json:"meta"`
 		Object GetApiDiscovery200JSONResponseBodyObject `json:"object"`
 	}
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *GetApiDiscoveryResponse200Headers
 	// Headers429 the parsed response headers for an HTTP 429 response
 	Headers429 *GetApiDiscoveryResponse429Headers
 }
@@ -14987,6 +17341,11 @@ func (r GetApiDiscoveryResponse) GetJSON200() *struct {
 	Object GetApiDiscovery200JSONResponseBodyObject `json:"object"`
 } {
 	return r.JSON200
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetApiDiscoveryResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
@@ -15023,8 +17382,111 @@ func (r GetApiDiscoveryResponse) ContentType() string {
 	return ""
 }
 
+// RegisterAgentResponse201Headers the declared response headers of an HTTP 201 response for RegisterAgent
+type RegisterAgentResponse201Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+}
+
+// RegisterAgentResponse429Headers the declared response headers of an HTTP 429 response for RegisterAgent
+type RegisterAgentResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+type RegisterAgentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON201 the response for an HTTP 201 `application/json` response
+	JSON201 *struct {
+		// Data A sandbox key and the path to live access (#13959). Nothing is stored: the key cannot be listed or revoked and does not expire. Register again for a new one.
+		Data   AgentRegistration                      `json:"data"`
+		Meta   ResponseMeta                           `json:"meta"`
+		Object RegisterAgent201JSONResponseBodyObject `json:"object"`
+	}
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// Headers201 the parsed response headers for an HTTP 201 response
+	Headers201 *RegisterAgentResponse201Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *RegisterAgentResponse429Headers
+}
+
+// GetJSON201 returns the response for an HTTP 201 `application/json` response
+func (r RegisterAgentResponse) GetJSON201() *struct {
+	// Data A sandbox key and the path to live access (#13959). Nothing is stored: the key cannot be listed or revoked and does not expire. Register again for a new one.
+	Data   AgentRegistration                      `json:"data"`
+	Meta   ResponseMeta                           `json:"meta"`
+	Object RegisterAgent201JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON201
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r RegisterAgentResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r RegisterAgentResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r RegisterAgentResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetBody returns the raw response body bytes
+func (r RegisterAgentResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RegisterAgentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegisterAgentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RegisterAgentResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // SearchContentResponse200Headers the declared response headers of an HTTP 200 response for SearchContent
 type SearchContentResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -15074,6 +17536,8 @@ type SearchContentResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -15124,6 +17588,11 @@ func (r SearchContentResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r SearchContentResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r SearchContentResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -15177,6 +17646,10 @@ func (r SearchContentResponse) ContentType() string {
 
 // GetEventReplaySinceResponse200Headers the declared response headers of an HTTP 200 response for GetEventReplaySince
 type GetEventReplaySinceResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -15221,6 +17694,8 @@ type GetEventReplaySinceResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -15264,6 +17739,11 @@ func (r GetEventReplaySinceResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r GetEventReplaySinceResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetEventReplaySinceResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -15312,12 +17792,26 @@ func (r GetEventReplaySinceResponse) ContentType() string {
 
 // GetHealthResponse200Headers the declared response headers of an HTTP 200 response for GetHealth
 type GetHealthResponse200Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
 }
 
 // GetHealthResponse304Headers the declared response headers of an HTTP 304 response for GetHealth
 type GetHealthResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
 }
 
 // GetHealthResponse429Headers the declared response headers of an HTTP 429 response for GetHealth
@@ -15356,11 +17850,16 @@ type GetHealthResponse struct {
 					Total        int                                                            `json:"total"`
 					Unconfigured int                                                            `json:"unconfigured"`
 				} `json:"background_jobs"`
+
+				// WebhookCompatibility Whether the webhook outbox schema validated on this probe. false lowers status to degraded. true during a maintenance window, when nothing is probed.
+				WebhookCompatibility bool `json:"webhook_compatibility"`
 			} `json:"subsystems,omitempty"`
 		} `json:"data"`
 		Meta   ResponseMeta                       `json:"meta"`
 		Object GetHealth200JSONResponseBodyObject `json:"object"`
 	}
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -15392,12 +17891,20 @@ func (r GetHealthResponse) GetJSON200() *struct {
 				Total        int                                                            `json:"total"`
 				Unconfigured int                                                            `json:"unconfigured"`
 			} `json:"background_jobs"`
+
+			// WebhookCompatibility Whether the webhook outbox schema validated on this probe. false lowers status to degraded. true during a maintenance window, when nothing is probed.
+			WebhookCompatibility bool `json:"webhook_compatibility"`
 		} `json:"subsystems,omitempty"`
 	} `json:"data"`
 	Meta   ResponseMeta                       `json:"meta"`
 	Object GetHealth200JSONResponseBodyObject `json:"object"`
 } {
 	return r.JSON200
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetHealthResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
@@ -15437,6 +17944,10 @@ func (r GetHealthResponse) ContentType() string {
 // ListInsiderRadarResponse200Headers the declared response headers of an HTTP 200 response for ListInsiderRadar
 type ListInsiderRadarResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -15446,7 +17957,16 @@ type ListInsiderRadarResponse200Headers struct {
 
 // ListInsiderRadarResponse304Headers the declared response headers of an HTTP 304 response for ListInsiderRadar
 type ListInsiderRadarResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListInsiderRadarResponse429Headers the declared response headers of an HTTP 429 response for ListInsiderRadar
@@ -15489,6 +18009,8 @@ type ListInsiderRadarResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -15539,6 +18061,11 @@ func (r ListInsiderRadarResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListInsiderRadarResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListInsiderRadarResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -15586,6 +18113,10 @@ func (r ListInsiderRadarResponse) ContentType() string {
 // GetInsiderRadarFlagResponse200Headers the declared response headers of an HTTP 200 response for GetInsiderRadarFlag
 type GetInsiderRadarFlagResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -15595,7 +18126,16 @@ type GetInsiderRadarFlagResponse200Headers struct {
 
 // GetInsiderRadarFlagResponse304Headers the declared response headers of an HTTP 304 response for GetInsiderRadarFlag
 type GetInsiderRadarFlagResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetInsiderRadarFlagResponse429Headers the declared response headers of an HTTP 429 response for GetInsiderRadarFlag
@@ -15635,6 +18175,8 @@ type GetInsiderRadarFlagResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -15685,6 +18227,11 @@ func (r GetInsiderRadarFlagResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetInsiderRadarFlagResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r GetInsiderRadarFlagResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -15732,6 +18279,10 @@ func (r GetInsiderRadarFlagResponse) ContentType() string {
 // ListLargePositionsResponse200Headers the declared response headers of an HTTP 200 response for ListLargePositions
 type ListLargePositionsResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -15741,7 +18292,16 @@ type ListLargePositionsResponse200Headers struct {
 
 // ListLargePositionsResponse304Headers the declared response headers of an HTTP 304 response for ListLargePositions
 type ListLargePositionsResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListLargePositionsResponse429Headers the declared response headers of an HTTP 429 response for ListLargePositions
@@ -15786,6 +18346,8 @@ type ListLargePositionsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -15838,6 +18400,11 @@ func (r ListLargePositionsResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListLargePositionsResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListLargePositionsResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -15885,6 +18452,10 @@ func (r ListLargePositionsResponse) ContentType() string {
 // ListLeaderboardResponse200Headers the declared response headers of an HTTP 200 response for ListLeaderboard
 type ListLeaderboardResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -15894,7 +18465,16 @@ type ListLeaderboardResponse200Headers struct {
 
 // ListLeaderboardResponse304Headers the declared response headers of an HTTP 304 response for ListLeaderboard
 type ListLeaderboardResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListLeaderboardResponse429Headers the declared response headers of an HTTP 429 response for ListLeaderboard
@@ -15937,6 +18517,8 @@ type ListLeaderboardResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -15987,6 +18569,11 @@ func (r ListLeaderboardResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListLeaderboardResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListLeaderboardResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -16034,6 +18621,10 @@ func (r ListLeaderboardResponse) ContentType() string {
 // ListTrendingWalletsResponse200Headers the declared response headers of an HTTP 200 response for ListTrendingWallets
 type ListTrendingWalletsResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -16043,7 +18634,16 @@ type ListTrendingWalletsResponse200Headers struct {
 
 // ListTrendingWalletsResponse304Headers the declared response headers of an HTTP 304 response for ListTrendingWallets
 type ListTrendingWalletsResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListTrendingWalletsResponse429Headers the declared response headers of an HTTP 429 response for ListTrendingWallets
@@ -16088,6 +18688,8 @@ type ListTrendingWalletsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -16140,6 +18742,11 @@ func (r ListTrendingWalletsResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListTrendingWalletsResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListTrendingWalletsResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -16187,6 +18794,10 @@ func (r ListTrendingWalletsResponse) ContentType() string {
 // GetMarketCandlesResponse200Headers the declared response headers of an HTTP 200 response for GetMarketCandles
 type GetMarketCandlesResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -16196,7 +18807,16 @@ type GetMarketCandlesResponse200Headers struct {
 
 // GetMarketCandlesResponse304Headers the declared response headers of an HTTP 304 response for GetMarketCandles
 type GetMarketCandlesResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetMarketCandlesResponse429Headers the declared response headers of an HTTP 429 response for GetMarketCandles
@@ -16237,6 +18857,8 @@ type GetMarketCandlesResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -16288,6 +18910,11 @@ func (r GetMarketCandlesResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetMarketCandlesResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r GetMarketCandlesResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -16332,9 +18959,337 @@ func (r GetMarketCandlesResponse) ContentType() string {
 	return ""
 }
 
+// GetMarketContextMarkdownResponse200Headers the declared response headers of an HTTP 200 response for GetMarketContextMarkdown
+type GetMarketContextMarkdownResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetMarketContextMarkdownResponse429Headers the declared response headers of an HTTP 429 response for GetMarketContextMarkdown
+type GetMarketContextMarkdownResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// GetMarketContextMarkdownResponse503Headers the declared response headers of an HTTP 503 response for GetMarketContextMarkdown
+type GetMarketContextMarkdownResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type GetMarketContextMarkdownResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *GetMarketContextMarkdownResponse200Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *GetMarketContextMarkdownResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *GetMarketContextMarkdownResponse503Headers
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r GetMarketContextMarkdownResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r GetMarketContextMarkdownResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetMarketContextMarkdownResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetMarketContextMarkdownResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetMarketContextMarkdownResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// GetMarketHoldersResponse200Headers the declared response headers of an HTTP 200 response for GetMarketHolders
+type GetMarketHoldersResponse200Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetMarketHoldersResponse304Headers the declared response headers of an HTTP 304 response for GetMarketHolders
+type GetMarketHoldersResponse304Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetMarketHoldersResponse429Headers the declared response headers of an HTTP 429 response for GetMarketHolders
+type GetMarketHoldersResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// GetMarketHoldersResponse503Headers the declared response headers of an HTTP 503 response for GetMarketHolders
+type GetMarketHoldersResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type GetMarketHoldersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		Data    []MarketHolder      `json:"data"`
+		HasMore bool                `json:"has_more"`
+		Market  MarketHoldersMarket `json:"market"`
+		Meta    ResponseMeta        `json:"meta"`
+
+		// NextCursor Absent on the last page.
+		NextCursor *string                                   `json:"next_cursor,omitempty"`
+		Object     GetMarketHolders200JSONResponseBodyObject `json:"object"`
+		Scan       MarketHoldersScan                         `json:"scan"`
+
+		// Total Holders matching the request's `outcome` and `min_grade` filters across every page.
+		Total int `json:"total"`
+
+		// Totals Roster totals BEFORE any `outcome` or `min_grade` filter, so a page always knows the whole market it was cut from.
+		Totals MarketHoldersTotals `json:"totals"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *GetMarketHoldersResponse200Headers
+	// Headers304 the parsed response headers for an HTTP 304 response
+	Headers304 *GetMarketHoldersResponse304Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *GetMarketHoldersResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *GetMarketHoldersResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON200() *struct {
+	Data    []MarketHolder      `json:"data"`
+	HasMore bool                `json:"has_more"`
+	Market  MarketHoldersMarket `json:"market"`
+	Meta    ResponseMeta        `json:"meta"`
+
+	// NextCursor Absent on the last page.
+	NextCursor *string                                   `json:"next_cursor,omitempty"`
+	Object     GetMarketHolders200JSONResponseBodyObject `json:"object"`
+	Scan       MarketHoldersScan                         `json:"scan"`
+
+	// Total Holders matching the request's `outcome` and `min_grade` filters across every page.
+	Total int `json:"total"`
+
+	// Totals Roster totals BEFORE any `outcome` or `min_grade` filter, so a page always knows the whole market it was cut from.
+	Totals MarketHoldersTotals `json:"totals"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r GetMarketHoldersResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetMarketHoldersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetMarketHoldersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetMarketHoldersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // GetMarketIntelResponse200Headers the declared response headers of an HTTP 200 response for GetMarketIntel
 type GetMarketIntelResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -16344,7 +19299,16 @@ type GetMarketIntelResponse200Headers struct {
 
 // GetMarketIntelResponse304Headers the declared response headers of an HTTP 304 response for GetMarketIntel
 type GetMarketIntelResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetMarketIntelResponse429Headers the declared response headers of an HTTP 429 response for GetMarketIntel
@@ -16384,6 +19348,8 @@ type GetMarketIntelResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -16434,6 +19400,11 @@ func (r GetMarketIntelResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetMarketIntelResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r GetMarketIntelResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -16481,6 +19452,10 @@ func (r GetMarketIntelResponse) ContentType() string {
 // GetMarketSnapshotResponse200Headers the declared response headers of an HTTP 200 response for GetMarketSnapshot
 type GetMarketSnapshotResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -16490,7 +19465,16 @@ type GetMarketSnapshotResponse200Headers struct {
 
 // GetMarketSnapshotResponse304Headers the declared response headers of an HTTP 304 response for GetMarketSnapshot
 type GetMarketSnapshotResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetMarketSnapshotResponse429Headers the declared response headers of an HTTP 429 response for GetMarketSnapshot
@@ -16530,6 +19514,8 @@ type GetMarketSnapshotResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -16580,6 +19566,11 @@ func (r GetMarketSnapshotResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetMarketSnapshotResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r GetMarketSnapshotResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -16627,6 +19618,10 @@ func (r GetMarketSnapshotResponse) ContentType() string {
 // ExploreMarketsResponse200Headers the declared response headers of an HTTP 200 response for ExploreMarkets
 type ExploreMarketsResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -16636,7 +19631,16 @@ type ExploreMarketsResponse200Headers struct {
 
 // ExploreMarketsResponse304Headers the declared response headers of an HTTP 304 response for ExploreMarkets
 type ExploreMarketsResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ExploreMarketsResponse429Headers the declared response headers of an HTTP 429 response for ExploreMarkets
@@ -16685,6 +19689,8 @@ type ExploreMarketsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -16741,6 +19747,11 @@ func (r ExploreMarketsResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ExploreMarketsResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ExploreMarketsResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -16787,6 +19798,10 @@ func (r ExploreMarketsResponse) ContentType() string {
 
 // BatchGetMarketIntelResponse200Headers the declared response headers of an HTTP 200 response for BatchGetMarketIntel
 type BatchGetMarketIntelResponse200Headers struct {
+	RateLimitLimit           *int
+	RateLimitRemaining       *int
+	RateLimitReset           *int
+	ServerTiming             *string
 	XBatchRateLimitLimit     *int
 	XBatchRateLimitRemaining *int
 	XBatchRateLimitReset     *int
@@ -16833,6 +19848,12 @@ type BatchGetMarketIntelResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON413 the response for an HTTP 413 `application/json` response
+	JSON413 *ApiError
+	// JSON415 the response for an HTTP 415 `application/json` response
+	JSON415 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -16876,6 +19897,21 @@ func (r BatchGetMarketIntelResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r BatchGetMarketIntelResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r BatchGetMarketIntelResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON413 returns the response for an HTTP 413 `application/json` response
+func (r BatchGetMarketIntelResponse) GetJSON413() *ApiError {
+	return r.JSON413
+}
+
+// GetJSON415 returns the response for an HTTP 415 `application/json` response
+func (r BatchGetMarketIntelResponse) GetJSON415() *ApiError {
+	return r.JSON415
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -16929,6 +19965,10 @@ func (r BatchGetMarketIntelResponse) ContentType() string {
 
 // SearchMarketsResponse200Headers the declared response headers of an HTTP 200 response for SearchMarkets
 type SearchMarketsResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -16976,6 +20016,8 @@ type SearchMarketsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -17022,6 +20064,11 @@ func (r SearchMarketsResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r SearchMarketsResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r SearchMarketsResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -17071,6 +20118,10 @@ func (r SearchMarketsResponse) ContentType() string {
 // ListSharpMoneyFlowsResponse200Headers the declared response headers of an HTTP 200 response for ListSharpMoneyFlows
 type ListSharpMoneyFlowsResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17080,7 +20131,16 @@ type ListSharpMoneyFlowsResponse200Headers struct {
 
 // ListSharpMoneyFlowsResponse304Headers the declared response headers of an HTTP 304 response for ListSharpMoneyFlows
 type ListSharpMoneyFlowsResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListSharpMoneyFlowsResponse429Headers the declared response headers of an HTTP 429 response for ListSharpMoneyFlows
@@ -17121,6 +20181,8 @@ type ListSharpMoneyFlowsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -17167,6 +20229,11 @@ func (r ListSharpMoneyFlowsResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r ListSharpMoneyFlowsResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListSharpMoneyFlowsResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -17218,6 +20285,10 @@ type ListSmartMoneyFlowsResponse200Headers struct {
 	Deprecation         *string
 	ETag                *string
 	Link                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17227,7 +20298,16 @@ type ListSmartMoneyFlowsResponse200Headers struct {
 
 // ListSmartMoneyFlowsResponse304Headers the declared response headers of an HTTP 304 response for ListSmartMoneyFlows
 type ListSmartMoneyFlowsResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListSmartMoneyFlowsResponse429Headers the declared response headers of an HTTP 429 response for ListSmartMoneyFlows
@@ -17268,6 +20348,8 @@ type ListSmartMoneyFlowsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -17316,6 +20398,11 @@ func (r ListSmartMoneyFlowsResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListSmartMoneyFlowsResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListSmartMoneyFlowsResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -17360,8 +20447,14 @@ func (r ListSmartMoneyFlowsResponse) ContentType() string {
 	return ""
 }
 
-// OpenMcpEventStreamResponse200Headers the declared response headers of an HTTP 200 response for OpenMcpEventStream
-type OpenMcpEventStreamResponse200Headers struct {
+// OpenMcpEventStreamResponse405Headers the declared response headers of an HTTP 405 response for OpenMcpEventStream
+type OpenMcpEventStreamResponse405Headers struct {
+	Allow               *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XMcpErrorCode       *int
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17388,10 +20481,12 @@ type OpenMcpEventStreamResponse struct {
 	JSON401 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON405 the response for an HTTP 405 `application/json` response
+	JSON405 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
-	// Headers200 the parsed response headers for an HTTP 200 response
-	Headers200 *OpenMcpEventStreamResponse200Headers
+	// Headers405 the parsed response headers for an HTTP 405 response
+	Headers405 *OpenMcpEventStreamResponse405Headers
 	// Headers429 the parsed response headers for an HTTP 429 response
 	Headers429 *OpenMcpEventStreamResponse429Headers
 }
@@ -17404,6 +20499,11 @@ func (r OpenMcpEventStreamResponse) GetJSON401() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r OpenMcpEventStreamResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON405 returns the response for an HTTP 405 `application/json` response
+func (r OpenMcpEventStreamResponse) GetJSON405() *ApiError {
+	return r.JSON405
 }
 
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
@@ -17442,6 +20542,10 @@ func (r OpenMcpEventStreamResponse) ContentType() string {
 
 // CreateMcpJsonRpcResponseResponse200Headers the declared response headers of an HTTP 200 response for CreateMcpJsonRpcResponse
 type CreateMcpJsonRpcResponseResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17451,7 +20555,15 @@ type CreateMcpJsonRpcResponseResponse200Headers struct {
 
 // CreateMcpJsonRpcResponseResponse202Headers the declared response headers of an HTTP 202 response for CreateMcpJsonRpcResponse
 type CreateMcpJsonRpcResponseResponse202Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // CreateMcpJsonRpcResponseResponse429Headers the declared response headers of an HTTP 429 response for CreateMcpJsonRpcResponse
@@ -17571,9 +20683,135 @@ func (r CreateMcpJsonRpcResponseResponse) ContentType() string {
 	return ""
 }
 
+// GetAccountIdentityResponse200Headers the declared response headers of an HTTP 200 response for GetAccountIdentity
+type GetAccountIdentityResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// GetAccountIdentityResponse429Headers the declared response headers of an HTTP 429 response for GetAccountIdentity
+type GetAccountIdentityResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// GetAccountIdentityResponse503Headers the declared response headers of an HTTP 503 response for GetAccountIdentity
+type GetAccountIdentityResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type GetAccountIdentityResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *AccountIdentity
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *GetAccountIdentityResponse200Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *GetAccountIdentityResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *GetAccountIdentityResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetAccountIdentityResponse) GetJSON200() *AccountIdentity {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r GetAccountIdentityResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r GetAccountIdentityResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r GetAccountIdentityResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r GetAccountIdentityResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r GetAccountIdentityResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r GetAccountIdentityResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r GetAccountIdentityResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAccountIdentityResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAccountIdentityResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAccountIdentityResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // RedirectApiOpenapiSpecResponse307Headers the declared response headers of an HTTP 307 response for RedirectApiOpenapiSpec
 type RedirectApiOpenapiSpecResponse307Headers struct {
-	Location string
+	Location            string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
 }
 
 // RedirectApiOpenapiSpecResponse429Headers the declared response headers of an HTTP 429 response for RedirectApiOpenapiSpec
@@ -17591,6 +20829,8 @@ type RedirectApiOpenapiSpecResponse429Headers struct {
 type RedirectApiOpenapiSpecResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
 	// JSON500 the response for an HTTP 500 `application/json` response
@@ -17599,6 +20839,11 @@ type RedirectApiOpenapiSpecResponse struct {
 	Headers307 *RedirectApiOpenapiSpecResponse307Headers
 	// Headers429 the parsed response headers for an HTTP 429 response
 	Headers429 *RedirectApiOpenapiSpecResponse429Headers
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r RedirectApiOpenapiSpecResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
@@ -17643,6 +20888,10 @@ func (r RedirectApiOpenapiSpecResponse) ContentType() string {
 // GetPickOfTheDayResponse200Headers the declared response headers of an HTTP 200 response for GetPickOfTheDay
 type GetPickOfTheDayResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17652,7 +20901,16 @@ type GetPickOfTheDayResponse200Headers struct {
 
 // GetPickOfTheDayResponse304Headers the declared response headers of an HTTP 304 response for GetPickOfTheDay
 type GetPickOfTheDayResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetPickOfTheDayResponse404Headers the declared response headers of an HTTP 404 response for GetPickOfTheDay
@@ -17695,6 +20953,8 @@ type GetPickOfTheDayResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -17740,6 +21000,11 @@ func (r GetPickOfTheDayResponse) GetJSON403() *ApiError {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r GetPickOfTheDayResponse) GetJSON404() *ApiError {
 	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetPickOfTheDayResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -17789,6 +21054,10 @@ func (r GetPickOfTheDayResponse) ContentType() string {
 // GetPickOfTheDayArchiveResponse200Headers the declared response headers of an HTTP 200 response for GetPickOfTheDayArchive
 type GetPickOfTheDayArchiveResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17798,7 +21067,16 @@ type GetPickOfTheDayArchiveResponse200Headers struct {
 
 // GetPickOfTheDayArchiveResponse304Headers the declared response headers of an HTTP 304 response for GetPickOfTheDayArchive
 type GetPickOfTheDayArchiveResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetPickOfTheDayArchiveResponse429Headers the declared response headers of an HTTP 429 response for GetPickOfTheDayArchive
@@ -17834,6 +21112,8 @@ type GetPickOfTheDayArchiveResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -17872,6 +21152,11 @@ func (r GetPickOfTheDayArchiveResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r GetPickOfTheDayArchiveResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetPickOfTheDayArchiveResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -17918,6 +21203,171 @@ func (r GetPickOfTheDayArchiveResponse) ContentType() string {
 	return ""
 }
 
+// GetPickOfTheDayLedgerResponse200Headers the declared response headers of an HTTP 200 response for GetPickOfTheDayLedger
+type GetPickOfTheDayLedgerResponse200Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetPickOfTheDayLedgerResponse304Headers the declared response headers of an HTTP 304 response for GetPickOfTheDayLedger
+type GetPickOfTheDayLedgerResponse304Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetPickOfTheDayLedgerResponse429Headers the declared response headers of an HTTP 429 response for GetPickOfTheDayLedger
+type GetPickOfTheDayLedgerResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// GetPickOfTheDayLedgerResponse503Headers the declared response headers of an HTTP 503 response for GetPickOfTheDayLedger
+type GetPickOfTheDayLedgerResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type GetPickOfTheDayLedgerResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// Data The commitment ledger: every published pick, ascending, in the state its commitment is actually in. The counts are derived from entries in the same pass that builds it.
+		Data   PickOfTheDayLedger                             `json:"data"`
+		Meta   ResponseMeta                                   `json:"meta"`
+		Object GetPickOfTheDayLedger200JSONResponseBodyObject `json:"object"`
+	}
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *GetPickOfTheDayLedgerResponse200Headers
+	// Headers304 the parsed response headers for an HTTP 304 response
+	Headers304 *GetPickOfTheDayLedgerResponse304Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *GetPickOfTheDayLedgerResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *GetPickOfTheDayLedgerResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetPickOfTheDayLedgerResponse) GetJSON200() *struct {
+	// Data The commitment ledger: every published pick, ascending, in the state its commitment is actually in. The counts are derived from entries in the same pass that builds it.
+	Data   PickOfTheDayLedger                             `json:"data"`
+	Meta   ResponseMeta                                   `json:"meta"`
+	Object GetPickOfTheDayLedger200JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r GetPickOfTheDayLedgerResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r GetPickOfTheDayLedgerResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r GetPickOfTheDayLedgerResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetPickOfTheDayLedgerResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r GetPickOfTheDayLedgerResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r GetPickOfTheDayLedgerResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r GetPickOfTheDayLedgerResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r GetPickOfTheDayLedgerResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetPickOfTheDayLedgerResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetPickOfTheDayLedgerResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetPickOfTheDayLedgerResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// GetPlatformsResponse200Headers the declared response headers of an HTTP 200 response for GetPlatforms
+type GetPlatformsResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+}
+
 // GetPlatformsResponse429Headers the declared response headers of an HTTP 429 response for GetPlatforms
 type GetPlatformsResponse429Headers struct {
 	RateLimitLimit      *int
@@ -17939,10 +21389,14 @@ type GetPlatformsResponse struct {
 		Meta   ResponseMeta                          `json:"meta"`
 		Object GetPlatforms200JSONResponseBodyObject `json:"object"`
 	}
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
 	// JSON500 the response for an HTTP 500 `application/json` response
 	JSON500 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *GetPlatformsResponse200Headers
 	// Headers429 the parsed response headers for an HTTP 429 response
 	Headers429 *GetPlatformsResponse429Headers
 }
@@ -17954,6 +21408,11 @@ func (r GetPlatformsResponse) GetJSON200() *struct {
 	Object GetPlatforms200JSONResponseBodyObject `json:"object"`
 } {
 	return r.JSON200
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetPlatformsResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
@@ -17998,6 +21457,10 @@ func (r GetPlatformsResponse) ContentType() string {
 // ListPositionsResponse200Headers the declared response headers of an HTTP 200 response for ListPositions
 type ListPositionsResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18007,7 +21470,16 @@ type ListPositionsResponse200Headers struct {
 
 // ListPositionsResponse304Headers the declared response headers of an HTTP 304 response for ListPositions
 type ListPositionsResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListPositionsResponse429Headers the declared response headers of an HTTP 429 response for ListPositions
@@ -18050,6 +21522,8 @@ type ListPositionsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -18100,6 +21574,11 @@ func (r ListPositionsResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListPositionsResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListPositionsResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -18146,6 +21625,10 @@ func (r ListPositionsResponse) ContentType() string {
 
 // GetReportsResponse200Headers the declared response headers of an HTTP 200 response for GetReports
 type GetReportsResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18188,6 +21671,8 @@ type GetReportsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -18231,6 +21716,11 @@ func (r GetReportsResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r GetReportsResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetReportsResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -18284,6 +21774,10 @@ func (r GetReportsResponse) ContentType() string {
 
 // GetDailyReportSnapshotResponse200Headers the declared response headers of an HTTP 200 response for GetDailyReportSnapshot
 type GetDailyReportSnapshotResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18326,6 +21820,8 @@ type GetDailyReportSnapshotResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -18369,6 +21865,11 @@ func (r GetDailyReportSnapshotResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r GetDailyReportSnapshotResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetDailyReportSnapshotResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -18422,6 +21923,10 @@ func (r GetDailyReportSnapshotResponse) ContentType() string {
 
 // GetMonthlyReportSnapshotResponse200Headers the declared response headers of an HTTP 200 response for GetMonthlyReportSnapshot
 type GetMonthlyReportSnapshotResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18464,6 +21969,8 @@ type GetMonthlyReportSnapshotResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -18507,6 +22014,11 @@ func (r GetMonthlyReportSnapshotResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r GetMonthlyReportSnapshotResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetMonthlyReportSnapshotResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -18560,6 +22072,10 @@ func (r GetMonthlyReportSnapshotResponse) ContentType() string {
 
 // GetWeeklyReportSnapshotResponse200Headers the declared response headers of an HTTP 200 response for GetWeeklyReportSnapshot
 type GetWeeklyReportSnapshotResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18602,6 +22118,8 @@ type GetWeeklyReportSnapshotResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -18645,6 +22163,11 @@ func (r GetWeeklyReportSnapshotResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r GetWeeklyReportSnapshotResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetWeeklyReportSnapshotResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -18700,6 +22223,10 @@ func (r GetWeeklyReportSnapshotResponse) ContentType() string {
 type ListSportsEdgeObservationsResponse200Headers struct {
 	CacheControl        *string
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18709,8 +22236,17 @@ type ListSportsEdgeObservationsResponse200Headers struct {
 
 // ListSportsEdgeObservationsResponse304Headers the declared response headers of an HTTP 304 response for ListSportsEdgeObservations
 type ListSportsEdgeObservationsResponse304Headers struct {
-	CacheControl *string
-	ETag         *string
+	CacheControl        *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListSportsEdgeObservationsResponse429Headers the declared response headers of an HTTP 429 response for ListSportsEdgeObservations
@@ -18759,6 +22295,8 @@ type ListSportsEdgeObservationsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -18817,6 +22355,11 @@ func (r ListSportsEdgeObservationsResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListSportsEdgeObservationsResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListSportsEdgeObservationsResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -18869,6 +22412,10 @@ func (r ListSportsEdgeObservationsResponse) ContentType() string {
 // ListSportsEdgeSignalsResponse200Headers the declared response headers of an HTTP 200 response for ListSportsEdgeSignals
 type ListSportsEdgeSignalsResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18878,7 +22425,16 @@ type ListSportsEdgeSignalsResponse200Headers struct {
 
 // ListSportsEdgeSignalsResponse304Headers the declared response headers of an HTTP 304 response for ListSportsEdgeSignals
 type ListSportsEdgeSignalsResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListSportsEdgeSignalsResponse429Headers the declared response headers of an HTTP 429 response for ListSportsEdgeSignals
@@ -18919,6 +22475,8 @@ type ListSportsEdgeSignalsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -18967,6 +22525,11 @@ func (r ListSportsEdgeSignalsResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListSportsEdgeSignalsResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListSportsEdgeSignalsResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -19013,6 +22576,10 @@ func (r ListSportsEdgeSignalsResponse) ContentType() string {
 
 // GetStreamResponse200Headers the declared response headers of an HTTP 200 response for GetStream
 type GetStreamResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19130,6 +22697,10 @@ func (r GetStreamResponse) ContentType() string {
 // GetTraderResponse200Headers the declared response headers of an HTTP 200 response for GetTrader
 type GetTraderResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19139,7 +22710,16 @@ type GetTraderResponse200Headers struct {
 
 // GetTraderResponse304Headers the declared response headers of an HTTP 304 response for GetTrader
 type GetTraderResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetTraderResponse429Headers the declared response headers of an HTTP 429 response for GetTrader
@@ -19177,6 +22757,8 @@ type GetTraderResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -19222,6 +22804,11 @@ func (r GetTraderResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r GetTraderResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetTraderResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -19273,9 +22860,179 @@ func (r GetTraderResponse) ContentType() string {
 	return ""
 }
 
+// GetTraderCategoryRecordsResponse200Headers the declared response headers of an HTTP 200 response for GetTraderCategoryRecords
+type GetTraderCategoryRecordsResponse200Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetTraderCategoryRecordsResponse304Headers the declared response headers of an HTTP 304 response for GetTraderCategoryRecords
+type GetTraderCategoryRecordsResponse304Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetTraderCategoryRecordsResponse429Headers the declared response headers of an HTTP 429 response for GetTraderCategoryRecords
+type GetTraderCategoryRecordsResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// GetTraderCategoryRecordsResponse503Headers the declared response headers of an HTTP 503 response for GetTraderCategoryRecords
+type GetTraderCategoryRecordsResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type GetTraderCategoryRecordsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		Data   TraderCategoryRecords                             `json:"data"`
+		Meta   ResponseMeta                                      `json:"meta"`
+		Object GetTraderCategoryRecords200JSONResponseBodyObject `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *GetTraderCategoryRecordsResponse200Headers
+	// Headers304 the parsed response headers for an HTTP 304 response
+	Headers304 *GetTraderCategoryRecordsResponse304Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *GetTraderCategoryRecordsResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *GetTraderCategoryRecordsResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON200() *struct {
+	Data   TraderCategoryRecords                             `json:"data"`
+	Meta   ResponseMeta                                      `json:"meta"`
+	Object GetTraderCategoryRecords200JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r GetTraderCategoryRecordsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetTraderCategoryRecordsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetTraderCategoryRecordsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetTraderCategoryRecordsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // GetTraderContextResponse200Headers the declared response headers of an HTTP 200 response for GetTraderContext
 type GetTraderContextResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19285,7 +23042,16 @@ type GetTraderContextResponse200Headers struct {
 
 // GetTraderContextResponse304Headers the declared response headers of an HTTP 304 response for GetTraderContext
 type GetTraderContextResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetTraderContextResponse429Headers the declared response headers of an HTTP 429 response for GetTraderContext
@@ -19323,6 +23089,8 @@ type GetTraderContextResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -19368,6 +23136,11 @@ func (r GetTraderContextResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r GetTraderContextResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetTraderContextResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -19421,6 +23194,10 @@ func (r GetTraderContextResponse) ContentType() string {
 
 // GetTraderContextMarkdownResponse200Headers the declared response headers of an HTTP 200 response for GetTraderContextMarkdown
 type GetTraderContextMarkdownResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19457,6 +23234,8 @@ type GetTraderContextMarkdownResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -19491,6 +23270,11 @@ func (r GetTraderContextMarkdownResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r GetTraderContextMarkdownResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetTraderContextMarkdownResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -19544,6 +23328,10 @@ func (r GetTraderContextMarkdownResponse) ContentType() string {
 
 // GetTraderExportSnapshotResponse200Headers the declared response headers of an HTTP 200 response for GetTraderExportSnapshot
 type GetTraderExportSnapshotResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19588,6 +23376,8 @@ type GetTraderExportSnapshotResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -19636,6 +23426,11 @@ func (r GetTraderExportSnapshotResponse) GetJSON403() *ApiError {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r GetTraderExportSnapshotResponse) GetJSON404() *ApiError {
 	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetTraderExportSnapshotResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -19689,12 +23484,28 @@ func (r GetTraderExportSnapshotResponse) ContentType() string {
 
 // SubmitTraderExportResponse200Headers the declared response headers of an HTTP 200 response for SubmitTraderExport
 type SubmitTraderExportResponse200Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // SubmitTraderExportResponse202Headers the declared response headers of an HTTP 202 response for SubmitTraderExport
 type SubmitTraderExportResponse202Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // SubmitTraderExportResponse429Headers the declared response headers of an HTTP 429 response for SubmitTraderExport
@@ -19732,6 +23543,8 @@ type SubmitTraderExportResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -19785,6 +23598,11 @@ func (r SubmitTraderExportResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r SubmitTraderExportResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r SubmitTraderExportResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -19836,7 +23654,16 @@ func (r SubmitTraderExportResponse) ContentType() string {
 
 // DownloadTraderExportResponse302Headers the declared response headers of an HTTP 302 response for DownloadTraderExport
 type DownloadTraderExportResponse302Headers struct {
-	Location string
+	Location            string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // DownloadTraderExportResponse429Headers the declared response headers of an HTTP 429 response for DownloadTraderExport
@@ -19870,6 +23697,8 @@ type DownloadTraderExportResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -19909,6 +23738,11 @@ func (r DownloadTraderExportResponse) GetJSON403() *ApiError {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r DownloadTraderExportResponse) GetJSON404() *ApiError {
 	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r DownloadTraderExportResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -19962,7 +23796,15 @@ func (r DownloadTraderExportResponse) ContentType() string {
 
 // GetTraderExportStatusResponse200Headers the declared response headers of an HTTP 200 response for GetTraderExportStatus
 type GetTraderExportStatusResponse200Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetTraderExportStatusResponse429Headers the declared response headers of an HTTP 429 response for GetTraderExportStatus
@@ -19996,6 +23838,8 @@ type GetTraderExportStatusResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -20035,6 +23879,11 @@ func (r GetTraderExportStatusResponse) GetJSON403() *ApiError {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r GetTraderExportStatusResponse) GetJSON404() *ApiError {
 	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetTraderExportStatusResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -20089,6 +23938,10 @@ func (r GetTraderExportStatusResponse) ContentType() string {
 // GetTraderPnlResponse200Headers the declared response headers of an HTTP 200 response for GetTraderPnl
 type GetTraderPnlResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20098,7 +23951,16 @@ type GetTraderPnlResponse200Headers struct {
 
 // GetTraderPnlResponse304Headers the declared response headers of an HTTP 304 response for GetTraderPnl
 type GetTraderPnlResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetTraderPnlResponse429Headers the declared response headers of an HTTP 429 response for GetTraderPnl
@@ -20138,6 +24000,8 @@ type GetTraderPnlResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -20188,6 +24052,11 @@ func (r GetTraderPnlResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetTraderPnlResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r GetTraderPnlResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -20235,6 +24104,10 @@ func (r GetTraderPnlResponse) ContentType() string {
 // GetPositionTimelineResponse200Headers the declared response headers of an HTTP 200 response for GetPositionTimeline
 type GetPositionTimelineResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20244,7 +24117,16 @@ type GetPositionTimelineResponse200Headers struct {
 
 // GetPositionTimelineResponse304Headers the declared response headers of an HTTP 304 response for GetPositionTimeline
 type GetPositionTimelineResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetPositionTimelineResponse429Headers the declared response headers of an HTTP 429 response for GetPositionTimeline
@@ -20289,6 +24171,8 @@ type GetPositionTimelineResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -20346,6 +24230,11 @@ func (r GetPositionTimelineResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetPositionTimelineResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r GetPositionTimelineResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -20397,6 +24286,10 @@ func (r GetPositionTimelineResponse) ContentType() string {
 
 // BatchGetTradersResponse200Headers the declared response headers of an HTTP 200 response for BatchGetTraders
 type BatchGetTradersResponse200Headers struct {
+	RateLimitLimit           *int
+	RateLimitRemaining       *int
+	RateLimitReset           *int
+	ServerTiming             *string
 	XBatchRateLimitLimit     *int
 	XBatchRateLimitRemaining *int
 	XBatchRateLimitReset     *int
@@ -20443,6 +24336,12 @@ type BatchGetTradersResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON413 the response for an HTTP 413 `application/json` response
+	JSON413 *ApiError
+	// JSON415 the response for an HTTP 415 `application/json` response
+	JSON415 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -20486,6 +24385,21 @@ func (r BatchGetTradersResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r BatchGetTradersResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r BatchGetTradersResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON413 returns the response for an HTTP 413 `application/json` response
+func (r BatchGetTradersResponse) GetJSON413() *ApiError {
+	return r.JSON413
+}
+
+// GetJSON415 returns the response for an HTTP 415 `application/json` response
+func (r BatchGetTradersResponse) GetJSON415() *ApiError {
+	return r.JSON415
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -20540,6 +24454,10 @@ func (r BatchGetTradersResponse) ContentType() string {
 // GetPositionTimelineByIdResponse200Headers the declared response headers of an HTTP 200 response for GetPositionTimelineById
 type GetPositionTimelineByIdResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20549,7 +24467,16 @@ type GetPositionTimelineByIdResponse200Headers struct {
 
 // GetPositionTimelineByIdResponse304Headers the declared response headers of an HTTP 304 response for GetPositionTimelineById
 type GetPositionTimelineByIdResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetPositionTimelineByIdResponse429Headers the declared response headers of an HTTP 429 response for GetPositionTimelineById
@@ -20594,6 +24521,8 @@ type GetPositionTimelineByIdResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -20651,6 +24580,11 @@ func (r GetPositionTimelineByIdResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetPositionTimelineByIdResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r GetPositionTimelineByIdResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -20702,10 +24636,17 @@ func (r GetPositionTimelineByIdResponse) ContentType() string {
 
 // GetUsageResponse200Headers the declared response headers of an HTTP 200 response for GetUsage
 type GetUsageResponse200Headers struct {
-	XRateLimitLimit     *int
-	XRateLimitRemaining *int
-	XRateLimitReset     *int
-	XRequestId          *string
+	RateLimitLimit         *int
+	RateLimitRemaining     *int
+	RateLimitReset         *int
+	ServerTiming           *string
+	XMonthlyQuotaLimit     *int
+	XMonthlyQuotaRemaining *int
+	XMonthlyQuotaReset     *int
+	XRateLimitLimit        *int
+	XRateLimitRemaining    *int
+	XRateLimitReset        *int
+	XRequestId             *string
 }
 
 // GetUsageResponse429Headers the declared response headers of an HTTP 429 response for GetUsage
@@ -20817,7 +24758,15 @@ func (r GetUsageResponse) ContentType() string {
 
 // ListWebhooksResponse200Headers the declared response headers of an HTTP 200 response for ListWebhooks
 type ListWebhooksResponse200Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListWebhooksResponse429Headers the declared response headers of an HTTP 429 response for ListWebhooks
@@ -20858,6 +24807,8 @@ type ListWebhooksResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -20904,6 +24855,11 @@ func (r ListWebhooksResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r ListWebhooksResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListWebhooksResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -20957,7 +24913,15 @@ func (r ListWebhooksResponse) ContentType() string {
 
 // CreateWebhookResponse200Headers the declared response headers of an HTTP 200 response for CreateWebhook
 type CreateWebhookResponse200Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // CreateWebhookResponse429Headers the declared response headers of an HTTP 429 response for CreateWebhook
@@ -20995,8 +24959,14 @@ type CreateWebhookResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON409 the response for an HTTP 409 `application/json` response
 	JSON409 *ApiError
+	// JSON413 the response for an HTTP 413 `application/json` response
+	JSON413 *ApiError
+	// JSON415 the response for an HTTP 415 `application/json` response
+	JSON415 *ApiError
 	// JSON422 the response for an HTTP 422 `application/json` response
 	JSON422 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
@@ -21044,9 +25014,24 @@ func (r CreateWebhookResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r CreateWebhookResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON409 returns the response for an HTTP 409 `application/json` response
 func (r CreateWebhookResponse) GetJSON409() *ApiError {
 	return r.JSON409
+}
+
+// GetJSON413 returns the response for an HTTP 413 `application/json` response
+func (r CreateWebhookResponse) GetJSON413() *ApiError {
+	return r.JSON413
+}
+
+// GetJSON415 returns the response for an HTTP 415 `application/json` response
+func (r CreateWebhookResponse) GetJSON415() *ApiError {
+	return r.JSON415
 }
 
 // GetJSON422 returns the response for an HTTP 422 `application/json` response
@@ -21105,6 +25090,10 @@ func (r CreateWebhookResponse) ContentType() string {
 
 // ListWebhookEventsResponse200Headers the declared response headers of an HTTP 200 response for ListWebhookEvents
 type ListWebhookEventsResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21148,6 +25137,8 @@ type ListWebhookEventsResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -21189,6 +25180,11 @@ func (r ListWebhookEventsResponse) GetJSON402() *ApiError {
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
 func (r ListWebhookEventsResponse) GetJSON403() *ApiError {
 	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListWebhookEventsResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -21242,7 +25238,15 @@ func (r ListWebhookEventsResponse) ContentType() string {
 
 // DeleteWebhookResponse200Headers the declared response headers of an HTTP 200 response for DeleteWebhook
 type DeleteWebhookResponse200Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // DeleteWebhookResponse429Headers the declared response headers of an HTTP 429 response for DeleteWebhook
@@ -21280,6 +25284,8 @@ type DeleteWebhookResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON409 the response for an HTTP 409 `application/json` response
 	JSON409 *ApiError
 	// JSON422 the response for an HTTP 422 `application/json` response
@@ -21327,6 +25333,11 @@ func (r DeleteWebhookResponse) GetJSON403() *ApiError {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r DeleteWebhookResponse) GetJSON404() *ApiError {
 	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r DeleteWebhookResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON409 returns the response for an HTTP 409 `application/json` response
@@ -21390,7 +25401,15 @@ func (r DeleteWebhookResponse) ContentType() string {
 
 // GetWebhookResponse200Headers the declared response headers of an HTTP 200 response for GetWebhook
 type GetWebhookResponse200Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetWebhookResponse429Headers the declared response headers of an HTTP 429 response for GetWebhook
@@ -21428,6 +25447,8 @@ type GetWebhookResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -21471,6 +25492,11 @@ func (r GetWebhookResponse) GetJSON403() *ApiError {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r GetWebhookResponse) GetJSON404() *ApiError {
 	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetWebhookResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
@@ -21524,7 +25550,15 @@ func (r GetWebhookResponse) ContentType() string {
 
 // UpdateWebhookResponse200Headers the declared response headers of an HTTP 200 response for UpdateWebhook
 type UpdateWebhookResponse200Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // UpdateWebhookResponse429Headers the declared response headers of an HTTP 429 response for UpdateWebhook
@@ -21564,8 +25598,14 @@ type UpdateWebhookResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON409 the response for an HTTP 409 `application/json` response
 	JSON409 *ApiError
+	// JSON413 the response for an HTTP 413 `application/json` response
+	JSON413 *ApiError
+	// JSON415 the response for an HTTP 415 `application/json` response
+	JSON415 *ApiError
 	// JSON422 the response for an HTTP 422 `application/json` response
 	JSON422 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
@@ -21618,9 +25658,24 @@ func (r UpdateWebhookResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r UpdateWebhookResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON409 returns the response for an HTTP 409 `application/json` response
 func (r UpdateWebhookResponse) GetJSON409() *ApiError {
 	return r.JSON409
+}
+
+// GetJSON413 returns the response for an HTTP 413 `application/json` response
+func (r UpdateWebhookResponse) GetJSON413() *ApiError {
+	return r.JSON413
+}
+
+// GetJSON415 returns the response for an HTTP 415 `application/json` response
+func (r UpdateWebhookResponse) GetJSON415() *ApiError {
+	return r.JSON415
 }
 
 // GetJSON422 returns the response for an HTTP 422 `application/json` response
@@ -21679,6 +25734,10 @@ func (r UpdateWebhookResponse) ContentType() string {
 
 // ListWebhookDeliveriesResponse200Headers the declared response headers of an HTTP 200 response for ListWebhookDeliveries
 type ListWebhookDeliveriesResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21726,6 +25785,8 @@ type ListWebhookDeliveriesResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -21779,6 +25840,11 @@ func (r ListWebhookDeliveriesResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListWebhookDeliveriesResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListWebhookDeliveriesResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -21828,9 +25894,189 @@ func (r ListWebhookDeliveriesResponse) ContentType() string {
 	return ""
 }
 
+// RedeliverWebhookDeliveryResponse200Headers the declared response headers of an HTTP 200 response for RedeliverWebhookDelivery
+type RedeliverWebhookDeliveryResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// RedeliverWebhookDeliveryResponse429Headers the declared response headers of an HTTP 429 response for RedeliverWebhookDelivery
+type RedeliverWebhookDeliveryResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// RedeliverWebhookDeliveryResponse503Headers the declared response headers of an HTTP 503 response for RedeliverWebhookDelivery
+type RedeliverWebhookDeliveryResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type RedeliverWebhookDeliveryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// Data Owner-scoped view of one webhook delivery attempt. Deliberately omits the request body and the endpoint signing secret: a delivery log never re-exposes the payload or any secret material.
+		Data   WebhookDelivery                                   `json:"data"`
+		Meta   ResponseMeta                                      `json:"meta"`
+		Object RedeliverWebhookDelivery200JSONResponseBodyObject `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON409 the response for an HTTP 409 `application/json` response
+	JSON409 *ApiError
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *RedeliverWebhookDeliveryResponse200Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *RedeliverWebhookDeliveryResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *RedeliverWebhookDeliveryResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON200() *struct {
+	// Data Owner-scoped view of one webhook delivery attempt. Deliberately omits the request body and the endpoint signing secret: a delivery log never re-exposes the payload or any secret material.
+	Data   WebhookDelivery                                   `json:"data"`
+	Meta   ResponseMeta                                      `json:"meta"`
+	Object RedeliverWebhookDelivery200JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON409 returns the response for an HTTP 409 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON409() *ApiError {
+	return r.JSON409
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON422() *ApiError {
+	return r.JSON422
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r RedeliverWebhookDeliveryResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r RedeliverWebhookDeliveryResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RedeliverWebhookDeliveryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RedeliverWebhookDeliveryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RedeliverWebhookDeliveryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // RotateWebhookSecretResponse200Headers the declared response headers of an HTTP 200 response for RotateWebhookSecret
 type RotateWebhookSecretResponse200Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // RotateWebhookSecretResponse429Headers the declared response headers of an HTTP 429 response for RotateWebhookSecret
@@ -21870,6 +26116,8 @@ type RotateWebhookSecretResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON409 the response for an HTTP 409 `application/json` response
 	JSON409 *ApiError
 	// JSON422 the response for an HTTP 422 `application/json` response
@@ -21922,6 +26170,11 @@ func (r RotateWebhookSecretResponse) GetJSON403() *ApiError {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r RotateWebhookSecretResponse) GetJSON404() *ApiError {
 	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r RotateWebhookSecretResponse) GetJSON408() *ApiError {
+	return r.JSON408
 }
 
 // GetJSON409 returns the response for an HTTP 409 `application/json` response
@@ -21985,7 +26238,15 @@ func (r RotateWebhookSecretResponse) ContentType() string {
 
 // VerifyWebhookResponse200Headers the declared response headers of an HTTP 200 response for VerifyWebhook
 type VerifyWebhookResponse200Headers struct {
-	XUsageAccounting *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // VerifyWebhookResponse429Headers the declared response headers of an HTTP 429 response for VerifyWebhook
@@ -22025,6 +26286,12 @@ type VerifyWebhookResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON413 the response for an HTTP 413 `application/json` response
+	JSON413 *ApiError
+	// JSON415 the response for an HTTP 415 `application/json` response
+	JSON415 *ApiError
 	// JSON422 the response for an HTTP 422 `application/json` response
 	JSON422 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
@@ -22075,6 +26342,21 @@ func (r VerifyWebhookResponse) GetJSON403() *ApiError {
 // GetJSON404 returns the response for an HTTP 404 `application/json` response
 func (r VerifyWebhookResponse) GetJSON404() *ApiError {
 	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r VerifyWebhookResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON413 returns the response for an HTTP 413 `application/json` response
+func (r VerifyWebhookResponse) GetJSON413() *ApiError {
+	return r.JSON413
+}
+
+// GetJSON415 returns the response for an HTTP 415 `application/json` response
+func (r VerifyWebhookResponse) GetJSON415() *ApiError {
+	return r.JSON415
 }
 
 // GetJSON422 returns the response for an HTTP 422 `application/json` response
@@ -22134,6 +26416,10 @@ func (r VerifyWebhookResponse) ContentType() string {
 // ListWhaleTradesResponse200Headers the declared response headers of an HTTP 200 response for ListWhaleTrades
 type ListWhaleTradesResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22143,7 +26429,16 @@ type ListWhaleTradesResponse200Headers struct {
 
 // ListWhaleTradesResponse304Headers the declared response headers of an HTTP 304 response for ListWhaleTrades
 type ListWhaleTradesResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListWhaleTradesResponse429Headers the declared response headers of an HTTP 429 response for ListWhaleTrades
@@ -22186,6 +26481,8 @@ type ListWhaleTradesResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -22236,6 +26533,11 @@ func (r ListWhaleTradesResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListWhaleTradesResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListWhaleTradesResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -22283,6 +26585,10 @@ func (r ListWhaleTradesResponse) ContentType() string {
 // ListWhaleTradeHistoryResponse200Headers the declared response headers of an HTTP 200 response for ListWhaleTradeHistory
 type ListWhaleTradeHistoryResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22292,7 +26598,16 @@ type ListWhaleTradeHistoryResponse200Headers struct {
 
 // ListWhaleTradeHistoryResponse304Headers the declared response headers of an HTTP 304 response for ListWhaleTradeHistory
 type ListWhaleTradeHistoryResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListWhaleTradeHistoryResponse429Headers the declared response headers of an HTTP 429 response for ListWhaleTradeHistory
@@ -22335,6 +26650,8 @@ type ListWhaleTradeHistoryResponse struct {
 	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -22385,6 +26702,11 @@ func (r ListWhaleTradeHistoryResponse) GetJSON403() *ApiError {
 	return r.JSON403
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListWhaleTradeHistoryResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r ListWhaleTradeHistoryResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -22432,6 +26754,10 @@ func (r ListWhaleTradeHistoryResponse) ContentType() string {
 // GetWhaleTradeResponse200Headers the declared response headers of an HTTP 200 response for GetWhaleTrade
 type GetWhaleTradeResponse200Headers struct {
 	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22441,7 +26767,16 @@ type GetWhaleTradeResponse200Headers struct {
 
 // GetWhaleTradeResponse304Headers the declared response headers of an HTTP 304 response for GetWhaleTrade
 type GetWhaleTradeResponse304Headers struct {
-	ETag *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // GetWhaleTradeResponse429Headers the declared response headers of an HTTP 429 response for GetWhaleTrade
@@ -22481,6 +26816,8 @@ type GetWhaleTradeResponse struct {
 	JSON403 *ApiError
 	// JSON404 the response for an HTTP 404 `application/json` response
 	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
@@ -22531,6 +26868,11 @@ func (r GetWhaleTradeResponse) GetJSON404() *ApiError {
 	return r.JSON404
 }
 
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetWhaleTradeResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
 // GetJSON423 returns the response for an HTTP 423 `application/json` response
 func (r GetWhaleTradeResponse) GetJSON423() *ApiError {
 	return r.JSON423
@@ -22577,7 +26919,30 @@ func (r GetWhaleTradeResponse) ContentType() string {
 
 // ListWhaleTradeCounterpartyExecutionsResponse200Headers the declared response headers of an HTTP 200 response for ListWhaleTradeCounterpartyExecutions
 type ListWhaleTradeCounterpartyExecutionsResponse200Headers struct {
-	XUsageAccounting *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// ListWhaleTradeCounterpartyExecutionsResponse304Headers the declared response headers of an HTTP 304 response for ListWhaleTradeCounterpartyExecutions
+type ListWhaleTradeCounterpartyExecutionsResponse304Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListWhaleTradeCounterpartyExecutionsResponse429Headers the declared response headers of an HTTP 429 response for ListWhaleTradeCounterpartyExecutions
@@ -22623,6 +26988,8 @@ type ListWhaleTradeCounterpartyExecutionsResponse struct {
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
 	Headers200 *ListWhaleTradeCounterpartyExecutionsResponse200Headers
+	// Headers304 the parsed response headers for an HTTP 304 response
+	Headers304 *ListWhaleTradeCounterpartyExecutionsResponse304Headers
 	// Headers429 the parsed response headers for an HTTP 429 response
 	Headers429 *ListWhaleTradeCounterpartyExecutionsResponse429Headers
 	// Headers503 the parsed response headers for an HTTP 503 response
@@ -22704,7 +27071,30 @@ func (r ListWhaleTradeCounterpartyExecutionsResponse) ContentType() string {
 
 // ListWhaleTradeCounterpartyMakersResponse200Headers the declared response headers of an HTTP 200 response for ListWhaleTradeCounterpartyMakers
 type ListWhaleTradeCounterpartyMakersResponse200Headers struct {
-	XUsageAccounting *string
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// ListWhaleTradeCounterpartyMakersResponse304Headers the declared response headers of an HTTP 304 response for ListWhaleTradeCounterpartyMakers
+type ListWhaleTradeCounterpartyMakersResponse304Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
 }
 
 // ListWhaleTradeCounterpartyMakersResponse429Headers the declared response headers of an HTTP 429 response for ListWhaleTradeCounterpartyMakers
@@ -22750,6 +27140,8 @@ type ListWhaleTradeCounterpartyMakersResponse struct {
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
 	Headers200 *ListWhaleTradeCounterpartyMakersResponse200Headers
+	// Headers304 the parsed response headers for an HTTP 304 response
+	Headers304 *ListWhaleTradeCounterpartyMakersResponse304Headers
 	// Headers429 the parsed response headers for an HTTP 429 response
 	Headers429 *ListWhaleTradeCounterpartyMakersResponse429Headers
 	// Headers503 the parsed response headers for an HTTP 503 response
@@ -22844,6 +27236,21 @@ func (c *ClientWithResponses) GetApiDiscoveryWithResponse(ctx context.Context, r
 	return ParseGetApiDiscoveryResponse(rsp)
 }
 
+// RegisterAgentWithResponse Register an agent for a sandbox key
+//
+// Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
+func (c *ClientWithResponses) RegisterAgentWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RegisterAgentResponse, error) {
+	rsp, err := c.RegisterAgent(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegisterAgentResponse(rsp)
+}
+
 // SearchContentWithResponse Search editorial content
 //
 // Search 0xinsider editorial content by keyword. Returns backend-owned learn, glossary, comparison, research, and trading-strategy items with canonical URLs. Opaque ranking scores are not exposed.
@@ -22861,7 +27268,7 @@ func (c *ClientWithResponses) SearchContentWithResponse(ctx context.Context, par
 
 // GetEventReplaySinceWithResponse Replay public whale-trade intelligence events
 //
-// Returns durable public whale-trade intelligence events strictly after an opaque cursor backed by whale_alerts.id. This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
+// Returns durable public whale-trade intelligence events strictly after an opaque cursor, in commit order: events are ordered by the position at which their write became visible to every reader (whale_alerts.inserted_xid), then by whale_alerts.id, and a page never reaches past the oldest write transaction still open when it was read. A trade whose id is lower than one already delivered but whose write finished later is therefore delivered on a later request instead of being skipped (#16180). This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -22921,7 +27328,7 @@ func (c *ClientWithResponses) GetInsiderRadarFlagWithResponse(ctx context.Contex
 
 // ListLargePositionsWithResponse List large positions
 //
-// Returns the largest current open positions from graded traders, value-descending, with opaque cursor pagination. Polymarket-only by design: the large-positions scanner filters platform = 'polymarket' (backend/crates/large-positions/src/scanner.rs), so only Polymarket rows are scanned and an unknown condition_id filter returns an empty list (never fabricated rows). The teaser cap that the internal product UI applies to anonymous viewers does not apply here: the API key already proves an active Pro subscription (wire tier `insider`), so authed API callers get full access.
+// Returns the largest current open positions from graded traders, value-descending, with opaque cursor pagination. This is a change-detection feed, not a holder list: a row needs a current value of at least 50,000 USD and a live detection in the last 24 hours, so a wallet that holds a market without moving is not listed. For every graded holder of one market use GET /api/v1/market/{condition_id}/holders. Polymarket-only by design: the large-positions scanner filters platform = 'polymarket' (backend/crates/large-positions/src/scanner.rs), so only Polymarket rows are scanned and an unknown condition_id filter returns an empty list (never fabricated rows). The teaser cap that the internal product UI applies to anonymous viewers does not apply here: the API key already proves an active Pro subscription (wire tier `insider`), so authed API callers get full access.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -22977,6 +27384,36 @@ func (c *ClientWithResponses) GetMarketCandlesWithResponse(ctx context.Context, 
 		return nil, err
 	}
 	return ParseGetMarketCandlesResponse(rsp)
+}
+
+// GetMarketContextMarkdownWithResponse Get market context (Markdown)
+//
+// Authenticated, self-contained Polymarket market evidence document. Renders the same typed data as the market snapshot with trust included: identity, outcome labels and tokens, cached quotes, liquidity, live sports, and per-source freshness or unavailable reasons. Provider text is encoded as indented JSON data. Accepts raw or mkt_-prefixed condition IDs. Unknown markets return 404. No ETag or conditional requests; use the snapshot JSON route for those.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/market/{condition_id}/context.md (the `GetMarketContextMarkdown` operationId).
+func (c *ClientWithResponses) GetMarketContextMarkdownWithResponse(ctx context.Context, conditionId string, reqEditors ...RequestEditorFn) (*GetMarketContextMarkdownResponse, error) {
+	rsp, err := c.GetMarketContextMarkdown(ctx, conditionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetMarketContextMarkdownResponse(rsp)
+}
+
+// GetMarketHoldersWithResponse List a market's graded holders
+//
+// The graded holder roster of one market, the list a Pick of the Day shows for its market, for any Polymarket market: every S/A/B wallet with open shares on either outcome, from a complete provider holder scan, each with its shares, Polymarket's own currentValue for the leg, its grade, its win record in the market's category, and its badges. Both outcomes are listed; a wallet holding both is listed once on its net side. Ordered by current_value_usd DESC, then shares DESC, then address. The roster is computed at most once a minute per market and shared by every caller; a page is cut from that roster, so paging is cheap and `total` is exact. The route never widens past the graded cohort: `scan.wallet_count` reports every wallet the walk saw, graded or not. An incomplete, unstable or failed scan is a 503 with Retry-After, never a shorter list.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/market/{condition_id}/holders (the `GetMarketHolders` operationId).
+func (c *ClientWithResponses) GetMarketHoldersWithResponse(ctx context.Context, conditionId string, params *GetMarketHoldersParams, reqEditors ...RequestEditorFn) (*GetMarketHoldersResponse, error) {
+	rsp, err := c.GetMarketHolders(ctx, conditionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetMarketHoldersResponse(rsp)
 }
 
 // GetMarketIntelWithResponse Get market intelligence
@@ -23101,9 +27538,9 @@ func (c *ClientWithResponses) ListSmartMoneyFlowsWithResponse(ctx context.Contex
 	return ParseListSmartMoneyFlowsResponse(rsp)
 }
 
-// OpenMcpEventStreamWithResponse Open MCP server-to-client stream
+// OpenMcpEventStreamWithResponse MCP GET: no server-to-client stream (405)
 //
-// Opens a text/event-stream connection for server-initiated notifications as described in the MCP Streamable HTTP transport. The endpoint currently sends no notifications — clients that only care about request/response use POST.
+// The MCP Streamable HTTP transport lets a client GET the endpoint to open a server-to-client text/event-stream, and lets the server answer 405 Method Not Allowed when it offers no such stream. This server sends no notifications, so an authenticated GET answers 405 with Allow: POST, a JSON-RPC error body (code -32004) and X-Mcp-Error-Code: -32004; a conforming client (the reference @modelcontextprotocol/sdk included) reads the 405 as no stream here and does not retry. Without a credential the GET answers 401 with the WWW-Authenticate challenge naming /.well-known/oauth-protected-resource/api/v1/mcp, which is where a client that has only run the public handshake learns to start the OAuth flow. Until 2026-09-22 an authenticated GET answered 200 text/event-stream and closed the body at once, which conforming clients reconnected to every second. Every JSON-RPC request goes over POST.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -23118,7 +27555,7 @@ func (c *ClientWithResponses) OpenMcpEventStreamWithResponse(ctx context.Context
 
 // CreateMcpJsonRpcResponseWithBodyWithResponse Remote MCP endpoint (JSON-RPC)
 //
-// Model Context Protocol (MCP) Streamable HTTP transport. Accepts a JSON-RPC 2.0 request and returns a JSON-RPC response. Supported methods: initialize, notifications/initialized, ping, tools/list, tools/call. Remote MCP exposes 33 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call and the GET event stream need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. Legacy ?token=<token> authentication works only on exact /api/v1/mcp. Every other protected V1 route rejects query-string API keys. Prefer headers or the stdio package because URL secrets can land in shell history, browser history, and logs. The retirement date is unknown until external URL-only client compatibility is checked. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist.
+// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests receive one same-ID JSON-RPC response. ID-less ping, notifications/initialized, and notifications/cancelled receive HTTP 202 with no body; other ID-less methods and unsolicited response messages receive HTTP 400 with no body. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Remote MCP exposes 35 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_sports_edge_signals, get_sports_edge_observations, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every route with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: a non-object, an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source, directional_source and the category_skill_* fields on get_sports_edge_signals) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST and GET: a value outside 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with JSON-RPC error -32600 before the body is read; an absent header is served as 2025-03-26, the transport specification's compatibility default. Browser preflight allows the header.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -23133,7 +27570,7 @@ func (c *ClientWithResponses) CreateMcpJsonRpcResponseWithBodyWithResponse(ctx c
 
 // CreateMcpJsonRpcResponseWithResponse Remote MCP endpoint (JSON-RPC)
 //
-// Model Context Protocol (MCP) Streamable HTTP transport. Accepts a JSON-RPC 2.0 request and returns a JSON-RPC response. Supported methods: initialize, notifications/initialized, ping, tools/list, tools/call. Remote MCP exposes 33 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call and the GET event stream need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. Legacy ?token=<token> authentication works only on exact /api/v1/mcp. Every other protected V1 route rejects query-string API keys. Prefer headers or the stdio package because URL secrets can land in shell history, browser history, and logs. The retirement date is unknown until external URL-only client compatibility is checked. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist.
+// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests receive one same-ID JSON-RPC response. ID-less ping, notifications/initialized, and notifications/cancelled receive HTTP 202 with no body; other ID-less methods and unsolicited response messages receive HTTP 400 with no body. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Remote MCP exposes 35 read-only tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_whale_trades, get_whale_trade, get_whale_trades_history, get_sports_edge_signals, get_sports_edge_observations, get_market_intel, batch_get_market_intel, get_smart_money_flows, get_sharp_money_flows, get_market_snapshot, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_report, get_trader_export_snapshot, get_platforms, get_large_positions, get_trending_wallets, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_archive. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every route with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. Mcp-Session-Id is minted on initialize and echoed on every response. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: a non-object, an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source, directional_source and the category_skill_* fields on get_sports_edge_signals) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST and GET: a value outside 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with JSON-RPC error -32600 before the body is read; an absent header is served as 2025-03-26, the transport specification's compatibility default. Browser preflight allows the header.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -23144,6 +27581,21 @@ func (c *ClientWithResponses) CreateMcpJsonRpcResponseWithResponse(ctx context.C
 		return nil, err
 	}
 	return ParseCreateMcpJsonRpcResponseResponse(rsp)
+}
+
+// GetAccountIdentityWithResponse Identify the authenticated account and credential
+//
+// Returns the account and credential IDs admitted by API authentication, credential kind, and approved scopes. Null scopes mean full developer-key access. Requires an active Pro subscription and read scope for OAuth grants. Does not return credentials or personal contact details.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/me (the `GetAccountIdentity` operationId).
+func (c *ClientWithResponses) GetAccountIdentityWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetAccountIdentityResponse, error) {
+	rsp, err := c.GetAccountIdentity(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAccountIdentityResponse(rsp)
 }
 
 // RedirectApiOpenapiSpecWithResponse Redirect to the canonical OpenAPI spec
@@ -23203,6 +27655,27 @@ func (c *ClientWithResponses) GetPickOfTheDayArchiveWithResponse(ctx context.Con
 	return ParseGetPickOfTheDayArchiveResponse(rsp)
 }
 
+// GetPickOfTheDayLedgerWithResponse Get the Pick of the Day commitment ledger
+//
+// Returns the pre-game commitment for every published pick, so the public track record can be checked by someone who was not watching when the pick dropped.
+//
+// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant and the kickoff, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
+//
+// To verify an opened entry: serialize nothing. Take the bytes of the `payload` object exactly as received, append the `commitment_nonce` decoded from hex, and sha256 the result; it equals `commitment_hash`. The payload is canonical JSON -- keys sorted by UTF-8 byte value, no insignificant whitespace, decimals as strings at full stored precision, timestamps whole-second UTC with a literal Z -- and it is served byte for byte as it was hashed.
+//
+// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/pick-of-the-day/ledger (the `GetPickOfTheDayLedger` operationId).
+func (c *ClientWithResponses) GetPickOfTheDayLedgerWithResponse(ctx context.Context, params *GetPickOfTheDayLedgerParams, reqEditors ...RequestEditorFn) (*GetPickOfTheDayLedgerResponse, error) {
+	rsp, err := c.GetPickOfTheDayLedger(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetPickOfTheDayLedgerResponse(rsp)
+}
+
 // GetPlatformsWithResponse Get platform capability matrix
 //
 // Unauthenticated discovery endpoint that declares which V1 intelligence surfaces are supported, partial, or unsupported per provider platform.
@@ -23220,7 +27693,7 @@ func (c *ClientWithResponses) GetPlatformsWithResponse(ctx context.Context, reqE
 
 // ListPositionsWithResponse List current positions (positions-board feed)
 //
-// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL.
+// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -23353,6 +27826,21 @@ func (c *ClientWithResponses) GetTraderWithResponse(ctx context.Context, address
 	return ParseGetTraderResponse(rsp)
 }
 
+// GetTraderCategoryRecordsWithResponse Get trader category win records
+//
+// Returns one wallet's win record in every canonical category it has a settled market in: wins, decided (wins plus losses) and the rate, per category, busiest category first. These are the same counts the Pick of the Day holder chips carry. The Esports record also carries games: the wallet's record in each esports title it has a settled market in (LoL, CS2, Dota 2, Valorant, ...), the same per-game record the holder chips and GET /api/v1/market/{condition_id}/holders name in category_win_rate_game, with the same counts, floor and status rule; the Esports row itself stays the whole bucket, which is what a chip falls back to when a game record is thin. The basis is every settled market at any position size, which is NOT the basis of category_strengths on GET /api/v1/trader/{address}?expand=categories: that breakdown keeps the 20 USD notional floor and the entry-price rule its ranks depend on, so the two legitimately differ (1,554 of 3,291 here against 1,457 of 2,733 there on one Soccer wallet, measured 2026-09-20). A category or game with fewer than min_decided_for_win_rate decided markets keeps its counts and returns win_rate null with status not_enough_data, so a caller can apply its own sample rule. A category the wallet has no settled market in is omitted entirely, and so is a game: an absent entry means no record, never a 0% record. A resolved trader with no settled market returns an empty records array (HTTP 200); an unknown address returns 404.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/trader/{address}/categories (the `GetTraderCategoryRecords` operationId).
+func (c *ClientWithResponses) GetTraderCategoryRecordsWithResponse(ctx context.Context, address string, params *GetTraderCategoryRecordsParams, reqEditors ...RequestEditorFn) (*GetTraderCategoryRecordsResponse, error) {
+	rsp, err := c.GetTraderCategoryRecords(ctx, address, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetTraderCategoryRecordsResponse(rsp)
+}
+
 // GetTraderContextWithResponse Get trader context (JSON)
 //
 // Returns a single structured context object for one trader: the full trader profile (same shape as GET /api/v1/trader/{address}) plus a position_summary (sync coverage and realized/unrealized P&L rollups, with an as_of open-position freshness clock), the data_as_of freshness timestamp (the open-position data's latest /positions snapshot, else last completed sync; the snapshot advances only open positions, so resolved counts and win rate still date to the last full sync; native realized P&L follows its accounting snapshot), and a freshness_note describing the point-in-time snapshot semantics. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. position_summary is omitted when the trader is not in the local database or native net economics is unavailable; realized fields remain numeric when present; unknown lookups return 200 with sync_status 'unknown' on the nested trader (no 404). Append .md to the path for the Markdown rendering.
@@ -23445,7 +27933,7 @@ func (c *ClientWithResponses) GetTraderExportStatusWithResponse(ctx context.Cont
 
 // GetTraderPnlWithResponse Get trader P&L time series
 //
-// Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404. Spans both providers wherever the read model has the trader's series.
+// Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -23535,7 +28023,7 @@ func (c *ClientWithResponses) GetUsageWithResponse(ctx context.Context, reqEdito
 
 // ListWebhooksWithResponse List builder webhook destinations
 //
-// Returns webhook destinations owned by the authenticated API key user. Disabled endpoints are omitted. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
+// Returns webhook destinations owned by the authenticated API key user. Deleted endpoints are omitted; an endpoint paused with PATCH or disabled after consecutive failures is listed with status disabled. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -23550,7 +28038,7 @@ func (c *ClientWithResponses) ListWebhooksWithResponse(ctx context.Context, reqE
 
 // CreateWebhookWithBodyWithResponse Create a builder webhook destination
 //
-// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers.
+// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -23565,7 +28053,7 @@ func (c *ClientWithResponses) CreateWebhookWithBodyWithResponse(ctx context.Cont
 
 // CreateWebhookWithResponse Create a builder webhook destination
 //
-// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers.
+// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -23655,7 +28143,7 @@ func (c *ClientWithResponses) UpdateWebhookWithResponse(ctx context.Context, id 
 
 // ListWebhookDeliveriesWithResponse List webhook delivery log
 //
-// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret.
+// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; it is null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery is retried for up to 7380 seconds; see POST /api/v1/webhooks for the retry schedule and the endpoint disable rule. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -23666,6 +28154,21 @@ func (c *ClientWithResponses) ListWebhookDeliveriesWithResponse(ctx context.Cont
 		return nil, err
 	}
 	return ParseListWebhookDeliveriesResponse(rsp)
+}
+
+// RedeliverWebhookDeliveryWithResponse Redeliver a dead-lettered webhook delivery
+//
+// Returns one dead_letter delivery to the delivery queue with a fresh attempt budget: status becomes pending, attempt_count resets to 0, and next_attempt_at is now, so the delivery worker claims it like any queued delivery, under the same per-owner and per-origin concurrency limits. Use it after a failed delivery exhausts its retries, or after re-enabling an endpoint whose queued deliveries were dead-lettered when it was disabled: PATCH /api/v1/webhooks/{id} {"enabled": true} resends nothing by itself. The resend is signed with the endpoint's current signing secret and sent to its current URL, and keeps the delivery's event_id and idempotency-key header, so a receiver that already processed the event can deduplicate it; x-0xinsider-delivery-attempt starts again at 1. last_response_status and last_error keep the previous failure until the next attempt records its own. Returns 409 when the delivery is already delivered or still queued (pending, retry, or processing), or when the endpoint would not receive it (disabled, not verified, or no longer subscribed to the delivery's event_type); error.message names the step that lets the same request succeed. Returns 404 for an endpoint or delivery the caller does not own, including a delivery removed by the seven-day retention of delivered and dead_letter history.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver (the `RedeliverWebhookDelivery` operationId).
+func (c *ClientWithResponses) RedeliverWebhookDeliveryWithResponse(ctx context.Context, id int64, deliveryId int64, params *RedeliverWebhookDeliveryParams, reqEditors ...RequestEditorFn) (*RedeliverWebhookDeliveryResponse, error) {
+	rsp, err := c.RedeliverWebhookDelivery(ctx, id, deliveryId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRedeliverWebhookDeliveryResponse(rsp)
 }
 
 // RotateWebhookSecretWithResponse Rotate a builder webhook signing secret
@@ -23813,8 +28316,12 @@ func ParseGetApiDiscoveryResponse(rsp *http.Response) (*GetApiDiscoveryResponse,
 		}
 		response.JSON200 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest ApiError
@@ -23826,8 +28333,226 @@ func ParseGetApiDiscoveryResponse(rsp *http.Response) (*GetApiDiscoveryResponse,
 	}
 
 	switch {
+	case rsp.StatusCode == 200:
+		var headers GetApiDiscoveryResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		response.Headers200 = &headers
 	case rsp.StatusCode == 429:
 		var headers GetApiDiscoveryResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseRegisterAgentResponse parses an HTTP response from a RegisterAgentWithResponse call
+func ParseRegisterAgentResponse(rsp *http.Response) (*RegisterAgentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegisterAgentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest struct {
+			// Data A sandbox key and the path to live access (#13959). Nothing is stored: the key cannot be listed or revoked and does not expire. Register again for a new one.
+			Data   AgentRegistration                      `json:"data"`
+			Meta   ResponseMeta                           `json:"meta"`
+			Object RegisterAgent201JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 201:
+		var headers RegisterAgentResponse201Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		response.Headers201 = &headers
+	case rsp.StatusCode == 429:
+		var headers RegisterAgentResponse429Headers
 		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -23950,8 +28675,12 @@ func ParseSearchContentResponse(rsp *http.Response) (*SearchContentResponse, err
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -23986,6 +28715,34 @@ func ParseSearchContentResponse(rsp *http.Response) (*SearchContentResponse, err
 	switch {
 	case rsp.StatusCode == 200:
 		var headers SearchContentResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -24158,8 +28915,12 @@ func ParseGetEventReplaySinceResponse(rsp *http.Response) (*GetEventReplaySinceR
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -24187,6 +28948,34 @@ func ParseGetEventReplaySinceResponse(rsp *http.Response) (*GetEventReplaySinceR
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetEventReplaySinceResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -24339,6 +29128,9 @@ func ParseGetHealthResponse(rsp *http.Response) (*GetHealthResponse, error) {
 						Total        int                                                            `json:"total"`
 						Unconfigured int                                                            `json:"unconfigured"`
 					} `json:"background_jobs"`
+
+					// WebhookCompatibility Whether the webhook outbox schema validated on this probe. false lowers status to degraded. true during a maintenance window, when nothing is probed.
+					WebhookCompatibility bool `json:"webhook_compatibility"`
 				} `json:"subsystems,omitempty"`
 			} `json:"data"`
 			Meta   ResponseMeta                       `json:"meta"`
@@ -24352,8 +29144,12 @@ func ParseGetHealthResponse(rsp *http.Response) (*GetHealthResponse, error) {
 	case rsp.StatusCode == 304:
 		break // No content-type
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest ApiError
@@ -24374,6 +29170,55 @@ func ParseGetHealthResponse(rsp *http.Response) (*GetHealthResponse, error) {
 			}
 			headers.ETag = &value
 		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
 		response.Headers200 = &headers
 	case rsp.StatusCode == 304:
 		var headers GetHealthResponse304Headers
@@ -24383,6 +29228,55 @@ func ParseGetHealthResponse(rsp *http.Response) (*GetHealthResponse, error) {
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -24510,8 +29404,12 @@ func ParseListInsiderRadarResponse(rsp *http.Response) (*ListInsiderRadarRespons
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -24545,6 +29443,34 @@ func ParseListInsiderRadarResponse(rsp *http.Response) (*ListInsiderRadarRespons
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -24590,6 +29516,69 @@ func ParseListInsiderRadarResponse(rsp *http.Response) (*ListInsiderRadarRespons
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -24736,8 +29725,12 @@ func ParseGetInsiderRadarFlagResponse(rsp *http.Response) (*GetInsiderRadarFlagR
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -24771,6 +29764,34 @@ func ParseGetInsiderRadarFlagResponse(rsp *http.Response) (*GetInsiderRadarFlagR
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -24816,6 +29837,69 @@ func ParseGetInsiderRadarFlagResponse(rsp *http.Response) (*GetInsiderRadarFlagR
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -24962,8 +30046,12 @@ func ParseListLargePositionsResponse(rsp *http.Response) (*ListLargePositionsRes
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -24997,6 +30085,34 @@ func ParseListLargePositionsResponse(rsp *http.Response) (*ListLargePositionsRes
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -25042,6 +30158,69 @@ func ParseListLargePositionsResponse(rsp *http.Response) (*ListLargePositionsRes
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -25186,8 +30365,12 @@ func ParseListLeaderboardResponse(rsp *http.Response) (*ListLeaderboardResponse,
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -25221,6 +30404,34 @@ func ParseListLeaderboardResponse(rsp *http.Response) (*ListLeaderboardResponse,
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -25266,6 +30477,69 @@ func ParseListLeaderboardResponse(rsp *http.Response) (*ListLeaderboardResponse,
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -25412,8 +30686,12 @@ func ParseListTrendingWalletsResponse(rsp *http.Response) (*ListTrendingWalletsR
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -25447,6 +30725,34 @@ func ParseListTrendingWalletsResponse(rsp *http.Response) (*ListTrendingWalletsR
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -25492,6 +30798,69 @@ func ParseListTrendingWalletsResponse(rsp *http.Response) (*ListTrendingWalletsR
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -25639,8 +31008,12 @@ func ParseGetMarketCandlesResponse(rsp *http.Response) (*GetMarketCandlesRespons
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -25674,6 +31047,34 @@ func ParseGetMarketCandlesResponse(rsp *http.Response) (*GetMarketCandlesRespons
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -25719,6 +31120,69 @@ func ParseGetMarketCandlesResponse(rsp *http.Response) (*GetMarketCandlesRespons
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -25802,6 +31266,566 @@ func ParseGetMarketCandlesResponse(rsp *http.Response) (*GetMarketCandlesRespons
 	return response, nil
 }
 
+// ParseGetMarketContextMarkdownResponse parses an HTTP response from a GetMarketContextMarkdownWithResponse call
+func ParseGetMarketContextMarkdownResponse(rsp *http.Response) (*GetMarketContextMarkdownResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetMarketContextMarkdownResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers GetMarketContextMarkdownResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 429:
+		var headers GetMarketContextMarkdownResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers GetMarketContextMarkdownResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseGetMarketHoldersResponse parses an HTTP response from a GetMarketHoldersWithResponse call
+func ParseGetMarketHoldersResponse(rsp *http.Response) (*GetMarketHoldersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetMarketHoldersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			Data    []MarketHolder      `json:"data"`
+			HasMore bool                `json:"has_more"`
+			Market  MarketHoldersMarket `json:"market"`
+			Meta    ResponseMeta        `json:"meta"`
+
+			// NextCursor Absent on the last page.
+			NextCursor *string                                   `json:"next_cursor,omitempty"`
+			Object     GetMarketHolders200JSONResponseBodyObject `json:"object"`
+			Scan       MarketHoldersScan                         `json:"scan"`
+
+			// Total Holders matching the request's `outcome` and `min_grade` filters across every page.
+			Total int `json:"total"`
+
+			// Totals Roster totals BEFORE any `outcome` or `min_grade` filter, so a page always knows the whole market it was cut from.
+			Totals MarketHoldersTotals `json:"totals"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 304:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers GetMarketHoldersResponse200Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 304:
+		var headers GetMarketHoldersResponse304Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers304 = &headers
+	case rsp.StatusCode == 429:
+		var headers GetMarketHoldersResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers GetMarketHoldersResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
 // ParseGetMarketIntelResponse parses an HTTP response from a GetMarketIntelWithResponse call
 func ParseGetMarketIntelResponse(rsp *http.Response) (*GetMarketIntelResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -25865,8 +31889,12 @@ func ParseGetMarketIntelResponse(rsp *http.Response) (*GetMarketIntelResponse, e
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -25900,6 +31928,34 @@ func ParseGetMarketIntelResponse(rsp *http.Response) (*GetMarketIntelResponse, e
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -25945,6 +32001,69 @@ func ParseGetMarketIntelResponse(rsp *http.Response) (*GetMarketIntelResponse, e
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -26091,8 +32210,12 @@ func ParseGetMarketSnapshotResponse(rsp *http.Response) (*GetMarketSnapshotRespo
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -26126,6 +32249,34 @@ func ParseGetMarketSnapshotResponse(rsp *http.Response) (*GetMarketSnapshotRespo
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -26171,6 +32322,69 @@ func ParseGetMarketSnapshotResponse(rsp *http.Response) (*GetMarketSnapshotRespo
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -26321,8 +32535,12 @@ func ParseExploreMarketsResponse(rsp *http.Response) (*ExploreMarketsResponse, e
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -26356,6 +32574,34 @@ func ParseExploreMarketsResponse(rsp *http.Response) (*ExploreMarketsResponse, e
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -26401,6 +32647,69 @@ func ParseExploreMarketsResponse(rsp *http.Response) (*ExploreMarketsResponse, e
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -26537,8 +32846,26 @@ func ParseBatchGetMarketIntelResponse(rsp *http.Response) (*BatchGetMarketIntelR
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 415:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON415 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -26573,6 +32900,34 @@ func ParseBatchGetMarketIntelResponse(rsp *http.Response) (*BatchGetMarketIntelR
 	switch {
 	case rsp.StatusCode == 200:
 		var headers BatchGetMarketIntelResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-Batch-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Batch-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -26776,8 +33131,12 @@ func ParseSearchMarketsResponse(rsp *http.Response) (*SearchMarketsResponse, err
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -26805,6 +33164,34 @@ func ParseSearchMarketsResponse(rsp *http.Response) (*SearchMarketsResponse, err
 	switch {
 	case rsp.StatusCode == 200:
 		var headers SearchMarketsResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -26981,8 +33368,12 @@ func ParseListSharpMoneyFlowsResponse(rsp *http.Response) (*ListSharpMoneyFlowsR
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -27016,6 +33407,34 @@ func ParseListSharpMoneyFlowsResponse(rsp *http.Response) (*ListSharpMoneyFlowsR
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -27061,6 +33480,69 @@ func ParseListSharpMoneyFlowsResponse(rsp *http.Response) (*ListSharpMoneyFlowsR
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -27203,8 +33685,12 @@ func ParseListSmartMoneyFlowsResponse(rsp *http.Response) (*ListSmartMoneyFlowsR
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -27253,6 +33739,34 @@ func ParseListSmartMoneyFlowsResponse(rsp *http.Response) (*ListSmartMoneyFlowsR
 			}
 			headers.Link = &value
 		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -27297,6 +33811,69 @@ func ParseListSmartMoneyFlowsResponse(rsp *http.Response) (*ListSmartMoneyFlowsR
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -27408,6 +33985,13 @@ func ParseOpenMcpEventStreamResponse(rsp *http.Response) (*OpenMcpEventStreamRes
 		}
 		response.JSON403 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 405:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON405 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -27418,8 +34002,50 @@ func ParseOpenMcpEventStreamResponse(rsp *http.Response) (*OpenMcpEventStreamRes
 	}
 
 	switch {
-	case rsp.StatusCode == 200:
-		var headers OpenMcpEventStreamResponse200Headers
+	case rsp.StatusCode == 405:
+		var headers OpenMcpEventStreamResponse405Headers
+		if values := rsp.Header.Values("Allow"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Allow", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.Allow = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Mcp-Error-Code"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Mcp-Error-Code", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XMcpErrorCode = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -27455,7 +34081,7 @@ func ParseOpenMcpEventStreamResponse(rsp *http.Response) (*OpenMcpEventStreamRes
 			}
 			headers.XUsageAccounting = &value
 		}
-		response.Headers200 = &headers
+		response.Headers405 = &headers
 	case rsp.StatusCode == 429:
 		var headers OpenMcpEventStreamResponse429Headers
 		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
@@ -27599,6 +34225,34 @@ func ParseCreateMcpJsonRpcResponseResponse(rsp *http.Response) (*CreateMcpJsonRp
 	switch {
 	case rsp.StatusCode == 200:
 		var headers CreateMcpJsonRpcResponseResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -27637,6 +34291,62 @@ func ParseCreateMcpJsonRpcResponseResponse(rsp *http.Response) (*CreateMcpJsonRp
 		response.Headers200 = &headers
 	case rsp.StatusCode == 202:
 		var headers CreateMcpJsonRpcResponseResponse202Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -27709,6 +34419,212 @@ func ParseCreateMcpJsonRpcResponseResponse(rsp *http.Response) (*CreateMcpJsonRp
 	return response, nil
 }
 
+// ParseGetAccountIdentityResponse parses an HTTP response from a GetAccountIdentityWithResponse call
+func ParseGetAccountIdentityResponse(rsp *http.Response) (*GetAccountIdentityResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAccountIdentityResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AccountIdentity
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers GetAccountIdentityResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 429:
+		var headers GetAccountIdentityResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers GetAccountIdentityResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
 // ParseRedirectApiOpenapiSpecResponse parses an HTTP response from a RedirectApiOpenapiSpecWithResponse call
 func ParseRedirectApiOpenapiSpecResponse(rsp *http.Response) (*RedirectApiOpenapiSpecResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -27726,8 +34642,12 @@ func ParseRedirectApiOpenapiSpecResponse(rsp *http.Response) (*RedirectApiOpenap
 	case rsp.StatusCode == 307:
 		break // No content-type
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest ApiError
@@ -27754,6 +34674,55 @@ func ParseRedirectApiOpenapiSpecResponse(rsp *http.Response) (*RedirectApiOpenap
 				return nil, err
 			}
 			headers.Location = value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
 		}
 		response.Headers307 = &headers
 	case rsp.StatusCode == 429:
@@ -27876,8 +34845,12 @@ func ParseGetPickOfTheDayResponse(rsp *http.Response) (*GetPickOfTheDayResponse,
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -27911,6 +34884,34 @@ func ParseGetPickOfTheDayResponse(rsp *http.Response) (*GetPickOfTheDayResponse,
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -27956,6 +34957,69 @@ func ParseGetPickOfTheDayResponse(rsp *http.Response) (*GetPickOfTheDayResponse,
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 404:
@@ -28098,8 +35162,12 @@ func ParseGetPickOfTheDayArchiveResponse(rsp *http.Response) (*GetPickOfTheDayAr
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -28133,6 +35201,34 @@ func ParseGetPickOfTheDayArchiveResponse(rsp *http.Response) (*GetPickOfTheDayAr
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -28178,6 +35274,69 @@ func ParseGetPickOfTheDayArchiveResponse(rsp *http.Response) (*GetPickOfTheDayAr
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -28261,6 +35420,314 @@ func ParseGetPickOfTheDayArchiveResponse(rsp *http.Response) (*GetPickOfTheDayAr
 	return response, nil
 }
 
+// ParseGetPickOfTheDayLedgerResponse parses an HTTP response from a GetPickOfTheDayLedgerWithResponse call
+func ParseGetPickOfTheDayLedgerResponse(rsp *http.Response) (*GetPickOfTheDayLedgerResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetPickOfTheDayLedgerResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			// Data The commitment ledger: every published pick, ascending, in the state its commitment is actually in. The counts are derived from entries in the same pass that builds it.
+			Data   PickOfTheDayLedger                             `json:"data"`
+			Meta   ResponseMeta                                   `json:"meta"`
+			Object GetPickOfTheDayLedger200JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 304:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers GetPickOfTheDayLedgerResponse200Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 304:
+		var headers GetPickOfTheDayLedgerResponse304Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers304 = &headers
+	case rsp.StatusCode == 429:
+		var headers GetPickOfTheDayLedgerResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers GetPickOfTheDayLedgerResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
 // ParseGetPlatformsResponse parses an HTTP response from a GetPlatformsWithResponse call
 func ParseGetPlatformsResponse(rsp *http.Response) (*GetPlatformsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -28286,8 +35753,12 @@ func ParseGetPlatformsResponse(rsp *http.Response) (*GetPlatformsResponse, error
 		}
 		response.JSON200 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest ApiError
@@ -28306,6 +35777,58 @@ func ParseGetPlatformsResponse(rsp *http.Response) (*GetPlatformsResponse, error
 	}
 
 	switch {
+	case rsp.StatusCode == 200:
+		var headers GetPlatformsResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		response.Headers200 = &headers
 	case rsp.StatusCode == 429:
 		var headers GetPlatformsResponse429Headers
 		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
@@ -28431,8 +35954,12 @@ func ParseListPositionsResponse(rsp *http.Response) (*ListPositionsResponse, err
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -28466,6 +35993,34 @@ func ParseListPositionsResponse(rsp *http.Response) (*ListPositionsResponse, err
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -28511,6 +36066,69 @@ func ParseListPositionsResponse(rsp *http.Response) (*ListPositionsResponse, err
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -28647,8 +36265,12 @@ func ParseGetReportsResponse(rsp *http.Response) (*GetReportsResponse, error) {
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -28683,6 +36305,34 @@ func ParseGetReportsResponse(rsp *http.Response) (*GetReportsResponse, error) {
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetReportsResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -28853,8 +36503,12 @@ func ParseGetDailyReportSnapshotResponse(rsp *http.Response) (*GetDailyReportSna
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -28889,6 +36543,34 @@ func ParseGetDailyReportSnapshotResponse(rsp *http.Response) (*GetDailyReportSna
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetDailyReportSnapshotResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -29059,8 +36741,12 @@ func ParseGetMonthlyReportSnapshotResponse(rsp *http.Response) (*GetMonthlyRepor
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -29095,6 +36781,34 @@ func ParseGetMonthlyReportSnapshotResponse(rsp *http.Response) (*GetMonthlyRepor
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetMonthlyReportSnapshotResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -29265,8 +36979,12 @@ func ParseGetWeeklyReportSnapshotResponse(rsp *http.Response) (*GetWeeklyReportS
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -29301,6 +37019,34 @@ func ParseGetWeeklyReportSnapshotResponse(rsp *http.Response) (*GetWeeklyReportS
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetWeeklyReportSnapshotResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -29485,8 +37231,12 @@ func ParseListSportsEdgeObservationsResponse(rsp *http.Response) (*ListSportsEdg
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -29534,6 +37284,34 @@ func ParseListSportsEdgeObservationsResponse(rsp *http.Response) (*ListSportsEdg
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -29586,6 +37364,69 @@ func ParseListSportsEdgeObservationsResponse(rsp *http.Response) (*ListSportsEdg
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -29728,8 +37569,12 @@ func ParseListSportsEdgeSignalsResponse(rsp *http.Response) (*ListSportsEdgeSign
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -29763,6 +37608,34 @@ func ParseListSportsEdgeSignalsResponse(rsp *http.Response) (*ListSportsEdgeSign
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -29808,6 +37681,69 @@ func ParseListSportsEdgeSignalsResponse(rsp *http.Response) (*ListSportsEdgeSign
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -29959,6 +37895,34 @@ func ParseGetStreamResponse(rsp *http.Response) (*GetStreamResponse, error) {
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetStreamResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -30132,8 +38096,12 @@ func ParseGetTraderResponse(rsp *http.Response) (*GetTraderResponse, error) {
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -30174,6 +38142,34 @@ func ParseGetTraderResponse(rsp *http.Response) (*GetTraderResponse, error) {
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -30219,6 +38215,69 @@ func ParseGetTraderResponse(rsp *http.Response) (*GetTraderResponse, error) {
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -30302,6 +38361,327 @@ func ParseGetTraderResponse(rsp *http.Response) (*GetTraderResponse, error) {
 	return response, nil
 }
 
+// ParseGetTraderCategoryRecordsResponse parses an HTTP response from a GetTraderCategoryRecordsWithResponse call
+func ParseGetTraderCategoryRecordsResponse(rsp *http.Response) (*GetTraderCategoryRecordsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetTraderCategoryRecordsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			Data   TraderCategoryRecords                             `json:"data"`
+			Meta   ResponseMeta                                      `json:"meta"`
+			Object GetTraderCategoryRecords200JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 304:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers GetTraderCategoryRecordsResponse200Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 304:
+		var headers GetTraderCategoryRecordsResponse304Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers304 = &headers
+	case rsp.StatusCode == 429:
+		var headers GetTraderCategoryRecordsResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers GetTraderCategoryRecordsResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
 // ParseGetTraderContextResponse parses an HTTP response from a GetTraderContextWithResponse call
 func ParseGetTraderContextResponse(rsp *http.Response) (*GetTraderContextResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -30358,8 +38738,12 @@ func ParseGetTraderContextResponse(rsp *http.Response) (*GetTraderContextRespons
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -30400,6 +38784,34 @@ func ParseGetTraderContextResponse(rsp *http.Response) (*GetTraderContextRespons
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -30445,6 +38857,69 @@ func ParseGetTraderContextResponse(rsp *http.Response) (*GetTraderContextRespons
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -30570,8 +39045,12 @@ func ParseGetTraderContextMarkdownResponse(rsp *http.Response) (*GetTraderContex
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -30606,6 +39085,34 @@ func ParseGetTraderContextMarkdownResponse(rsp *http.Response) (*GetTraderContex
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetTraderContextMarkdownResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -30783,8 +39290,12 @@ func ParseGetTraderExportSnapshotResponse(rsp *http.Response) (*GetTraderExportS
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -30819,6 +39330,34 @@ func ParseGetTraderExportSnapshotResponse(rsp *http.Response) (*GetTraderExportS
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetTraderExportSnapshotResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -30999,8 +39538,12 @@ func ParseSubmitTraderExportResponse(rsp *http.Response) (*SubmitTraderExportRes
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -31035,6 +39578,62 @@ func ParseSubmitTraderExportResponse(rsp *http.Response) (*SubmitTraderExportRes
 	switch {
 	case rsp.StatusCode == 200:
 		var headers SubmitTraderExportResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -31045,6 +39644,62 @@ func ParseSubmitTraderExportResponse(rsp *http.Response) (*SubmitTraderExportRes
 		response.Headers200 = &headers
 	case rsp.StatusCode == 202:
 		var headers SubmitTraderExportResponse202Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -31186,8 +39841,12 @@ func ParseDownloadTraderExportResponse(rsp *http.Response) (*DownloadTraderExpor
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -31228,6 +39887,69 @@ func ParseDownloadTraderExportResponse(rsp *http.Response) (*DownloadTraderExpor
 				return nil, err
 			}
 			headers.Location = value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers302 = &headers
 	case rsp.StatusCode == 429:
@@ -31360,8 +40082,12 @@ func ParseGetTraderExportStatusResponse(rsp *http.Response) (*GetTraderExportSta
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -31396,6 +40122,62 @@ func ParseGetTraderExportStatusResponse(rsp *http.Response) (*GetTraderExportSta
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetTraderExportStatusResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -31548,8 +40330,12 @@ func ParseGetTraderPnlResponse(rsp *http.Response) (*GetTraderPnlResponse, error
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -31583,6 +40369,34 @@ func ParseGetTraderPnlResponse(rsp *http.Response) (*GetTraderPnlResponse, error
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -31628,6 +40442,69 @@ func ParseGetTraderPnlResponse(rsp *http.Response) (*GetTraderPnlResponse, error
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -31779,8 +40656,12 @@ func ParseGetPositionTimelineResponse(rsp *http.Response) (*GetPositionTimelineR
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -31821,6 +40702,34 @@ func ParseGetPositionTimelineResponse(rsp *http.Response) (*GetPositionTimelineR
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -31866,6 +40775,69 @@ func ParseGetPositionTimelineResponse(rsp *http.Response) (*GetPositionTimelineR
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -32002,8 +40974,26 @@ func ParseBatchGetTradersResponse(rsp *http.Response) (*BatchGetTradersResponse,
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 415:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON415 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -32038,6 +41028,34 @@ func ParseBatchGetTradersResponse(rsp *http.Response) (*BatchGetTradersResponse,
 	switch {
 	case rsp.StatusCode == 200:
 		var headers BatchGetTradersResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-Batch-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Batch-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -32251,8 +41269,12 @@ func ParseGetPositionTimelineByIdResponse(rsp *http.Response) (*GetPositionTimel
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -32293,6 +41315,34 @@ func ParseGetPositionTimelineByIdResponse(rsp *http.Response) (*GetPositionTimel
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -32338,6 +41388,69 @@ func ParseGetPositionTimelineByIdResponse(rsp *http.Response) (*GetPositionTimel
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -32489,6 +41602,55 @@ func ParseGetUsageResponse(rsp *http.Response) (*GetUsageResponse, error) {
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetUsageResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Monthly-Quota-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Monthly-Quota-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XMonthlyQuotaLimit = &value
+		}
+		if values := rsp.Header.Values("X-Monthly-Quota-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Monthly-Quota-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XMonthlyQuotaRemaining = &value
+		}
+		if values := rsp.Header.Values("X-Monthly-Quota-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Monthly-Quota-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XMonthlyQuotaReset = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -32655,8 +41817,12 @@ func ParseListWebhooksResponse(rsp *http.Response) (*ListWebhooksResponse, error
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -32691,6 +41857,62 @@ func ParseListWebhooksResponse(rsp *http.Response) (*ListWebhooksResponse, error
 	switch {
 	case rsp.StatusCode == 200:
 		var headers ListWebhooksResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -32833,8 +42055,12 @@ func ParseCreateWebhookResponse(rsp *http.Response) (*CreateWebhookResponse, err
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
 		var dest ApiError
@@ -32842,6 +42068,20 @@ func ParseCreateWebhookResponse(rsp *http.Response) (*CreateWebhookResponse, err
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 415:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON415 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest ApiError
@@ -32883,6 +42123,62 @@ func ParseCreateWebhookResponse(rsp *http.Response) (*CreateWebhookResponse, err
 	switch {
 	case rsp.StatusCode == 200:
 		var headers CreateWebhookResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -33021,8 +42317,12 @@ func ParseListWebhookEventsResponse(rsp *http.Response) (*ListWebhookEventsRespo
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -33057,6 +42357,34 @@ func ParseListWebhookEventsResponse(rsp *http.Response) (*ListWebhookEventsRespo
 	switch {
 	case rsp.StatusCode == 200:
 		var headers ListWebhookEventsResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -33227,8 +42555,12 @@ func ParseDeleteWebhookResponse(rsp *http.Response) (*DeleteWebhookResponse, err
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
 		var dest ApiError
@@ -33277,6 +42609,62 @@ func ParseDeleteWebhookResponse(rsp *http.Response) (*DeleteWebhookResponse, err
 	switch {
 	case rsp.StatusCode == 200:
 		var headers DeleteWebhookResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -33419,8 +42807,12 @@ func ParseGetWebhookResponse(rsp *http.Response) (*GetWebhookResponse, error) {
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -33455,6 +42847,62 @@ func ParseGetWebhookResponse(rsp *http.Response) (*GetWebhookResponse, error) {
 	switch {
 	case rsp.StatusCode == 200:
 		var headers GetWebhookResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -33604,8 +43052,12 @@ func ParseUpdateWebhookResponse(rsp *http.Response) (*UpdateWebhookResponse, err
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
 		var dest ApiError
@@ -33613,6 +43065,20 @@ func ParseUpdateWebhookResponse(rsp *http.Response) (*UpdateWebhookResponse, err
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 415:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON415 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest ApiError
@@ -33654,6 +43120,62 @@ func ParseUpdateWebhookResponse(rsp *http.Response) (*UpdateWebhookResponse, err
 	switch {
 	case rsp.StatusCode == 200:
 		var headers UpdateWebhookResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -33806,8 +43328,12 @@ func ParseListWebhookDeliveriesResponse(rsp *http.Response) (*ListWebhookDeliver
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -33842,6 +43368,34 @@ func ParseListWebhookDeliveriesResponse(rsp *http.Response) (*ListWebhookDeliver
 	switch {
 	case rsp.StatusCode == 200:
 		var headers ListWebhookDeliveriesResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -33959,6 +43513,266 @@ func ParseListWebhookDeliveriesResponse(rsp *http.Response) (*ListWebhookDeliver
 	return response, nil
 }
 
+// ParseRedeliverWebhookDeliveryResponse parses an HTTP response from a RedeliverWebhookDeliveryWithResponse call
+func ParseRedeliverWebhookDeliveryResponse(rsp *http.Response) (*RedeliverWebhookDeliveryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RedeliverWebhookDeliveryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			// Data Owner-scoped view of one webhook delivery attempt. Deliberately omits the request body and the endpoint signing secret: a delivery log never re-exposes the payload or any secret material.
+			Data   WebhookDelivery                                   `json:"data"`
+			Meta   ResponseMeta                                      `json:"meta"`
+			Object RedeliverWebhookDelivery200JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers RedeliverWebhookDeliveryResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 429:
+		var headers RedeliverWebhookDeliveryResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers RedeliverWebhookDeliveryResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
 // ParseRotateWebhookSecretResponse parses an HTTP response from a RotateWebhookSecretWithResponse call
 func ParseRotateWebhookSecretResponse(rsp *http.Response) (*RotateWebhookSecretResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -34019,8 +43833,12 @@ func ParseRotateWebhookSecretResponse(rsp *http.Response) (*RotateWebhookSecretR
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
 		var dest ApiError
@@ -34069,6 +43887,62 @@ func ParseRotateWebhookSecretResponse(rsp *http.Response) (*RotateWebhookSecretR
 	switch {
 	case rsp.StatusCode == 200:
 		var headers RotateWebhookSecretResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -34218,8 +44092,26 @@ func ParseVerifyWebhookResponse(rsp *http.Response) (*VerifyWebhookResponse, err
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 415:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON415 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest ApiError
@@ -34261,6 +44153,62 @@ func ParseVerifyWebhookResponse(rsp *http.Response) (*VerifyWebhookResponse, err
 	switch {
 	case rsp.StatusCode == 200:
 		var headers VerifyWebhookResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -34411,8 +44359,12 @@ func ParseListWhaleTradesResponse(rsp *http.Response) (*ListWhaleTradesResponse,
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -34446,6 +44398,34 @@ func ParseListWhaleTradesResponse(rsp *http.Response) (*ListWhaleTradesResponse,
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -34491,6 +44471,69 @@ func ParseListWhaleTradesResponse(rsp *http.Response) (*ListWhaleTradesResponse,
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -34635,8 +44678,12 @@ func ParseListWhaleTradeHistoryResponse(rsp *http.Response) (*ListWhaleTradeHist
 		}
 		response.JSON403 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -34670,6 +44717,34 @@ func ParseListWhaleTradeHistoryResponse(rsp *http.Response) (*ListWhaleTradeHist
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -34715,6 +44790,69 @@ func ParseListWhaleTradeHistoryResponse(rsp *http.Response) (*ListWhaleTradeHist
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -34861,8 +44999,12 @@ func ParseGetWhaleTradeResponse(rsp *http.Response) (*GetWhaleTradeResponse, err
 		}
 		response.JSON404 = &dest
 
-	case rsp.StatusCode == 408:
-		break // No content-type
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
 		var dest ApiError
@@ -34896,6 +45038,34 @@ func ParseGetWhaleTradeResponse(rsp *http.Response) (*GetWhaleTradeResponse, err
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -34941,6 +45111,69 @@ func ParseGetWhaleTradeResponse(rsp *http.Response) (*GetWhaleTradeResponse, err
 				return nil, err
 			}
 			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
 		}
 		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
@@ -35049,6 +45282,9 @@ func ParseListWhaleTradeCounterpartyExecutionsResponse(rsp *http.Response) (*Lis
 		}
 		response.JSON200 = &dest
 
+	case rsp.StatusCode == 304:
+		break // No content-type
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -35103,6 +45339,69 @@ func ParseListWhaleTradeCounterpartyExecutionsResponse(rsp *http.Response) (*Lis
 	switch {
 	case rsp.StatusCode == 200:
 		var headers ListWhaleTradeCounterpartyExecutionsResponse200Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -35111,6 +45410,79 @@ func ParseListWhaleTradeCounterpartyExecutionsResponse(rsp *http.Response) (*Lis
 			headers.XUsageAccounting = &value
 		}
 		response.Headers200 = &headers
+	case rsp.StatusCode == 304:
+		var headers ListWhaleTradeCounterpartyExecutionsResponse304Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
 		var headers ListWhaleTradeCounterpartyExecutionsResponse429Headers
 		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
@@ -35217,6 +45589,9 @@ func ParseListWhaleTradeCounterpartyMakersResponse(rsp *http.Response) (*ListWha
 		}
 		response.JSON200 = &dest
 
+	case rsp.StatusCode == 304:
+		break // No content-type
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -35271,6 +45646,69 @@ func ParseListWhaleTradeCounterpartyMakersResponse(rsp *http.Response) (*ListWha
 	switch {
 	case rsp.StatusCode == 200:
 		var headers ListWhaleTradeCounterpartyMakersResponse200Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
 		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
 			var value string
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
@@ -35279,6 +45717,79 @@ func ParseListWhaleTradeCounterpartyMakersResponse(rsp *http.Response) (*ListWha
 			headers.XUsageAccounting = &value
 		}
 		response.Headers200 = &headers
+	case rsp.StatusCode == 304:
+		var headers ListWhaleTradeCounterpartyMakersResponse304Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers304 = &headers
 	case rsp.StatusCode == 429:
 		var headers ListWhaleTradeCounterpartyMakersResponse429Headers
 		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
