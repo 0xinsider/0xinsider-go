@@ -50,6 +50,7 @@ func main() {
 Every operation in the OpenAPI document has a typed `...WithResponse` method. `JSON200` (and the other status fields) hold the decoded body; `Body` keeps the raw bytes and `StatusCode()` the status.
 
 - **Credentials.** `WithBearerToken` accepts an API key (`oxi_sk_live_...`) or an OAuth 2.1 access token (`oxi_at_...`). Discovery (`GetApiDiscovery`), health and the platform capability document need none. Data operations need an active Pro subscription.
+- **Where the credential goes.** It is sent over `https://` only, or over `http://` to a loopback host (`localhost`, `127.0.0.1`, `[::1]`) for a backend you run yourself. A `WithBaseURL` that would send it anywhere else fails every credentialed request with `*InsecureTransportError` before it is sent, and a redirect that would downgrade a credentialed request to plain HTTP is refused the same way; the error names the destination, never the token. A client without `WithBearerToken` may still call the public operations on such a base.
 - **Errors.** A 401 carries `WWW-Authenticate` with the protected-resource metadata URL; a 403 `insufficient_scope` names the OAuth scope a token lacks; a 429 carries `Retry-After`. Read the JSON error object's `error.code` and branch on it; `error.message` is prose.
 - **Numbers.** Money and price fields keep the API's full precision. Do not round before you display them.
 - **Missing values.** A missing, stale, partial or unavailable field means the provider did not report that value. Do not read it as zero.
