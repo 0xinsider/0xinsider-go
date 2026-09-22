@@ -4348,7 +4348,7 @@
           {
             "name": "min_grade",
             "in": "query",
-            "description": "Minimum trader grade.",
+            "description": "Minimum trader grade as of today (trader.grade). A means S or A, B means S, A or B.",
             "schema": {
               "type": "string",
               "enum": [
@@ -4684,7 +4684,7 @@
       "get": {
         "operationId": "listWhaleTradeHistory",
         "summary": "Replay historical whale trades",
-        "description": "Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness.",
+        "description": "Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness. POINT IN TIME: signal_score, trader.grade and the min_grade filter carry today's values on every row however old, so a backtest that selects by them selects wallets on what they did after the trade. The point-in-time fields are recorded_signal_score (from 2026-08-03T11:59Z; null before, and never backfilled, because the trader statistics it reads at insert were not kept for older rows) and trader.grade_at_trade with trader.grade_at_trade_status (from 2026-09-19T23:00Z; unknown before). CAPTURE RULES changed over the archive's life: rows before 2026-02-02 are sparse (at most a few hundred a month); from 2026-02-02 the floor was 3,000 USD (1.4% of rows through 2026-07-05 are smaller) and trades at any price were kept; from 2026-07-06 a trade is kept at 10,000 USD or more (1,000 USD in earnings markets) and only when priced below 0.97 (0.99 in earnings markets). Pass min_size=10000 for one size rule across the whole range; monthly row counts still follow the sports calendar.",
         "tags": [
           "Whale Trades"
         ],
@@ -4723,7 +4723,7 @@
           {
             "name": "min_size",
             "in": "query",
-            "description": "Minimum trade size in USD.",
+            "description": "Minimum trade size in USD. The capture floor was 3,000 USD before 2026-07-06 and 10,000 USD from then (1,000 USD in earnings markets), so 10000 gives one size rule across the whole archive.",
             "schema": {
               "type": "number",
               "default": 5000
@@ -4756,7 +4756,7 @@
           {
             "name": "min_grade",
             "in": "query",
-            "description": "Minimum trader grade.",
+            "description": "Minimum trader grade as of today (trader.grade), not at trade time. On a historical window it selects wallets by a grade they may have earned after the trade; for a point-in-time rule filter on trader.grade_at_trade instead. A means S or A, B means S, A or B.",
             "schema": {
               "type": "string",
               "enum": [
@@ -4882,7 +4882,9 @@
                             "id": "trd_0xabc1230000000000000000000000000000000abc",
                             "address": "0xabc1230000000000000000000000000000000abc",
                             "username": "example_trader",
-                            "grade": "F"
+                            "grade": "F",
+                            "grade_at_trade": "F",
+                            "grade_at_trade_status": "graded"
                           },
                           "market": {
                             "id": "mkt_0xdef4560000000000000000000000000000000def613f54180a6d82f81c586f87",
@@ -4907,7 +4909,9 @@
                           "suspicion_track": null,
                           "trader": {
                             "id": "trd_0xdef4560000000000000000000000000000000def",
-                            "address": "0xdef4560000000000000000000000000000000def"
+                            "address": "0xdef4560000000000000000000000000000000def",
+                            "grade_at_trade": null,
+                            "grade_at_trade_status": "unknown"
                           },
                           "market": {
                             "id": "mkt_0xdef4560000000000000000000000000000000def4c2638b15eda50ca1b7ce303",
@@ -5265,7 +5269,9 @@
                           "id": "trd_0xabc1230000000000000000000000000000000abc",
                           "address": "0xabc1230000000000000000000000000000000abc",
                           "username": "example_trader",
-                          "grade": "F"
+                          "grade": "F",
+                          "grade_at_trade": "F",
+                          "grade_at_trade_status": "graded"
                         },
                         "market": {
                           "id": "mkt_0xdef4560000000000000000000000000000000def613f54180a6d82f81c586f87",
@@ -24518,7 +24524,7 @@
                 "type": "null"
               }
             ],
-            "description": "Present only with expand=trade: the public trade read for this row, the same object GET /api/v1/whale-trades/{id} returns, read at request time from one query per page. traded_at, side, size_usd, price, outcome and token_id are the row's event-time facts; trader.grade, trader.username, signal_score, recorded_signal_score, suspicion_score, suspicion_track and market title/slug/category are enrichment that can move after the event. null when that route would answer 404 for the row (its trader or market is not synced yet)."
+            "description": "Present only with expand=trade: the public trade read for this row, the same object GET /api/v1/whale-trades/{id} returns, read at request time from one query per page. traded_at, side, size_usd, price, outcome, token_id, recorded_signal_score and trader.grade_at_trade with its status are the row's event-time facts; trader.grade, trader.username, signal_score, suspicion_score, suspicion_track and market title/slug/category are enrichment that can move after the event. null when that route would answer 404 for the row (its trader or market is not synced yet)."
           },
           "source": {
             "$ref": "#/components/schemas/EventReplaySource"
@@ -25642,12 +25648,12 @@
           },
           "signal_score": {
             "type": "number",
-            "description": "Current 0.0–1.0 normalized signal score. This value can change as scoring context changes."
+            "description": "Current 0.0–1.0 normalized signal score, computed at request time from the trader's win rate today and the trade's age now. On a historical row it is today's view of the trade, not what a reader saw then; use recorded_signal_score for that."
           },
           "recorded_signal_score": {
             "type": "number",
             "nullable": true,
-            "description": "0.0–1.0 signal score written once when the trade row is inserted. Available for new rows after this field launched; legacy rows return null. If a trade is added later, its time-sensitive recorded score reflects that delay."
+            "description": "0.0–1.0 signal score written once when the trade row is inserted, from the trader's statistics at that moment. Populated from 2026-08-03T11:59Z; older rows return null and are never backfilled, because a backfill could only read today's statistics. If a trade is added later, its time-sensitive recorded score reflects that delay."
           },
           "suspicion_score": {
             "type": "integer",
@@ -25675,7 +25681,9 @@
             "type": "object",
             "required": [
               "id",
-              "address"
+              "address",
+              "grade_at_trade",
+              "grade_at_trade_status"
             ],
             "properties": {
               "id": {
@@ -25690,7 +25698,30 @@
               },
               "grade": {
                 "type": "string",
-                "nullable": true
+                "nullable": true,
+                "description": "The trader's grade today, on every row however old. For what the grade was when the trade happened, read grade_at_trade."
+              },
+              "grade_at_trade": {
+                "type": "string",
+                "enum": [
+                  "S",
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "F"
+                ],
+                "nullable": true,
+                "description": "The grade the trader held when the trade happened, from recorded grade history (recorded from 2026-09-19T23:00Z). Null unless grade_at_trade_status is graded. Never today's grade projected backward."
+              },
+              "grade_at_trade_status": {
+                "type": "string",
+                "enum": [
+                  "graded",
+                  "ungraded",
+                  "unknown"
+                ],
+                "description": "graded: grade_at_trade holds the recorded grade. ungraded: the trader was recorded without a grade at that moment. unknown: no record covers the moment, which is every trade before 2026-09-19T23:00Z and a trade that fell between a grade change and its confirmation. unknown never means ungraded."
               }
             }
           },

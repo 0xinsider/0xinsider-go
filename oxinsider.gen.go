@@ -3436,6 +3436,57 @@ func (e WhaleTradeSuspicionTrack) Valid() bool {
 	}
 }
 
+// Defines values for WhaleTradeTraderGradeAtTrade.
+const (
+	WhaleTradeTraderGradeAtTradeA WhaleTradeTraderGradeAtTrade = "A"
+	WhaleTradeTraderGradeAtTradeB WhaleTradeTraderGradeAtTrade = "B"
+	WhaleTradeTraderGradeAtTradeC WhaleTradeTraderGradeAtTrade = "C"
+	WhaleTradeTraderGradeAtTradeD WhaleTradeTraderGradeAtTrade = "D"
+	WhaleTradeTraderGradeAtTradeF WhaleTradeTraderGradeAtTrade = "F"
+	WhaleTradeTraderGradeAtTradeS WhaleTradeTraderGradeAtTrade = "S"
+)
+
+// Valid indicates whether the value is a known member of the WhaleTradeTraderGradeAtTrade enum.
+func (e WhaleTradeTraderGradeAtTrade) Valid() bool {
+	switch e {
+	case WhaleTradeTraderGradeAtTradeA:
+		return true
+	case WhaleTradeTraderGradeAtTradeB:
+		return true
+	case WhaleTradeTraderGradeAtTradeC:
+		return true
+	case WhaleTradeTraderGradeAtTradeD:
+		return true
+	case WhaleTradeTraderGradeAtTradeF:
+		return true
+	case WhaleTradeTraderGradeAtTradeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleTradeTraderGradeAtTradeStatus.
+const (
+	WhaleTradeTraderGradeAtTradeStatusGraded   WhaleTradeTraderGradeAtTradeStatus = "graded"
+	WhaleTradeTraderGradeAtTradeStatusUngraded WhaleTradeTraderGradeAtTradeStatus = "ungraded"
+	WhaleTradeTraderGradeAtTradeStatusUnknown  WhaleTradeTraderGradeAtTradeStatus = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the WhaleTradeTraderGradeAtTradeStatus enum.
+func (e WhaleTradeTraderGradeAtTradeStatus) Valid() bool {
+	switch e {
+	case WhaleTradeTraderGradeAtTradeStatusGraded:
+		return true
+	case WhaleTradeTraderGradeAtTradeStatusUngraded:
+		return true
+	case WhaleTradeTraderGradeAtTradeStatusUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhaleTradeDetailSide.
 const (
 	WhaleTradeDetailSideBUY  WhaleTradeDetailSide = "BUY"
@@ -3469,6 +3520,57 @@ func (e WhaleTradeDetailSuspicionTrack) Valid() bool {
 	case WhaleTradeDetailSuspicionTrackSlicedPosition:
 		return true
 	case WhaleTradeDetailSuspicionTrackWhale:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleTradeDetailTraderGradeAtTrade.
+const (
+	WhaleTradeDetailTraderGradeAtTradeA WhaleTradeDetailTraderGradeAtTrade = "A"
+	WhaleTradeDetailTraderGradeAtTradeB WhaleTradeDetailTraderGradeAtTrade = "B"
+	WhaleTradeDetailTraderGradeAtTradeC WhaleTradeDetailTraderGradeAtTrade = "C"
+	WhaleTradeDetailTraderGradeAtTradeD WhaleTradeDetailTraderGradeAtTrade = "D"
+	WhaleTradeDetailTraderGradeAtTradeF WhaleTradeDetailTraderGradeAtTrade = "F"
+	WhaleTradeDetailTraderGradeAtTradeS WhaleTradeDetailTraderGradeAtTrade = "S"
+)
+
+// Valid indicates whether the value is a known member of the WhaleTradeDetailTraderGradeAtTrade enum.
+func (e WhaleTradeDetailTraderGradeAtTrade) Valid() bool {
+	switch e {
+	case WhaleTradeDetailTraderGradeAtTradeA:
+		return true
+	case WhaleTradeDetailTraderGradeAtTradeB:
+		return true
+	case WhaleTradeDetailTraderGradeAtTradeC:
+		return true
+	case WhaleTradeDetailTraderGradeAtTradeD:
+		return true
+	case WhaleTradeDetailTraderGradeAtTradeF:
+		return true
+	case WhaleTradeDetailTraderGradeAtTradeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleTradeDetailTraderGradeAtTradeStatus.
+const (
+	WhaleTradeDetailTraderGradeAtTradeStatusGraded   WhaleTradeDetailTraderGradeAtTradeStatus = "graded"
+	WhaleTradeDetailTraderGradeAtTradeStatusUngraded WhaleTradeDetailTraderGradeAtTradeStatus = "ungraded"
+	WhaleTradeDetailTraderGradeAtTradeStatusUnknown  WhaleTradeDetailTraderGradeAtTradeStatus = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the WhaleTradeDetailTraderGradeAtTradeStatus enum.
+func (e WhaleTradeDetailTraderGradeAtTradeStatus) Valid() bool {
+	switch e {
+	case WhaleTradeDetailTraderGradeAtTradeStatusGraded:
+		return true
+	case WhaleTradeDetailTraderGradeAtTradeStatusUngraded:
+		return true
+	case WhaleTradeDetailTraderGradeAtTradeStatusUnknown:
 		return true
 	default:
 		return false
@@ -6784,7 +6886,7 @@ type EventReplayEvent struct {
 	Sequence int               `json:"sequence"`
 	Source   EventReplaySource `json:"source"`
 
-	// Trade Present only with expand=trade: the public trade read for this row, the same object GET /api/v1/whale-trades/{id} returns, read at request time from one query per page. traded_at, side, size_usd, price, outcome and token_id are the row's event-time facts; trader.grade, trader.username, signal_score, recorded_signal_score, suspicion_score, suspicion_track and market title/slug/category are enrichment that can move after the event. null when that route would answer 404 for the row (its trader or market is not synced yet).
+	// Trade Present only with expand=trade: the public trade read for this row, the same object GET /api/v1/whale-trades/{id} returns, read at request time from one query per page. traded_at, side, size_usd, price, outcome, token_id, recorded_signal_score and trader.grade_at_trade with its status are the row's event-time facts; trader.grade, trader.username, signal_score, suspicion_score, suspicion_track and market title/slug/category are enrichment that can move after the event. null when that route would answer 404 for the row (its trader or market is not synced yet).
 	Trade *WhaleTrade          `json:"trade,omitempty"`
 	Type  EventReplayEventType `json:"type"`
 }
@@ -10047,11 +10149,11 @@ type WhaleTrade struct {
 	Outcome *string `json:"outcome,omitempty"`
 	Price   float32 `json:"price"`
 
-	// RecordedSignalScore 0.0–1.0 signal score written once when the trade row is inserted. Available for new rows after this field launched; legacy rows return null. If a trade is added later, its time-sensitive recorded score reflects that delay.
+	// RecordedSignalScore 0.0–1.0 signal score written once when the trade row is inserted, from the trader's statistics at that moment. Populated from 2026-08-03T11:59Z; older rows return null and are never backfilled, because a backfill could only read today's statistics. If a trade is added later, its time-sensitive recorded score reflects that delay.
 	RecordedSignalScore float32        `json:"recorded_signal_score"`
 	Side                WhaleTradeSide `json:"side"`
 
-	// SignalScore Current 0.0–1.0 normalized signal score. This value can change as scoring context changes.
+	// SignalScore Current 0.0–1.0 normalized signal score, computed at request time from the trader's win rate today and the trade's age now. On a historical row it is today's view of the trade, not what a reader saw then; use recorded_signal_score for that.
 	SignalScore float32 `json:"signal_score"`
 	SizeUsd     float32 `json:"size_usd"`
 
@@ -10065,10 +10167,18 @@ type WhaleTrade struct {
 	TokenId  *string   `json:"token_id,omitempty"`
 	TradedAt time.Time `json:"traded_at"`
 	Trader   struct {
-		Address  string  `json:"address"`
-		Grade    *string `json:"grade,omitempty"`
-		Id       string  `json:"id"`
-		Username *string `json:"username,omitempty"`
+		Address string `json:"address"`
+
+		// Grade The trader's grade today, on every row however old. For what the grade was when the trade happened, read grade_at_trade.
+		Grade *string `json:"grade,omitempty"`
+
+		// GradeAtTrade The grade the trader held when the trade happened, from recorded grade history (recorded from 2026-09-19T23:00Z). Null unless grade_at_trade_status is graded. Never today's grade projected backward.
+		GradeAtTrade WhaleTradeTraderGradeAtTrade `json:"grade_at_trade"`
+
+		// GradeAtTradeStatus graded: grade_at_trade holds the recorded grade. ungraded: the trader was recorded without a grade at that moment. unknown: no record covers the moment, which is every trade before 2026-09-19T23:00Z and a trade that fell between a grade change and its confirmation. unknown never means ungraded.
+		GradeAtTradeStatus WhaleTradeTraderGradeAtTradeStatus `json:"grade_at_trade_status"`
+		Id                 string                             `json:"id"`
+		Username           *string                            `json:"username,omitempty"`
 	} `json:"trader"`
 }
 
@@ -10077,6 +10187,12 @@ type WhaleTradeSide string
 
 // WhaleTradeSuspicionTrack Persisted scorer track. Null when a legacy row has no stored track label.
 type WhaleTradeSuspicionTrack string
+
+// WhaleTradeTraderGradeAtTrade The grade the trader held when the trade happened, from recorded grade history (recorded from 2026-09-19T23:00Z). Null unless grade_at_trade_status is graded. Never today's grade projected backward.
+type WhaleTradeTraderGradeAtTrade string
+
+// WhaleTradeTraderGradeAtTradeStatus graded: grade_at_trade holds the recorded grade. ungraded: the trader was recorded without a grade at that moment. unknown: no record covers the moment, which is every trade before 2026-09-19T23:00Z and a trade that fell between a grade change and its confirmation. unknown never means ungraded.
+type WhaleTradeTraderGradeAtTradeStatus string
 
 // WhaleTradeDetail defines model for WhaleTradeDetail.
 type WhaleTradeDetail struct {
@@ -10100,11 +10216,11 @@ type WhaleTradeDetail struct {
 	Outcome *string `json:"outcome,omitempty"`
 	Price   float32 `json:"price"`
 
-	// RecordedSignalScore 0.0–1.0 signal score written once when the trade row is inserted. Available for new rows after this field launched; legacy rows return null. If a trade is added later, its time-sensitive recorded score reflects that delay.
+	// RecordedSignalScore 0.0–1.0 signal score written once when the trade row is inserted, from the trader's statistics at that moment. Populated from 2026-08-03T11:59Z; older rows return null and are never backfilled, because a backfill could only read today's statistics. If a trade is added later, its time-sensitive recorded score reflects that delay.
 	RecordedSignalScore float32              `json:"recorded_signal_score"`
 	Side                WhaleTradeDetailSide `json:"side"`
 
-	// SignalScore Current 0.0–1.0 normalized signal score. This value can change as scoring context changes.
+	// SignalScore Current 0.0–1.0 normalized signal score, computed at request time from the trader's win rate today and the trade's age now. On a historical row it is today's view of the trade, not what a reader saw then; use recorded_signal_score for that.
 	SignalScore float32 `json:"signal_score"`
 	SizeUsd     float32 `json:"size_usd"`
 
@@ -10118,10 +10234,18 @@ type WhaleTradeDetail struct {
 	TokenId  *string   `json:"token_id,omitempty"`
 	TradedAt time.Time `json:"traded_at"`
 	Trader   struct {
-		Address  string  `json:"address"`
-		Grade    *string `json:"grade,omitempty"`
-		Id       string  `json:"id"`
-		Username *string `json:"username,omitempty"`
+		Address string `json:"address"`
+
+		// Grade The trader's grade today, on every row however old. For what the grade was when the trade happened, read grade_at_trade.
+		Grade *string `json:"grade,omitempty"`
+
+		// GradeAtTrade The grade the trader held when the trade happened, from recorded grade history (recorded from 2026-09-19T23:00Z). Null unless grade_at_trade_status is graded. Never today's grade projected backward.
+		GradeAtTrade WhaleTradeDetailTraderGradeAtTrade `json:"grade_at_trade"`
+
+		// GradeAtTradeStatus graded: grade_at_trade holds the recorded grade. ungraded: the trader was recorded without a grade at that moment. unknown: no record covers the moment, which is every trade before 2026-09-19T23:00Z and a trade that fell between a grade change and its confirmation. unknown never means ungraded.
+		GradeAtTradeStatus WhaleTradeDetailTraderGradeAtTradeStatus `json:"grade_at_trade_status"`
+		Id                 string                                   `json:"id"`
+		Username           *string                                  `json:"username,omitempty"`
 	} `json:"trader"`
 }
 
@@ -10130,6 +10254,12 @@ type WhaleTradeDetailSide string
 
 // WhaleTradeDetailSuspicionTrack Persisted scorer track. Null when a legacy row has no stored track label.
 type WhaleTradeDetailSuspicionTrack string
+
+// WhaleTradeDetailTraderGradeAtTrade The grade the trader held when the trade happened, from recorded grade history (recorded from 2026-09-19T23:00Z). Null unless grade_at_trade_status is graded. Never today's grade projected backward.
+type WhaleTradeDetailTraderGradeAtTrade string
+
+// WhaleTradeDetailTraderGradeAtTradeStatus graded: grade_at_trade holds the recorded grade. ungraded: the trader was recorded without a grade at that moment. unknown: no record covers the moment, which is every trade before 2026-09-19T23:00Z and a trade that fell between a grade change and its confirmation. unknown never means ungraded.
+type WhaleTradeDetailTraderGradeAtTradeStatus string
 
 // WhaleTradeHistoryMeta defines model for WhaleTradeHistoryMeta.
 type WhaleTradeHistoryMeta struct {
@@ -11468,7 +11598,7 @@ type ListWhaleTradesParams struct {
 	// Category Filter by market category (case-insensitive). A canonical bucket name (e.g. Basketball) matches every provider member that folds into it (NBA, WNBA, NCAAB); a raw provider value also resolves to its bucket.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// MinGrade Minimum trader grade.
+	// MinGrade Minimum trader grade as of today (trader.grade). A means S or A, B means S, A or B.
 	MinGrade *ListWhaleTradesParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
 
 	// SuspiciousOnly When true, return only rows with persisted suspicion_score >= 60. The filter is applied before SQL-backed limit + 1 pagination.
@@ -11498,7 +11628,7 @@ type ListWhaleTradeHistoryParams struct {
 	// Cursor Pagination cursor from previous response's next_cursor. Prefix: wth_. URL-encode when replaying as a query parameter.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// MinSize Minimum trade size in USD.
+	// MinSize Minimum trade size in USD. The capture floor was 3,000 USD before 2026-07-06 and 10,000 USD from then (1,000 USD in earnings markets), so 10000 gives one size rule across the whole archive.
 	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// ConditionId Exact raw provider condition_id. Unknown markets return an empty list.
@@ -11510,7 +11640,7 @@ type ListWhaleTradeHistoryParams struct {
 	// Category Filter by market category (case-insensitive). A canonical bucket name (e.g. Basketball) matches every provider member that folds into it (NBA, WNBA, NCAAB); a raw provider value also resolves to its bucket.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// MinGrade Minimum trader grade.
+	// MinGrade Minimum trader grade as of today (trader.grade), not at trade time. On a historical window it selects wallets by a grade they may have earned after the trade; for a point-in-time rule filter on trader.grade_at_trade instead. A means S or A, B means S, A or B.
 	MinGrade *ListWhaleTradeHistoryParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
 
 	// SuspiciousOnly When true, return only rows with persisted suspicion_score >= 60. The filter is applied before SQL-backed limit + 1 pagination.
@@ -12904,7 +13034,7 @@ type ClientInterface interface {
 
 	// ListWhaleTradeHistory Replay historical whale trades
 	//
-	// Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness.
+	// Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness. POINT IN TIME: signal_score, trader.grade and the min_grade filter carry today's values on every row however old, so a backtest that selects by them selects wallets on what they did after the trade. The point-in-time fields are recorded_signal_score (from 2026-08-03T11:59Z; null before, and never backfilled, because the trader statistics it reads at insert were not kept for older rows) and trader.grade_at_trade with trader.grade_at_trade_status (from 2026-09-19T23:00Z; unknown before). CAPTURE RULES changed over the archive's life: rows before 2026-02-02 are sparse (at most a few hundred a month); from 2026-02-02 the floor was 3,000 USD (1.4% of rows through 2026-07-05 are smaller) and trades at any price were kept; from 2026-07-06 a trade is kept at 10,000 USD or more (1,000 USD in earnings markets) and only when priced below 0.97 (0.99 in earnings markets). Pass min_size=10000 for one size rule across the whole range; monthly row counts still follow the sports calendar.
 	//
 	// Corresponds with GET /api/v1/whale-trades/history (the `ListWhaleTradeHistory` operationId).
 	ListWhaleTradeHistory(ctx context.Context, params *ListWhaleTradeHistoryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -14149,7 +14279,7 @@ func (c *Client) ListWhaleTrades(ctx context.Context, params *ListWhaleTradesPar
 
 // ListWhaleTradeHistory Replay historical whale trades
 //
-// Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness.
+// Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness. POINT IN TIME: signal_score, trader.grade and the min_grade filter carry today's values on every row however old, so a backtest that selects by them selects wallets on what they did after the trade. The point-in-time fields are recorded_signal_score (from 2026-08-03T11:59Z; null before, and never backfilled, because the trader statistics it reads at insert were not kept for older rows) and trader.grade_at_trade with trader.grade_at_trade_status (from 2026-09-19T23:00Z; unknown before). CAPTURE RULES changed over the archive's life: rows before 2026-02-02 are sparse (at most a few hundred a month); from 2026-02-02 the floor was 3,000 USD (1.4% of rows through 2026-07-05 are smaller) and trades at any price were kept; from 2026-07-06 a trade is kept at 10,000 USD or more (1,000 USD in earnings markets) and only when priced below 0.97 (0.99 in earnings markets). Pass min_size=10000 for one size rule across the whole range; monthly row counts still follow the sports calendar.
 //
 // Corresponds with GET /api/v1/whale-trades/history (the `ListWhaleTradeHistory` operationId).
 func (c *Client) ListWhaleTradeHistory(ctx context.Context, params *ListWhaleTradeHistoryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -20385,7 +20515,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListWhaleTradeHistoryWithResponse Replay historical whale trades
 	//
-	// Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness.
+	// Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness. POINT IN TIME: signal_score, trader.grade and the min_grade filter carry today's values on every row however old, so a backtest that selects by them selects wallets on what they did after the trade. The point-in-time fields are recorded_signal_score (from 2026-08-03T11:59Z; null before, and never backfilled, because the trader statistics it reads at insert were not kept for older rows) and trader.grade_at_trade with trader.grade_at_trade_status (from 2026-09-19T23:00Z; unknown before). CAPTURE RULES changed over the archive's life: rows before 2026-02-02 are sparse (at most a few hundred a month); from 2026-02-02 the floor was 3,000 USD (1.4% of rows through 2026-07-05 are smaller) and trades at any price were kept; from 2026-07-06 a trade is kept at 10,000 USD or more (1,000 USD in earnings markets) and only when priced below 0.97 (0.99 in earnings markets). Pass min_size=10000 for one size rule across the whole range; monthly row counts still follow the sports calendar.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -31980,7 +32110,7 @@ func (c *ClientWithResponses) ListWhaleTradesWithResponse(ctx context.Context, p
 
 // ListWhaleTradeHistoryWithResponse Replay historical whale trades
 //
-// Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness.
+// Returns historical whale trades from local whale_alerts rows, not request-time provider fetches. Filter by condition_id, trader, category, minimum grade, persisted suspicion, platform, and RFC3339 from/to windows. All filters are pushed into SQL before LIMIT, every request uses SQL-backed limit + 1 pagination, and results are ordered newest first by traded_at desc, id desc. Metadata exposes local_replay source and best_effort completeness. POINT IN TIME: signal_score, trader.grade and the min_grade filter carry today's values on every row however old, so a backtest that selects by them selects wallets on what they did after the trade. The point-in-time fields are recorded_signal_score (from 2026-08-03T11:59Z; null before, and never backfilled, because the trader statistics it reads at insert were not kept for older rows) and trader.grade_at_trade with trader.grade_at_trade_status (from 2026-09-19T23:00Z; unknown before). CAPTURE RULES changed over the archive's life: rows before 2026-02-02 are sparse (at most a few hundred a month); from 2026-02-02 the floor was 3,000 USD (1.4% of rows through 2026-07-05 are smaller) and trades at any price were kept; from 2026-07-06 a trade is kept at 10,000 USD or more (1,000 USD in earnings markets) and only when priced below 0.97 (0.99 in earnings markets). Pass min_size=10000 for one size rule across the whole range; monthly row counts still follow the sports calendar.
 //
 // Returns a wrapper object for the known response body format(s).
 //
