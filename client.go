@@ -17,10 +17,18 @@ const Version = "0.2.0"
 // WithBearerToken authenticates every request with an API key
 // (oxi_sk_live_...) or an OAuth 2.1 access token (oxi_at_...). Discovery,
 // health and the platform capability document need no credential.
+//
+// The credential is sent over https only, or over http to a loopback host
+// (localhost, 127.0.0.1, [::1]) for a backend you run yourself. A request
+// that would carry it anywhere else fails with *InsecureTransportError
+// before it is sent; the error names the destination, never the token.
 func WithBearerToken(token string) ClientOption {
 	return WithRequestEditorFn(func(_ context.Context, req *http.Request) error {
 		if strings.TrimSpace(token) == "" {
 			return fmt.Errorf("oxinsider: empty bearer token")
+		}
+		if err := assertCredentialDestination(req.URL, false); err != nil {
+			return err
 		}
 		req.Header.Set("Authorization", "Bearer "+token)
 		return nil
@@ -44,8 +52,11 @@ func withUserAgent() ClientOption {
 // ErrStreamBuffered: the generated GetStreamWithResponse reads the unbounded
 // event stream to EOF, so it would neither return nor bound its memory. Read
 // the stream with OpenStream, or take the raw body through GetStream with
-// RawStreamContext. The generated NewClientWithResponses carries none of
-// this; New is the supported constructor.
+// RawStreamContext. It also refuses to send a bearer credential over plain
+// HTTP to a host that is not loopback, on the request and on any redirect
+// the default http.Client follows (*InsecureTransportError). The generated
+// NewClientWithResponses carries none of this; New is the supported
+// constructor.
 func New(opts ...ClientOption) (*ClientWithResponses, error) {
 	client, err := NewClientWithResponses(DefaultServer, append([]ClientOption{withUserAgent()}, opts...)...)
 	if err != nil {
@@ -55,6 +66,6 @@ func New(opts ...ClientOption) (*ClientWithResponses, error) {
 	if !ok {
 		return nil, fmt.Errorf("oxinsider: generated client is %T, not *Client", client.ClientInterface)
 	}
-	inner.Client = streamGuardDoer{inner: inner.Client}
+	inner.Client = policyDoer{inner: withRedirectPolicy(inner.Client)}
 	return client, nil
 }

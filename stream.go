@@ -38,7 +38,6 @@ import (
 	"mime"
 	"net/http"
 	"strconv"
-	"strings"
 	"time"
 )
 
@@ -518,19 +517,4 @@ func (r *StreamReader) decode(event string, id int64, hasID bool, data []byte, h
 		Seq: seq, HasSeq: true, Type: wireType, PublishedAt: publishedAt,
 		Data: json.RawMessage(append([]byte(nil), data...)),
 	}, nil
-}
-
-// streamGuardDoer wraps the client's HTTP doer for New: a request to GET
-// /api/v1/stream outside OpenStream (or RawStreamContext) is refused with
-// ErrStreamBuffered before it is sent, so the generated GetStreamWithResponse
-// fails at once instead of buffering an unbounded body.
-type streamGuardDoer struct {
-	inner HttpRequestDoer
-}
-
-func (d streamGuardDoer) Do(req *http.Request) (*http.Response, error) {
-	if req.Method == http.MethodGet && strings.HasSuffix(req.URL.Path, "/api/v1/stream") && !streamAllowed(req.Context()) {
-		return nil, ErrStreamBuffered
-	}
-	return d.inner.Do(req)
 }
