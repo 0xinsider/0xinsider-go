@@ -60,6 +60,7 @@ wrong number.
 
 - No emojis, in code, docs, commits, or issues. Use plain-text markers.
 - Run `gofmt` before committing. `oxinsider.gen.go` is generated from `openapi.sdk.json`; regenerate it with the script in `scripts/` rather than editing it.
+- Read `GET /api/v1/stream` with `OpenStream` (`stream.go`, hand-written, kept outside the generated file). The generated `GetStreamWithResponse` reads the unbounded body to EOF and is refused by a client from `New`; regeneration must not make it the documented path again.
 
 ## Official resources
 

@@ -10,4 +10,12 @@
 //
 //	client, err := oxinsider.New(oxinsider.WithBearerToken(os.Getenv("OXI_API_KEY")))
 //	board, err := client.ListLeaderboardWithResponse(ctx, &oxinsider.ListLeaderboardParams{})
+//
+// Read the live event stream (GET /api/v1/stream) with OpenStream, which
+// delivers frames as they arrive and bounds its memory; the generated
+// GetStreamWithResponse reads the unbounded body to EOF and is refused by a
+// client from New.
+//
+//	reader, err := client.OpenStream(ctx, nil)
+//	frame, err := reader.Next()
 package oxinsider
