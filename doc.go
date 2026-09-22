@@ -11,8 +11,13 @@
 //	client, err := oxinsider.New(oxinsider.WithBearerToken(os.Getenv("OXI_API_KEY")))
 //	board, err := client.ListLeaderboardWithResponse(ctx, &oxinsider.ListLeaderboardParams{})
 //
+// Every ordinary request from such a client is finitely bounded, in total and
+// on the connection, even from context.Background: see DefaultRequestTimeout
+// and WithRequestTimeout. A deadline on the context always wins.
+//
 // Read the live event stream (GET /api/v1/stream) with OpenStream, which
-// delivers frames as they arrive and bounds its memory; the generated
+// delivers frames as they arrive, bounds its memory, and carries its own start
+// and idle timeouts instead of the ordinary-request deadline; the generated
 // GetStreamWithResponse reads the unbounded body to EOF and is refused by a
 // client from New.
 //

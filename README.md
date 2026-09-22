@@ -55,6 +55,30 @@ Every operation in the OpenAPI document has a typed `...WithResponse` method. `J
 - **Numbers.** Money and price fields keep the API's full precision. Do not round before you display them.
 - **Missing values.** A missing, stale, partial or unavailable field means the provider did not report that value. Do not read it as zero.
 
+## Timeouts
+
+`net/http` has no default timeout, so the quickstart above would otherwise wait forever on a stalled connection. A client from `New` bounds every ordinary request:
+
+| Bound | Default | What it covers |
+| --- | --- | --- |
+| `DefaultRequestTimeout` | 30s | one ordinary request end to end: connect, request, headers and body, across any redirect |
+| `DefaultDownloadTimeout` | 5m | `GET /api/v1/trader/{address}/export/download`, whose body is a presigned file this SDK does not size |
+| `DefaultConnectTimeout` | 10s | establishing the TCP connection |
+| `DefaultTLSHandshakeTimeout` | 10s | the TLS handshake |
+| `DefaultResponseHeaderTimeout` | 15s | the wait from the end of the request to the first response header, on every request |
+
+A context that already carries a deadline is never shortened or extended, so a shorter caller deadline wins and a longer one is honored:
+
+```go
+ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
+defer cancel()
+resp, err := client.ListLeaderboardWithResponse(ctx, &oxinsider.ListLeaderboardParams{})
+```
+
+`oxinsider.WithRequestTimeout(d)` changes the client's default for every request but the event stream, and `WithRequestTimeout(0)` removes it and leaves the connection bounds in place. A deadline this client applied is a `*oxinsider.RequestTimeoutError`, which names the bound and unwraps to `context.DeadlineExceeded`; a deadline or cancellation you brought is returned as `context.DeadlineExceeded` or `context.Canceled`, and a connect, handshake or header stall as the transport's own timeout error. `http.Client.Timeout` is deliberately not set, because it would also bound reading the event stream's body.
+
+`WithHTTPClient` still replaces the HTTP client, and its owner then owns the connection bounds; the per-request deadline is applied around it either way.
+
 ## Stream
 
 `GET /api/v1/stream` is an unbounded Server-Sent Events stream. Read it with `OpenStream`, which delivers each frame as it arrives, holds at most `WithMaxFrameBytes` (1 MiB by default) for one undelivered frame, and closes the connection when the context is cancelled or the reader is closed:
@@ -84,6 +108,8 @@ for {
 ```
 
 A frame that breaks the SSE contract (not JSON, not an object, no usable sequence, a malformed `resync` marker, a `200` that is not `text/event-stream`, or a frame past the byte ceiling) ends the stream with a `*StreamProtocolError` whose `Reason`, `LastSeq` and `FrameID` say which frame and where to resume from; a malformed frame never moves `LastSeq`. Keep-alive comments are consumed silently, `retry:` is exposed as `RetryHint`, and the stream's headers are on `Response()`.
+
+The stream carries no total deadline: it is meant to stay open, and the ordinary-request bound above does not apply to it. It is bounded where it can stall instead. `WithStreamStartTimeout` (10s) bounds the wait for the response headers, and `WithStreamIdleTimeout` (60s) ends a connection that has sent nothing, not even a keep-alive; the API sends one every 5 seconds, so a minute of silence is twelve missed keep-alives and not a quiet feed. Either bound ends the call with a `*StreamTimeoutError` whose `Phase` says which one and whose `LastSeq` says where to resume; `0` removes either bound. The idle clock runs only while the reader is waiting for bytes, so taking your time between frames does not trip it.
 
 Do not read the stream with the generated `GetStreamWithResponse`: it reads the body to EOF, which a healthy stream never reaches, so it would neither return nor bound its memory. A client from `New` refuses that call with `ErrStreamBuffered`. To own the raw `*http.Response` instead, call `GetStream` with `RawStreamContext(ctx)`.
 

@@ -97,7 +97,7 @@ func (d policyDoer) Do(req *http.Request) (*http.Response, error) {
 			return nil, err
 		}
 	}
-	if req.Method == http.MethodGet && strings.HasSuffix(req.URL.Path, "/api/v1/stream") && !streamAllowed(req.Context()) {
+	if isStreamRequest(req) && !streamAllowed(req.Context()) {
 		return nil, ErrStreamBuffered
 	}
 	return d.inner.Do(req)

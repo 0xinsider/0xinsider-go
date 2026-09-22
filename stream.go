@@ -38,12 +38,38 @@ import (
 	"mime"
 	"net/http"
 	"strconv"
+	"strings"
+	"sync/atomic"
 	"time"
 )
 
 // DefaultMaxStreamFrameBytes bounds the bytes held for one undelivered frame:
 // 1 MiB. The largest real frame is a few KB.
 const DefaultMaxStreamFrameBytes = 1 << 20
+
+// The stream's own time bounds. A total deadline would cut a healthy
+// connection, so the stream is bounded where it can stall instead: opening it,
+// and silence on it. Both are overridable, and 0 removes either one.
+const (
+	// DefaultStreamStartTimeout bounds the wait from the stream request to its
+	// response headers. It is shorter than DefaultResponseHeaderTimeout, the
+	// transport's backstop for the same wait, so a stream that does not open
+	// fails with *StreamTimeoutError rather than a transport error.
+	DefaultStreamStartTimeout = 10 * time.Second
+	// DefaultStreamIdleTimeout ends a connection that has sent nothing for a
+	// minute. The API sends a keep-alive comment every 5 seconds, so a minute
+	// of silence is twelve missed keep-alives, not a quiet feed. The clock
+	// runs only while the reader is waiting for bytes, so a slow consumer does
+	// not trip it.
+	DefaultStreamIdleTimeout = 60 * time.Second
+)
+
+// isStreamRequest reports whether req is GET /api/v1/stream, the unbounded
+// event stream: the one request that gets no total deadline and that a client
+// from New refuses outside OpenStream.
+func isStreamRequest(req *http.Request) bool {
+	return req.Method == http.MethodGet && strings.HasSuffix(req.URL.Path, "/api/v1/stream")
+}
 
 // maxStreamErrorBodyBytes bounds the body read for a non-2xx answer to the
 // stream request, so a startup error stays typed and small.
@@ -171,6 +197,55 @@ func (e *StreamHTTPError) Error() string {
 	return fmt.Sprintf("oxinsider stream: HTTP %d %s", e.StatusCode, code)
 }
 
+// StreamTimeoutPhase names which stream bound expired.
+type StreamTimeoutPhase string
+
+const (
+	// StreamTimeoutStart: the response headers did not arrive within
+	// WithStreamStartTimeout, so the stream never opened.
+	StreamTimeoutStart StreamTimeoutPhase = "start"
+	// StreamTimeoutIdle: the open stream sent nothing, not even a keep-alive,
+	// for WithStreamIdleTimeout.
+	StreamTimeoutIdle StreamTimeoutPhase = "idle"
+)
+
+// StreamTimeoutError reports that a stream bound expired. Phase says which
+// one, Deadline is the bound, and LastSeq is the last sequence delivered on
+// the connection (HasLastSeq false when none was), so an idle timeout can be
+// resumed from where it stopped. Err is the underlying transport error when
+// there was one. A context the caller cancelled is reported as ctx.Err(),
+// never as this error.
+type StreamTimeoutError struct {
+	Phase      StreamTimeoutPhase
+	Deadline   time.Duration
+	LastSeq    int64
+	HasLastSeq bool
+	Err        error
+}
+
+func (e *StreamTimeoutError) Error() string {
+	if e.Phase == StreamTimeoutStart {
+		return fmt.Sprintf(
+			"oxinsider stream: no response headers within %s, so the stream did not open (oxinsider.WithStreamStartTimeout changes it)",
+			e.Deadline,
+		)
+	}
+	after := "before any event was delivered"
+	if e.HasLastSeq {
+		after = "after seq " + strconv.FormatInt(e.LastSeq, 10)
+	}
+	return fmt.Sprintf(
+		"oxinsider stream: nothing arrived for %s %s, not even a keep-alive; the connection was closed (oxinsider.WithStreamIdleTimeout changes it)",
+		e.Deadline, after,
+	)
+}
+
+// Unwrap exposes the transport error the bound produced, when there was one.
+func (e *StreamTimeoutError) Unwrap() error { return e.Err }
+
+// Timeout reports that this error is a timeout, matching the net.Error convention.
+func (e *StreamTimeoutError) Timeout() bool { return true }
+
 // StreamFrame is one delivered frame.
 type StreamFrame struct {
 	// Resync is true for an "event: resync" marker. Data is then the resync
@@ -199,6 +274,8 @@ type StreamOption func(*streamConfig)
 
 type streamConfig struct {
 	maxFrameBytes int
+	startTimeout  time.Duration
+	idleTimeout   time.Duration
 	editors       []RequestEditorFn
 }
 
@@ -207,6 +284,24 @@ type streamConfig struct {
 // than this without a blank-line delimiter ends with StreamFrameTooLarge.
 func WithMaxFrameBytes(n int) StreamOption {
 	return func(c *streamConfig) { c.maxFrameBytes = n }
+}
+
+// WithStreamStartTimeout bounds the wait from the stream request to its
+// response headers. The default is DefaultStreamStartTimeout (10 s); 0 leaves
+// the opening bounded only by the transport's response-header timeout and the
+// context. A stream that does not open in time fails with a
+// *StreamTimeoutError whose Phase is StreamTimeoutStart.
+func WithStreamStartTimeout(timeout time.Duration) StreamOption {
+	return func(c *streamConfig) { c.startTimeout = timeout }
+}
+
+// WithStreamIdleTimeout ends the connection when nothing arrives on it, not
+// even a keep-alive comment, for this long. The default is
+// DefaultStreamIdleTimeout (60 s); 0 lets an idle connection stay open
+// indefinitely. Next then returns a *StreamTimeoutError whose Phase is
+// StreamTimeoutIdle and whose LastSeq says where to resume.
+func WithStreamIdleTimeout(timeout time.Duration) StreamOption {
+	return func(c *streamConfig) { c.idleTimeout = timeout }
 }
 
 // WithStreamRequestEditor adds a request editor to the stream request only,
@@ -224,6 +319,12 @@ func WithStreamRequestEditor(fn RequestEditorFn) StreamOption {
 // *StreamProtocolError with StreamUnexpectedMediaType. Close the reader when
 // you are done with it.
 //
+// The stream carries no total deadline: it is meant to stay open. It is
+// bounded where it can stall instead. Opening it is bounded by
+// WithStreamStartTimeout, and silence on it by WithStreamIdleTimeout; either
+// one ends the call with a *StreamTimeoutError, which names the phase and, for
+// an idle timeout, the sequence to resume from.
+//
 //	reader, err := client.OpenStream(ctx, &oxinsider.GetStreamParams{LastEventID: &cursor})
 //	if err != nil { ... }
 //	defer reader.Close()
@@ -235,17 +336,56 @@ func WithStreamRequestEditor(fn RequestEditorFn) StreamOption {
 //		cursor = strconv.FormatInt(frame.Seq, 10)
 //	}
 func (c *ClientWithResponses) OpenStream(ctx context.Context, params *GetStreamParams, opts ...StreamOption) (*StreamReader, error) {
-	cfg := streamConfig{maxFrameBytes: DefaultMaxStreamFrameBytes}
+	cfg := streamConfig{
+		maxFrameBytes: DefaultMaxStreamFrameBytes,
+		startTimeout:  DefaultStreamStartTimeout,
+		idleTimeout:   DefaultStreamIdleTimeout,
+	}
 	for _, opt := range opts {
 		opt(&cfg)
 	}
 	if cfg.maxFrameBytes < 1 {
 		return nil, fmt.Errorf("oxinsider: MaxFrameBytes must be a positive integer, got %d", cfg.maxFrameBytes)
 	}
+	if cfg.startTimeout < 0 {
+		return nil, fmt.Errorf("oxinsider: stream start timeout must not be negative, got %s", cfg.startTimeout)
+	}
+	if cfg.idleTimeout < 0 {
+		return nil, fmt.Errorf("oxinsider: stream idle timeout must not be negative, got %s", cfg.idleTimeout)
+	}
 	editors := append([]RequestEditorFn{acceptEventStream}, cfg.editors...)
-	rsp, err := c.ClientInterface.GetStream(RawStreamContext(ctx), params, editors...)
-	if err != nil {
-		return nil, err
+
+	// The reader owns this context for the life of the connection: the start
+	// timer and the idle guard cancel it, and so does Close.
+	streamCtx, cancel := context.WithCancel(ctx)
+	var startExpired atomic.Bool
+	var startTimer *time.Timer
+	if cfg.startTimeout > 0 {
+		startTimer = time.AfterFunc(cfg.startTimeout, func() {
+			startExpired.Store(true)
+			cancel()
+		})
+	}
+	rsp, err := c.ClientInterface.GetStream(RawStreamContext(streamCtx), params, editors...)
+	if startTimer != nil {
+		startTimer.Stop()
+	}
+	if err != nil || startExpired.Load() {
+		// startExpired with no error is the narrow race where the headers
+		// landed as the timer fired: the context is already cancelled, so the
+		// body is dead either way.
+		if rsp != nil && rsp.Body != nil {
+			err = closeWith(rsp.Body, err)
+		}
+		cancel()
+		switch {
+		case startExpired.Load() && ctx.Err() == nil:
+			return nil, &StreamTimeoutError{Phase: StreamTimeoutStart, Deadline: cfg.startTimeout, Err: err}
+		case err != nil:
+			return nil, err
+		default:
+			return nil, ctx.Err()
+		}
 	}
 	if rsp.StatusCode != http.StatusOK {
 		limited := &http.Response{}
@@ -255,6 +395,7 @@ func (c *ClientWithResponses) OpenStream(ctx context.Context, params *GetStreamP
 			io.Closer
 		}{io.LimitReader(rsp.Body, maxStreamErrorBodyBytes), rsp.Body}
 		parsed, err := ParseGetStreamResponse(limited)
+		cancel()
 		if err != nil {
 			return nil, fmt.Errorf("oxinsider stream: HTTP %d, and the error body did not decode: %w", rsp.StatusCode, err)
 		}
@@ -262,19 +403,70 @@ func (c *ClientWithResponses) OpenStream(ctx context.Context, params *GetStreamP
 	}
 	mediaType, _, _ := mime.ParseMediaType(rsp.Header.Get("Content-Type"))
 	if mediaType != "text/event-stream" {
-		closeErr := rsp.Body.Close()
-		protocolErr := &StreamProtocolError{Reason: StreamUnexpectedMediaType, MediaType: rsp.Header.Get("Content-Type")}
-		if closeErr != nil {
-			return nil, errors.Join(protocolErr, closeErr)
-		}
+		protocolErr := closeWith(rsp.Body, &StreamProtocolError{
+			Reason:    StreamUnexpectedMediaType,
+			MediaType: rsp.Header.Get("Content-Type"),
+		})
+		cancel()
 		return nil, protocolErr
 	}
-	return &StreamReader{
+	reader := &StreamReader{
 		ctx:           ctx,
+		cancel:        cancel,
 		resp:          rsp,
-		reader:        bufio.NewReaderSize(rsp.Body, 64<<10),
+		body:          rsp.Body,
 		maxFrameBytes: cfg.maxFrameBytes,
-	}, nil
+		idleTimeout:   cfg.idleTimeout,
+	}
+	if cfg.idleTimeout > 0 {
+		reader.idle = newIdleGuard(rsp.Body, cfg.idleTimeout, cancel)
+		reader.body = reader.idle
+	}
+	reader.reader = bufio.NewReaderSize(reader.body, 64<<10)
+	return reader, nil
+}
+
+// closeWith closes what the caller is giving up on and joins any close error
+// onto the error it already has, so neither is dropped.
+func closeWith(body io.Closer, err error) error {
+	if closeErr := body.Close(); closeErr != nil {
+		return errors.Join(err, closeErr)
+	}
+	return err
+}
+
+// idleGuard cancels the stream when the connection sends nothing for too long.
+// The clock runs only while a read is in flight, so a caller that takes its
+// time between frames does not trip it; only the server's silence does.
+type idleGuard struct {
+	inner   io.ReadCloser
+	timeout time.Duration
+	timer   *time.Timer
+	expired atomic.Bool
+}
+
+func newIdleGuard(body io.ReadCloser, timeout time.Duration, cancel context.CancelFunc) *idleGuard {
+	guard := &idleGuard{inner: body, timeout: timeout}
+	guard.timer = time.AfterFunc(timeout, func() {
+		guard.expired.Store(true)
+		cancel()
+	})
+	// Stopped until the first read: the clock is the server's silence, not the
+	// time between OpenStream and the first Next.
+	guard.timer.Stop()
+	return guard
+}
+
+func (g *idleGuard) Read(p []byte) (int, error) {
+	g.timer.Reset(g.timeout)
+	n, err := g.inner.Read(p)
+	g.timer.Stop()
+	return n, err
+}
+
+func (g *idleGuard) Close() error {
+	g.timer.Stop()
+	return g.inner.Close()
 }
 
 func acceptEventStream(_ context.Context, req *http.Request) error {
@@ -286,7 +478,11 @@ func acceptEventStream(_ context.Context, req *http.Request) error {
 // for concurrent use.
 type StreamReader struct {
 	ctx           context.Context
+	cancel        context.CancelFunc
 	resp          *http.Response
+	body          io.ReadCloser
+	idle          *idleGuard
+	idleTimeout   time.Duration
 	reader        *bufio.Reader
 	maxFrameBytes int
 
@@ -313,8 +509,8 @@ func (r *StreamReader) LastSeq() (int64, bool) { return r.lastSeq, r.hasLastSeq 
 // *StreamHTTPError.
 func (r *StreamReader) RetryHint() (time.Duration, bool) { return r.retry, r.hasRetry }
 
-// Close closes the connection. Next returns io.EOF afterwards. Close is
-// idempotent.
+// Close closes the connection and releases the stream's context. Next returns
+// io.EOF afterwards. Close is idempotent.
 func (r *StreamReader) Close() error {
 	if r.closed {
 		return nil
@@ -323,7 +519,8 @@ func (r *StreamReader) Close() error {
 	if r.done == nil {
 		r.done = io.EOF
 	}
-	return r.resp.Body.Close()
+	r.cancel()
+	return r.body.Close()
 }
 
 // fail records a terminal error, closes the connection and returns the error.
@@ -338,7 +535,8 @@ func (r *StreamReader) fail(err error) error {
 // Next blocks until the next frame arrives and returns it. It returns io.EOF
 // when the server closes the stream cleanly (a partial frame at EOF is
 // discarded, as the SSE specification says) or after Close; ctx.Err() when
-// the context given to OpenStream is cancelled; a *StreamProtocolError when
+// the context given to OpenStream is cancelled; a *StreamTimeoutError when the
+// connection sent nothing for the idle bound; a *StreamProtocolError when
 // the stream breaks the contract; or the transport error. Keep-alive comment
 // frames are consumed silently. Every error is terminal: the connection is
 // closed and later calls return the same error.
@@ -358,6 +556,17 @@ func (r *StreamReader) Next() (StreamFrame, error) {
 	for {
 		line, err := r.readLine(&frameBytes)
 		if err != nil {
+			if r.idle != nil && r.idle.expired.Load() && r.ctx.Err() == nil {
+				// The idle guard cancelled the stream's context; the read
+				// error below is that cancellation, not the server's doing.
+				return StreamFrame{}, r.fail(&StreamTimeoutError{
+					Phase:      StreamTimeoutIdle,
+					Deadline:   r.idleTimeout,
+					LastSeq:    r.lastSeq,
+					HasLastSeq: r.hasLastSeq,
+					Err:        err,
+				})
+			}
 			if errors.Is(err, io.EOF) {
 				return StreamFrame{}, r.fail(io.EOF)
 			}
