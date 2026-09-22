@@ -37,6 +37,54 @@ func (e AccountIdentityDataCredentialKind) Valid() bool {
 	}
 }
 
+// Defines values for AccountIdentityDataCredentialStatus.
+const (
+	AccountIdentityDataCredentialStatusActive AccountIdentityDataCredentialStatus = "active"
+)
+
+// Valid indicates whether the value is a known member of the AccountIdentityDataCredentialStatus enum.
+func (e AccountIdentityDataCredentialStatus) Valid() bool {
+	switch e {
+	case AccountIdentityDataCredentialStatusActive:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AccountIdentityDataEntitlementPaidDataAccess.
+const (
+	AccountIdentityDataEntitlementPaidDataAccessActive AccountIdentityDataEntitlementPaidDataAccess = "active"
+	AccountIdentityDataEntitlementPaidDataAccessLapsed AccountIdentityDataEntitlementPaidDataAccess = "lapsed"
+)
+
+// Valid indicates whether the value is a known member of the AccountIdentityDataEntitlementPaidDataAccess enum.
+func (e AccountIdentityDataEntitlementPaidDataAccess) Valid() bool {
+	switch e {
+	case AccountIdentityDataEntitlementPaidDataAccessActive:
+		return true
+	case AccountIdentityDataEntitlementPaidDataAccessLapsed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AccountIdentityDataEntitlementRecoveryAction.
+const (
+	RenewSubscription AccountIdentityDataEntitlementRecoveryAction = "renew_subscription"
+)
+
+// Valid indicates whether the value is a known member of the AccountIdentityDataEntitlementRecoveryAction enum.
+func (e AccountIdentityDataEntitlementRecoveryAction) Valid() bool {
+	switch e {
+	case RenewSubscription:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AccountIdentityObject.
 const (
 	Account AccountIdentityObject = "account"
@@ -84,13 +132,13 @@ func (e AgentRegistrationLivemode) Valid() bool {
 
 // Defines values for ApiDiscoveryAuthentication.
 const (
-	BearerAPIKeyRequiredForDataEndpointsDiscoveryapiv1Healthapiv1platformsAndTheMCPHandshakeInitializePingToolslistOnapiv1mcpArePublicA401CarriesWWWAuthenticateWithTheResourceMetadataURL ApiDiscoveryAuthentication = "Bearer API key required for data endpoints; discovery (/api/v1), health, /api/v1/platforms, and the MCP handshake (initialize, ping, tools/list on /api/v1/mcp) are public. A 401 carries WWW-Authenticate with the resource_metadata URL."
+	BearerAPIKeyRequiredForDataEndpointsDiscoveryapiv1Healthapiv1platformsThePickOfTheDayCommitmentLedgerapiv1pickOfTheDayledgerAndTheMCPHandshakeInitializePingToolslistOnapiv1mcpArePublicA401CarriesWWWAuthenticateWithTheResourceMetadataURL ApiDiscoveryAuthentication = "Bearer API key required for data endpoints; discovery (/api/v1), health, /api/v1/platforms, the Pick of the Day commitment ledger (/api/v1/pick-of-the-day/ledger), and the MCP handshake (initialize, ping, tools/list on /api/v1/mcp) are public. A 401 carries WWW-Authenticate with the resource_metadata URL."
 )
 
 // Valid indicates whether the value is a known member of the ApiDiscoveryAuthentication enum.
 func (e ApiDiscoveryAuthentication) Valid() bool {
 	switch e {
-	case BearerAPIKeyRequiredForDataEndpointsDiscoveryapiv1Healthapiv1platformsAndTheMCPHandshakeInitializePingToolslistOnapiv1mcpArePublicA401CarriesWWWAuthenticateWithTheResourceMetadataURL:
+	case BearerAPIKeyRequiredForDataEndpointsDiscoveryapiv1Healthapiv1platformsThePickOfTheDayCommitmentLedgerapiv1pickOfTheDayledgerAndTheMCPHandshakeInitializePingToolslistOnapiv1mcpArePublicA401CarriesWWWAuthenticateWithTheResourceMetadataURL:
 		return true
 	default:
 		return false
@@ -144,25 +192,30 @@ func (e ApiErrorErrorCode) Valid() bool {
 
 // Defines values for ApiErrorErrorReason.
 const (
-	ApiErrorErrorReasonApiKeyInQuery                ApiErrorErrorReason = "api_key_in_query"
-	ApiErrorErrorReasonCursorExpired                ApiErrorErrorReason = "cursor_expired"
-	ApiErrorErrorReasonDatabaseUnavailable          ApiErrorErrorReason = "database_unavailable"
-	ApiErrorErrorReasonIdempotencyInProgress        ApiErrorErrorReason = "idempotency_in_progress"
-	ApiErrorErrorReasonInvalidBody                  ApiErrorErrorReason = "invalid_body"
-	ApiErrorErrorReasonInvalidPath                  ApiErrorErrorReason = "invalid_path"
-	ApiErrorErrorReasonInvalidQuery                 ApiErrorErrorReason = "invalid_query"
-	ApiErrorErrorReasonMethodNotAllowed             ApiErrorErrorReason = "method_not_allowed"
-	ApiErrorErrorReasonMonthlyQuotaExceeded         ApiErrorErrorReason = "monthly_quota_exceeded"
-	ApiErrorErrorReasonPayloadTooLarge              ApiErrorErrorReason = "payload_too_large"
-	ApiErrorErrorReasonPickNotReleased              ApiErrorErrorReason = "pick_not_released"
-	ApiErrorErrorReasonReadModelWarming             ApiErrorErrorReason = "read_model_warming"
-	ApiErrorErrorReasonRequestAccountingUnavailable ApiErrorErrorReason = "request_accounting_unavailable"
-	ApiErrorErrorReasonSandboxApiKey                ApiErrorErrorReason = "sandbox_api_key"
-	ApiErrorErrorReasonSubscriptionInactive         ApiErrorErrorReason = "subscription_inactive"
-	ApiErrorErrorReasonTraderNotTracked             ApiErrorErrorReason = "trader_not_tracked"
-	ApiErrorErrorReasonUnknownEndpoint              ApiErrorErrorReason = "unknown_endpoint"
-	ApiErrorErrorReasonUnsupportedMediaType         ApiErrorErrorReason = "unsupported_media_type"
-	ApiErrorErrorReasonWebhookDeliveryInProgress    ApiErrorErrorReason = "webhook_delivery_in_progress"
+	ApiErrorErrorReasonApiKeyInQuery                      ApiErrorErrorReason = "api_key_in_query"
+	ApiErrorErrorReasonCursorExpired                      ApiErrorErrorReason = "cursor_expired"
+	ApiErrorErrorReasonDatabaseUnavailable                ApiErrorErrorReason = "database_unavailable"
+	ApiErrorErrorReasonIdempotencyInProgress              ApiErrorErrorReason = "idempotency_in_progress"
+	ApiErrorErrorReasonInvalidBody                        ApiErrorErrorReason = "invalid_body"
+	ApiErrorErrorReasonInvalidPath                        ApiErrorErrorReason = "invalid_path"
+	ApiErrorErrorReasonInvalidQuery                       ApiErrorErrorReason = "invalid_query"
+	ApiErrorErrorReasonIpRateLimited                      ApiErrorErrorReason = "ip_rate_limited"
+	ApiErrorErrorReasonIpThrottled                        ApiErrorErrorReason = "ip_throttled"
+	ApiErrorErrorReasonMethodNotAllowed                   ApiErrorErrorReason = "method_not_allowed"
+	ApiErrorErrorReasonMonthlyQuotaExceeded               ApiErrorErrorReason = "monthly_quota_exceeded"
+	ApiErrorErrorReasonPayloadTooLarge                    ApiErrorErrorReason = "payload_too_large"
+	ApiErrorErrorReasonPickNotReleased                    ApiErrorErrorReason = "pick_not_released"
+	ApiErrorErrorReasonReadModelWarming                   ApiErrorErrorReason = "read_model_warming"
+	ApiErrorErrorReasonRequestAccountingUnavailable       ApiErrorErrorReason = "request_accounting_unavailable"
+	ApiErrorErrorReasonSandboxApiKey                      ApiErrorErrorReason = "sandbox_api_key"
+	ApiErrorErrorReasonSubscriptionInactive               ApiErrorErrorReason = "subscription_inactive"
+	ApiErrorErrorReasonTraderNotTracked                   ApiErrorErrorReason = "trader_not_tracked"
+	ApiErrorErrorReasonUnknownEndpoint                    ApiErrorErrorReason = "unknown_endpoint"
+	ApiErrorErrorReasonUnknownQueryParameter              ApiErrorErrorReason = "unknown_query_parameter"
+	ApiErrorErrorReasonUnsupportedMediaType               ApiErrorErrorReason = "unsupported_media_type"
+	ApiErrorErrorReasonWebhookDeliveryInProgress          ApiErrorErrorReason = "webhook_delivery_in_progress"
+	ApiErrorErrorReasonWebhookSecretRotationNotPrepared   ApiErrorErrorReason = "webhook_secret_rotation_not_prepared"
+	ApiErrorErrorReasonWebhookSecretRotationOverlapActive ApiErrorErrorReason = "webhook_secret_rotation_overlap_active"
 )
 
 // Valid indicates whether the value is a known member of the ApiErrorErrorReason enum.
@@ -181,6 +234,10 @@ func (e ApiErrorErrorReason) Valid() bool {
 	case ApiErrorErrorReasonInvalidPath:
 		return true
 	case ApiErrorErrorReasonInvalidQuery:
+		return true
+	case ApiErrorErrorReasonIpRateLimited:
+		return true
+	case ApiErrorErrorReasonIpThrottled:
 		return true
 	case ApiErrorErrorReasonMethodNotAllowed:
 		return true
@@ -202,9 +259,15 @@ func (e ApiErrorErrorReason) Valid() bool {
 		return true
 	case ApiErrorErrorReasonUnknownEndpoint:
 		return true
+	case ApiErrorErrorReasonUnknownQueryParameter:
+		return true
 	case ApiErrorErrorReasonUnsupportedMediaType:
 		return true
 	case ApiErrorErrorReasonWebhookDeliveryInProgress:
+		return true
+	case ApiErrorErrorReasonWebhookSecretRotationNotPrepared:
+		return true
+	case ApiErrorErrorReasonWebhookSecretRotationOverlapActive:
 		return true
 	default:
 		return false
@@ -273,25 +336,30 @@ func (e ApiErrorBodyCode) Valid() bool {
 
 // Defines values for ApiErrorBodyReason.
 const (
-	ApiErrorBodyReasonApiKeyInQuery                ApiErrorBodyReason = "api_key_in_query"
-	ApiErrorBodyReasonCursorExpired                ApiErrorBodyReason = "cursor_expired"
-	ApiErrorBodyReasonDatabaseUnavailable          ApiErrorBodyReason = "database_unavailable"
-	ApiErrorBodyReasonIdempotencyInProgress        ApiErrorBodyReason = "idempotency_in_progress"
-	ApiErrorBodyReasonInvalidBody                  ApiErrorBodyReason = "invalid_body"
-	ApiErrorBodyReasonInvalidPath                  ApiErrorBodyReason = "invalid_path"
-	ApiErrorBodyReasonInvalidQuery                 ApiErrorBodyReason = "invalid_query"
-	ApiErrorBodyReasonMethodNotAllowed             ApiErrorBodyReason = "method_not_allowed"
-	ApiErrorBodyReasonMonthlyQuotaExceeded         ApiErrorBodyReason = "monthly_quota_exceeded"
-	ApiErrorBodyReasonPayloadTooLarge              ApiErrorBodyReason = "payload_too_large"
-	ApiErrorBodyReasonPickNotReleased              ApiErrorBodyReason = "pick_not_released"
-	ApiErrorBodyReasonReadModelWarming             ApiErrorBodyReason = "read_model_warming"
-	ApiErrorBodyReasonRequestAccountingUnavailable ApiErrorBodyReason = "request_accounting_unavailable"
-	ApiErrorBodyReasonSandboxApiKey                ApiErrorBodyReason = "sandbox_api_key"
-	ApiErrorBodyReasonSubscriptionInactive         ApiErrorBodyReason = "subscription_inactive"
-	ApiErrorBodyReasonTraderNotTracked             ApiErrorBodyReason = "trader_not_tracked"
-	ApiErrorBodyReasonUnknownEndpoint              ApiErrorBodyReason = "unknown_endpoint"
-	ApiErrorBodyReasonUnsupportedMediaType         ApiErrorBodyReason = "unsupported_media_type"
-	ApiErrorBodyReasonWebhookDeliveryInProgress    ApiErrorBodyReason = "webhook_delivery_in_progress"
+	ApiErrorBodyReasonApiKeyInQuery                      ApiErrorBodyReason = "api_key_in_query"
+	ApiErrorBodyReasonCursorExpired                      ApiErrorBodyReason = "cursor_expired"
+	ApiErrorBodyReasonDatabaseUnavailable                ApiErrorBodyReason = "database_unavailable"
+	ApiErrorBodyReasonIdempotencyInProgress              ApiErrorBodyReason = "idempotency_in_progress"
+	ApiErrorBodyReasonInvalidBody                        ApiErrorBodyReason = "invalid_body"
+	ApiErrorBodyReasonInvalidPath                        ApiErrorBodyReason = "invalid_path"
+	ApiErrorBodyReasonInvalidQuery                       ApiErrorBodyReason = "invalid_query"
+	ApiErrorBodyReasonIpRateLimited                      ApiErrorBodyReason = "ip_rate_limited"
+	ApiErrorBodyReasonIpThrottled                        ApiErrorBodyReason = "ip_throttled"
+	ApiErrorBodyReasonMethodNotAllowed                   ApiErrorBodyReason = "method_not_allowed"
+	ApiErrorBodyReasonMonthlyQuotaExceeded               ApiErrorBodyReason = "monthly_quota_exceeded"
+	ApiErrorBodyReasonPayloadTooLarge                    ApiErrorBodyReason = "payload_too_large"
+	ApiErrorBodyReasonPickNotReleased                    ApiErrorBodyReason = "pick_not_released"
+	ApiErrorBodyReasonReadModelWarming                   ApiErrorBodyReason = "read_model_warming"
+	ApiErrorBodyReasonRequestAccountingUnavailable       ApiErrorBodyReason = "request_accounting_unavailable"
+	ApiErrorBodyReasonSandboxApiKey                      ApiErrorBodyReason = "sandbox_api_key"
+	ApiErrorBodyReasonSubscriptionInactive               ApiErrorBodyReason = "subscription_inactive"
+	ApiErrorBodyReasonTraderNotTracked                   ApiErrorBodyReason = "trader_not_tracked"
+	ApiErrorBodyReasonUnknownEndpoint                    ApiErrorBodyReason = "unknown_endpoint"
+	ApiErrorBodyReasonUnknownQueryParameter              ApiErrorBodyReason = "unknown_query_parameter"
+	ApiErrorBodyReasonUnsupportedMediaType               ApiErrorBodyReason = "unsupported_media_type"
+	ApiErrorBodyReasonWebhookDeliveryInProgress          ApiErrorBodyReason = "webhook_delivery_in_progress"
+	ApiErrorBodyReasonWebhookSecretRotationNotPrepared   ApiErrorBodyReason = "webhook_secret_rotation_not_prepared"
+	ApiErrorBodyReasonWebhookSecretRotationOverlapActive ApiErrorBodyReason = "webhook_secret_rotation_overlap_active"
 )
 
 // Valid indicates whether the value is a known member of the ApiErrorBodyReason enum.
@@ -310,6 +378,10 @@ func (e ApiErrorBodyReason) Valid() bool {
 	case ApiErrorBodyReasonInvalidPath:
 		return true
 	case ApiErrorBodyReasonInvalidQuery:
+		return true
+	case ApiErrorBodyReasonIpRateLimited:
+		return true
+	case ApiErrorBodyReasonIpThrottled:
 		return true
 	case ApiErrorBodyReasonMethodNotAllowed:
 		return true
@@ -331,9 +403,15 @@ func (e ApiErrorBodyReason) Valid() bool {
 		return true
 	case ApiErrorBodyReasonUnknownEndpoint:
 		return true
+	case ApiErrorBodyReasonUnknownQueryParameter:
+		return true
 	case ApiErrorBodyReasonUnsupportedMediaType:
 		return true
 	case ApiErrorBodyReasonWebhookDeliveryInProgress:
+		return true
+	case ApiErrorBodyReasonWebhookSecretRotationNotPrepared:
+		return true
+	case ApiErrorBodyReasonWebhookSecretRotationOverlapActive:
 		return true
 	default:
 		return false
@@ -601,6 +679,21 @@ func (e CounterpartyParticipantIdentityStatus) Valid() bool {
 	}
 }
 
+// Defines values for EventReplayEventPayloadPlatform.
+const (
+	EventReplayEventPayloadPlatformPolymarket EventReplayEventPayloadPlatform = "polymarket"
+)
+
+// Valid indicates whether the value is a known member of the EventReplayEventPayloadPlatform enum.
+func (e EventReplayEventPayloadPlatform) Valid() bool {
+	switch e {
+	case EventReplayEventPayloadPlatformPolymarket:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EventReplayEventType.
 const (
 	EventReplayEventTypeWhaleTradesInserted EventReplayEventType = "whale_trades_inserted"
@@ -643,6 +736,51 @@ func (e EventReplayMetaCompletenessStatus) Valid() bool {
 	case EventReplayMetaCompletenessStatusCaughtUp:
 		return true
 	case EventReplayMetaCompletenessStatusComplete:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventReplayMetaReplayExpand.
+const (
+	EventReplayMetaReplayExpandTrade EventReplayMetaReplayExpand = "trade"
+)
+
+// Valid indicates whether the value is a known member of the EventReplayMetaReplayExpand enum.
+func (e EventReplayMetaReplayExpand) Valid() bool {
+	switch e {
+	case EventReplayMetaReplayExpandTrade:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventReplayMetaReplayFiltersMinGrade.
+const (
+	EventReplayMetaReplayFiltersMinGradeA EventReplayMetaReplayFiltersMinGrade = "A"
+	EventReplayMetaReplayFiltersMinGradeB EventReplayMetaReplayFiltersMinGrade = "B"
+	EventReplayMetaReplayFiltersMinGradeC EventReplayMetaReplayFiltersMinGrade = "C"
+	EventReplayMetaReplayFiltersMinGradeD EventReplayMetaReplayFiltersMinGrade = "D"
+	EventReplayMetaReplayFiltersMinGradeF EventReplayMetaReplayFiltersMinGrade = "F"
+	EventReplayMetaReplayFiltersMinGradeS EventReplayMetaReplayFiltersMinGrade = "S"
+)
+
+// Valid indicates whether the value is a known member of the EventReplayMetaReplayFiltersMinGrade enum.
+func (e EventReplayMetaReplayFiltersMinGrade) Valid() bool {
+	switch e {
+	case EventReplayMetaReplayFiltersMinGradeA:
+		return true
+	case EventReplayMetaReplayFiltersMinGradeB:
+		return true
+	case EventReplayMetaReplayFiltersMinGradeC:
+		return true
+	case EventReplayMetaReplayFiltersMinGradeD:
+		return true
+	case EventReplayMetaReplayFiltersMinGradeF:
+		return true
+	case EventReplayMetaReplayFiltersMinGradeS:
 		return true
 	default:
 		return false
@@ -1993,21 +2131,6 @@ func (e ReportReconciliationVolumeKind) Valid() bool {
 	}
 }
 
-// Defines values for ReportReconciliationWhaleVolumeSource.
-const (
-	WhaleAlertsUsdcNotionalNum ReportReconciliationWhaleVolumeSource = "whale_alerts.usdc_notional_num"
-)
-
-// Valid indicates whether the value is a known member of the ReportReconciliationWhaleVolumeSource enum.
-func (e ReportReconciliationWhaleVolumeSource) Valid() bool {
-	switch e {
-	case WhaleAlertsUsdcNotionalNum:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for ReportSnapshotKind.
 const (
 	ReportSnapshotKindDaily   ReportSnapshotKind = "daily"
@@ -2242,6 +2365,24 @@ func (e SnapshotStateStatus) Valid() bool {
 	case Final:
 		return true
 	case Rolling:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SnapshotStateStorage.
+const (
+	Durable   SnapshotStateStorage = "durable"
+	Ephemeral SnapshotStateStorage = "ephemeral"
+)
+
+// Valid indicates whether the value is a known member of the SnapshotStateStorage enum.
+func (e SnapshotStateStorage) Valid() bool {
+	switch e {
+	case Durable:
+		return true
+	case Ephemeral:
 		return true
 	default:
 		return false
@@ -3061,6 +3202,33 @@ func (e WebhookDeliveryObject) Valid() bool {
 	}
 }
 
+// Defines values for WebhookDeliveryRetryScheduleReason.
+const (
+	ConfigurationChanged   WebhookDeliveryRetryScheduleReason = "configuration_changed"
+	ManualRedelivery       WebhookDeliveryRetryScheduleReason = "manual_redelivery"
+	PermanentOrAuthFailure WebhookDeliveryRetryScheduleReason = "permanent_or_auth_failure"
+	ReceiverRetryAfter     WebhookDeliveryRetryScheduleReason = "receiver_retry_after"
+	TransientFailure       WebhookDeliveryRetryScheduleReason = "transient_failure"
+)
+
+// Valid indicates whether the value is a known member of the WebhookDeliveryRetryScheduleReason enum.
+func (e WebhookDeliveryRetryScheduleReason) Valid() bool {
+	switch e {
+	case ConfigurationChanged:
+		return true
+	case ManualRedelivery:
+		return true
+	case PermanentOrAuthFailure:
+		return true
+	case ReceiverRetryAfter:
+		return true
+	case TransientFailure:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WebhookEndpointObject.
 const (
 	WebhookEndpointObjectWebhook WebhookEndpointObject = "webhook"
@@ -3181,6 +3349,27 @@ const (
 func (e WebhookRetryPolicyTerminalStatus) Valid() bool {
 	switch e {
 	case DeadLetter:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WebhookSecretRotationStatus.
+const (
+	WebhookSecretRotationStatusIdle    WebhookSecretRotationStatus = "idle"
+	WebhookSecretRotationStatusOverlap WebhookSecretRotationStatus = "overlap"
+	WebhookSecretRotationStatusPending WebhookSecretRotationStatus = "pending"
+)
+
+// Valid indicates whether the value is a known member of the WebhookSecretRotationStatus enum.
+func (e WebhookSecretRotationStatus) Valid() bool {
+	switch e {
+	case WebhookSecretRotationStatusIdle:
+		return true
+	case WebhookSecretRotationStatusOverlap:
+		return true
+	case WebhookSecretRotationStatusPending:
 		return true
 	default:
 		return false
@@ -3346,6 +3535,21 @@ func (e WhaleTradeHistoryMetaSourceTable) Valid() bool {
 	}
 }
 
+// Defines values for GetApiDiscoveryParamsXQueryValidation.
+const (
+	GetApiDiscoveryParamsXQueryValidationStrict GetApiDiscoveryParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetApiDiscoveryParamsXQueryValidation enum.
+func (e GetApiDiscoveryParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetApiDiscoveryParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetApiDiscovery200JSONResponseBodyObject.
 const (
 	GetApiDiscovery200JSONResponseBodyObjectApiDiscovery GetApiDiscovery200JSONResponseBodyObject = "api_discovery"
@@ -3361,6 +3565,21 @@ func (e GetApiDiscovery200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for RegisterAgentParamsXQueryValidation.
+const (
+	RegisterAgentParamsXQueryValidationStrict RegisterAgentParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the RegisterAgentParamsXQueryValidation enum.
+func (e RegisterAgentParamsXQueryValidation) Valid() bool {
+	switch e {
+	case RegisterAgentParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RegisterAgent201JSONResponseBodyObject.
 const (
 	RegisterAgent201JSONResponseBodyObjectAgentRegistration RegisterAgent201JSONResponseBodyObject = "agent_registration"
@@ -3370,6 +3589,21 @@ const (
 func (e RegisterAgent201JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case RegisterAgent201JSONResponseBodyObjectAgentRegistration:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SearchContentParamsXQueryValidation.
+const (
+	SearchContentParamsXQueryValidationStrict SearchContentParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the SearchContentParamsXQueryValidation enum.
+func (e SearchContentParamsXQueryValidation) Valid() bool {
+	switch e {
+	case SearchContentParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -3406,6 +3640,66 @@ func (e SearchContent200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for GetEventReplaySinceParamsMinGrade.
+const (
+	GetEventReplaySinceParamsMinGradeA GetEventReplaySinceParamsMinGrade = "A"
+	GetEventReplaySinceParamsMinGradeB GetEventReplaySinceParamsMinGrade = "B"
+	GetEventReplaySinceParamsMinGradeC GetEventReplaySinceParamsMinGrade = "C"
+	GetEventReplaySinceParamsMinGradeD GetEventReplaySinceParamsMinGrade = "D"
+	GetEventReplaySinceParamsMinGradeF GetEventReplaySinceParamsMinGrade = "F"
+	GetEventReplaySinceParamsMinGradeS GetEventReplaySinceParamsMinGrade = "S"
+)
+
+// Valid indicates whether the value is a known member of the GetEventReplaySinceParamsMinGrade enum.
+func (e GetEventReplaySinceParamsMinGrade) Valid() bool {
+	switch e {
+	case GetEventReplaySinceParamsMinGradeA:
+		return true
+	case GetEventReplaySinceParamsMinGradeB:
+		return true
+	case GetEventReplaySinceParamsMinGradeC:
+		return true
+	case GetEventReplaySinceParamsMinGradeD:
+		return true
+	case GetEventReplaySinceParamsMinGradeF:
+		return true
+	case GetEventReplaySinceParamsMinGradeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEventReplaySinceParamsExpand.
+const (
+	GetEventReplaySinceParamsExpandTrade GetEventReplaySinceParamsExpand = "trade"
+)
+
+// Valid indicates whether the value is a known member of the GetEventReplaySinceParamsExpand enum.
+func (e GetEventReplaySinceParamsExpand) Valid() bool {
+	switch e {
+	case GetEventReplaySinceParamsExpandTrade:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEventReplaySinceParamsXQueryValidation.
+const (
+	GetEventReplaySinceParamsXQueryValidationStrict GetEventReplaySinceParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetEventReplaySinceParamsXQueryValidation enum.
+func (e GetEventReplaySinceParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetEventReplaySinceParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetEventReplaySince200JSONResponseBodyObject.
 const (
 	EventReplay GetEventReplaySince200JSONResponseBodyObject = "event_replay"
@@ -3415,6 +3709,21 @@ const (
 func (e GetEventReplaySince200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case EventReplay:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetHealthParamsXQueryValidation.
+const (
+	GetHealthParamsXQueryValidationStrict GetHealthParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetHealthParamsXQueryValidation enum.
+func (e GetHealthParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetHealthParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -3502,6 +3811,39 @@ func (e ListInsiderRadarParamsSeverity) Valid() bool {
 	}
 }
 
+// Defines values for ListInsiderRadarParamsMode.
+const (
+	ListInsiderRadarParamsModeLive   ListInsiderRadarParamsMode = "live"
+	ListInsiderRadarParamsModeStable ListInsiderRadarParamsMode = "stable"
+)
+
+// Valid indicates whether the value is a known member of the ListInsiderRadarParamsMode enum.
+func (e ListInsiderRadarParamsMode) Valid() bool {
+	switch e {
+	case ListInsiderRadarParamsModeLive:
+		return true
+	case ListInsiderRadarParamsModeStable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListInsiderRadarParamsXQueryValidation.
+const (
+	ListInsiderRadarParamsXQueryValidationStrict ListInsiderRadarParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListInsiderRadarParamsXQueryValidation enum.
+func (e ListInsiderRadarParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListInsiderRadarParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListInsiderRadar200JSONResponseBodyObject.
 const (
 	ListInsiderRadar200JSONResponseBodyObjectList ListInsiderRadar200JSONResponseBodyObject = "list"
@@ -3511,6 +3853,21 @@ const (
 func (e ListInsiderRadar200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case ListInsiderRadar200JSONResponseBodyObjectList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetInsiderRadarFlagParamsXQueryValidation.
+const (
+	GetInsiderRadarFlagParamsXQueryValidationStrict GetInsiderRadarFlagParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetInsiderRadarFlagParamsXQueryValidation enum.
+func (e GetInsiderRadarFlagParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetInsiderRadarFlagParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -3556,6 +3913,21 @@ func (e ListLargePositionsParamsMinGrade) Valid() bool {
 	case ListLargePositionsParamsMinGradeF:
 		return true
 	case ListLargePositionsParamsMinGradeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListLargePositionsParamsXQueryValidation.
+const (
+	ListLargePositionsParamsXQueryValidationStrict ListLargePositionsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListLargePositionsParamsXQueryValidation enum.
+func (e ListLargePositionsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListLargePositionsParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -3619,6 +3991,21 @@ func (e ListLeaderboardParamsStrategy) Valid() bool {
 	}
 }
 
+// Defines values for ListLeaderboardParamsXQueryValidation.
+const (
+	ListLeaderboardParamsXQueryValidationStrict ListLeaderboardParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListLeaderboardParamsXQueryValidation enum.
+func (e ListLeaderboardParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListLeaderboardParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListLeaderboard200JSONResponseBodyObject.
 const (
 	ListLeaderboard200JSONResponseBodyObjectList ListLeaderboard200JSONResponseBodyObject = "list"
@@ -3646,6 +4033,21 @@ func (e ListTrendingWalletsParamsWindow) Valid() bool {
 	case ListTrendingWalletsParamsWindowN30d:
 		return true
 	case ListTrendingWalletsParamsWindowN7d:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListTrendingWalletsParamsXQueryValidation.
+const (
+	ListTrendingWalletsParamsXQueryValidationStrict ListTrendingWalletsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListTrendingWalletsParamsXQueryValidation enum.
+func (e ListTrendingWalletsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListTrendingWalletsParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -3685,6 +4087,21 @@ func (e GetMarketCandlesParamsResolution) Valid() bool {
 	}
 }
 
+// Defines values for GetMarketCandlesParamsXQueryValidation.
+const (
+	GetMarketCandlesParamsXQueryValidationStrict GetMarketCandlesParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetMarketCandlesParamsXQueryValidation enum.
+func (e GetMarketCandlesParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetMarketCandlesParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetMarketCandles200JSONResponseBodyObject.
 const (
 	GetMarketCandles200JSONResponseBodyObjectMarketCandles GetMarketCandles200JSONResponseBodyObject = "market_candles"
@@ -3694,6 +4111,21 @@ const (
 func (e GetMarketCandles200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetMarketCandles200JSONResponseBodyObjectMarketCandles:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetMarketContextMarkdownParamsXQueryValidation.
+const (
+	GetMarketContextMarkdownParamsXQueryValidationStrict GetMarketContextMarkdownParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetMarketContextMarkdownParamsXQueryValidation enum.
+func (e GetMarketContextMarkdownParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetMarketContextMarkdownParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -3742,6 +4174,21 @@ func (e GetMarketHoldersParamsMinGrade) Valid() bool {
 	}
 }
 
+// Defines values for GetMarketHoldersParamsXQueryValidation.
+const (
+	GetMarketHoldersParamsXQueryValidationStrict GetMarketHoldersParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetMarketHoldersParamsXQueryValidation enum.
+func (e GetMarketHoldersParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetMarketHoldersParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetMarketHolders200JSONResponseBodyObject.
 const (
 	GetMarketHolders200JSONResponseBodyObjectList GetMarketHolders200JSONResponseBodyObject = "list"
@@ -3781,6 +4228,21 @@ func (e GetMarketIntelParamsTimeframe) Valid() bool {
 	}
 }
 
+// Defines values for GetMarketIntelParamsXQueryValidation.
+const (
+	GetMarketIntelParamsXQueryValidationStrict GetMarketIntelParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetMarketIntelParamsXQueryValidation enum.
+func (e GetMarketIntelParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetMarketIntelParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetMarketIntel200JSONResponseBodyObject.
 const (
 	GetMarketIntel200JSONResponseBodyObjectMarketIntel GetMarketIntel200JSONResponseBodyObject = "market_intel"
@@ -3805,6 +4267,21 @@ const (
 func (e GetMarketSnapshotParamsExpand) Valid() bool {
 	switch e {
 	case GetMarketSnapshotParamsExpandTrust:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetMarketSnapshotParamsXQueryValidation.
+const (
+	GetMarketSnapshotParamsXQueryValidationStrict GetMarketSnapshotParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetMarketSnapshotParamsXQueryValidation enum.
+func (e GetMarketSnapshotParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetMarketSnapshotParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -3892,6 +4369,21 @@ func (e ExploreMarketsParamsSort) Valid() bool {
 	}
 }
 
+// Defines values for ExploreMarketsParamsXQueryValidation.
+const (
+	ExploreMarketsParamsXQueryValidationStrict ExploreMarketsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ExploreMarketsParamsXQueryValidation enum.
+func (e ExploreMarketsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ExploreMarketsParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ExploreMarkets200JSONResponseBodyObject.
 const (
 	ExploreMarkets200JSONResponseBodyObjectList ExploreMarkets200JSONResponseBodyObject = "list"
@@ -3901,6 +4393,21 @@ const (
 func (e ExploreMarkets200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case ExploreMarkets200JSONResponseBodyObjectList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BatchGetMarketIntelParamsXQueryValidation.
+const (
+	BatchGetMarketIntelParamsXQueryValidationStrict BatchGetMarketIntelParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the BatchGetMarketIntelParamsXQueryValidation enum.
+func (e BatchGetMarketIntelParamsXQueryValidation) Valid() bool {
+	switch e {
+	case BatchGetMarketIntelParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -3961,6 +4468,21 @@ func (e SearchMarketsParamsStatus) Valid() bool {
 	case SearchMarketsParamsStatusAll:
 		return true
 	case SearchMarketsParamsStatusClosed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SearchMarketsParamsXQueryValidation.
+const (
+	SearchMarketsParamsXQueryValidationStrict SearchMarketsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the SearchMarketsParamsXQueryValidation enum.
+func (e SearchMarketsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case SearchMarketsParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4072,6 +4594,21 @@ func (e ListSharpMoneyFlowsParamsDirection) Valid() bool {
 	}
 }
 
+// Defines values for ListSharpMoneyFlowsParamsXQueryValidation.
+const (
+	ListSharpMoneyFlowsParamsXQueryValidationStrict ListSharpMoneyFlowsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListSharpMoneyFlowsParamsXQueryValidation enum.
+func (e ListSharpMoneyFlowsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListSharpMoneyFlowsParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListSharpMoneyFlows200JSONResponseBodyObject.
 const (
 	ListSharpMoneyFlows200JSONResponseBodyObjectList ListSharpMoneyFlows200JSONResponseBodyObject = "list"
@@ -4177,6 +4714,21 @@ func (e ListSmartMoneyFlowsParamsDirection) Valid() bool {
 	}
 }
 
+// Defines values for ListSmartMoneyFlowsParamsXQueryValidation.
+const (
+	ListSmartMoneyFlowsParamsXQueryValidationStrict ListSmartMoneyFlowsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListSmartMoneyFlowsParamsXQueryValidation enum.
+func (e ListSmartMoneyFlowsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListSmartMoneyFlowsParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListSmartMoneyFlows200JSONResponseBodyObject.
 const (
 	ListSmartMoneyFlows200JSONResponseBodyObjectList ListSmartMoneyFlows200JSONResponseBodyObject = "list"
@@ -4186,6 +4738,21 @@ const (
 func (e ListSmartMoneyFlows200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case ListSmartMoneyFlows200JSONResponseBodyObjectList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for OpenMcpEventStreamParamsXQueryValidation.
+const (
+	OpenMcpEventStreamParamsXQueryValidationStrict OpenMcpEventStreamParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the OpenMcpEventStreamParamsXQueryValidation enum.
+func (e OpenMcpEventStreamParamsXQueryValidation) Valid() bool {
+	switch e {
+	case OpenMcpEventStreamParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4210,6 +4777,21 @@ func (e OpenMcpEventStreamParamsMCPProtocolVersion) Valid() bool {
 	case OpenMcpEventStreamParamsMCPProtocolVersionN20250618:
 		return true
 	case OpenMcpEventStreamParamsMCPProtocolVersionN20251125:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CreateMcpJsonRpcResponseParamsXQueryValidation.
+const (
+	CreateMcpJsonRpcResponseParamsXQueryValidationStrict CreateMcpJsonRpcResponseParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the CreateMcpJsonRpcResponseParamsXQueryValidation enum.
+func (e CreateMcpJsonRpcResponseParamsXQueryValidation) Valid() bool {
+	switch e {
+	case CreateMcpJsonRpcResponseParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4300,6 +4882,51 @@ func (e CreateMcpJsonRpcResponse200JSONResponseBodyJsonrpc) Valid() bool {
 	}
 }
 
+// Defines values for GetAccountIdentityParamsXQueryValidation.
+const (
+	GetAccountIdentityParamsXQueryValidationStrict GetAccountIdentityParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetAccountIdentityParamsXQueryValidation enum.
+func (e GetAccountIdentityParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetAccountIdentityParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RedirectApiOpenapiSpecParamsXQueryValidation.
+const (
+	RedirectApiOpenapiSpecParamsXQueryValidationStrict RedirectApiOpenapiSpecParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the RedirectApiOpenapiSpecParamsXQueryValidation enum.
+func (e RedirectApiOpenapiSpecParamsXQueryValidation) Valid() bool {
+	switch e {
+	case RedirectApiOpenapiSpecParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetPickOfTheDayParamsXQueryValidation.
+const (
+	GetPickOfTheDayParamsXQueryValidationStrict GetPickOfTheDayParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetPickOfTheDayParamsXQueryValidation enum.
+func (e GetPickOfTheDayParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetPickOfTheDayParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetPickOfTheDay200JSONResponseBodyObject.
 const (
 	GetPickOfTheDay200JSONResponseBodyObjectPickOfTheDay GetPickOfTheDay200JSONResponseBodyObject = "pick_of_the_day"
@@ -4309,6 +4936,21 @@ const (
 func (e GetPickOfTheDay200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetPickOfTheDay200JSONResponseBodyObjectPickOfTheDay:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetPickOfTheDayArchiveParamsXQueryValidation.
+const (
+	GetPickOfTheDayArchiveParamsXQueryValidationStrict GetPickOfTheDayArchiveParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetPickOfTheDayArchiveParamsXQueryValidation enum.
+func (e GetPickOfTheDayArchiveParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetPickOfTheDayArchiveParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4330,6 +4972,21 @@ func (e GetPickOfTheDayArchive200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for GetPickOfTheDayLedgerParamsXQueryValidation.
+const (
+	GetPickOfTheDayLedgerParamsXQueryValidationStrict GetPickOfTheDayLedgerParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetPickOfTheDayLedgerParamsXQueryValidation enum.
+func (e GetPickOfTheDayLedgerParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetPickOfTheDayLedgerParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetPickOfTheDayLedger200JSONResponseBodyObject.
 const (
 	GetPickOfTheDayLedger200JSONResponseBodyObjectPickOfTheDayLedger GetPickOfTheDayLedger200JSONResponseBodyObject = "pick_of_the_day_ledger"
@@ -4339,6 +4996,21 @@ const (
 func (e GetPickOfTheDayLedger200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetPickOfTheDayLedger200JSONResponseBodyObjectPickOfTheDayLedger:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetPlatformsParamsXQueryValidation.
+const (
+	GetPlatformsParamsXQueryValidationStrict GetPlatformsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetPlatformsParamsXQueryValidation enum.
+func (e GetPlatformsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetPlatformsParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4408,6 +5080,21 @@ func (e ListPositionsParamsSide) Valid() bool {
 	}
 }
 
+// Defines values for ListPositionsParamsXQueryValidation.
+const (
+	ListPositionsParamsXQueryValidationStrict ListPositionsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListPositionsParamsXQueryValidation enum.
+func (e ListPositionsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListPositionsParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListPositions200JSONResponseBodyObject.
 const (
 	ListPositions200JSONResponseBodyObjectList ListPositions200JSONResponseBodyObject = "list"
@@ -4444,6 +5131,21 @@ func (e GetReportsParamsGranularity) Valid() bool {
 	}
 }
 
+// Defines values for GetReportsParamsXQueryValidation.
+const (
+	GetReportsParamsXQueryValidationStrict GetReportsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetReportsParamsXQueryValidation enum.
+func (e GetReportsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetReportsParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetReports200JSONResponseBodyObject.
 const (
 	GetReports200JSONResponseBodyObjectReportSnapshot GetReports200JSONResponseBodyObject = "report_snapshot"
@@ -4453,6 +5155,21 @@ const (
 func (e GetReports200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetReports200JSONResponseBodyObjectReportSnapshot:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetDailyReportSnapshotParamsXQueryValidation.
+const (
+	GetDailyReportSnapshotParamsXQueryValidationStrict GetDailyReportSnapshotParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetDailyReportSnapshotParamsXQueryValidation enum.
+func (e GetDailyReportSnapshotParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetDailyReportSnapshotParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4474,6 +5191,21 @@ func (e GetDailyReportSnapshot200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for GetMonthlyReportSnapshotParamsXQueryValidation.
+const (
+	GetMonthlyReportSnapshotParamsXQueryValidationStrict GetMonthlyReportSnapshotParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetMonthlyReportSnapshotParamsXQueryValidation enum.
+func (e GetMonthlyReportSnapshotParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetMonthlyReportSnapshotParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetMonthlyReportSnapshot200JSONResponseBodyObject.
 const (
 	GetMonthlyReportSnapshot200JSONResponseBodyObjectReportSnapshot GetMonthlyReportSnapshot200JSONResponseBodyObject = "report_snapshot"
@@ -4483,6 +5215,21 @@ const (
 func (e GetMonthlyReportSnapshot200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetMonthlyReportSnapshot200JSONResponseBodyObjectReportSnapshot:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetWeeklyReportSnapshotParamsXQueryValidation.
+const (
+	GetWeeklyReportSnapshotParamsXQueryValidationStrict GetWeeklyReportSnapshotParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetWeeklyReportSnapshotParamsXQueryValidation enum.
+func (e GetWeeklyReportSnapshotParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetWeeklyReportSnapshotParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4525,6 +5272,21 @@ func (e ListSportsEdgeObservationsParamsCohort) Valid() bool {
 	}
 }
 
+// Defines values for ListSportsEdgeObservationsParamsXQueryValidation.
+const (
+	ListSportsEdgeObservationsParamsXQueryValidationStrict ListSportsEdgeObservationsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListSportsEdgeObservationsParamsXQueryValidation enum.
+func (e ListSportsEdgeObservationsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListSportsEdgeObservationsParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListSportsEdgeObservations200JSONResponseBodyObject.
 const (
 	ListSportsEdgeObservations200JSONResponseBodyObjectList ListSportsEdgeObservations200JSONResponseBodyObject = "list"
@@ -4555,6 +5317,21 @@ func (e ListSportsEdgeSignalsParamsMinGrade) Valid() bool {
 	case ListSportsEdgeSignalsParamsMinGradeB:
 		return true
 	case ListSportsEdgeSignalsParamsMinGradeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListSportsEdgeSignalsParamsXQueryValidation.
+const (
+	ListSportsEdgeSignalsParamsXQueryValidationStrict ListSportsEdgeSignalsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListSportsEdgeSignalsParamsXQueryValidation enum.
+func (e ListSportsEdgeSignalsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListSportsEdgeSignalsParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4606,6 +5383,21 @@ func (e GetStreamParamsMinGrade) Valid() bool {
 	}
 }
 
+// Defines values for GetStreamParamsXQueryValidation.
+const (
+	GetStreamParamsXQueryValidationStrict GetStreamParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetStreamParamsXQueryValidation enum.
+func (e GetStreamParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetStreamParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetTraderParamsExpand.
 const (
 	GetTraderParamsExpandCategories   GetTraderParamsExpand = "categories"
@@ -4630,6 +5422,21 @@ func (e GetTraderParamsExpand) Valid() bool {
 	}
 }
 
+// Defines values for GetTraderParamsXQueryValidation.
+const (
+	GetTraderParamsXQueryValidationStrict GetTraderParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetTraderParamsXQueryValidation enum.
+func (e GetTraderParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetTraderParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetTrader200JSONResponseBodyObject.
 const (
 	GetTrader200JSONResponseBodyObjectTrader GetTrader200JSONResponseBodyObject = "trader"
@@ -4639,6 +5446,21 @@ const (
 func (e GetTrader200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetTrader200JSONResponseBodyObjectTrader:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetTraderCategoryRecordsParamsXQueryValidation.
+const (
+	GetTraderCategoryRecordsParamsXQueryValidationStrict GetTraderCategoryRecordsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetTraderCategoryRecordsParamsXQueryValidation enum.
+func (e GetTraderCategoryRecordsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetTraderCategoryRecordsParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4660,6 +5482,21 @@ func (e GetTraderCategoryRecords200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for GetTraderContextParamsXQueryValidation.
+const (
+	GetTraderContextParamsXQueryValidationStrict GetTraderContextParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetTraderContextParamsXQueryValidation enum.
+func (e GetTraderContextParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetTraderContextParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetTraderContext200JSONResponseBodyObject.
 const (
 	GetTraderContext200JSONResponseBodyObjectTraderContext GetTraderContext200JSONResponseBodyObject = "trader_context"
@@ -4669,6 +5506,36 @@ const (
 func (e GetTraderContext200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetTraderContext200JSONResponseBodyObjectTraderContext:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetTraderContextMarkdownParamsXQueryValidation.
+const (
+	GetTraderContextMarkdownParamsXQueryValidationStrict GetTraderContextMarkdownParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetTraderContextMarkdownParamsXQueryValidation enum.
+func (e GetTraderContextMarkdownParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetTraderContextMarkdownParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetTraderExportSnapshotParamsXQueryValidation.
+const (
+	GetTraderExportSnapshotParamsXQueryValidationStrict GetTraderExportSnapshotParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetTraderExportSnapshotParamsXQueryValidation enum.
+func (e GetTraderExportSnapshotParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetTraderExportSnapshotParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4711,6 +5578,66 @@ func (e SubmitTraderExportParamsFormat) Valid() bool {
 	}
 }
 
+// Defines values for SubmitTraderExportParamsXQueryValidation.
+const (
+	SubmitTraderExportParamsXQueryValidationStrict SubmitTraderExportParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the SubmitTraderExportParamsXQueryValidation enum.
+func (e SubmitTraderExportParamsXQueryValidation) Valid() bool {
+	switch e {
+	case SubmitTraderExportParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DownloadTraderExportParamsXQueryValidation.
+const (
+	DownloadTraderExportParamsXQueryValidationStrict DownloadTraderExportParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the DownloadTraderExportParamsXQueryValidation enum.
+func (e DownloadTraderExportParamsXQueryValidation) Valid() bool {
+	switch e {
+	case DownloadTraderExportParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetTraderExportStatusParamsXQueryValidation.
+const (
+	GetTraderExportStatusParamsXQueryValidationStrict GetTraderExportStatusParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetTraderExportStatusParamsXQueryValidation enum.
+func (e GetTraderExportStatusParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetTraderExportStatusParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetTraderPnlParamsXQueryValidation.
+const (
+	GetTraderPnlParamsXQueryValidationStrict GetTraderPnlParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetTraderPnlParamsXQueryValidation enum.
+func (e GetTraderPnlParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetTraderPnlParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetTraderPnl200JSONResponseBodyObject.
 const (
 	GetTraderPnl200JSONResponseBodyObjectTraderPnl GetTraderPnl200JSONResponseBodyObject = "trader_pnl"
@@ -4726,6 +5653,21 @@ func (e GetTraderPnl200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for GetPositionTimelineParamsXQueryValidation.
+const (
+	GetPositionTimelineParamsXQueryValidationStrict GetPositionTimelineParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetPositionTimelineParamsXQueryValidation enum.
+func (e GetPositionTimelineParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetPositionTimelineParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetPositionTimeline200JSONResponseBodyObject.
 const (
 	GetPositionTimeline200JSONResponseBodyObjectList GetPositionTimeline200JSONResponseBodyObject = "list"
@@ -4735,6 +5677,21 @@ const (
 func (e GetPositionTimeline200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetPositionTimeline200JSONResponseBodyObjectList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BatchGetTradersParamsXQueryValidation.
+const (
+	BatchGetTradersParamsXQueryValidationStrict BatchGetTradersParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the BatchGetTradersParamsXQueryValidation enum.
+func (e BatchGetTradersParamsXQueryValidation) Valid() bool {
+	switch e {
+	case BatchGetTradersParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4780,6 +5737,21 @@ func (e BatchGetTraders200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for GetPositionTimelineByIdParamsXQueryValidation.
+const (
+	GetPositionTimelineByIdParamsXQueryValidationStrict GetPositionTimelineByIdParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetPositionTimelineByIdParamsXQueryValidation enum.
+func (e GetPositionTimelineByIdParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetPositionTimelineByIdParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetPositionTimelineById200JSONResponseBodyObject.
 const (
 	GetPositionTimelineById200JSONResponseBodyObjectList GetPositionTimelineById200JSONResponseBodyObject = "list"
@@ -4789,6 +5761,36 @@ const (
 func (e GetPositionTimelineById200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case GetPositionTimelineById200JSONResponseBodyObjectList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetUsageParamsXQueryValidation.
+const (
+	GetUsageParamsXQueryValidationStrict GetUsageParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetUsageParamsXQueryValidation enum.
+func (e GetUsageParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetUsageParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListWebhooksParamsXQueryValidation.
+const (
+	ListWebhooksParamsXQueryValidationStrict ListWebhooksParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListWebhooksParamsXQueryValidation enum.
+func (e ListWebhooksParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListWebhooksParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4810,6 +5812,21 @@ func (e ListWebhooks200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for CreateWebhookParamsXQueryValidation.
+const (
+	CreateWebhookParamsXQueryValidationStrict CreateWebhookParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the CreateWebhookParamsXQueryValidation enum.
+func (e CreateWebhookParamsXQueryValidation) Valid() bool {
+	switch e {
+	case CreateWebhookParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for CreateWebhook200JSONResponseBodyObject.
 const (
 	CreateWebhook200JSONResponseBodyObjectWebhook CreateWebhook200JSONResponseBodyObject = "webhook"
@@ -4819,6 +5836,21 @@ const (
 func (e CreateWebhook200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case CreateWebhook200JSONResponseBodyObjectWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListWebhookEventsParamsXQueryValidation.
+const (
+	ListWebhookEventsParamsXQueryValidationStrict ListWebhookEventsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListWebhookEventsParamsXQueryValidation enum.
+func (e ListWebhookEventsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListWebhookEventsParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4840,6 +5872,21 @@ func (e ListWebhookEvents200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for DeleteWebhookParamsXQueryValidation.
+const (
+	DeleteWebhookParamsXQueryValidationStrict DeleteWebhookParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the DeleteWebhookParamsXQueryValidation enum.
+func (e DeleteWebhookParamsXQueryValidation) Valid() bool {
+	switch e {
+	case DeleteWebhookParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for DeleteWebhook200JSONResponseBodyObject.
 const (
 	DeleteWebhook200JSONResponseBodyObjectWebhook DeleteWebhook200JSONResponseBodyObject = "webhook"
@@ -4849,6 +5896,21 @@ const (
 func (e DeleteWebhook200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case DeleteWebhook200JSONResponseBodyObjectWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetWebhookParamsXQueryValidation.
+const (
+	GetWebhookParamsXQueryValidationStrict GetWebhookParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetWebhookParamsXQueryValidation enum.
+func (e GetWebhookParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetWebhookParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4870,6 +5932,21 @@ func (e GetWebhook200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for UpdateWebhookParamsXQueryValidation.
+const (
+	UpdateWebhookParamsXQueryValidationStrict UpdateWebhookParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the UpdateWebhookParamsXQueryValidation enum.
+func (e UpdateWebhookParamsXQueryValidation) Valid() bool {
+	switch e {
+	case UpdateWebhookParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for UpdateWebhook200JSONResponseBodyObject.
 const (
 	UpdateWebhook200JSONResponseBodyObjectWebhook UpdateWebhook200JSONResponseBodyObject = "webhook"
@@ -4879,6 +5956,21 @@ const (
 func (e UpdateWebhook200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case UpdateWebhook200JSONResponseBodyObjectWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListWebhookDeliveriesParamsXQueryValidation.
+const (
+	ListWebhookDeliveriesParamsXQueryValidationStrict ListWebhookDeliveriesParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListWebhookDeliveriesParamsXQueryValidation enum.
+func (e ListWebhookDeliveriesParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListWebhookDeliveriesParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4900,6 +5992,21 @@ func (e ListWebhookDeliveries200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for RedeliverWebhookDeliveryParamsXQueryValidation.
+const (
+	RedeliverWebhookDeliveryParamsXQueryValidationStrict RedeliverWebhookDeliveryParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the RedeliverWebhookDeliveryParamsXQueryValidation enum.
+func (e RedeliverWebhookDeliveryParamsXQueryValidation) Valid() bool {
+	switch e {
+	case RedeliverWebhookDeliveryParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RedeliverWebhookDelivery200JSONResponseBodyObject.
 const (
 	RedeliverWebhookDelivery200JSONResponseBodyObjectWebhookDelivery RedeliverWebhookDelivery200JSONResponseBodyObject = "webhook_delivery"
@@ -4915,6 +6022,21 @@ func (e RedeliverWebhookDelivery200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for RotateWebhookSecretParamsXQueryValidation.
+const (
+	RotateWebhookSecretParamsXQueryValidationStrict RotateWebhookSecretParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the RotateWebhookSecretParamsXQueryValidation enum.
+func (e RotateWebhookSecretParamsXQueryValidation) Valid() bool {
+	switch e {
+	case RotateWebhookSecretParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RotateWebhookSecret200JSONResponseBodyObject.
 const (
 	RotateWebhookSecret200JSONResponseBodyObjectWebhook RotateWebhookSecret200JSONResponseBodyObject = "webhook"
@@ -4924,6 +6046,66 @@ const (
 func (e RotateWebhookSecret200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case RotateWebhookSecret200JSONResponseBodyObjectWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ActivateWebhookSecret200JSONResponseBodyObject.
+const (
+	ActivateWebhookSecret200JSONResponseBodyObjectWebhook ActivateWebhookSecret200JSONResponseBodyObject = "webhook"
+)
+
+// Valid indicates whether the value is a known member of the ActivateWebhookSecret200JSONResponseBodyObject enum.
+func (e ActivateWebhookSecret200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case ActivateWebhookSecret200JSONResponseBodyObjectWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PrepareWebhookSecret200JSONResponseBodyObject.
+const (
+	PrepareWebhookSecret200JSONResponseBodyObjectWebhook PrepareWebhookSecret200JSONResponseBodyObject = "webhook"
+)
+
+// Valid indicates whether the value is a known member of the PrepareWebhookSecret200JSONResponseBodyObject enum.
+func (e PrepareWebhookSecret200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case PrepareWebhookSecret200JSONResponseBodyObjectWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RetireWebhookSecret200JSONResponseBodyObject.
+const (
+	RetireWebhookSecret200JSONResponseBodyObjectWebhook RetireWebhookSecret200JSONResponseBodyObject = "webhook"
+)
+
+// Valid indicates whether the value is a known member of the RetireWebhookSecret200JSONResponseBodyObject enum.
+func (e RetireWebhookSecret200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case RetireWebhookSecret200JSONResponseBodyObjectWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VerifyWebhookParamsXQueryValidation.
+const (
+	VerifyWebhookParamsXQueryValidationStrict VerifyWebhookParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the VerifyWebhookParamsXQueryValidation enum.
+func (e VerifyWebhookParamsXQueryValidation) Valid() bool {
+	switch e {
+	case VerifyWebhookParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -4969,6 +6151,21 @@ func (e ListWhaleTradesParamsMinGrade) Valid() bool {
 	case ListWhaleTradesParamsMinGradeF:
 		return true
 	case ListWhaleTradesParamsMinGradeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListWhaleTradesParamsXQueryValidation.
+const (
+	ListWhaleTradesParamsXQueryValidationStrict ListWhaleTradesParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListWhaleTradesParamsXQueryValidation enum.
+func (e ListWhaleTradesParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListWhaleTradesParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -5038,6 +6235,21 @@ func (e ListWhaleTradeHistoryParamsPlatform) Valid() bool {
 	}
 }
 
+// Defines values for ListWhaleTradeHistoryParamsXQueryValidation.
+const (
+	ListWhaleTradeHistoryParamsXQueryValidationStrict ListWhaleTradeHistoryParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListWhaleTradeHistoryParamsXQueryValidation enum.
+func (e ListWhaleTradeHistoryParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListWhaleTradeHistoryParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListWhaleTradeHistory200JSONResponseBodyObject.
 const (
 	ListWhaleTradeHistory200JSONResponseBodyObjectList ListWhaleTradeHistory200JSONResponseBodyObject = "list"
@@ -5047,6 +6259,21 @@ const (
 func (e ListWhaleTradeHistory200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case ListWhaleTradeHistory200JSONResponseBodyObjectList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetWhaleTradeParamsXQueryValidation.
+const (
+	GetWhaleTradeParamsXQueryValidationStrict GetWhaleTradeParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetWhaleTradeParamsXQueryValidation enum.
+func (e GetWhaleTradeParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetWhaleTradeParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -5068,6 +6295,21 @@ func (e GetWhaleTrade200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for ListWhaleTradeCounterpartyExecutionsParamsXQueryValidation.
+const (
+	ListWhaleTradeCounterpartyExecutionsParamsXQueryValidationStrict ListWhaleTradeCounterpartyExecutionsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListWhaleTradeCounterpartyExecutionsParamsXQueryValidation enum.
+func (e ListWhaleTradeCounterpartyExecutionsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListWhaleTradeCounterpartyExecutionsParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListWhaleTradeCounterpartyExecutions200JSONResponseBodyObject.
 const (
 	ListWhaleTradeCounterpartyExecutions200JSONResponseBodyObjectCounterpartyAnalysis ListWhaleTradeCounterpartyExecutions200JSONResponseBodyObject = "counterparty_analysis"
@@ -5077,6 +6319,21 @@ const (
 func (e ListWhaleTradeCounterpartyExecutions200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case ListWhaleTradeCounterpartyExecutions200JSONResponseBodyObjectCounterpartyAnalysis:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListWhaleTradeCounterpartyMakersParamsXQueryValidation.
+const (
+	ListWhaleTradeCounterpartyMakersParamsXQueryValidationStrict ListWhaleTradeCounterpartyMakersParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListWhaleTradeCounterpartyMakersParamsXQueryValidation enum.
+func (e ListWhaleTradeCounterpartyMakersParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListWhaleTradeCounterpartyMakersParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -5104,6 +6361,15 @@ type AccountIdentity struct {
 		CredentialId   int                               `json:"credential_id"`
 		CredentialKind AccountIdentityDataCredentialKind `json:"credential_kind"`
 
+		// CredentialStatus The credential is currently valid; revoked, expired or unknown credentials are rejected.
+		CredentialStatus AccountIdentityDataCredentialStatus `json:"credential_status"`
+		Entitlement      struct {
+			PaidDataAccess AccountIdentityDataEntitlementPaidDataAccess `json:"paid_data_access"`
+
+			// RecoveryAction When paid data access is lapsed, the caller should renew the subscription; otherwise null.
+			RecoveryAction AccountIdentityDataEntitlementRecoveryAction `json:"recovery_action"`
+		} `json:"entitlement"`
+
 		// Scopes Approved OAuth scopes; null for full developer-key access.
 		Scopes []string `json:"scopes"`
 		UserId int      `json:"user_id"`
@@ -5114,6 +6380,15 @@ type AccountIdentity struct {
 
 // AccountIdentityDataCredentialKind defines model for AccountIdentity.Data.CredentialKind.
 type AccountIdentityDataCredentialKind string
+
+// AccountIdentityDataCredentialStatus The credential is currently valid; revoked, expired or unknown credentials are rejected.
+type AccountIdentityDataCredentialStatus string
+
+// AccountIdentityDataEntitlementPaidDataAccess defines model for AccountIdentity.Data.Entitlement.PaidDataAccess.
+type AccountIdentityDataEntitlementPaidDataAccess string
+
+// AccountIdentityDataEntitlementRecoveryAction When paid data access is lapsed, the caller should renew the subscription; otherwise null.
+type AccountIdentityDataEntitlementRecoveryAction string
 
 // AccountIdentityObject defines model for AccountIdentity.Object.
 type AccountIdentityObject string
@@ -5203,7 +6478,7 @@ type ApiError struct {
 		Message string            `json:"message"`
 		Param   *string           `json:"param,omitempty"`
 
-		// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves.
+		// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown.
 		Reason *ApiErrorErrorReason `json:"reason,omitempty"`
 
 		// RetryAt The recommended next request instant (RFC3339), always in the future. Present on every retryable error: `pick_not_released`, `rate_limited`, `rate_limit_unavailable`, and `read_model_warming`. Omitted otherwise. The absolute twin of `Retry-After`; prefer the header for the sleep duration. For `pick_not_released`, the earliest of the next scheduled release, the next automatic selector attempt, the operating-window start, or about 60 seconds. See that response.
@@ -5216,7 +6491,7 @@ type ApiError struct {
 // ApiErrorErrorCode FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 type ApiErrorErrorCode string
 
-// ApiErrorErrorReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves.
+// ApiErrorErrorReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown.
 type ApiErrorErrorReason string
 
 // ApiErrorObject defines model for ApiError.Object.
@@ -5230,7 +6505,7 @@ type ApiErrorBody struct {
 	Message string           `json:"message"`
 	Param   *string          `json:"param,omitempty"`
 
-	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves.
+	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown.
 	Reason *ApiErrorBodyReason `json:"reason,omitempty"`
 
 	// RetryAt The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited including reason=monthly_quota_exceeded, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 11:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt. Every value is advisory under supported operator actions: manual publication, release-time override, or admin generation can make a pick available first. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew.
@@ -5240,7 +6515,7 @@ type ApiErrorBody struct {
 // ApiErrorBodyCode FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 type ApiErrorBodyCode string
 
-// ApiErrorBodyReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves.
+// ApiErrorBodyReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown.
 type ApiErrorBodyReason string
 
 // BatchMarketIntelItem defines model for BatchMarketIntelItem.
@@ -5499,14 +6774,41 @@ type EventReplayEvent struct {
 	Freshness EventReplayFreshness `json:"freshness"`
 
 	// Id Opaque event identity: the ef_-encoded whale_alerts.id, stable across cursor formats. Deduplicate on this, never on cursor or sequence.
-	Id          string                 `json:"id"`
-	Payload     map[string]interface{} `json:"payload"`
-	PublishedAt time.Time              `json:"published_at"`
+	Id string `json:"id"`
+
+	// Payload What the event announces. Every field is present on every event; a field added later is additive, so a client tolerates keys it does not know.
+	Payload     EventReplayEvent_Payload `json:"payload"`
+	PublishedAt time.Time                `json:"published_at"`
 
 	// Sequence whale_alerts.id of the event. Not monotonic across a replay: events arrive in commit order, so a lower id can follow a higher one when its write finished later. Order and resume by cursor, deduplicate by id.
-	Sequence int                  `json:"sequence"`
-	Source   EventReplaySource    `json:"source"`
-	Type     EventReplayEventType `json:"type"`
+	Sequence int               `json:"sequence"`
+	Source   EventReplaySource `json:"source"`
+
+	// Trade Present only with expand=trade: the public trade read for this row, the same object GET /api/v1/whale-trades/{id} returns, read at request time from one query per page. traded_at, side, size_usd, price, outcome and token_id are the row's event-time facts; trader.grade, trader.username, signal_score, recorded_signal_score, suspicion_score, suspicion_track and market title/slug/category are enrichment that can move after the event. null when that route would answer 404 for the row (its trader or market is not synced yet).
+	Trade *WhaleTrade          `json:"trade,omitempty"`
+	Type  EventReplayEventType `json:"type"`
+}
+
+// EventReplayEventPayloadPlatform Provider discriminator. Polymarket only.
+type EventReplayEventPayloadPlatform string
+
+// EventReplayEvent_Payload What the event announces. Every field is present on every event; a field added later is additive, so a client tolerates keys it does not know.
+type EventReplayEvent_Payload struct {
+	// ConditionId The Polymarket condition id of the market the trade was in.
+	ConditionId string `json:"condition_id"`
+
+	// Count Whale trades this event announces. One event is minted per stored whale trade, so this is 1.
+	Count int `json:"count"`
+
+	// Platform Provider discriminator. Polymarket only.
+	Platform EventReplayEventPayloadPlatform `json:"platform"`
+
+	// TraderId 0xinsider's numeric id for the wallet's trader row. It is not the trd_ id, which is derived from the address; read the address and grade from the whale trade.
+	TraderId int `json:"trader_id"`
+
+	// WhaleAlertId The raw whale_alerts.id of the trade, the same number as sequence. GET /api/v1/whale-trades/{id} accepts it and returns the trade with its wallet, grade, size, price and market.
+	WhaleAlertId         int                    `json:"whale_alert_id"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // EventReplayEventType defines model for EventReplayEvent.Type.
@@ -5526,13 +6828,29 @@ type EventReplayMeta struct {
 	CacheAgeS    *int `json:"cache_age_s,omitempty"`
 	Cached       bool `json:"cached"`
 	Completeness struct {
-		Reason string                            `json:"reason"`
+		Reason string `json:"reason"`
+
+		// Status complete: the page carries every durable event matching the filters after the cursor below the commit horizon, up to limit. caught_up: nothing matching after the cursor is visible below the horizon; read pending_beyond_horizon to tell an idle stream from held rows, and note next_cursor has still advanced to the horizon.
 		Status EventReplayMetaCompletenessStatus `json:"status"`
 	} `json:"completeness"`
 
 	// Cost Advisory request weight (relative compute cost). 1 for simple reads; higher for heavier endpoints. Not a credit/price.
 	Cost   int `json:"cost"`
 	Replay struct {
+		// Expand The expansions applied to every event on this page; empty when none.
+		Expand []EventReplayMetaReplayExpand `json:"expand"`
+
+		// Filters The effective filter set this page ran with and next_cursor is bound to. Absent on an unfiltered walk.
+		Filters *struct {
+			// ConditionId The raw provider condition id after mkt_ is stripped.
+			ConditionId *string                               `json:"condition_id,omitempty"`
+			MinGrade    *EventReplayMetaReplayFiltersMinGrade `json:"min_grade,omitempty"`
+			MinSize     *float32                              `json:"min_size,omitempty"`
+
+			// Trader The trader parameter as given.
+			Trader *string `json:"trader,omitempty"`
+		} `json:"filters,omitempty"`
+
 		// FromCursor The request cursor in canonical form (an id-only cursor is re-encoded), or the zero position when omitted.
 		FromCursor string `json:"from_cursor"`
 
@@ -5545,10 +6863,10 @@ type EventReplayMeta struct {
 		// PendingBeyondHorizon True when committed whale-trade rows newer than this page's commit-visibility horizon exist. They are held until every older write transaction has finished and are served on a later request, so a caught_up page with this true is not the end of the stream: poll again. A long open write transaction on the database (a single-transaction backfill) is what keeps this true for more than a few seconds.
 		PendingBeyondHorizon bool `json:"pending_beyond_horizon"`
 
-		// ToCursor Cursor of the last event on this page; equals from_cursor when the page is empty. Identical to next_cursor.
+		// ToCursor Identical to next_cursor. After a full page, the cursor of the last event; after a page that is not full, the commit horizon itself, since every row below it, matching or not, has been examined. An empty page therefore still advances.
 		ToCursor string `json:"to_cursor"`
 
-		// ToSequence whale_alerts.id of the last event on this page, or from_sequence when the page is empty.
+		// ToSequence whale_alerts.id of the last event on this page, or from_sequence when the page is empty. Can sit below the position next_cursor encodes after a page that is not full.
 		ToSequence int `json:"to_sequence"`
 	} `json:"replay"`
 
@@ -5561,8 +6879,14 @@ type EventReplayMeta struct {
 	} `json:"retention"`
 }
 
-// EventReplayMetaCompletenessStatus defines model for EventReplayMeta.Completeness.Status.
+// EventReplayMetaCompletenessStatus complete: the page carries every durable event matching the filters after the cursor below the commit horizon, up to limit. caught_up: nothing matching after the cursor is visible below the horizon; read pending_beyond_horizon to tell an idle stream from held rows, and note next_cursor has still advanced to the horizon.
 type EventReplayMetaCompletenessStatus string
+
+// EventReplayMetaReplayExpand defines model for EventReplayMeta.Replay.Expand.
+type EventReplayMetaReplayExpand string
+
+// EventReplayMetaReplayFiltersMinGrade defines model for EventReplayMeta.Replay.Filters.MinGrade.
+type EventReplayMetaReplayFiltersMinGrade string
 
 // EventReplayMetaReplayOrdering Events are ordered by the position at which their write became visible (whale_alerts.inserted_xid), then by whale_alerts.id, and a page is bounded by the oldest write transaction still open when it was read. Before 2026-09-22 this read whale_alerts_id_asc; that order could skip a late-committing lower id (#16180).
 type EventReplayMetaReplayOrdering string
@@ -6514,7 +7838,7 @@ type PickOfTheDay struct {
 	// OutcomeDisplay Pre-formatted SETTLEMENT STATUS for display: "Win" / "Loss" / "Void" / "Pending" -- the outcome enum above as a label. Convenience only; outcome is the source value. NOTE: this is the win/loss STATUS, not the backed side. The backed side is pick_outcome_label ("Belgium (-2.5)") -- a different field answering a different question.
 	OutcomeDisplay *string `json:"outcome_display,omitempty"`
 
-	// PayoutDisplay Pre-formatted return_per_100 as USD with cents and thousands separators: "$161.29" / "$1,250.00". The GROSS return (the $100 stake included), so it carries no sign. Convenience only; return_per_100 is the source value. Omitted when return_per_100 is.
+	// PayoutDisplay Pre-formatted return_usd as USD with cents and thousands separators: "$1,612.90" / "$12,500.00". The GROSS return (the stake included), so it carries no sign. Convenience only; return_usd is the source value. Omitted when return_usd is.
 	PayoutDisplay *string `json:"payout_display,omitempty"`
 
 	// PickCount Number of items in `picks`: the proof-readable picks. Picks held in `proof_pending_picks` are not counted.
@@ -6538,7 +7862,7 @@ type PickOfTheDay struct {
 	// Position The backed side phrased as a bet (e.g. "Portugal to win").
 	Position string `json:"position"`
 
-	// ProfitDisplay Pre-formatted PROFIT on the $100 stake -- return_per_100 minus the 100 stake, i.e. the payout net of what you put in -- as a signed USD string: "+$61.29". Distinct from payout_display, which is gross. Omitted when return_per_100 is.
+	// ProfitDisplay Pre-formatted PROFIT on the stake -- return_usd minus stake_usd, i.e. the payout net of what you put in -- as a signed USD string: "+$612.90". Distinct from payout_display, which is gross. Omitted when return_usd is.
 	ProfitDisplay *string `json:"profit_display,omitempty"`
 
 	// ProofPendingPicks Published same-day picks whose holder proof is not readable yet, ordered by pick_rank. Additive and optional: present only while at least one such pick exists. While present, `picks` carries only the proof-readable picks and `pick_count` counts them. Schedule the next read from the earliest retry_at instead of polling. The route returns 503 read_model_warming only when no published pick has readable proof.
@@ -6598,8 +7922,11 @@ type PickOfTheDay struct {
 	// ReleaseAt The pick's stored release instant. Normally the current provider kickoff minus one hour; an operator may override it. The actual publish instant can trail it because of worker or claim delay.
 	ReleaseAt time.Time `json:"release_at"`
 
-	// ReturnPer100 Gross return on a $100 stake at the frozen midpoint price (100 / backed_price). A real fill pays the ask, so an executed stake usually returns a little less.
+	// ReturnPer100 The same return on a literal $100 (100 / backed_price), kept for compatibility: the field predates stake_usd and its name promises the $100 basis, so a client that scales it to its own stake stays right. Present exactly when return_usd is.
 	ReturnPer100 *float32 `json:"return_per_100,omitempty"`
+
+	// ReturnUsd Gross return of stake_usd at the frozen midpoint price (stake_usd / backed_price). A real fill pays the ask, so an executed stake usually returns a little less. Omitted with backed_price.
+	ReturnUsd *float32 `json:"return_usd,omitempty"`
 
 	// ScheduledPicks Same-day picks selected but not yet released, ordered by pick_rank. Additive and optional: present only while at least one unreleased slot exists. Each slot exposes only its rank and schedule -- no market identity before release. Schedule the next read from the earliest release_at instead of polling.
 	ScheduledPicks *[]ScheduledPickSlot `json:"scheduled_picks,omitempty"`
@@ -6622,6 +7949,9 @@ type PickOfTheDay struct {
 	// SportsContext Provider-first sports context for the pick's market (team logos, league branding, live score). Full-state only; omitted when the pick is not a team-sports market.
 	SportsContext *PickSportsContext `json:"sports_context,omitempty"`
 
+	// StakeUsd The flat stake the published record puts on every pick, in USD: 1000 since 2026-09-22 (it was 100 before). Present exactly when return_usd is, so a reader never has to know the stake from anywhere else.
+	StakeUsd *float32 `json:"stake_usd,omitempty"`
+
 	// State Always 'full' for an authenticated Pro key.
 	State PickOfTheDayState `json:"state"`
 
@@ -6643,7 +7973,7 @@ type PickOfTheDay struct {
 	// Trust Field-level trust metadata for the full Pick of the Day payload. Present on the full shape only (omitted on the teaser and the no-pick state, because whether a specialist backs the pick is itself backed-side evidence). Unlike TraderTrust it is not gated behind expand=trust: it carries one member on an endpoint that returns a single object per day.
 	Trust *PickTrust `json:"trust,omitempty"`
 
-	// UnitScore Net return for the pick in the existing $100 stake units. Omitted when the outcome is not valued.
+	// UnitScore Net return for the pick in stake units (return_usd / stake_usd - 1); one unit is one stake_usd stake, and the figure is the same under any stake size. Omitted when the outcome is not valued.
 	UnitScore *float32 `json:"unit_score,omitempty"`
 
 	// UnitScoreDisplay Backend-formatted signed unit score, present exactly when unit_score is present.
@@ -6713,7 +8043,7 @@ type PickOfTheDayArchiveDaySweep string
 
 // PickOfTheDayArchiveEntry defines model for PickOfTheDayArchiveEntry.
 type PickOfTheDayArchiveEntry struct {
-	// BackedPrice Frozen price of the backed side (0..1) that return_per_100 was computed from: on a win, 100 / backed_price equals return_per_100. It is the Polymarket CLOB order book midpoint at release, frozen write-once at publication, not an executed fill: a buyer lifts the ask, so a subscriber's own entry is usually a little worse than this price. Present exactly when return_per_100 is, so it is omitted for a still-pending pick, an unpriced win, and any pick whose backed side is withheld.
+	// BackedPrice Frozen price of the backed side (0..1) that return_usd and return_per_100 were computed from: on a win, stake_usd / backed_price equals return_usd. It is the Polymarket CLOB order book midpoint at release, frozen write-once at publication, not an executed fill: a buyer lifts the ask, so a subscriber's own entry is usually a little worse than this price. Present exactly when return_usd is, so it is omitted for a still-pending pick, an unpriced win, and any pick whose backed side is withheld.
 	BackedPrice *float32 `json:"backed_price,omitempty"`
 
 	// Category Frozen canonical calibration/report bucket (e.g. "Basketball", "MMA", or "Soccer"). Existing semantics are unchanged; presentation consumers should prefer display_category when present.
@@ -6758,7 +8088,7 @@ type PickOfTheDayArchiveEntry struct {
 	// OutcomeDisplay Pre-formatted settlement status for display: "Win" / "Loss" / "Void" / "Pending" -- the outcome enum above as a label, from the same formatter the pick payload's outcome_display uses. Convenience only; outcome is the source value.
 	OutcomeDisplay *string `json:"outcome_display,omitempty"`
 
-	// PayoutDisplay Pre-formatted return_per_100 as USD with cents: "$200.00". Present exactly when return_per_100 is -- it is formatted from that already-gated value -- so it is omitted for a still-pending pick, an unpriced win, and any pick whose backed side is withheld. Convenience only; return_per_100 is the source value.
+	// PayoutDisplay Pre-formatted return_usd as USD with cents: "$2,000.00". Present exactly when return_usd is -- it is formatted from that already-gated value -- so it is omitted for a still-pending pick, an unpriced win, and any pick whose backed side is withheld. Convenience only; return_usd is the source value.
 	PayoutDisplay *string `json:"payout_display,omitempty"`
 
 	// PickDate The pick's local publication date (YYYY-MM-DD).
@@ -6770,13 +8100,19 @@ type PickOfTheDayArchiveEntry struct {
 	// PickRank Stable 1-based slot within the product day's ranked picks.
 	PickRank *int `json:"pick_rank,omitempty"`
 
-	// ReturnPer100 Gross return on a $100 stake on this resolved pick: a win returns 100 / backed_price, a loss returns 0, a void refunds 100. A loss always returns 0 (the whole stake is lost regardless of price). The operand is published beside it as backed_price on exactly the same rows, so the entry never has to be recovered by inverting this number. Omitted (not null) only for a still-pending pick or a resolved WIN with no frozen price (a win's payout needs the price); mirrors the backend skip-when-absent behavior and the route-client optional (non-nullable) schema.
+	// ReturnPer100 The same return on a literal $100 (a win returns 100 / backed_price, a loss 0, a void 100), kept for compatibility: the field predates stake_usd and its name promises the $100 basis. Present exactly when return_usd is.
 	ReturnPer100 *float32 `json:"return_per_100,omitempty"`
+
+	// ReturnUsd Gross return of stake_usd on this resolved pick: a win returns stake_usd / backed_price, a loss returns 0, a void refunds stake_usd. A loss always returns 0 (the whole stake is lost regardless of price). The operand is published beside it as backed_price on exactly the same rows, so the entry never has to be recovered by inverting this number. Omitted (not null) only for a still-pending pick or a resolved WIN with no frozen price (a win's payout needs the price); mirrors the backend skip-when-absent behavior and the route-client optional (non-nullable) schema.
+	ReturnUsd *float32 `json:"return_usd,omitempty"`
+
+	// StakeUsd The flat stake this row was valued at, in USD: 1000 since 2026-09-22 (100 before). Every row of the record is valued at the current stake, including picks published before the change. Present exactly when return_usd is.
+	StakeUsd *float32 `json:"stake_usd,omitempty"`
 
 	// TopGrade Best public V1-compatible S/A smart-money grade on the backed side; a current B-only grade is omitted by the stable V1 adapter, while historical rows retain their frozen policy's grade. null when no smart-money wallet backs the pick, when a pending legacy proof has not yet upgraded, or when the stored holder policy is unknown-future or structurally invalid. Resolved legacy history remains supported.
 	TopGrade *string `json:"top_grade,omitempty"`
 
-	// UnitScore Net return for this pick in stake units, where one unit is the existing $100 stake. Omitted when the backed side is withheld or the pick is not valued.
+	// UnitScore Net return for this pick in stake units (return_usd / stake_usd - 1), where one unit is one stake_usd stake; the same figure under any stake size. Omitted when the backed side is withheld or the pick is not valued.
 	UnitScore *float32 `json:"unit_score,omitempty"`
 
 	// UnitScoreDisplay Backend-formatted signed unit score, present exactly when unit_score is present.
@@ -6881,7 +8217,7 @@ type PickOfTheDayHitRate struct {
 	// NetProfitDisplay Pre-formatted net profit for display, e.g. "+$100" / "-$40". Whole dollars, signed, round-then-signed so a rounds-to-zero record reads "+$0" (never "-$0"). Convenience only; net_profit_usd is the source value.
 	NetProfitDisplay string `json:"net_profit_display"`
 
-	// NetProfitUsd Cumulative profit (USD) of a $100/pick strategy over visible valued decided picks: a priced win pays 100/backed_price - 100, every visible loss pays -100 independent of price, and a void pays 0. An unpriced visible win and a current non-Insider row whose price is gated remain in wins/losses but are excluded from price-derived totals.
+	// NetProfitUsd Cumulative profit (USD) of a stake_usd-per-pick strategy over visible valued decided picks: a priced win pays stake_usd/backed_price - stake_usd, every visible loss pays -stake_usd independent of price, and a void pays 0. An unpriced visible win and a current non-Insider row whose price is gated remain in wins/losses but are excluded from price-derived totals.
 	NetProfitUsd float32 `json:"net_profit_usd"`
 
 	// Pct Rolling hit rate as a percentage (wins / decided * 100, to 1 decimal); 0 when none are decided.
@@ -6904,11 +8240,14 @@ type PickOfTheDayHitRate struct {
 		// HitRatePct Running rolling hit rate (wins / decided * 100, to 1 decimal) through this pick.
 		HitRatePct float32 `json:"hit_rate_pct"`
 
-		// NetProfitUsd Running cumulative $100/pick profit (USD) through this pick; valued losses and priced wins are booked, while a non-valued decided row carries profit forward unchanged.
+		// NetProfitUsd Running cumulative stake_usd-per-pick profit (USD) through this pick; valued losses and priced wins are booked, while a non-valued decided row carries profit forward unchanged.
 		NetProfitUsd float32 `json:"net_profit_usd"`
 	} `json:"series,omitempty"`
 
-	// StakedUsd Total staked (USD) = 100 * count of visible valued decided picks: every visible loss plus every priced win. Void, unpriced wins, and current non-Insider rows whose price is gated are excluded.
+	// StakeUsd The flat stake every money figure here assumes, in USD: 1000 since 2026-09-22 (100 before). Always present.
+	StakeUsd *float32 `json:"stake_usd,omitempty"`
+
+	// StakedUsd Total staked (USD) = stake_usd * count of visible valued decided picks: every visible loss plus every priced win. Void, unpriced wins, and current non-Insider rows whose price is gated are excluded.
 	StakedUsd float32 `json:"staked_usd"`
 
 	// UnitScore Cumulative net return in stake units over the same valued win/loss population as net_profit_usd.
@@ -7480,16 +8819,15 @@ type ReportPayload struct {
 
 // ReportReconciliation defines model for ReportReconciliation.
 type ReportReconciliation struct {
-	Notes             string                                `json:"notes"`
-	VolumeKind        ReportReconciliationVolumeKind        `json:"volume_kind"`
-	WhaleVolumeSource ReportReconciliationWhaleVolumeSource `json:"whale_volume_source"`
+	Notes      string                         `json:"notes"`
+	VolumeKind ReportReconciliationVolumeKind `json:"volume_kind"`
+
+	// WhaleVolumeSource Where the whale volume in this report is read from: the column name `whale_alerts.usdc_notional_num`, followed in parentheses by the reconciliation note the server attaches to it. The server has always sent the note with the name, so this is not a bare constant; match on the prefix, not the whole string.
+	WhaleVolumeSource string `json:"whale_volume_source"`
 }
 
 // ReportReconciliationVolumeKind defines model for ReportReconciliation.VolumeKind.
 type ReportReconciliationVolumeKind string
-
-// ReportReconciliationWhaleVolumeSource defines model for ReportReconciliation.WhaleVolumeSource.
-type ReportReconciliationWhaleVolumeSource string
 
 // ReportSnapshot defines model for ReportSnapshot.
 type ReportSnapshot struct {
@@ -7681,12 +9019,18 @@ type SnapshotState struct {
 	// Status final only for a body whose source read started at or after final_after (the UTC close of the range plus the whale-trade ingestion budget). rolling for a live range and for a closed range still inside that budget: such a body refreshes every five minutes, is rebuilt once after final_after, and is then frozen. Before 2026-09-22 a closed range read final from the calendar alone, even for a body built before the range ended (#16225).
 	Status SnapshotStateStatus `json:"status"`
 
-	// Version Immutable content version for this report identity.
+	// Storage durable for canonical daily, ISO-week, and monthly snapshot identities; ephemeral for explicit weekly from/to ranges, which are recomputed within a bounded 31-day window and never persisted.
+	Storage SnapshotStateStorage `json:"storage"`
+
+	// Version Immutable content version for a durable report identity; 0 for an ephemeral explicit weekly from/to range.
 	Version int64 `json:"version"`
 }
 
 // SnapshotStateStatus final only for a body whose source read started at or after final_after (the UTC close of the range plus the whale-trade ingestion budget). rolling for a live range and for a closed range still inside that budget: such a body refreshes every five minutes, is rebuilt once after final_after, and is then frozen. Before 2026-09-22 a closed range read final from the calendar alone, even for a body built before the range ended (#16225).
 type SnapshotStateStatus string
+
+// SnapshotStateStorage durable for canonical daily, ISO-week, and monthly snapshot identities; ephemeral for explicit weekly from/to ranges, which are recomputed within a bounded 31-day window and never persisted.
+type SnapshotStateStorage string
 
 // SportsEdgeFunnelReport Per-sport accountable funnel for the full observation snapshot, returned on every page.
 type SportsEdgeFunnelReport struct {
@@ -8581,6 +9925,9 @@ type WebhookDelivery struct {
 	NextAttemptAt time.Time             `json:"next_attempt_at"`
 	Object        WebhookDeliveryObject `json:"object"`
 
+	// RetryScheduleReason Why next_attempt_at was scheduled: receiver_retry_after for an accepted Retry-After on a 408, 429, or 5xx response; transient_failure for a network or ordinary transient retry; permanent_or_auth_failure for another non-2xx response; manual_redelivery or configuration_changed for those queue actions. null while an attempt is in flight or once the delivery is terminal.
+	RetryScheduleReason WebhookDeliveryRetryScheduleReason `json:"retry_schedule_reason"`
+
 	// Status Delivery lifecycle state (e.g. pending, delivered, dead_letter).
 	Status string `json:"status"`
 }
@@ -8588,17 +9935,21 @@ type WebhookDelivery struct {
 // WebhookDeliveryObject defines model for WebhookDelivery.Object.
 type WebhookDeliveryObject string
 
+// WebhookDeliveryRetryScheduleReason Why next_attempt_at was scheduled: receiver_retry_after for an accepted Retry-After on a 408, 429, or 5xx response; transient_failure for a network or ordinary transient retry; permanent_or_auth_failure for another non-2xx response; manual_redelivery or configuration_changed for those queue actions. null while an attempt is in flight or once the delivery is terminal.
+type WebhookDeliveryRetryScheduleReason string
+
 // WebhookEndpoint defines model for WebhookEndpoint.
 type WebhookEndpoint struct {
-	CreatedAt    time.Time             `json:"created_at"`
-	EventTypes   []WebhookEventType    `json:"event_types"`
-	FailureCount int                   `json:"failure_count"`
-	Id           int64                 `json:"id"`
-	Name         string                `json:"name"`
-	Object       WebhookEndpointObject `json:"object"`
-	RetryPolicy  WebhookRetryPolicy    `json:"retry_policy"`
+	CreatedAt      time.Time             `json:"created_at"`
+	EventTypes     []WebhookEventType    `json:"event_types"`
+	FailureCount   int                   `json:"failure_count"`
+	Id             int64                 `json:"id"`
+	Name           string                `json:"name"`
+	Object         WebhookEndpointObject `json:"object"`
+	RetryPolicy    WebhookRetryPolicy    `json:"retry_policy"`
+	SecretRotation WebhookSecretRotation `json:"secret_rotation"`
 
-	// SigningSecret Returned only on create or rotate-secret.
+	// SigningSecret Returned only on create, immediate rotate-secret, staged rotate-secret/prepare, or staged rotate-secret/activate. Never returned by list, get, update, delete, verify, or retire.
 	SigningSecret              *string              `json:"signing_secret,omitempty"`
 	Status                     WebhookStatus        `json:"status"`
 	UpdatedAt                  time.Time            `json:"updated_at"`
@@ -8652,6 +10003,18 @@ type WebhookRetryPolicyRetryHorizonSeconds int
 
 // WebhookRetryPolicyTerminalStatus defines model for WebhookRetryPolicy.TerminalStatus.
 type WebhookRetryPolicyTerminalStatus string
+
+// WebhookSecretRotation defines model for WebhookSecretRotation.
+type WebhookSecretRotation struct {
+	// OverlapExpiresAt When the previous signing secret stops being emitted and accepted. null outside the overlap phase.
+	OverlapExpiresAt time.Time `json:"overlap_expires_at"`
+
+	// Status idle when no staged rotation exists, pending after prepare, and overlap after activate while both signing secrets are accepted.
+	Status WebhookSecretRotationStatus `json:"status"`
+}
+
+// WebhookSecretRotationStatus idle when no staged rotation exists, pending after prepare, and overlap after activate while both signing secrets are accepted.
+type WebhookSecretRotationStatus string
 
 // WebhookStatus defines model for WebhookStatus.
 type WebhookStatus string
@@ -8800,8 +10163,26 @@ type WhaleTradeHistoryMetaSourceProviderFetchAtRequestTime bool
 // WhaleTradeHistoryMetaSourceTable defines model for WhaleTradeHistoryMeta.Source.Table.
 type WhaleTradeHistoryMetaSourceTable string
 
+// GetApiDiscoveryParams defines parameters for GetApiDiscovery.
+type GetApiDiscoveryParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetApiDiscoveryParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetApiDiscoveryParamsXQueryValidation defines parameters for GetApiDiscovery.
+type GetApiDiscoveryParamsXQueryValidation string
+
 // GetApiDiscovery200JSONResponseBodyObject defines parameters for GetApiDiscovery.
 type GetApiDiscovery200JSONResponseBodyObject string
+
+// RegisterAgentParams defines parameters for RegisterAgent.
+type RegisterAgentParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *RegisterAgentParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// RegisterAgentParamsXQueryValidation defines parameters for RegisterAgent.
+type RegisterAgentParamsXQueryValidation string
 
 // RegisterAgent201JSONResponseBodyObject defines parameters for RegisterAgent.
 type RegisterAgent201JSONResponseBodyObject string
@@ -8813,7 +10194,13 @@ type SearchContentParams struct {
 
 	// Limit Maximum content items to return.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *SearchContentParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// SearchContentParamsXQueryValidation defines parameters for SearchContent.
+type SearchContentParamsXQueryValidation string
 
 // SearchContent200JSONResponseBodyHasMore defines parameters for SearchContent.
 type SearchContent200JSONResponseBodyHasMore bool
@@ -8823,21 +10210,54 @@ type SearchContent200JSONResponseBodyObject string
 
 // GetEventReplaySinceParams defines parameters for GetEventReplaySince.
 type GetEventReplaySinceParams struct {
-	// Cursor Opaque event replay cursor returned as next_cursor by a prior response. The cursor maps to the global (whale_alerts.inserted_xid, whale_alerts.id) commit-order position and is valid across backend replicas. Cursors issued before 2026-09-22 (id-only) stay accepted; the next_cursor they receive is the current format. Omit to fetch the latest durable public suffix.
+	// Cursor Opaque event replay cursor returned as next_cursor by a prior response. The cursor maps to the global (whale_alerts.inserted_xid, whale_alerts.id) commit-order position, is valid across backend replicas, and is bound to the filter set the walk ran with (trader, condition_id, min_grade, min_size): presenting it under different filters answers 400 bad_request with error.reason cursor_expired, and the walk restarts without a cursor. Cursors issued before 2026-09-22 (id-only) stay accepted and are bound to no filters. Omit to fetch the latest durable public suffix.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// Limit Maximum durable public whale-trade events to return.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Trader Only this wallet's trades: a wallet address, trd_-prefixed trader id or username resolved against the traders table. Bound to the cursor: a cursor issued under other filters answers 400 with error.reason cursor_expired. An unknown trader matches nothing and the walk still advances.
+	Trader *string `form:"trader,omitempty" json:"trader,omitempty"`
+
+	// ConditionId Only trades on this market: the raw provider condition_id or its mkt_-prefixed id. Bound to the cursor.
+	ConditionId *string `form:"condition_id,omitempty" json:"condition_id,omitempty"`
+
+	// MinGrade Only trades by wallets at this grade or better (S best), read from the wallet's newest ranking at request time; a wallet with no grade never passes. Bound to the cursor.
+	MinGrade *GetEventReplaySinceParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
+
+	// MinSize Only trades of at least this size in USD (compared in cents). Bound to the cursor.
+	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
+
+	// Expand Repeatable. trade adds the public trade read to every event (the object GET /api/v1/whale-trades/{id} returns for it), from one query per page, so a page of 100 events needs no per-event detail request. Not bound to the cursor: switch it on or off mid-walk.
+	Expand *[]GetEventReplaySinceParamsExpand `form:"expand,omitempty" json:"expand,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetEventReplaySinceParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// GetEventReplaySinceParamsMinGrade defines parameters for GetEventReplaySince.
+type GetEventReplaySinceParamsMinGrade string
+
+// GetEventReplaySinceParamsExpand defines parameters for GetEventReplaySince.
+type GetEventReplaySinceParamsExpand string
+
+// GetEventReplaySinceParamsXQueryValidation defines parameters for GetEventReplaySince.
+type GetEventReplaySinceParamsXQueryValidation string
 
 // GetEventReplaySince200JSONResponseBodyObject defines parameters for GetEventReplaySince.
 type GetEventReplaySince200JSONResponseBodyObject string
 
 // GetHealthParams defines parameters for GetHealth.
 type GetHealthParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetHealthParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
+
+// GetHealthParamsXQueryValidation defines parameters for GetHealth.
+type GetHealthParamsXQueryValidation string
 
 // GetHealth200JSONResponseBodyDataStatus defines parameters for GetHealth.
 type GetHealth200JSONResponseBodyDataStatus string
@@ -8862,6 +10282,12 @@ type ListInsiderRadarParams struct {
 	// Severity Compatible filter. flag selects live threshold crossings. watch returns no rows because no live watch policy exists.
 	Severity *ListInsiderRadarParamsSeverity `form:"severity,omitempty" json:"severity,omitempty"`
 
+	// Mode Pagination mode. live (default) keeps the 120-second response cache; stable pins the walk to one published scoring generation and binds the cursor to the limit and filters.
+	Mode *ListInsiderRadarParamsMode `form:"mode,omitempty" json:"mode,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListInsiderRadarParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
@@ -8869,14 +10295,26 @@ type ListInsiderRadarParams struct {
 // ListInsiderRadarParamsSeverity defines parameters for ListInsiderRadar.
 type ListInsiderRadarParamsSeverity string
 
+// ListInsiderRadarParamsMode defines parameters for ListInsiderRadar.
+type ListInsiderRadarParamsMode string
+
+// ListInsiderRadarParamsXQueryValidation defines parameters for ListInsiderRadar.
+type ListInsiderRadarParamsXQueryValidation string
+
 // ListInsiderRadar200JSONResponseBodyObject defines parameters for ListInsiderRadar.
 type ListInsiderRadar200JSONResponseBodyObject string
 
 // GetInsiderRadarFlagParams defines parameters for GetInsiderRadarFlag.
 type GetInsiderRadarFlagParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetInsiderRadarFlagParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
+
+// GetInsiderRadarFlagParamsXQueryValidation defines parameters for GetInsiderRadarFlag.
+type GetInsiderRadarFlagParamsXQueryValidation string
 
 // GetInsiderRadarFlag200JSONResponseBodyObject defines parameters for GetInsiderRadarFlag.
 type GetInsiderRadarFlag200JSONResponseBodyObject string
@@ -8900,10 +10338,16 @@ type ListLargePositionsParams struct {
 
 	// ConditionId Scope to one market. Accepts the raw provider condition_id or the mkt_-prefixed market id (round-trips a value from a list response). Polymarket-only; an unknown id returns [].
 	ConditionId *string `form:"condition_id,omitempty" json:"condition_id,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListLargePositionsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
 
 // ListLargePositionsParamsMinGrade defines parameters for ListLargePositions.
 type ListLargePositionsParamsMinGrade string
+
+// ListLargePositionsParamsXQueryValidation defines parameters for ListLargePositions.
+type ListLargePositionsParamsXQueryValidation string
 
 // ListLargePositions200JSONResponseBodyObject defines parameters for ListLargePositions.
 type ListLargePositions200JSONResponseBodyObject string
@@ -8922,12 +10366,18 @@ type ListLeaderboardParams struct {
 	// Strategy Filter by ML-detected strategy type. Values come from backend/crates/analytics/src/trader_analysis/classification/decision_tree.rs and are matched exactly against ml_trader_category.primary_type. Values outside the declared enum return HTTP 400.
 	Strategy *ListLeaderboardParamsStrategy `form:"strategy,omitempty" json:"strategy,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListLeaderboardParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
 // ListLeaderboardParamsStrategy defines parameters for ListLeaderboard.
 type ListLeaderboardParamsStrategy string
+
+// ListLeaderboardParamsXQueryValidation defines parameters for ListLeaderboard.
+type ListLeaderboardParamsXQueryValidation string
 
 // ListLeaderboard200JSONResponseBodyObject defines parameters for ListLeaderboard.
 type ListLeaderboard200JSONResponseBodyObject string
@@ -8937,15 +10387,21 @@ type ListTrendingWalletsParams struct {
 	// Limit Polymarket's weekly leaderboard caps the ranked set at 50 wallets; requests above 50 still return at most 50.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// Cursor Opaque pagination cursor from a previous response.
+	// Cursor Opaque pagination cursor from a previous response, bound to its effective limit, window and ranked-board generation. A changed board or request scope returns error.reason=cursor_expired; legacy page-only cursors must restart from page one.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// Window Trailing window.
 	Window *ListTrendingWalletsParamsWindow `form:"window,omitempty" json:"window,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListTrendingWalletsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
 
 // ListTrendingWalletsParamsWindow defines parameters for ListTrendingWallets.
 type ListTrendingWalletsParamsWindow string
+
+// ListTrendingWalletsParamsXQueryValidation defines parameters for ListTrendingWallets.
+type ListTrendingWalletsParamsXQueryValidation string
 
 // ListTrendingWallets200JSONResponseBodyObject defines parameters for ListTrendingWallets.
 type ListTrendingWallets200JSONResponseBodyObject string
@@ -8955,11 +10411,14 @@ type GetMarketCandlesParams struct {
 	// Resolution Bucketing granularity. 1d aggregates by UTC calendar day, 1w by ISO week (Monday 00:00 UTC start). Defaults to 1d.
 	Resolution *GetMarketCandlesParamsResolution `form:"resolution,omitempty" json:"resolution,omitempty"`
 
-	// From Exclusive lower bound as a unix timestamp in seconds; points at or before this timestamp are omitted (the underlying daily snapshot read filters bucket_start > from). Note: for resolution=1w a surviving mid-week point can yield a weekly candle whose t (Monday 00:00 UTC) precedes from.
+	// From Exclusive lower bound as a URL-decoded unix timestamp in seconds; points at or before this timestamp are omitted (the underlying daily snapshot read filters bucket_start > from). If to is also present, from must be less than or equal to to. Note: for resolution=1w a surviving mid-week point can yield a weekly candle whose t (Monday 00:00 UTC) precedes from.
 	From *int64 `form:"from,omitempty" json:"from,omitempty"`
 
-	// To Inclusive upper bound as a unix timestamp in seconds; points after this timestamp are omitted.
+	// To Inclusive upper bound as a URL-decoded unix timestamp in seconds; points after this timestamp are omitted. If from is also present, from must be less than or equal to to.
 	To *int64 `form:"to,omitempty" json:"to,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetMarketCandlesParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
@@ -8968,8 +10427,20 @@ type GetMarketCandlesParams struct {
 // GetMarketCandlesParamsResolution defines parameters for GetMarketCandles.
 type GetMarketCandlesParamsResolution string
 
+// GetMarketCandlesParamsXQueryValidation defines parameters for GetMarketCandles.
+type GetMarketCandlesParamsXQueryValidation string
+
 // GetMarketCandles200JSONResponseBodyObject defines parameters for GetMarketCandles.
 type GetMarketCandles200JSONResponseBodyObject string
+
+// GetMarketContextMarkdownParams defines parameters for GetMarketContextMarkdown.
+type GetMarketContextMarkdownParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetMarketContextMarkdownParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetMarketContextMarkdownParamsXQueryValidation defines parameters for GetMarketContextMarkdown.
+type GetMarketContextMarkdownParamsXQueryValidation string
 
 // GetMarketHoldersParams defines parameters for GetMarketHolders.
 type GetMarketHoldersParams struct {
@@ -8985,6 +10456,9 @@ type GetMarketHoldersParams struct {
 	// Cursor Pagination cursor from the previous response's next_cursor (prefix mh_). Pages are cut from one shared roster, so a cursor stays valid across the roster's refresh.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetMarketHoldersParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
@@ -8995,6 +10469,9 @@ type GetMarketHoldersParamsOutcome string
 // GetMarketHoldersParamsMinGrade defines parameters for GetMarketHolders.
 type GetMarketHoldersParamsMinGrade string
 
+// GetMarketHoldersParamsXQueryValidation defines parameters for GetMarketHolders.
+type GetMarketHoldersParamsXQueryValidation string
+
 // GetMarketHolders200JSONResponseBodyObject defines parameters for GetMarketHolders.
 type GetMarketHolders200JSONResponseBodyObject string
 
@@ -9003,12 +10480,18 @@ type GetMarketIntelParams struct {
 	// Timeframe Lookback window for whale flow aggregation.
 	Timeframe *GetMarketIntelParamsTimeframe `form:"timeframe,omitempty" json:"timeframe,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetMarketIntelParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
 // GetMarketIntelParamsTimeframe defines parameters for GetMarketIntel.
 type GetMarketIntelParamsTimeframe string
+
+// GetMarketIntelParamsXQueryValidation defines parameters for GetMarketIntel.
+type GetMarketIntelParamsXQueryValidation string
 
 // GetMarketIntel200JSONResponseBodyObject defines parameters for GetMarketIntel.
 type GetMarketIntel200JSONResponseBodyObject string
@@ -9018,12 +10501,18 @@ type GetMarketSnapshotParams struct {
 	// Expand Include trust metadata for current_price and spread_bps. Repeatable: trust.
 	Expand *[]GetMarketSnapshotParamsExpand `form:"expand,omitempty" json:"expand,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetMarketSnapshotParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
 // GetMarketSnapshotParamsExpand defines parameters for GetMarketSnapshot.
 type GetMarketSnapshotParamsExpand string
+
+// GetMarketSnapshotParamsXQueryValidation defines parameters for GetMarketSnapshot.
+type GetMarketSnapshotParamsXQueryValidation string
 
 // GetMarketSnapshot200JSONResponseBodyObject defines parameters for GetMarketSnapshot.
 type GetMarketSnapshot200JSONResponseBodyObject string
@@ -9051,6 +10540,9 @@ type ExploreMarketsParams struct {
 	// Q Keyword search against market titles. At most 64 characters before whitespace trimming.
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ExploreMarketsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
@@ -9064,6 +10556,9 @@ type ExploreMarketsParamsPlatform string
 // ExploreMarketsParamsSort defines parameters for ExploreMarkets.
 type ExploreMarketsParamsSort string
 
+// ExploreMarketsParamsXQueryValidation defines parameters for ExploreMarkets.
+type ExploreMarketsParamsXQueryValidation string
+
 // ExploreMarkets200JSONResponseBodyObject defines parameters for ExploreMarkets.
 type ExploreMarkets200JSONResponseBodyObject string
 
@@ -9075,6 +10570,15 @@ type BatchGetMarketIntelJSONBody struct {
 	// Timeframe Lookback window used for flow and trade-count context.
 	Timeframe *BatchGetMarketIntelJSONBodyTimeframe `json:"timeframe,omitempty"`
 }
+
+// BatchGetMarketIntelParams defines parameters for BatchGetMarketIntel.
+type BatchGetMarketIntelParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *BatchGetMarketIntelParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// BatchGetMarketIntelParamsXQueryValidation defines parameters for BatchGetMarketIntel.
+type BatchGetMarketIntelParamsXQueryValidation string
 
 // BatchGetMarketIntelJSONBodyTimeframe defines parameters for BatchGetMarketIntel.
 type BatchGetMarketIntelJSONBodyTimeframe string
@@ -9098,10 +10602,16 @@ type SearchMarketsParams struct {
 
 	// Category Filter by category.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *SearchMarketsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
 
 // SearchMarketsParamsStatus defines parameters for SearchMarkets.
 type SearchMarketsParamsStatus string
+
+// SearchMarketsParamsXQueryValidation defines parameters for SearchMarkets.
+type SearchMarketsParamsXQueryValidation string
 
 // SearchMarkets200JSONResponseBodyObject defines parameters for SearchMarkets.
 type SearchMarkets200JSONResponseBodyObject string
@@ -9114,7 +10624,7 @@ type ListSharpMoneyFlowsParams struct {
 	// Limit Page size.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// Cursor Opaque cursor from previous response's next_cursor. Encodes the first-page as_of timestamp plus the last row's absolute net flow and condition_id.
+	// Cursor Opaque cursor from previous response's next_cursor. Encodes the first-page as_of timestamp, normalized effective filters, ranking and aggregate collection revisions, plus the last row's absolute net flow and condition_id. A changed filter or collection returns cursor_expired; request the first page again.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// Category Filter by market category (case-insensitive). A canonical bucket name (e.g. Basketball) matches every provider member that folds into it (NBA, WNBA, NCAAB); a raw provider value also resolves to its bucket.
@@ -9128,6 +10638,9 @@ type ListSharpMoneyFlowsParams struct {
 
 	// Direction Optional post-aggregate flow direction filter.
 	Direction *ListSharpMoneyFlowsParamsDirection `form:"direction,omitempty" json:"direction,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListSharpMoneyFlowsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
@@ -9145,6 +10658,9 @@ type ListSharpMoneyFlowsParamsMinGrade string
 // ListSharpMoneyFlowsParamsDirection defines parameters for ListSharpMoneyFlows.
 type ListSharpMoneyFlowsParamsDirection string
 
+// ListSharpMoneyFlowsParamsXQueryValidation defines parameters for ListSharpMoneyFlows.
+type ListSharpMoneyFlowsParamsXQueryValidation string
+
 // ListSharpMoneyFlows200JSONResponseBodyObject defines parameters for ListSharpMoneyFlows.
 type ListSharpMoneyFlows200JSONResponseBodyObject string
 
@@ -9156,7 +10672,7 @@ type ListSmartMoneyFlowsParams struct {
 	// Limit Page size.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// Cursor Opaque cursor from previous response's next_cursor. Encodes the first-page as_of timestamp plus the last row's absolute net flow and condition_id.
+	// Cursor Opaque cursor from previous response's next_cursor. Encodes the first-page as_of timestamp, normalized effective filters, ranking and aggregate collection revisions, plus the last row's absolute net flow and condition_id. A changed filter or collection returns cursor_expired; request the first page again.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// Category Filter by market category (case-insensitive). A canonical bucket name (e.g. Basketball) matches every provider member that folds into it (NBA, WNBA, NCAAB); a raw provider value also resolves to its bucket.
@@ -9170,6 +10686,9 @@ type ListSmartMoneyFlowsParams struct {
 
 	// Direction Optional post-aggregate flow direction filter.
 	Direction *ListSmartMoneyFlowsParamsDirection `form:"direction,omitempty" json:"direction,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListSmartMoneyFlowsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
@@ -9187,17 +10706,26 @@ type ListSmartMoneyFlowsParamsMinGrade string
 // ListSmartMoneyFlowsParamsDirection defines parameters for ListSmartMoneyFlows.
 type ListSmartMoneyFlowsParamsDirection string
 
+// ListSmartMoneyFlowsParamsXQueryValidation defines parameters for ListSmartMoneyFlows.
+type ListSmartMoneyFlowsParamsXQueryValidation string
+
 // ListSmartMoneyFlows200JSONResponseBodyObject defines parameters for ListSmartMoneyFlows.
 type ListSmartMoneyFlows200JSONResponseBodyObject string
 
 // OpenMcpEventStreamParams defines parameters for OpenMcpEventStream.
 type OpenMcpEventStreamParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *OpenMcpEventStreamParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// McpSessionId Session ID minted by the server on initialize.
 	McpSessionId *string `json:"Mcp-Session-Id,omitempty"`
 
 	// MCPProtocolVersion The negotiated MCP protocol revision, sent on every request after initialize (MCP Streamable HTTP transport). Accepted values: 2025-11-25, 2025-06-18, 2025-03-26, 2024-11-05. Any other value answers HTTP 400 with JSON-RPC error -32600. Absent, the request is served as 2025-03-26.
 	MCPProtocolVersion *OpenMcpEventStreamParamsMCPProtocolVersion `json:"MCP-Protocol-Version,omitempty"`
 }
+
+// OpenMcpEventStreamParamsXQueryValidation defines parameters for OpenMcpEventStream.
+type OpenMcpEventStreamParamsXQueryValidation string
 
 // OpenMcpEventStreamParamsMCPProtocolVersion defines parameters for OpenMcpEventStream.
 type OpenMcpEventStreamParamsMCPProtocolVersion string
@@ -9219,12 +10747,18 @@ type CreateMcpJsonRpcResponseJSONBody struct {
 
 // CreateMcpJsonRpcResponseParams defines parameters for CreateMcpJsonRpcResponse.
 type CreateMcpJsonRpcResponseParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *CreateMcpJsonRpcResponseParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// McpSessionId Session ID minted by the server on initialize; echoed on every subsequent request.
 	McpSessionId *string `json:"Mcp-Session-Id,omitempty"`
 
 	// MCPProtocolVersion The negotiated MCP protocol revision, sent on every request after initialize (MCP Streamable HTTP transport). Accepted values: 2025-11-25, 2025-06-18, 2025-03-26, 2024-11-05. Any other value answers HTTP 400 with JSON-RPC error -32600. Absent, the request is served as 2025-03-26.
 	MCPProtocolVersion *CreateMcpJsonRpcResponseParamsMCPProtocolVersion `json:"MCP-Protocol-Version,omitempty"`
 }
+
+// CreateMcpJsonRpcResponseParamsXQueryValidation defines parameters for CreateMcpJsonRpcResponse.
+type CreateMcpJsonRpcResponseParamsXQueryValidation string
 
 // CreateMcpJsonRpcResponseParamsMCPProtocolVersion defines parameters for CreateMcpJsonRpcResponse.
 type CreateMcpJsonRpcResponseParamsMCPProtocolVersion string
@@ -9260,32 +10794,77 @@ type CreateMcpJsonRpcResponse200JSONResponseBody_Id struct {
 // CreateMcpJsonRpcResponse200JSONResponseBodyJsonrpc defines parameters for CreateMcpJsonRpcResponse.
 type CreateMcpJsonRpcResponse200JSONResponseBodyJsonrpc string
 
+// GetAccountIdentityParams defines parameters for GetAccountIdentity.
+type GetAccountIdentityParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetAccountIdentityParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetAccountIdentityParamsXQueryValidation defines parameters for GetAccountIdentity.
+type GetAccountIdentityParamsXQueryValidation string
+
+// RedirectApiOpenapiSpecParams defines parameters for RedirectApiOpenapiSpec.
+type RedirectApiOpenapiSpecParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *RedirectApiOpenapiSpecParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// RedirectApiOpenapiSpecParamsXQueryValidation defines parameters for RedirectApiOpenapiSpec.
+type RedirectApiOpenapiSpecParamsXQueryValidation string
+
 // GetPickOfTheDayParams defines parameters for GetPickOfTheDay.
 type GetPickOfTheDayParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetPickOfTheDayParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
+
+// GetPickOfTheDayParamsXQueryValidation defines parameters for GetPickOfTheDay.
+type GetPickOfTheDayParamsXQueryValidation string
 
 // GetPickOfTheDay200JSONResponseBodyObject defines parameters for GetPickOfTheDay.
 type GetPickOfTheDay200JSONResponseBodyObject string
 
 // GetPickOfTheDayArchiveParams defines parameters for GetPickOfTheDayArchive.
 type GetPickOfTheDayArchiveParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetPickOfTheDayArchiveParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
+
+// GetPickOfTheDayArchiveParamsXQueryValidation defines parameters for GetPickOfTheDayArchive.
+type GetPickOfTheDayArchiveParamsXQueryValidation string
 
 // GetPickOfTheDayArchive200JSONResponseBodyObject defines parameters for GetPickOfTheDayArchive.
 type GetPickOfTheDayArchive200JSONResponseBodyObject string
 
 // GetPickOfTheDayLedgerParams defines parameters for GetPickOfTheDayLedger.
 type GetPickOfTheDayLedgerParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetPickOfTheDayLedgerParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
+// GetPickOfTheDayLedgerParamsXQueryValidation defines parameters for GetPickOfTheDayLedger.
+type GetPickOfTheDayLedgerParamsXQueryValidation string
+
 // GetPickOfTheDayLedger200JSONResponseBodyObject defines parameters for GetPickOfTheDayLedger.
 type GetPickOfTheDayLedger200JSONResponseBodyObject string
+
+// GetPlatformsParams defines parameters for GetPlatforms.
+type GetPlatformsParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetPlatformsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetPlatformsParamsXQueryValidation defines parameters for GetPlatforms.
+type GetPlatformsParamsXQueryValidation string
 
 // GetPlatforms200JSONResponseBodyObject defines parameters for GetPlatforms.
 type GetPlatforms200JSONResponseBodyObject string
@@ -9298,7 +10877,7 @@ type ListPositionsParams struct {
 	// Cursor Pagination cursor from previous response's next_cursor.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// MinSize Minimum current position value in USD. Defaults to 100 when omitted; send 0 to include every reconciled position.
+	// MinSize Minimum current position value in USD. Defaults to 100 when omitted, or to 0 when wallet is present; send 0 to include every reconciled position.
 	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// Category Exact match against provider-backed market_canonical.category.
@@ -9307,11 +10886,17 @@ type ListPositionsParams struct {
 	// ConditionId Scope to one market. Accepts the raw provider condition_id or the mkt_-prefixed market id emitted by V1 responses. Combine with min_size=0 for every reconciled position in that market; an unknown id returns [].
 	ConditionId *string `form:"condition_id,omitempty" json:"condition_id,omitempty"`
 
+	// Wallet Scope to one wallet or a book of wallets (repeatable, up to 25 per request; comma-separated values inside one occurrence also work). Each value is a wallet address, a known username, or a trd_-prefixed trader id, resolved like /api/v1/trader/{address}. The response keeps the board's order and cursor, so pages of a book interleave wallets by current_value_usd. An address this API has never tracked returns its mirror rows or an empty list; a username or trader id that resolves to nothing is a 404 naming wallet; more than 25 values is a 400. min_size defaults to 0 when wallet is present.
+	Wallet *[]string `form:"wallet,omitempty" json:"wallet,omitempty"`
+
 	// MinGrade Minimum trader grade allowlist. `A` matches S and A; `B` matches S, A, B; etc.
 	MinGrade *ListPositionsParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
 
 	// Side Filter by the binary outcome side. `yes` maps to outcome_index=0, `no` to outcome_index=1.
 	Side *ListPositionsParamsSide `form:"side,omitempty" json:"side,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListPositionsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
@@ -9323,6 +10908,9 @@ type ListPositionsParamsMinGrade string
 // ListPositionsParamsSide defines parameters for ListPositions.
 type ListPositionsParamsSide string
 
+// ListPositionsParamsXQueryValidation defines parameters for ListPositions.
+type ListPositionsParamsXQueryValidation string
+
 // ListPositions200JSONResponseBodyObject defines parameters for ListPositions.
 type ListPositions200JSONResponseBodyObject string
 
@@ -9331,12 +10919,18 @@ type GetReportsParams struct {
 	// Granularity Report granularity selector.
 	Granularity GetReportsParamsGranularity `form:"granularity" json:"granularity"`
 
-	// Period Period token for the granularity. daily: UTC date YYYY-MM-DD. weekly: ISO week YYYY-WW, or a from,to YYYY-MM-DD pair. monthly: UTC month YYYY-MM.
+	// Period Period token for the granularity. daily: UTC date YYYY-MM-DD. weekly: ISO week YYYY-WW for a durable canonical snapshot, or a from,to YYYY-MM-DD pair for an exact ephemeral range limited to 31 inclusive UTC days. A wider explicit range returns 400 invalid_query. monthly: UTC month YYYY-MM.
 	Period string `form:"period" json:"period"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetReportsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
 
 // GetReportsParamsGranularity defines parameters for GetReports.
 type GetReportsParamsGranularity string
+
+// GetReportsParamsXQueryValidation defines parameters for GetReports.
+type GetReportsParamsXQueryValidation string
 
 // GetReports200JSONResponseBodyObject defines parameters for GetReports.
 type GetReports200JSONResponseBodyObject string
@@ -9345,7 +10939,13 @@ type GetReports200JSONResponseBodyObject string
 type GetDailyReportSnapshotParams struct {
 	// Date UTC report date in YYYY-MM-DD format.
 	Date string `form:"date" json:"date"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetDailyReportSnapshotParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// GetDailyReportSnapshotParamsXQueryValidation defines parameters for GetDailyReportSnapshot.
+type GetDailyReportSnapshotParamsXQueryValidation string
 
 // GetDailyReportSnapshot200JSONResponseBodyObject defines parameters for GetDailyReportSnapshot.
 type GetDailyReportSnapshot200JSONResponseBodyObject string
@@ -9354,22 +10954,34 @@ type GetDailyReportSnapshot200JSONResponseBodyObject string
 type GetMonthlyReportSnapshotParams struct {
 	// Month UTC report month in YYYY-MM format.
 	Month string `form:"month" json:"month"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetMonthlyReportSnapshotParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// GetMonthlyReportSnapshotParamsXQueryValidation defines parameters for GetMonthlyReportSnapshot.
+type GetMonthlyReportSnapshotParamsXQueryValidation string
 
 // GetMonthlyReportSnapshot200JSONResponseBodyObject defines parameters for GetMonthlyReportSnapshot.
 type GetMonthlyReportSnapshot200JSONResponseBodyObject string
 
 // GetWeeklyReportSnapshotParams defines parameters for GetWeeklyReportSnapshot.
 type GetWeeklyReportSnapshotParams struct {
-	// From UTC source-range start in YYYY-MM-DD format; required with to.
+	// From UTC source-range start in YYYY-MM-DD format; required with to. Together with to, selects an exact ephemeral range of at most 31 inclusive UTC days.
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// To UTC source-range end in YYYY-MM-DD format; required with from.
+	// To UTC source-range end in YYYY-MM-DD format; required with from. Together with from, selects an exact ephemeral range of at most 31 inclusive UTC days.
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
-	// Week ISO week selector in YYYY-WW format; alternative to from/to.
+	// Week ISO week selector in YYYY-WW format; alternative to from/to. Selects a durable canonical snapshot.
 	Week *string `form:"week,omitempty" json:"week,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetWeeklyReportSnapshotParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// GetWeeklyReportSnapshotParamsXQueryValidation defines parameters for GetWeeklyReportSnapshot.
+type GetWeeklyReportSnapshotParamsXQueryValidation string
 
 // GetWeeklyReportSnapshot200JSONResponseBodyObject defines parameters for GetWeeklyReportSnapshot.
 type GetWeeklyReportSnapshot200JSONResponseBodyObject string
@@ -9388,12 +11000,18 @@ type ListSportsEdgeObservationsParams struct {
 	// Cursor Server-authenticated opaque seo_v2_ cursor from next_cursor. Pins snapshot_as_of, cohort, rank, and condition_id; pre-deploy unsigned seo_ cursors are rejected, so clients must request the first page after this contract ships; emerging_pile cursors also pin the first-page projection_now cutoff so kickoff filtering cannot renumber continuation pages. Client edits fail closed; it cannot cross cohorts; a refreshed snapshot invalidates it with 400.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListSportsEdgeObservationsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET using a previous weak semantic ETag. Matching stable payloads return 304 Not Modified with an empty body; request-specific meta and the opaque emerging_pile projection cutoff inside next_cursor are excluded from validation.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
 // ListSportsEdgeObservationsParamsCohort defines parameters for ListSportsEdgeObservations.
 type ListSportsEdgeObservationsParamsCohort string
+
+// ListSportsEdgeObservationsParamsXQueryValidation defines parameters for ListSportsEdgeObservations.
+type ListSportsEdgeObservationsParamsXQueryValidation string
 
 // ListSportsEdgeObservations200JSONResponseBodyObject defines parameters for ListSportsEdgeObservations.
 type ListSportsEdgeObservations200JSONResponseBodyObject string
@@ -9415,12 +11033,18 @@ type ListSportsEdgeSignalsParams struct {
 	// MinGrade Minimum trader grade required on the piled side. Only S, A, B are accepted (the piled-side grade distribution is S/A/B only; C, D, F return 400). Default B means at least one S/A/B holder is piled; S requires an S holder, A requires an S or A holder.
 	MinGrade *ListSportsEdgeSignalsParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListSportsEdgeSignalsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
 // ListSportsEdgeSignalsParamsMinGrade defines parameters for ListSportsEdgeSignals.
 type ListSportsEdgeSignalsParamsMinGrade string
+
+// ListSportsEdgeSignalsParamsXQueryValidation defines parameters for ListSportsEdgeSignals.
+type ListSportsEdgeSignalsParamsXQueryValidation string
 
 // ListSportsEdgeSignals200JSONResponseBodyObject defines parameters for ListSportsEdgeSignals.
 type ListSportsEdgeSignals200JSONResponseBodyObject string
@@ -9442,6 +11066,9 @@ type GetStreamParams struct {
 	// MinGrade Optional per-connection subscribe-time filter. A frame passes only when it carries a grade field whose grade is better-or-equal to this minimum (S is best). Frames that carry no grade field (every frame except wallet_grade_changed) are EXCLUDED while this is set. An invalid grade returns HTTP 400. Combines with event and condition_id as a logical AND; an absent param adds no constraint.
 	MinGrade *GetStreamParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetStreamParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// LastEventID Cluster-shared sequence id of the last frame the client successfully processed. The stream replays the strictly-newer retained window before resuming live, even when reconnect routing changes replicas. A future or expired id emits resync. Browser EventSource clients send this automatically on reconnect. Omit to attach live from now.
 	LastEventID *string `json:"Last-Event-ID,omitempty"`
 }
@@ -9449,10 +11076,16 @@ type GetStreamParams struct {
 // GetStreamParamsMinGrade defines parameters for GetStream.
 type GetStreamParamsMinGrade string
 
+// GetStreamParamsXQueryValidation defines parameters for GetStream.
+type GetStreamParamsXQueryValidation string
+
 // GetTraderParams defines parameters for GetTrader.
 type GetTraderParams struct {
 	// Expand Include heavy fields and trust metadata. Repeatable: strategy, categories, quant_metrics, trust.
 	Expand *[]GetTraderParamsExpand `form:"expand,omitempty" json:"expand,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetTraderParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
@@ -9460,6 +11093,9 @@ type GetTraderParams struct {
 
 // GetTraderParamsExpand defines parameters for GetTrader.
 type GetTraderParamsExpand string
+
+// GetTraderParamsXQueryValidation defines parameters for GetTrader.
+type GetTraderParamsXQueryValidation string
 
 // GetTrader200JSONResponseBodyObject defines parameters for GetTrader.
 type GetTrader200JSONResponseBodyObject string
@@ -9469,21 +11105,51 @@ type GetTraderCategoryRecordsParams struct {
 	// Category Filter to one canonical category, matched through the same rollup every other category surface uses: soccer, EPL and champions league all reach Soccer, every esports label folds into Esports, and football is AMERICAN football and reaches Football. A filter that reaches Esports returns the Esports record with all of its games; a game is not a filter of its own, so ask for esports and read games. A value that matches no record answers 200 with an empty records array, never 404.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetTraderCategoryRecordsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
+
+// GetTraderCategoryRecordsParamsXQueryValidation defines parameters for GetTraderCategoryRecords.
+type GetTraderCategoryRecordsParamsXQueryValidation string
 
 // GetTraderCategoryRecords200JSONResponseBodyObject defines parameters for GetTraderCategoryRecords.
 type GetTraderCategoryRecords200JSONResponseBodyObject string
 
 // GetTraderContextParams defines parameters for GetTraderContext.
 type GetTraderContextParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetTraderContextParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
+// GetTraderContextParamsXQueryValidation defines parameters for GetTraderContext.
+type GetTraderContextParamsXQueryValidation string
+
 // GetTraderContext200JSONResponseBodyObject defines parameters for GetTraderContext.
 type GetTraderContext200JSONResponseBodyObject string
+
+// GetTraderContextMarkdownParams defines parameters for GetTraderContextMarkdown.
+type GetTraderContextMarkdownParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetTraderContextMarkdownParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetTraderContextMarkdownParamsXQueryValidation defines parameters for GetTraderContextMarkdown.
+type GetTraderContextMarkdownParamsXQueryValidation string
+
+// GetTraderExportSnapshotParams defines parameters for GetTraderExportSnapshot.
+type GetTraderExportSnapshotParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetTraderExportSnapshotParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetTraderExportSnapshotParamsXQueryValidation defines parameters for GetTraderExportSnapshot.
+type GetTraderExportSnapshotParamsXQueryValidation string
 
 // GetTraderExportSnapshot200JSONResponseBodyObject defines parameters for GetTraderExportSnapshot.
 type GetTraderExportSnapshot200JSONResponseBodyObject string
@@ -9492,22 +11158,49 @@ type GetTraderExportSnapshot200JSONResponseBodyObject string
 type SubmitTraderExportParams struct {
 	// Format Output serialization. json = full envelope document (default); ndjson = full envelope as line 1 then one trade object per line; csv = flat trades rows only.
 	Format *SubmitTraderExportParamsFormat `form:"format,omitempty" json:"format,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *SubmitTraderExportParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
 
 // SubmitTraderExportParamsFormat defines parameters for SubmitTraderExport.
 type SubmitTraderExportParamsFormat string
 
+// SubmitTraderExportParamsXQueryValidation defines parameters for SubmitTraderExport.
+type SubmitTraderExportParamsXQueryValidation string
+
 // DownloadTraderExportParams defines parameters for DownloadTraderExport.
 type DownloadTraderExportParams struct {
 	// JobId Export job id returned by the submit route.
 	JobId int64 `form:"job_id" json:"job_id"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *DownloadTraderExportParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// DownloadTraderExportParamsXQueryValidation defines parameters for DownloadTraderExport.
+type DownloadTraderExportParamsXQueryValidation string
 
 // GetTraderExportStatusParams defines parameters for GetTraderExportStatus.
 type GetTraderExportStatusParams struct {
 	// JobId Export job id returned by the submit route.
 	JobId int64 `form:"job_id" json:"job_id"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetTraderExportStatusParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// GetTraderExportStatusParamsXQueryValidation defines parameters for GetTraderExportStatus.
+type GetTraderExportStatusParamsXQueryValidation string
+
+// GetTraderPnlParams defines parameters for GetTraderPnl.
+type GetTraderPnlParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetTraderPnlParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetTraderPnlParamsXQueryValidation defines parameters for GetTraderPnl.
+type GetTraderPnlParamsXQueryValidation string
 
 // GetTraderPnl200JSONResponseBodyObject defines parameters for GetTraderPnl.
 type GetTraderPnl200JSONResponseBodyObject string
@@ -9523,9 +11216,15 @@ type GetPositionTimelineParams struct {
 	// Cursor Pagination cursor from previous response's next_cursor.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetPositionTimelineParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
+
+// GetPositionTimelineParamsXQueryValidation defines parameters for GetPositionTimeline.
+type GetPositionTimelineParamsXQueryValidation string
 
 // GetPositionTimeline200JSONResponseBodyObject defines parameters for GetPositionTimeline.
 type GetPositionTimeline200JSONResponseBodyObject string
@@ -9538,6 +11237,15 @@ type BatchGetTradersJSONBody struct {
 	// Traders Trader identities to resolve in input order.
 	Traders []string `json:"traders"`
 }
+
+// BatchGetTradersParams defines parameters for BatchGetTraders.
+type BatchGetTradersParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *BatchGetTradersParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// BatchGetTradersParamsXQueryValidation defines parameters for BatchGetTraders.
+type BatchGetTradersParamsXQueryValidation string
 
 // BatchGetTradersJSONBodyExpand defines parameters for BatchGetTraders.
 type BatchGetTradersJSONBodyExpand string
@@ -9556,45 +11264,105 @@ type GetPositionTimelineByIdParams struct {
 	// Cursor Pagination cursor from previous response's next_cursor.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetPositionTimelineByIdParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
+// GetPositionTimelineByIdParamsXQueryValidation defines parameters for GetPositionTimelineById.
+type GetPositionTimelineByIdParamsXQueryValidation string
+
 // GetPositionTimelineById200JSONResponseBodyObject defines parameters for GetPositionTimelineById.
 type GetPositionTimelineById200JSONResponseBodyObject string
+
+// GetUsageParams defines parameters for GetUsage.
+type GetUsageParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetUsageParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetUsageParamsXQueryValidation defines parameters for GetUsage.
+type GetUsageParamsXQueryValidation string
+
+// ListWebhooksParams defines parameters for ListWebhooks.
+type ListWebhooksParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListWebhooksParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// ListWebhooksParamsXQueryValidation defines parameters for ListWebhooks.
+type ListWebhooksParamsXQueryValidation string
 
 // ListWebhooks200JSONResponseBodyObject defines parameters for ListWebhooks.
 type ListWebhooks200JSONResponseBodyObject string
 
 // CreateWebhookParams defines parameters for CreateWebhook.
 type CreateWebhookParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *CreateWebhookParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
 	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
 }
 
+// CreateWebhookParamsXQueryValidation defines parameters for CreateWebhook.
+type CreateWebhookParamsXQueryValidation string
+
 // CreateWebhook200JSONResponseBodyObject defines parameters for CreateWebhook.
 type CreateWebhook200JSONResponseBodyObject string
+
+// ListWebhookEventsParams defines parameters for ListWebhookEvents.
+type ListWebhookEventsParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListWebhookEventsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// ListWebhookEventsParamsXQueryValidation defines parameters for ListWebhookEvents.
+type ListWebhookEventsParamsXQueryValidation string
 
 // ListWebhookEvents200JSONResponseBodyObject defines parameters for ListWebhookEvents.
 type ListWebhookEvents200JSONResponseBodyObject string
 
 // DeleteWebhookParams defines parameters for DeleteWebhook.
 type DeleteWebhookParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *DeleteWebhookParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
 	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
 }
 
+// DeleteWebhookParamsXQueryValidation defines parameters for DeleteWebhook.
+type DeleteWebhookParamsXQueryValidation string
+
 // DeleteWebhook200JSONResponseBodyObject defines parameters for DeleteWebhook.
 type DeleteWebhook200JSONResponseBodyObject string
+
+// GetWebhookParams defines parameters for GetWebhook.
+type GetWebhookParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetWebhookParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetWebhookParamsXQueryValidation defines parameters for GetWebhook.
+type GetWebhookParamsXQueryValidation string
 
 // GetWebhook200JSONResponseBodyObject defines parameters for GetWebhook.
 type GetWebhook200JSONResponseBodyObject string
 
 // UpdateWebhookParams defines parameters for UpdateWebhook.
 type UpdateWebhookParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *UpdateWebhookParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
 	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
 }
+
+// UpdateWebhookParamsXQueryValidation defines parameters for UpdateWebhook.
+type UpdateWebhookParamsXQueryValidation string
 
 // UpdateWebhook200JSONResponseBodyObject defines parameters for UpdateWebhook.
 type UpdateWebhook200JSONResponseBodyObject string
@@ -9606,28 +11374,82 @@ type ListWebhookDeliveriesParams struct {
 
 	// Limit Maximum delivery rows to return per page.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListWebhookDeliveriesParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// ListWebhookDeliveriesParamsXQueryValidation defines parameters for ListWebhookDeliveries.
+type ListWebhookDeliveriesParamsXQueryValidation string
 
 // ListWebhookDeliveries200JSONResponseBodyObject defines parameters for ListWebhookDeliveries.
 type ListWebhookDeliveries200JSONResponseBodyObject string
 
 // RedeliverWebhookDeliveryParams defines parameters for RedeliverWebhookDelivery.
 type RedeliverWebhookDeliveryParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *RedeliverWebhookDeliveryParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
 	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
 }
+
+// RedeliverWebhookDeliveryParamsXQueryValidation defines parameters for RedeliverWebhookDelivery.
+type RedeliverWebhookDeliveryParamsXQueryValidation string
 
 // RedeliverWebhookDelivery200JSONResponseBodyObject defines parameters for RedeliverWebhookDelivery.
 type RedeliverWebhookDelivery200JSONResponseBodyObject string
 
 // RotateWebhookSecretParams defines parameters for RotateWebhookSecret.
 type RotateWebhookSecretParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *RotateWebhookSecretParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
 	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
 }
 
+// RotateWebhookSecretParamsXQueryValidation defines parameters for RotateWebhookSecret.
+type RotateWebhookSecretParamsXQueryValidation string
+
 // RotateWebhookSecret200JSONResponseBodyObject defines parameters for RotateWebhookSecret.
 type RotateWebhookSecret200JSONResponseBodyObject string
+
+// ActivateWebhookSecretParams defines parameters for ActivateWebhookSecret.
+type ActivateWebhookSecretParams struct {
+	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
+	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
+}
+
+// ActivateWebhookSecret200JSONResponseBodyObject defines parameters for ActivateWebhookSecret.
+type ActivateWebhookSecret200JSONResponseBodyObject string
+
+// PrepareWebhookSecretParams defines parameters for PrepareWebhookSecret.
+type PrepareWebhookSecretParams struct {
+	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
+	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
+}
+
+// PrepareWebhookSecret200JSONResponseBodyObject defines parameters for PrepareWebhookSecret.
+type PrepareWebhookSecret200JSONResponseBodyObject string
+
+// RetireWebhookSecretParams defines parameters for RetireWebhookSecret.
+type RetireWebhookSecretParams struct {
+	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
+	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
+}
+
+// RetireWebhookSecret200JSONResponseBodyObject defines parameters for RetireWebhookSecret.
+type RetireWebhookSecret200JSONResponseBodyObject string
+
+// VerifyWebhookParams defines parameters for VerifyWebhook.
+type VerifyWebhookParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *VerifyWebhookParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// VerifyWebhookParamsXQueryValidation defines parameters for VerifyWebhook.
+type VerifyWebhookParamsXQueryValidation string
 
 // VerifyWebhook200JSONResponseBodyObject defines parameters for VerifyWebhook.
 type VerifyWebhook200JSONResponseBodyObject string
@@ -9652,12 +11474,18 @@ type ListWhaleTradesParams struct {
 	// SuspiciousOnly When true, return only rows with persisted suspicion_score >= 60. The filter is applied before SQL-backed limit + 1 pagination.
 	SuspiciousOnly *bool `form:"suspicious_only,omitempty" json:"suspicious_only,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListWhaleTradesParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
 // ListWhaleTradesParamsMinGrade defines parameters for ListWhaleTrades.
 type ListWhaleTradesParamsMinGrade string
+
+// ListWhaleTradesParamsXQueryValidation defines parameters for ListWhaleTrades.
+type ListWhaleTradesParamsXQueryValidation string
 
 // ListWhaleTrades200JSONResponseBodyObject defines parameters for ListWhaleTrades.
 type ListWhaleTrades200JSONResponseBodyObject string
@@ -9697,6 +11525,9 @@ type ListWhaleTradeHistoryParams struct {
 	// To Exclusive RFC3339 upper bound on whale_alerts.traded_at. Must be after from when both are present.
 	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
 
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListWhaleTradeHistoryParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
@@ -9707,14 +11538,23 @@ type ListWhaleTradeHistoryParamsMinGrade string
 // ListWhaleTradeHistoryParamsPlatform defines parameters for ListWhaleTradeHistory.
 type ListWhaleTradeHistoryParamsPlatform string
 
+// ListWhaleTradeHistoryParamsXQueryValidation defines parameters for ListWhaleTradeHistory.
+type ListWhaleTradeHistoryParamsXQueryValidation string
+
 // ListWhaleTradeHistory200JSONResponseBodyObject defines parameters for ListWhaleTradeHistory.
 type ListWhaleTradeHistory200JSONResponseBodyObject string
 
 // GetWhaleTradeParams defines parameters for GetWhaleTrade.
 type GetWhaleTradeParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *GetWhaleTradeParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
 	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
+
+// GetWhaleTradeParamsXQueryValidation defines parameters for GetWhaleTrade.
+type GetWhaleTradeParamsXQueryValidation string
 
 // GetWhaleTrade200JSONResponseBodyObject defines parameters for GetWhaleTrade.
 type GetWhaleTrade200JSONResponseBodyObject string
@@ -9729,7 +11569,13 @@ type ListWhaleTradeCounterpartyExecutionsParams struct {
 
 	// Limit Maximum number of counterparty execution rows to return.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListWhaleTradeCounterpartyExecutionsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// ListWhaleTradeCounterpartyExecutionsParamsXQueryValidation defines parameters for ListWhaleTradeCounterpartyExecutions.
+type ListWhaleTradeCounterpartyExecutionsParamsXQueryValidation string
 
 // ListWhaleTradeCounterpartyExecutions200JSONResponseBodyObject defines parameters for ListWhaleTradeCounterpartyExecutions.
 type ListWhaleTradeCounterpartyExecutions200JSONResponseBodyObject string
@@ -9744,7 +11590,13 @@ type ListWhaleTradeCounterpartyMakersParams struct {
 
 	// Limit Maximum number of maker rows to return.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListWhaleTradeCounterpartyMakersParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
 }
+
+// ListWhaleTradeCounterpartyMakersParamsXQueryValidation defines parameters for ListWhaleTradeCounterpartyMakers.
+type ListWhaleTradeCounterpartyMakersParamsXQueryValidation string
 
 // ListWhaleTradeCounterpartyMakers200JSONResponseBodyObject defines parameters for ListWhaleTradeCounterpartyMakers.
 type ListWhaleTradeCounterpartyMakers200JSONResponseBodyObject string
@@ -9766,6 +11618,124 @@ type UpdateWebhookJSONRequestBody = UpdateWebhookRequest
 
 // VerifyWebhookJSONRequestBody defines body for VerifyWebhook for application/json ContentType.
 type VerifyWebhookJSONRequestBody = VerifyWebhookRequest
+
+// Getter for additional properties for EventReplayEvent_Payload. Returns the specified
+// element and whether it was found
+func (a EventReplayEvent_Payload) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for EventReplayEvent_Payload
+func (a *EventReplayEvent_Payload) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for EventReplayEvent_Payload to handle AdditionalProperties
+func (a *EventReplayEvent_Payload) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["condition_id"]; found {
+		err = json.Unmarshal(raw, &a.ConditionId)
+		if err != nil {
+			return fmt.Errorf("error reading 'condition_id': %w", err)
+		}
+		delete(object, "condition_id")
+	}
+
+	if raw, found := object["count"]; found {
+		err = json.Unmarshal(raw, &a.Count)
+		if err != nil {
+			return fmt.Errorf("error reading 'count': %w", err)
+		}
+		delete(object, "count")
+	}
+
+	if raw, found := object["platform"]; found {
+		err = json.Unmarshal(raw, &a.Platform)
+		if err != nil {
+			return fmt.Errorf("error reading 'platform': %w", err)
+		}
+		delete(object, "platform")
+	}
+
+	if raw, found := object["trader_id"]; found {
+		err = json.Unmarshal(raw, &a.TraderId)
+		if err != nil {
+			return fmt.Errorf("error reading 'trader_id': %w", err)
+		}
+		delete(object, "trader_id")
+	}
+
+	if raw, found := object["whale_alert_id"]; found {
+		err = json.Unmarshal(raw, &a.WhaleAlertId)
+		if err != nil {
+			return fmt.Errorf("error reading 'whale_alert_id': %w", err)
+		}
+		delete(object, "whale_alert_id")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return fmt.Errorf("error unmarshaling field %s: %w", fieldName, err)
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for EventReplayEvent_Payload to handle AdditionalProperties
+func (a EventReplayEvent_Payload) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	object["condition_id"], err = json.Marshal(a.ConditionId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'condition_id': %w", err)
+	}
+
+	object["count"], err = json.Marshal(a.Count)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'count': %w", err)
+	}
+
+	object["platform"], err = json.Marshal(a.Platform)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'platform': %w", err)
+	}
+
+	object["trader_id"], err = json.Marshal(a.TraderId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'trader_id': %w", err)
+	}
+
+	object["whale_alert_id"], err = json.Marshal(a.WhaleAlertId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'whale_alert_id': %w", err)
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling '%s': %w", fieldName, err)
+		}
+	}
+	return json.Marshal(object)
+}
 
 // AsExploreGroup returns the union data inside the ExploreEntry as a ExploreGroup
 func (t ExploreEntry) AsExploreGroup() (ExploreGroup, error) {
@@ -10410,14 +12380,14 @@ type ClientInterface interface {
 	// Unauthenticated API-origin discovery document pointing agents to the canonical API base URL, full docs, web-origin OpenAPI spec, health check, and the COMPLETE index of authenticated data routes. data.authenticated_routes is the whole authenticated route surface, not a sample: it carries every authenticated route this spec documents, so an agent that starts here never has to guess a path. The index is a hand-maintained const in backend/src/api_v1/discovery.rs kept in step with this spec by review; no automated check compares the two, so treat this spec as authoritative if they ever disagree.
 	//
 	// Corresponds with GET /api/v1 (the `GetApiDiscovery` operationId).
-	GetApiDiscovery(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetApiDiscovery(ctx context.Context, params *GetApiDiscoveryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RegisterAgent Register an agent for a sandbox key
 	//
 	// Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
 	//
 	// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
-	RegisterAgent(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RegisterAgent(ctx context.Context, params *RegisterAgentParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SearchContent Search editorial content
 	//
@@ -10442,7 +12412,7 @@ type ClientInterface interface {
 
 	// ListInsiderRadar Get insider radar flags
 	//
-	// Stored trades whose recorded suspicion score meets the live flag threshold. Evidence contains the scorer's stored signals. Cursor-paginated by suspicion score.
+	// Stored trades whose recorded suspicion score meets the live flag threshold. Evidence contains the scorer's stored signals. Cursor-paginated by suspicion score. mode=live (default) uses fresh cached pages; mode=stable pins pagination to one published scoring generation and returns cursor_expired when scores or filters change.
 	//
 	// Corresponds with GET /api/v1/insider-radar (the `ListInsiderRadar` operationId).
 	ListInsiderRadar(ctx context.Context, params *ListInsiderRadarParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -10470,14 +12440,14 @@ type ClientInterface interface {
 
 	// ListTrendingWallets List trending wallets
 	//
-	// Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The underlying read model is warmed into Redis; a cold read returns 503 (warming, retry-after), never a 500 or a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'.
+	// Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The underlying read model is warmed into Redis; a cold read returns 503 (warming, retry-after), never a 500 or a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'. Cursors are bound to the effective limit, window and ranked-board generation; a changed board or request scope returns 400 with error.reason=cursor_expired, and legacy page-only cursors must restart from page one.
 	//
 	// Corresponds with GET /api/v1/leaderboard/trending (the `ListTrendingWallets` operationId).
 	ListTrendingWallets(ctx context.Context, params *ListTrendingWalletsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetMarketCandles Get market OHLC price candles
 	//
-	// Provider-first bucketed OHLC price candles for a market's outcome tokens, derived from the stored token_price_snapshots series (the same series the market-detail chart renders; covers open and resolved markets). Because the stored data is daily, a 1d bucket typically carries one point so its open/high/low/close all equal that day's close; 1w aggregates real OHLC across the observed daily closes. No intraday fidelity is fabricated.
+	// Provider-first bucketed OHLC price candles for a market's outcome tokens, derived from the stored token_price_snapshots series (the same series the market-detail chart renders; covers open and resolved markets). Because the stored data is daily, a 1d bucket typically carries one point so its open/high/low/close all equal that day's close; 1w aggregates real OHLC across the observed daily closes. No intraday fidelity is fabricated. Query field names and recognized values are URL-decoded; duplicate recognized fields use the last value and unknown fields are ignored. When both bounds are present, from must be less than or equal to to; malformed or inverted bounds answer 400.
 	//
 	// Corresponds with GET /api/v1/market/{condition_id}/candles (the `GetMarketCandles` operationId).
 	GetMarketCandles(ctx context.Context, conditionId string, params *GetMarketCandlesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -10487,7 +12457,7 @@ type ClientInterface interface {
 	// Authenticated, self-contained Polymarket market evidence document. Renders the same typed data as the market snapshot with trust included: identity, outcome labels and tokens, cached quotes, liquidity, live sports, and per-source freshness or unavailable reasons. Provider text is encoded as indented JSON data. Accepts raw or mkt_-prefixed condition IDs. Unknown markets return 404. No ETag or conditional requests; use the snapshot JSON route for those.
 	//
 	// Corresponds with GET /api/v1/market/{condition_id}/context.md (the `GetMarketContextMarkdown` operationId).
-	GetMarketContextMarkdown(ctx context.Context, conditionId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetMarketContextMarkdown(ctx context.Context, conditionId string, params *GetMarketContextMarkdownParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetMarketHolders List a market's graded holders
 	//
@@ -10524,7 +12494,7 @@ type ClientInterface interface {
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with POST /api/v1/markets/intel/batch (the `BatchGetMarketIntel` operationId).
-	BatchGetMarketIntelWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	BatchGetMarketIntelWithBody(ctx context.Context, params *BatchGetMarketIntelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// BatchGetMarketIntel Batch market intelligence
 	//
@@ -10533,7 +12503,7 @@ type ClientInterface interface {
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /api/v1/markets/intel/batch (the `BatchGetMarketIntel` operationId).
-	BatchGetMarketIntel(ctx context.Context, body BatchGetMarketIntelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	BatchGetMarketIntel(ctx context.Context, params *BatchGetMarketIntelParams, body BatchGetMarketIntelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SearchMarkets Search markets
 	//
@@ -10544,14 +12514,14 @@ type ClientInterface interface {
 
 	// ListSharpMoneyFlows List ranked sharp-money flows
 	//
-	// Canonical alias of /api/v1/markets/smart-money-flows, which remains live but deprecated. Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first page as_of timestamp so new whale trades do not reorder page 2.
+	// Canonical alias of /api/v1/markets/smart-money-flows, which remains live but deprecated. Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again.
 	//
 	// Corresponds with GET /api/v1/markets/sharp-money-flows (the `ListSharpMoneyFlows` operationId).
 	ListSharpMoneyFlows(ctx context.Context, params *ListSharpMoneyFlowsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListSmartMoneyFlows List ranked smart-money flows
 	//
-	// Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where smart money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first page as_of timestamp so new whale trades do not reorder page 2. Deprecated alias of GET /api/v1/markets/sharp-money-flows, kept live and never removed; every response carries `Deprecation: @1783276950` (RFC 9745, 2026-07-05T18:42:30Z) and a `Link` to the successor (`rel="successor-version"`) and to the versioning policy (`rel="deprecation"`). No `Sunset` header is sent because no removal is planned.
+	// Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where smart money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again. Deprecated alias of GET /api/v1/markets/sharp-money-flows, kept live and never removed; every response carries `Deprecation: @1783276950` (RFC 9745, 2026-07-05T18:42:30Z) and a `Link` to the successor (`rel="successor-version"`) and to the versioning policy (`rel="deprecation"`). No `Sunset` header is sent because no removal is planned.
 	//
 	// Corresponds with GET /api/v1/markets/smart-money-flows (the `ListSmartMoneyFlows` operationId).
 	//
@@ -10585,23 +12555,23 @@ type ClientInterface interface {
 
 	// GetAccountIdentity Identify the authenticated account and credential
 	//
-	// Returns the account and credential IDs admitted by API authentication, credential kind, and approved scopes. Null scopes mean full developer-key access. Requires an active Pro subscription and read scope for OAuth grants. Does not return credentials or personal contact details.
+	// Returns caller-owned account and credential IDs, credential validity, paid-data entitlement and approved scopes. Null scopes mean full developer-key access. Valid credentials can use this control-plane diagnostic path after paid access lapses; data routes still require active paid access. OAuth grants need read scope. Does not return credentials, payment details or personal contact details.
 	//
 	// Corresponds with GET /api/v1/me (the `GetAccountIdentity` operationId).
-	GetAccountIdentity(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetAccountIdentity(ctx context.Context, params *GetAccountIdentityParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RedirectApiOpenapiSpec Redirect to the canonical OpenAPI spec
 	//
 	// Unauthenticated API-origin compatibility redirect to the canonical web-origin OpenAPI JSON document at https://0xinsider.com/api/v1/openapi.json.
 	//
 	// Corresponds with GET /api/v1/openapi.json (the `RedirectApiOpenapiSpec` operationId).
-	RedirectApiOpenapiSpec(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RedirectApiOpenapiSpec(ctx context.Context, params *RedirectApiOpenapiSpecParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetPickOfTheDay Get today's Pick of the Day
 	//
 	// Returns the published picks for the current product day. Pro tier.
 	//
-	// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the $100 return, the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+	// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
 	//
 	// `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
 	//
@@ -10641,18 +12611,18 @@ type ClientInterface interface {
 	// Unauthenticated discovery endpoint that declares which V1 intelligence surfaces are supported, partial, or unsupported per provider platform.
 	//
 	// Corresponds with GET /api/v1/platforms (the `GetPlatforms` operationId).
-	GetPlatforms(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetPlatforms(ctx context.Context, params *GetPlatformsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListPositions List current positions (positions-board feed)
 	//
-	// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top.
+	// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top. With wallet, the same feed is read for one wallet or a book of up to 25 wallets from each wallet's own ordered index range, so the pages are that wallet's complete reconciled binary open positions and the cost is the page, never the board. min_size then defaults to 0. What a wallet read does not return: positions with shares at 0 (closed), rows the reconciler has not valued yet (current_value_usd IS NULL), and non-binary outcomes; per-row last_reconciled_at and freshness say how old each valuation is.
 	//
 	// Corresponds with GET /api/v1/positions (the `ListPositions` operationId).
 	ListPositions(ctx context.Context, params *ListPositionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetReports Unified report snapshot (granularity selector)
 	//
-	// Unified convenience route (#4975) that consolidates the three singular report routes. Dispatches to the exact per-granularity cap (daily 50, weekly 100, monthly 200) and date window the legacy /api/v1/reports/{daily,weekly,monthly} routes use, so the response body is byte-identical to the matching legacy route for the same period. The three legacy routes stay live. Also reachable via the MCP get_report selector.
+	// Unified convenience route (#4975) that consolidates the three singular report routes. Dispatches to the exact per-granularity cap (daily 50, weekly 100, monthly 200) and date window the legacy /api/v1/reports/{daily,weekly,monthly} routes use, so the response body is byte-identical to the matching legacy route for the same period. An ISO weekly period is a durable canonical snapshot; an explicit weekly from,to pair is an exact ephemeral range limited to 31 inclusive UTC days and never creates a persisted snapshot identity. A wider explicit range returns 400 invalid_query. The three legacy routes stay live. Also reachable via the MCP get_report selector.
 	//
 	// Corresponds with GET /api/v1/reports (the `GetReports` operationId).
 	GetReports(ctx context.Context, params *GetReportsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -10673,7 +12643,7 @@ type ClientInterface interface {
 
 	// GetWeeklyReportSnapshot Weekly report snapshot
 	//
-	// Returns a weekly whale-activity report snapshot. Pass either from/to UTC dates or an ISO YYYY-WW week token. The response identifies closed ranges as final and current ranges as rolling.
+	// Returns a weekly whale-activity report snapshot. Pass an ISO YYYY-WW token for a durable canonical snapshot, or an exact from/to UTC range of at most 31 inclusive days for an ephemeral response. The response identifies closed ranges as final and current ranges as rolling.
 	//
 	// Corresponds with GET /api/v1/reports/weekly (the `GetWeeklyReportSnapshot` operationId).
 	GetWeeklyReportSnapshot(ctx context.Context, params *GetWeeklyReportSnapshotParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -10694,7 +12664,7 @@ type ClientInterface interface {
 
 	// GetStream Resumable real-time event stream (SSE)
 	//
-	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive.
+	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
 	//
 	// Corresponds with GET /api/v1/stream (the `GetStream` operationId).
 	GetStream(ctx context.Context, params *GetStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -10725,14 +12695,14 @@ type ClientInterface interface {
 	// Returns a single human- and LLM-readable Markdown briefing for one trader: identity, grade, P&L, position coverage, and freshness. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. Unknown traders still return 200 with a degraded 'not yet synced' document (no 404). The Markdown variant does not emit an ETag and does not support conditional requests; use the JSON variant (drop the .md suffix) for ETag/If-None-Match handling.
 	//
 	// Corresponds with GET /api/v1/trader/{address}/context.md (the `GetTraderContextMarkdown` operationId).
-	GetTraderContextMarkdown(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetTraderContextMarkdown(ctx context.Context, address string, params *GetTraderContextMarkdownParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetTraderExportSnapshot Trader export snapshot metadata
 	//
 	// Returns export source-range, completeness, volume reconciliation, row-count estimate, and large-export policy for one trader. To download the full dataset programmatically, POST to this same path to submit an async export job (json | ndjson | csv), then poll the status route and follow the download route once ready.
 	//
 	// Corresponds with GET /api/v1/trader/{address}/export (the `GetTraderExportSnapshot` operationId).
-	GetTraderExportSnapshot(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetTraderExportSnapshot(ctx context.Context, address string, params *GetTraderExportSnapshotParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SubmitTraderExport Submit a trader dataset export job
 	//
@@ -10760,7 +12730,7 @@ type ClientInterface interface {
 	// Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404.
 	//
 	// Corresponds with GET /api/v1/trader/{address}/pnl (the `GetTraderPnl` operationId).
-	GetTraderPnl(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetTraderPnl(ctx context.Context, address string, params *GetTraderPnlParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetPositionTimeline Get a trader's position timeline for one market
 	//
@@ -10776,7 +12746,7 @@ type ClientInterface interface {
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with POST /api/v1/traders/batch (the `BatchGetTraders` operationId).
-	BatchGetTradersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	BatchGetTradersWithBody(ctx context.Context, params *BatchGetTradersParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// BatchGetTraders Batch trader intelligence
 	//
@@ -10785,7 +12755,7 @@ type ClientInterface interface {
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /api/v1/traders/batch (the `BatchGetTraders` operationId).
-	BatchGetTraders(ctx context.Context, body BatchGetTradersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	BatchGetTraders(ctx context.Context, params *BatchGetTradersParams, body BatchGetTradersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetPositionTimelineById Get a trader's position timeline (unified identity resolver)
 	//
@@ -10796,21 +12766,21 @@ type ClientInterface interface {
 
 	// GetUsage Inspect current API usage without spending primary request quota
 	//
-	// Returns the authenticated caller sliding-window request budget and UTC-day usage. This endpoint is authenticated and does not increment the primary Redis rate-limit counter or log itself into the API usage table; it is separately throttled at 100 reads/minute per user to protect the usage-count query. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
+	// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
 	//
 	// Corresponds with GET /api/v1/usage (the `GetUsage` operationId).
-	GetUsage(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetUsage(ctx context.Context, params *GetUsageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWebhooks List builder webhook destinations
 	//
 	// Returns webhook destinations owned by the authenticated API key user. Deleted endpoints are omitted; an endpoint paused with PATCH or disabled after consecutive failures is listed with status disabled. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
 	//
 	// Corresponds with GET /api/v1/webhooks (the `ListWebhooks` operationId).
-	ListWebhooks(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ListWebhooks(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateWebhookWithBody Create a builder webhook destination
 	//
-	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
+	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries one or more HMAC-SHA256 signatures in the x-0xinsider-signature header as comma-separated v1=<hex> candidates. During staged rotation, the current and previous signing secrets are both signed for one hour; accept any valid candidate. Each candidate is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute each candidate over "<timestamp>.<raw_body>" with the active secrets, and compare using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: ordinary transient delivery failures use stable jitter between half and the existing 60, 120, 240, 480, 960, 1920 and 3600-second upper bounds (retry_policy.retry_horizon_seconds = 7380); on 408, 429, or 5xx, a valid Retry-After delta-seconds or HTTP-date replaces that one wait and is clamped to 60–3600 seconds, while missing, malformed, past, or non-retryable-response hints use the ordinary schedule. The delivery still has eight attempts (retry_policy.max_attempts), and an eighth failure becomes dead_letter. The delivery log exposes retry_schedule_reason and next_attempt_at so a receiver can see the active schedule. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at and retry_schedule_reason for a delivery still waiting to retry.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -10819,7 +12789,7 @@ type ClientInterface interface {
 
 	// CreateWebhook Create a builder webhook destination
 	//
-	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
+	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries one or more HMAC-SHA256 signatures in the x-0xinsider-signature header as comma-separated v1=<hex> candidates. During staged rotation, the current and previous signing secrets are both signed for one hour; accept any valid candidate. Each candidate is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute each candidate over "<timestamp>.<raw_body>" with the active secrets, and compare using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: ordinary transient delivery failures use stable jitter between half and the existing 60, 120, 240, 480, 960, 1920 and 3600-second upper bounds (retry_policy.retry_horizon_seconds = 7380); on 408, 429, or 5xx, a valid Retry-After delta-seconds or HTTP-date replaces that one wait and is clamped to 60–3600 seconds, while missing, malformed, past, or non-retryable-response hints use the ordinary schedule. The delivery still has eight attempts (retry_policy.max_attempts), and an eighth failure becomes dead_letter. The delivery log exposes retry_schedule_reason and next_attempt_at so a receiver can see the active schedule. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at and retry_schedule_reason for a delivery still waiting to retry.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -10831,7 +12801,7 @@ type ClientInterface interface {
 	// Self-describing catalog of every webhook event type: its description, data payload shape, and whether it is active (has a firing producer) or dormant (subscribable but not yet delivered). The catalog is identical for every authenticated key and exposes no owner-scoped data. Pro-only event types (whale_trades_inserted, wallet_grade_changed, insider_radar_flag_raised, smart_money_flow_detected) appear in the catalog but only deliver to API keys on an active Pro subscription.
 	//
 	// Corresponds with GET /api/v1/webhooks/events (the `ListWebhookEvents` operationId).
-	ListWebhookEvents(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ListWebhookEvents(ctx context.Context, params *ListWebhookEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteWebhook Disable a builder webhook destination
 	//
@@ -10845,7 +12815,7 @@ type ClientInterface interface {
 	// Returns one webhook destination owned by the authenticated API key user.
 	//
 	// Corresponds with GET /api/v1/webhooks/{id} (the `GetWebhook` operationId).
-	GetWebhook(ctx context.Context, id int64, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetWebhook(ctx context.Context, id int64, params *GetWebhookParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateWebhookWithBody Update a builder webhook destination
 	//
@@ -10867,7 +12837,7 @@ type ClientInterface interface {
 
 	// ListWebhookDeliveries List webhook delivery log
 	//
-	// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; it is null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery is retried for up to 7380 seconds; see POST /api/v1/webhooks for the retry schedule and the endpoint disable rule. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
+	// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; retry_schedule_reason says whether the queue is following receiver_retry_after, transient_failure, permanent_or_auth_failure, manual_redelivery, or configuration_changed; both are null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery keeps the existing eight-attempt budget, endpoint failure budget, fairness limits, and ordinary 7380-second upper-bound schedule; see POST /api/v1/webhooks for the bounded Retry-After policy. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
 	//
 	// Corresponds with GET /api/v1/webhooks/{id}/deliveries (the `ListWebhookDeliveries` operationId).
 	ListWebhookDeliveries(ctx context.Context, id int64, params *ListWebhookDeliveriesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -10886,6 +12856,27 @@ type ClientInterface interface {
 	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret (the `RotateWebhookSecret` operationId).
 	RotateWebhookSecret(ctx context.Context, id int64, params *RotateWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ActivateWebhookSecret Activate a staged builder webhook signing secret
+	//
+	// Promotes the prepared signing secret to current, returns it once, and signs every delivery with both the new and previous secrets for one hour. Call retire after the receiver has completed its rollout. The current secret remains available through the existing immediate rotate-secret route for emergency replacement.
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/activate (the `ActivateWebhookSecret` operationId).
+	ActivateWebhookSecret(ctx context.Context, id int64, params *ActivateWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PrepareWebhookSecret Prepare a staged builder webhook signing secret
+	//
+	// Creates a pending signing secret while the current secret remains active. Deploy the returned one-time signing_secret to the receiver before calling activate. The response exposes secret_rotation.status=pending; an existing pending secret is returned again so a lost response can be recovered safely.
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/prepare (the `PrepareWebhookSecret` operationId).
+	PrepareWebhookSecret(ctx context.Context, id int64, params *PrepareWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RetireWebhookSecret Retire the previous builder webhook signing secret
+	//
+	// Ends the one-hour dual-signature overlap and removes the previous signing secret from future delivery authorization. Call this after the receiver accepts the activated secret. The operation is idempotent and does not return signing_secret.
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/retire (the `RetireWebhookSecret` operationId).
+	RetireWebhookSecret(ctx context.Context, id int64, params *RetireWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// VerifyWebhookWithBody Verify a builder webhook destination
 	//
 	// Activates a pending webhook destination. Two conditions must both hold: the one-time verification token matches and has not expired, AND the destination answers 2xx to a signed challenge this operation POSTs to the endpoint's stored url. The challenge body is {"type":"webhook.verification","token":"<verification_token>","webhook_id":<id>}. It carries x-0xinsider-event-type: webhook.verification plus the same x-0xinsider-timestamp and x-0xinsider-signature headers a delivery carries, signed with that endpoint's signing_secret, so verify it exactly as you verify a delivery. Answer any 2xx within 10 seconds; the challenge response body is never read, and the challenge follows no redirects. A status outside 2xx, no answer within 10 seconds, or a url that does not resolve to a publicly routable address leaves status at pending_verification and returns 422. The token alone never activates an endpoint.
@@ -10893,7 +12884,7 @@ type ClientInterface interface {
 	// Takes any type of body and a specified content type.
 	//
 	// Corresponds with POST /api/v1/webhooks/{id}/verify (the `VerifyWebhook` operationId).
-	VerifyWebhookWithBody(ctx context.Context, id int64, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	VerifyWebhookWithBody(ctx context.Context, id int64, params *VerifyWebhookParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// VerifyWebhook Verify a builder webhook destination
 	//
@@ -10902,7 +12893,7 @@ type ClientInterface interface {
 	// Takes a body of the `application/json` content type.
 	//
 	// Corresponds with POST /api/v1/webhooks/{id}/verify (the `VerifyWebhook` operationId).
-	VerifyWebhook(ctx context.Context, id int64, body VerifyWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	VerifyWebhook(ctx context.Context, id int64, params *VerifyWebhookParams, body VerifyWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWhaleTrades List whale trades
 	//
@@ -10945,8 +12936,8 @@ type ClientInterface interface {
 // Unauthenticated API-origin discovery document pointing agents to the canonical API base URL, full docs, web-origin OpenAPI spec, health check, and the COMPLETE index of authenticated data routes. data.authenticated_routes is the whole authenticated route surface, not a sample: it carries every authenticated route this spec documents, so an agent that starts here never has to guess a path. The index is a hand-maintained const in backend/src/api_v1/discovery.rs kept in step with this spec by review; no automated check compares the two, so treat this spec as authoritative if they ever disagree.
 //
 // Corresponds with GET /api/v1 (the `GetApiDiscovery` operationId).
-func (c *Client) GetApiDiscovery(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetApiDiscoveryRequest(c.Server)
+func (c *Client) GetApiDiscovery(ctx context.Context, params *GetApiDiscoveryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetApiDiscoveryRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -10962,8 +12953,8 @@ func (c *Client) GetApiDiscovery(ctx context.Context, reqEditors ...RequestEdito
 // Self-serve agent onboarding: no account, no request body, no human step. Returns a sandbox API key (oxi_sk_test_...) and the path to live access. The key works only on the sandbox server (https://0xinsider.com/sandbox/api/v1), where it is optional: send it as Authorization: Bearer to exercise the credential path, and the sandbox answers a malformed key with the production 401. Nothing is stored, so the key cannot be listed or revoked and does not expire; register again for a new one. The live API answers a sandbox key with 401 invalid_api_key and error.reason sandbox_api_key. Live data needs an account with an active Pro subscription, and either an oxi_sk_live_ key from https://0xinsider.com/developers or an OAuth access token (https://0xinsider.com/auth.md). The request body is not read.
 //
 // Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
-func (c *Client) RegisterAgent(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegisterAgentRequest(c.Server)
+func (c *Client) RegisterAgent(ctx context.Context, params *RegisterAgentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegisterAgentRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11027,7 +13018,7 @@ func (c *Client) GetHealth(ctx context.Context, params *GetHealthParams, reqEdit
 
 // ListInsiderRadar Get insider radar flags
 //
-// Stored trades whose recorded suspicion score meets the live flag threshold. Evidence contains the scorer's stored signals. Cursor-paginated by suspicion score.
+// Stored trades whose recorded suspicion score meets the live flag threshold. Evidence contains the scorer's stored signals. Cursor-paginated by suspicion score. mode=live (default) uses fresh cached pages; mode=stable pins pagination to one published scoring generation and returns cursor_expired when scores or filters change.
 //
 // Corresponds with GET /api/v1/insider-radar (the `ListInsiderRadar` operationId).
 func (c *Client) ListInsiderRadar(ctx context.Context, params *ListInsiderRadarParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -11095,7 +13086,7 @@ func (c *Client) ListLeaderboard(ctx context.Context, params *ListLeaderboardPar
 
 // ListTrendingWallets List trending wallets
 //
-// Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The underlying read model is warmed into Redis; a cold read returns 503 (warming, retry-after), never a 500 or a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'.
+// Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The underlying read model is warmed into Redis; a cold read returns 503 (warming, retry-after), never a 500 or a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'. Cursors are bound to the effective limit, window and ranked-board generation; a changed board or request scope returns 400 with error.reason=cursor_expired, and legacy page-only cursors must restart from page one.
 //
 // Corresponds with GET /api/v1/leaderboard/trending (the `ListTrendingWallets` operationId).
 func (c *Client) ListTrendingWallets(ctx context.Context, params *ListTrendingWalletsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -11112,7 +13103,7 @@ func (c *Client) ListTrendingWallets(ctx context.Context, params *ListTrendingWa
 
 // GetMarketCandles Get market OHLC price candles
 //
-// Provider-first bucketed OHLC price candles for a market's outcome tokens, derived from the stored token_price_snapshots series (the same series the market-detail chart renders; covers open and resolved markets). Because the stored data is daily, a 1d bucket typically carries one point so its open/high/low/close all equal that day's close; 1w aggregates real OHLC across the observed daily closes. No intraday fidelity is fabricated.
+// Provider-first bucketed OHLC price candles for a market's outcome tokens, derived from the stored token_price_snapshots series (the same series the market-detail chart renders; covers open and resolved markets). Because the stored data is daily, a 1d bucket typically carries one point so its open/high/low/close all equal that day's close; 1w aggregates real OHLC across the observed daily closes. No intraday fidelity is fabricated. Query field names and recognized values are URL-decoded; duplicate recognized fields use the last value and unknown fields are ignored. When both bounds are present, from must be less than or equal to to; malformed or inverted bounds answer 400.
 //
 // Corresponds with GET /api/v1/market/{condition_id}/candles (the `GetMarketCandles` operationId).
 func (c *Client) GetMarketCandles(ctx context.Context, conditionId string, params *GetMarketCandlesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -11132,8 +13123,8 @@ func (c *Client) GetMarketCandles(ctx context.Context, conditionId string, param
 // Authenticated, self-contained Polymarket market evidence document. Renders the same typed data as the market snapshot with trust included: identity, outcome labels and tokens, cached quotes, liquidity, live sports, and per-source freshness or unavailable reasons. Provider text is encoded as indented JSON data. Accepts raw or mkt_-prefixed condition IDs. Unknown markets return 404. No ETag or conditional requests; use the snapshot JSON route for those.
 //
 // Corresponds with GET /api/v1/market/{condition_id}/context.md (the `GetMarketContextMarkdown` operationId).
-func (c *Client) GetMarketContextMarkdown(ctx context.Context, conditionId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetMarketContextMarkdownRequest(c.Server, conditionId)
+func (c *Client) GetMarketContextMarkdown(ctx context.Context, conditionId string, params *GetMarketContextMarkdownParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetMarketContextMarkdownRequest(c.Server, conditionId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11219,8 +13210,8 @@ func (c *Client) ExploreMarkets(ctx context.Context, params *ExploreMarketsParam
 // Takes any type of body and a specified content type.
 //
 // Corresponds with POST /api/v1/markets/intel/batch (the `BatchGetMarketIntel` operationId).
-func (c *Client) BatchGetMarketIntelWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBatchGetMarketIntelRequestWithBody(c.Server, contentType, body)
+func (c *Client) BatchGetMarketIntelWithBody(ctx context.Context, params *BatchGetMarketIntelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBatchGetMarketIntelRequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -11238,8 +13229,8 @@ func (c *Client) BatchGetMarketIntelWithBody(ctx context.Context, contentType st
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /api/v1/markets/intel/batch (the `BatchGetMarketIntel` operationId).
-func (c *Client) BatchGetMarketIntel(ctx context.Context, body BatchGetMarketIntelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBatchGetMarketIntelRequest(c.Server, body)
+func (c *Client) BatchGetMarketIntel(ctx context.Context, params *BatchGetMarketIntelParams, body BatchGetMarketIntelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBatchGetMarketIntelRequest(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -11269,7 +13260,7 @@ func (c *Client) SearchMarkets(ctx context.Context, params *SearchMarketsParams,
 
 // ListSharpMoneyFlows List ranked sharp-money flows
 //
-// Canonical alias of /api/v1/markets/smart-money-flows, which remains live but deprecated. Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first page as_of timestamp so new whale trades do not reorder page 2.
+// Canonical alias of /api/v1/markets/smart-money-flows, which remains live but deprecated. Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again.
 //
 // Corresponds with GET /api/v1/markets/sharp-money-flows (the `ListSharpMoneyFlows` operationId).
 func (c *Client) ListSharpMoneyFlows(ctx context.Context, params *ListSharpMoneyFlowsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -11286,7 +13277,7 @@ func (c *Client) ListSharpMoneyFlows(ctx context.Context, params *ListSharpMoney
 
 // ListSmartMoneyFlows List ranked smart-money flows
 //
-// Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where smart money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first page as_of timestamp so new whale trades do not reorder page 2. Deprecated alias of GET /api/v1/markets/sharp-money-flows, kept live and never removed; every response carries `Deprecation: @1783276950` (RFC 9745, 2026-07-05T18:42:30Z) and a `Link` to the successor (`rel="successor-version"`) and to the versioning policy (`rel="deprecation"`). No `Sunset` header is sent because no removal is planned.
+// Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where smart money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again. Deprecated alias of GET /api/v1/markets/sharp-money-flows, kept live and never removed; every response carries `Deprecation: @1783276950` (RFC 9745, 2026-07-05T18:42:30Z) and a `Link` to the successor (`rel="successor-version"`) and to the versioning policy (`rel="deprecation"`). No `Sunset` header is sent because no removal is planned.
 //
 // Corresponds with GET /api/v1/markets/smart-money-flows (the `ListSmartMoneyFlows` operationId).
 // Deprecated: this operation has been marked as deprecated upstream, but no `x-deprecated-reason` was set
@@ -11359,11 +13350,11 @@ func (c *Client) CreateMcpJsonRpcResponse(ctx context.Context, params *CreateMcp
 
 // GetAccountIdentity Identify the authenticated account and credential
 //
-// Returns the account and credential IDs admitted by API authentication, credential kind, and approved scopes. Null scopes mean full developer-key access. Requires an active Pro subscription and read scope for OAuth grants. Does not return credentials or personal contact details.
+// Returns caller-owned account and credential IDs, credential validity, paid-data entitlement and approved scopes. Null scopes mean full developer-key access. Valid credentials can use this control-plane diagnostic path after paid access lapses; data routes still require active paid access. OAuth grants need read scope. Does not return credentials, payment details or personal contact details.
 //
 // Corresponds with GET /api/v1/me (the `GetAccountIdentity` operationId).
-func (c *Client) GetAccountIdentity(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetAccountIdentityRequest(c.Server)
+func (c *Client) GetAccountIdentity(ctx context.Context, params *GetAccountIdentityParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAccountIdentityRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11379,8 +13370,8 @@ func (c *Client) GetAccountIdentity(ctx context.Context, reqEditors ...RequestEd
 // Unauthenticated API-origin compatibility redirect to the canonical web-origin OpenAPI JSON document at https://0xinsider.com/api/v1/openapi.json.
 //
 // Corresponds with GET /api/v1/openapi.json (the `RedirectApiOpenapiSpec` operationId).
-func (c *Client) RedirectApiOpenapiSpec(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRedirectApiOpenapiSpecRequest(c.Server)
+func (c *Client) RedirectApiOpenapiSpec(ctx context.Context, params *RedirectApiOpenapiSpecParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRedirectApiOpenapiSpecRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11395,7 +13386,7 @@ func (c *Client) RedirectApiOpenapiSpec(ctx context.Context, reqEditors ...Reque
 //
 // Returns the published picks for the current product day. Pro tier.
 //
-// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the $100 return, the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
 //
 // `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
 //
@@ -11465,8 +13456,8 @@ func (c *Client) GetPickOfTheDayLedger(ctx context.Context, params *GetPickOfThe
 // Unauthenticated discovery endpoint that declares which V1 intelligence surfaces are supported, partial, or unsupported per provider platform.
 //
 // Corresponds with GET /api/v1/platforms (the `GetPlatforms` operationId).
-func (c *Client) GetPlatforms(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetPlatformsRequest(c.Server)
+func (c *Client) GetPlatforms(ctx context.Context, params *GetPlatformsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetPlatformsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11479,7 +13470,7 @@ func (c *Client) GetPlatforms(ctx context.Context, reqEditors ...RequestEditorFn
 
 // ListPositions List current positions (positions-board feed)
 //
-// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top.
+// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top. With wallet, the same feed is read for one wallet or a book of up to 25 wallets from each wallet's own ordered index range, so the pages are that wallet's complete reconciled binary open positions and the cost is the page, never the board. min_size then defaults to 0. What a wallet read does not return: positions with shares at 0 (closed), rows the reconciler has not valued yet (current_value_usd IS NULL), and non-binary outcomes; per-row last_reconciled_at and freshness say how old each valuation is.
 //
 // Corresponds with GET /api/v1/positions (the `ListPositions` operationId).
 func (c *Client) ListPositions(ctx context.Context, params *ListPositionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -11496,7 +13487,7 @@ func (c *Client) ListPositions(ctx context.Context, params *ListPositionsParams,
 
 // GetReports Unified report snapshot (granularity selector)
 //
-// Unified convenience route (#4975) that consolidates the three singular report routes. Dispatches to the exact per-granularity cap (daily 50, weekly 100, monthly 200) and date window the legacy /api/v1/reports/{daily,weekly,monthly} routes use, so the response body is byte-identical to the matching legacy route for the same period. The three legacy routes stay live. Also reachable via the MCP get_report selector.
+// Unified convenience route (#4975) that consolidates the three singular report routes. Dispatches to the exact per-granularity cap (daily 50, weekly 100, monthly 200) and date window the legacy /api/v1/reports/{daily,weekly,monthly} routes use, so the response body is byte-identical to the matching legacy route for the same period. An ISO weekly period is a durable canonical snapshot; an explicit weekly from,to pair is an exact ephemeral range limited to 31 inclusive UTC days and never creates a persisted snapshot identity. A wider explicit range returns 400 invalid_query. The three legacy routes stay live. Also reachable via the MCP get_report selector.
 //
 // Corresponds with GET /api/v1/reports (the `GetReports` operationId).
 func (c *Client) GetReports(ctx context.Context, params *GetReportsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -11547,7 +13538,7 @@ func (c *Client) GetMonthlyReportSnapshot(ctx context.Context, params *GetMonthl
 
 // GetWeeklyReportSnapshot Weekly report snapshot
 //
-// Returns a weekly whale-activity report snapshot. Pass either from/to UTC dates or an ISO YYYY-WW week token. The response identifies closed ranges as final and current ranges as rolling.
+// Returns a weekly whale-activity report snapshot. Pass an ISO YYYY-WW token for a durable canonical snapshot, or an exact from/to UTC range of at most 31 inclusive days for an ephemeral response. The response identifies closed ranges as final and current ranges as rolling.
 //
 // Corresponds with GET /api/v1/reports/weekly (the `GetWeeklyReportSnapshot` operationId).
 func (c *Client) GetWeeklyReportSnapshot(ctx context.Context, params *GetWeeklyReportSnapshotParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -11598,7 +13589,7 @@ func (c *Client) ListSportsEdgeSignals(ctx context.Context, params *ListSportsEd
 
 // GetStream Resumable real-time event stream (SSE)
 //
-// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive.
+// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
 //
 // Corresponds with GET /api/v1/stream (the `GetStream` operationId).
 func (c *Client) GetStream(ctx context.Context, params *GetStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -11669,8 +13660,8 @@ func (c *Client) GetTraderContext(ctx context.Context, address string, params *G
 // Returns a single human- and LLM-readable Markdown briefing for one trader: identity, grade, P&L, position coverage, and freshness. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. Unknown traders still return 200 with a degraded 'not yet synced' document (no 404). The Markdown variant does not emit an ETag and does not support conditional requests; use the JSON variant (drop the .md suffix) for ETag/If-None-Match handling.
 //
 // Corresponds with GET /api/v1/trader/{address}/context.md (the `GetTraderContextMarkdown` operationId).
-func (c *Client) GetTraderContextMarkdown(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetTraderContextMarkdownRequest(c.Server, address)
+func (c *Client) GetTraderContextMarkdown(ctx context.Context, address string, params *GetTraderContextMarkdownParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetTraderContextMarkdownRequest(c.Server, address, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11686,8 +13677,8 @@ func (c *Client) GetTraderContextMarkdown(ctx context.Context, address string, r
 // Returns export source-range, completeness, volume reconciliation, row-count estimate, and large-export policy for one trader. To download the full dataset programmatically, POST to this same path to submit an async export job (json | ndjson | csv), then poll the status route and follow the download route once ready.
 //
 // Corresponds with GET /api/v1/trader/{address}/export (the `GetTraderExportSnapshot` operationId).
-func (c *Client) GetTraderExportSnapshot(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetTraderExportSnapshotRequest(c.Server, address)
+func (c *Client) GetTraderExportSnapshot(ctx context.Context, address string, params *GetTraderExportSnapshotParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetTraderExportSnapshotRequest(c.Server, address, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11754,8 +13745,8 @@ func (c *Client) GetTraderExportStatus(ctx context.Context, address string, para
 // Returns a trader's daily P&L time series and pre-derived stats from the precomputed daily_pnl read model: entries (daily cumulative P&L), period stats (all/90d/30d/7d), monthly aggregation, per-year totals, and the drawdown series. Reads the refreshed read model, not a per-request equity replay. A resolved trader with no daily P&L returns an empty structured object (HTTP 200); an unknown address returns 404.
 //
 // Corresponds with GET /api/v1/trader/{address}/pnl (the `GetTraderPnl` operationId).
-func (c *Client) GetTraderPnl(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetTraderPnlRequest(c.Server, address)
+func (c *Client) GetTraderPnl(ctx context.Context, address string, params *GetTraderPnlParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetTraderPnlRequest(c.Server, address, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11790,8 +13781,8 @@ func (c *Client) GetPositionTimeline(ctx context.Context, address string, params
 // Takes any type of body and a specified content type.
 //
 // Corresponds with POST /api/v1/traders/batch (the `BatchGetTraders` operationId).
-func (c *Client) BatchGetTradersWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBatchGetTradersRequestWithBody(c.Server, contentType, body)
+func (c *Client) BatchGetTradersWithBody(ctx context.Context, params *BatchGetTradersParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBatchGetTradersRequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -11809,8 +13800,8 @@ func (c *Client) BatchGetTradersWithBody(ctx context.Context, contentType string
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /api/v1/traders/batch (the `BatchGetTraders` operationId).
-func (c *Client) BatchGetTraders(ctx context.Context, body BatchGetTradersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewBatchGetTradersRequest(c.Server, body)
+func (c *Client) BatchGetTraders(ctx context.Context, params *BatchGetTradersParams, body BatchGetTradersJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBatchGetTradersRequest(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -11840,11 +13831,11 @@ func (c *Client) GetPositionTimelineById(ctx context.Context, trader string, par
 
 // GetUsage Inspect current API usage without spending primary request quota
 //
-// Returns the authenticated caller sliding-window request budget and UTC-day usage. This endpoint is authenticated and does not increment the primary Redis rate-limit counter or log itself into the API usage table; it is separately throttled at 100 reads/minute per user to protect the usage-count query. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
+// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
 //
 // Corresponds with GET /api/v1/usage (the `GetUsage` operationId).
-func (c *Client) GetUsage(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetUsageRequest(c.Server)
+func (c *Client) GetUsage(ctx context.Context, params *GetUsageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetUsageRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11860,8 +13851,8 @@ func (c *Client) GetUsage(ctx context.Context, reqEditors ...RequestEditorFn) (*
 // Returns webhook destinations owned by the authenticated API key user. Deleted endpoints are omitted; an endpoint paused with PATCH or disabled after consecutive failures is listed with status disabled. Subscribable event_types and their payload shapes are described by GET /api/v1/webhooks/events. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market.
 //
 // Corresponds with GET /api/v1/webhooks (the `ListWebhooks` operationId).
-func (c *Client) ListWebhooks(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListWebhooksRequest(c.Server)
+func (c *Client) ListWebhooks(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWebhooksRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11874,7 +13865,7 @@ func (c *Client) ListWebhooks(ctx context.Context, reqEditors ...RequestEditorFn
 
 // CreateWebhookWithBody Create a builder webhook destination
 //
-// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
+// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries one or more HMAC-SHA256 signatures in the x-0xinsider-signature header as comma-separated v1=<hex> candidates. During staged rotation, the current and previous signing secrets are both signed for one hour; accept any valid candidate. Each candidate is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute each candidate over "<timestamp>.<raw_body>" with the active secrets, and compare using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: ordinary transient delivery failures use stable jitter between half and the existing 60, 120, 240, 480, 960, 1920 and 3600-second upper bounds (retry_policy.retry_horizon_seconds = 7380); on 408, 429, or 5xx, a valid Retry-After delta-seconds or HTTP-date replaces that one wait and is clamped to 60–3600 seconds, while missing, malformed, past, or non-retryable-response hints use the ordinary schedule. The delivery still has eight attempts (retry_policy.max_attempts), and an eighth failure becomes dead_letter. The delivery log exposes retry_schedule_reason and next_attempt_at so a receiver can see the active schedule. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at and retry_schedule_reason for a delivery still waiting to retry.
 //
 // Takes any type of body and a specified content type.
 //
@@ -11893,7 +13884,7 @@ func (c *Client) CreateWebhookWithBody(ctx context.Context, params *CreateWebhoo
 
 // CreateWebhook Create a builder webhook destination
 //
-// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
+// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries one or more HMAC-SHA256 signatures in the x-0xinsider-signature header as comma-separated v1=<hex> candidates. During staged rotation, the current and previous signing secrets are both signed for one hour; accept any valid candidate. Each candidate is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute each candidate over "<timestamp>.<raw_body>" with the active secrets, and compare using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: ordinary transient delivery failures use stable jitter between half and the existing 60, 120, 240, 480, 960, 1920 and 3600-second upper bounds (retry_policy.retry_horizon_seconds = 7380); on 408, 429, or 5xx, a valid Retry-After delta-seconds or HTTP-date replaces that one wait and is clamped to 60–3600 seconds, while missing, malformed, past, or non-retryable-response hints use the ordinary schedule. The delivery still has eight attempts (retry_policy.max_attempts), and an eighth failure becomes dead_letter. The delivery log exposes retry_schedule_reason and next_attempt_at so a receiver can see the active schedule. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at and retry_schedule_reason for a delivery still waiting to retry.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -11915,8 +13906,8 @@ func (c *Client) CreateWebhook(ctx context.Context, params *CreateWebhookParams,
 // Self-describing catalog of every webhook event type: its description, data payload shape, and whether it is active (has a firing producer) or dormant (subscribable but not yet delivered). The catalog is identical for every authenticated key and exposes no owner-scoped data. Pro-only event types (whale_trades_inserted, wallet_grade_changed, insider_radar_flag_raised, smart_money_flow_detected) appear in the catalog but only deliver to API keys on an active Pro subscription.
 //
 // Corresponds with GET /api/v1/webhooks/events (the `ListWebhookEvents` operationId).
-func (c *Client) ListWebhookEvents(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListWebhookEventsRequest(c.Server)
+func (c *Client) ListWebhookEvents(ctx context.Context, params *ListWebhookEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWebhookEventsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11949,8 +13940,8 @@ func (c *Client) DeleteWebhook(ctx context.Context, id int64, params *DeleteWebh
 // Returns one webhook destination owned by the authenticated API key user.
 //
 // Corresponds with GET /api/v1/webhooks/{id} (the `GetWebhook` operationId).
-func (c *Client) GetWebhook(ctx context.Context, id int64, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetWebhookRequest(c.Server, id)
+func (c *Client) GetWebhook(ctx context.Context, id int64, params *GetWebhookParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWebhookRequest(c.Server, id, params)
 	if err != nil {
 		return nil, err
 	}
@@ -12001,7 +13992,7 @@ func (c *Client) UpdateWebhook(ctx context.Context, id int64, params *UpdateWebh
 
 // ListWebhookDeliveries List webhook delivery log
 //
-// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; it is null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery is retried for up to 7380 seconds; see POST /api/v1/webhooks for the retry schedule and the endpoint disable rule. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
+// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; retry_schedule_reason says whether the queue is following receiver_retry_after, transient_failure, permanent_or_auth_failure, manual_redelivery, or configuration_changed; both are null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery keeps the existing eight-attempt budget, endpoint failure budget, fairness limits, and ordinary 7380-second upper-bound schedule; see POST /api/v1/webhooks for the bounded Retry-After policy. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
 //
 // Corresponds with GET /api/v1/webhooks/{id}/deliveries (the `ListWebhookDeliveries` operationId).
 func (c *Client) ListWebhookDeliveries(ctx context.Context, id int64, params *ListWebhookDeliveriesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -12050,6 +14041,57 @@ func (c *Client) RotateWebhookSecret(ctx context.Context, id int64, params *Rota
 	return c.Client.Do(req)
 }
 
+// ActivateWebhookSecret Activate a staged builder webhook signing secret
+//
+// Promotes the prepared signing secret to current, returns it once, and signs every delivery with both the new and previous secrets for one hour. Call retire after the receiver has completed its rollout. The current secret remains available through the existing immediate rotate-secret route for emergency replacement.
+//
+// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/activate (the `ActivateWebhookSecret` operationId).
+func (c *Client) ActivateWebhookSecret(ctx context.Context, id int64, params *ActivateWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewActivateWebhookSecretRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// PrepareWebhookSecret Prepare a staged builder webhook signing secret
+//
+// Creates a pending signing secret while the current secret remains active. Deploy the returned one-time signing_secret to the receiver before calling activate. The response exposes secret_rotation.status=pending; an existing pending secret is returned again so a lost response can be recovered safely.
+//
+// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/prepare (the `PrepareWebhookSecret` operationId).
+func (c *Client) PrepareWebhookSecret(ctx context.Context, id int64, params *PrepareWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPrepareWebhookSecretRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// RetireWebhookSecret Retire the previous builder webhook signing secret
+//
+// Ends the one-hour dual-signature overlap and removes the previous signing secret from future delivery authorization. Call this after the receiver accepts the activated secret. The operation is idempotent and does not return signing_secret.
+//
+// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/retire (the `RetireWebhookSecret` operationId).
+func (c *Client) RetireWebhookSecret(ctx context.Context, id int64, params *RetireWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRetireWebhookSecretRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // VerifyWebhookWithBody Verify a builder webhook destination
 //
 // Activates a pending webhook destination. Two conditions must both hold: the one-time verification token matches and has not expired, AND the destination answers 2xx to a signed challenge this operation POSTs to the endpoint's stored url. The challenge body is {"type":"webhook.verification","token":"<verification_token>","webhook_id":<id>}. It carries x-0xinsider-event-type: webhook.verification plus the same x-0xinsider-timestamp and x-0xinsider-signature headers a delivery carries, signed with that endpoint's signing_secret, so verify it exactly as you verify a delivery. Answer any 2xx within 10 seconds; the challenge response body is never read, and the challenge follows no redirects. A status outside 2xx, no answer within 10 seconds, or a url that does not resolve to a publicly routable address leaves status at pending_verification and returns 422. The token alone never activates an endpoint.
@@ -12057,8 +14099,8 @@ func (c *Client) RotateWebhookSecret(ctx context.Context, id int64, params *Rota
 // Takes any type of body and a specified content type.
 //
 // Corresponds with POST /api/v1/webhooks/{id}/verify (the `VerifyWebhook` operationId).
-func (c *Client) VerifyWebhookWithBody(ctx context.Context, id int64, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewVerifyWebhookRequestWithBody(c.Server, id, contentType, body)
+func (c *Client) VerifyWebhookWithBody(ctx context.Context, id int64, params *VerifyWebhookParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewVerifyWebhookRequestWithBody(c.Server, id, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -12076,8 +14118,8 @@ func (c *Client) VerifyWebhookWithBody(ctx context.Context, id int64, contentTyp
 // Takes a body of the `application/json` content type.
 //
 // Corresponds with POST /api/v1/webhooks/{id}/verify (the `VerifyWebhook` operationId).
-func (c *Client) VerifyWebhook(ctx context.Context, id int64, body VerifyWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewVerifyWebhookRequest(c.Server, id, body)
+func (c *Client) VerifyWebhook(ctx context.Context, id int64, params *VerifyWebhookParams, body VerifyWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewVerifyWebhookRequest(c.Server, id, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -12174,7 +14216,7 @@ func (c *Client) ListWhaleTradeCounterpartyMakers(ctx context.Context, id string
 }
 
 // NewGetApiDiscoveryRequest constructs an http.Request for the GetApiDiscovery method
-func NewGetApiDiscoveryRequest(server string) (*http.Request, error) {
+func NewGetApiDiscoveryRequest(server string, params *GetApiDiscoveryParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -12197,11 +14239,26 @@ func NewGetApiDiscoveryRequest(server string) (*http.Request, error) {
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
 // NewRegisterAgentRequest constructs an http.Request for the RegisterAgent method
-func NewRegisterAgentRequest(server string) (*http.Request, error) {
+func NewRegisterAgentRequest(server string, params *RegisterAgentParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -12222,6 +14279,21 @@ func NewRegisterAgentRequest(server string) (*http.Request, error) {
 	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -12286,6 +14358,21 @@ func NewSearchContentRequest(server string, params *SearchContentParams) (*http.
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
@@ -12341,6 +14428,66 @@ func NewGetEventReplaySinceRequest(server string, params *GetEventReplaySincePar
 
 		}
 
+		if params.Trader != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trader", *params.Trader, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ConditionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "condition_id", *params.ConditionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.MinGrade != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "min_grade", *params.MinGrade, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.MinSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "min_size", *params.MinSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "number", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Expand != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "expand", *params.Expand, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -12350,6 +14497,21 @@ func NewGetEventReplaySinceRequest(server string, params *GetEventReplaySincePar
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -12381,15 +14543,26 @@ func NewGetHealthRequest(server string, params *GetHealthParams) (*http.Request,
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -12473,6 +14646,18 @@ func NewListInsiderRadarRequest(server string, params *ListInsiderRadarParams) (
 
 		}
 
+		if params.Mode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "mode", *params.Mode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if encoded := queryValues.Encode(); encoded != "" {
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
@@ -12486,15 +14671,26 @@ func NewListInsiderRadarRequest(server string, params *ListInsiderRadarParams) (
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -12535,15 +14731,26 @@ func NewGetInsiderRadarFlagRequest(server string, id string, params *GetInsiderR
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -12662,6 +14869,21 @@ func NewListLargePositionsRequest(server string, params *ListLargePositionsParam
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
@@ -12754,15 +14976,26 @@ func NewListLeaderboardRequest(server string, params *ListLeaderboardParams) (*h
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -12843,6 +15076,21 @@ func NewListTrendingWalletsRequest(server string, params *ListTrendingWalletsPar
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -12932,15 +15180,26 @@ func NewGetMarketCandlesRequest(server string, conditionId string, params *GetMa
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -12949,7 +15208,7 @@ func NewGetMarketCandlesRequest(server string, conditionId string, params *GetMa
 }
 
 // NewGetMarketContextMarkdownRequest constructs an http.Request for the GetMarketContextMarkdown method
-func NewGetMarketContextMarkdownRequest(server string, conditionId string) (*http.Request, error) {
+func NewGetMarketContextMarkdownRequest(server string, conditionId string, params *GetMarketContextMarkdownParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -12977,6 +15236,21 @@ func NewGetMarketContextMarkdownRequest(server string, conditionId string) (*htt
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -13078,15 +15352,26 @@ func NewGetMarketHoldersRequest(server string, conditionId string, params *GetMa
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -13154,15 +15439,26 @@ func NewGetMarketIntelRequest(server string, conditionId string, params *GetMark
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -13230,15 +15526,26 @@ func NewGetMarketSnapshotRequest(server string, conditionId string, params *GetM
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -13371,15 +15678,26 @@ func NewExploreMarketsRequest(server string, params *ExploreMarketsParams) (*htt
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -13388,18 +15706,18 @@ func NewExploreMarketsRequest(server string, params *ExploreMarketsParams) (*htt
 }
 
 // NewBatchGetMarketIntelRequest calls the generic BatchGetMarketIntel builder with application/json body
-func NewBatchGetMarketIntelRequest(server string, body BatchGetMarketIntelJSONRequestBody) (*http.Request, error) {
+func NewBatchGetMarketIntelRequest(server string, params *BatchGetMarketIntelParams, body BatchGetMarketIntelJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewBatchGetMarketIntelRequestWithBody(server, "application/json", bodyReader)
+	return NewBatchGetMarketIntelRequestWithBody(server, params, "application/json", bodyReader)
 }
 
 // NewBatchGetMarketIntelRequestWithBody constructs an http.Request for the BatchGetMarketIntel method, with any body, and a specified content type
-func NewBatchGetMarketIntelRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+func NewBatchGetMarketIntelRequestWithBody(server string, params *BatchGetMarketIntelParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -13423,6 +15741,21 @@ func NewBatchGetMarketIntelRequestWithBody(server string, contentType string, bo
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
 
 	return req, nil
 }
@@ -13520,6 +15853,21 @@ func NewSearchMarketsRequest(server string, params *SearchMarketsParams) (*http.
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -13650,15 +15998,26 @@ func NewListSharpMoneyFlowsRequest(server string, params *ListSharpMoneyFlowsPar
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -13791,15 +16150,26 @@ func NewListSmartMoneyFlowsRequest(server string, params *ListSmartMoneyFlowsPar
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -13833,26 +16203,37 @@ func NewOpenMcpEventStreamRequest(server string, params *OpenMcpEventStreamParam
 
 	if params != nil {
 
-		if params.McpSessionId != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Mcp-Session-Id", *params.McpSessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("Mcp-Session-Id", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.McpSessionId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Mcp-Session-Id", *params.McpSessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Mcp-Session-Id", headerParam1)
 		}
 
 		if params.MCPProtocolVersion != nil {
-			var headerParam1 string
+			var headerParam2 string
 
-			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "MCP-Protocol-Version", *params.MCPProtocolVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "MCP-Protocol-Version", *params.MCPProtocolVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("MCP-Protocol-Version", headerParam1)
+			req.Header.Set("MCP-Protocol-Version", headerParam2)
 		}
 
 	}
@@ -13899,26 +16280,37 @@ func NewCreateMcpJsonRpcResponseRequestWithBody(server string, params *CreateMcp
 
 	if params != nil {
 
-		if params.McpSessionId != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Mcp-Session-Id", *params.McpSessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("Mcp-Session-Id", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.McpSessionId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Mcp-Session-Id", *params.McpSessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Mcp-Session-Id", headerParam1)
 		}
 
 		if params.MCPProtocolVersion != nil {
-			var headerParam1 string
+			var headerParam2 string
 
-			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "MCP-Protocol-Version", *params.MCPProtocolVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "MCP-Protocol-Version", *params.MCPProtocolVersion, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("MCP-Protocol-Version", headerParam1)
+			req.Header.Set("MCP-Protocol-Version", headerParam2)
 		}
 
 	}
@@ -13927,7 +16319,7 @@ func NewCreateMcpJsonRpcResponseRequestWithBody(server string, params *CreateMcp
 }
 
 // NewGetAccountIdentityRequest constructs an http.Request for the GetAccountIdentity method
-func NewGetAccountIdentityRequest(server string) (*http.Request, error) {
+func NewGetAccountIdentityRequest(server string, params *GetAccountIdentityParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -13950,11 +16342,26 @@ func NewGetAccountIdentityRequest(server string) (*http.Request, error) {
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
 // NewRedirectApiOpenapiSpecRequest constructs an http.Request for the RedirectApiOpenapiSpec method
-func NewRedirectApiOpenapiSpecRequest(server string) (*http.Request, error) {
+func NewRedirectApiOpenapiSpecRequest(server string, params *RedirectApiOpenapiSpecParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -13975,6 +16382,21 @@ func NewRedirectApiOpenapiSpecRequest(server string) (*http.Request, error) {
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -14006,15 +16428,26 @@ func NewGetPickOfTheDayRequest(server string, params *GetPickOfTheDayParams) (*h
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -14048,15 +16481,26 @@ func NewGetPickOfTheDayArchiveRequest(server string, params *GetPickOfTheDayArch
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -14090,15 +16534,26 @@ func NewGetPickOfTheDayLedgerRequest(server string, params *GetPickOfTheDayLedge
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -14107,7 +16562,7 @@ func NewGetPickOfTheDayLedgerRequest(server string, params *GetPickOfTheDayLedge
 }
 
 // NewGetPlatformsRequest constructs an http.Request for the GetPlatforms method
-func NewGetPlatformsRequest(server string) (*http.Request, error) {
+func NewGetPlatformsRequest(server string, params *GetPlatformsParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -14128,6 +16583,21 @@ func NewGetPlatformsRequest(server string) (*http.Request, error) {
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -14221,6 +16691,18 @@ func NewListPositionsRequest(server string, params *ListPositionsParams) (*http.
 
 		}
 
+		if params.Wallet != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "wallet", *params.Wallet, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.MinGrade != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "min_grade", *params.MinGrade, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
@@ -14258,15 +16740,26 @@ func NewListPositionsRequest(server string, params *ListPositionsParams) (*http.
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -14329,6 +16822,21 @@ func NewGetReportsRequest(server string, params *GetReportsParams) (*http.Reques
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
@@ -14379,6 +16887,21 @@ func NewGetDailyReportSnapshotRequest(server string, params *GetDailyReportSnaps
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
@@ -14427,6 +16950,21 @@ func NewGetMonthlyReportSnapshotRequest(server string, params *GetMonthlyReportS
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -14505,6 +17043,21 @@ func NewGetWeeklyReportSnapshotRequest(server string, params *GetWeeklyReportSna
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -14595,15 +17148,26 @@ func NewListSportsEdgeObservationsRequest(server string, params *ListSportsEdgeO
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -14712,15 +17276,26 @@ func NewListSportsEdgeSignalsRequest(server string, params *ListSportsEdgeSignal
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -14829,15 +17404,26 @@ func NewGetStreamRequest(server string, params *GetStreamParams) (*http.Request,
 
 	if params != nil {
 
-		if params.LastEventID != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Last-Event-ID", *params.LastEventID, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("Last-Event-ID", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.LastEventID != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Last-Event-ID", *params.LastEventID, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Last-Event-ID", headerParam1)
 		}
 
 	}
@@ -14905,15 +17491,26 @@ func NewGetTraderRequest(server string, address string, params *GetTraderParams)
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -14981,15 +17578,26 @@ func NewGetTraderCategoryRecordsRequest(server string, address string, params *G
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -15030,15 +17638,26 @@ func NewGetTraderContextRequest(server string, address string, params *GetTrader
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -15047,7 +17666,7 @@ func NewGetTraderContextRequest(server string, address string, params *GetTrader
 }
 
 // NewGetTraderContextMarkdownRequest constructs an http.Request for the GetTraderContextMarkdown method
-func NewGetTraderContextMarkdownRequest(server string, address string) (*http.Request, error) {
+func NewGetTraderContextMarkdownRequest(server string, address string, params *GetTraderContextMarkdownParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -15077,11 +17696,26 @@ func NewGetTraderContextMarkdownRequest(server string, address string) (*http.Re
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
 // NewGetTraderExportSnapshotRequest constructs an http.Request for the GetTraderExportSnapshot method
-func NewGetTraderExportSnapshotRequest(server string, address string) (*http.Request, error) {
+func NewGetTraderExportSnapshotRequest(server string, address string, params *GetTraderExportSnapshotParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -15109,6 +17743,21 @@ func NewGetTraderExportSnapshotRequest(server string, address string) (*http.Req
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -15172,6 +17821,21 @@ func NewSubmitTraderExportRequest(server string, address string, params *SubmitT
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
@@ -15227,6 +17891,21 @@ func NewDownloadTraderExportRequest(server string, address string, params *Downl
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -15286,11 +17965,26 @@ func NewGetTraderExportStatusRequest(server string, address string, params *GetT
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
 // NewGetTraderPnlRequest constructs an http.Request for the GetTraderPnl method
-func NewGetTraderPnlRequest(server string, address string) (*http.Request, error) {
+func NewGetTraderPnlRequest(server string, address string, params *GetTraderPnlParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -15318,6 +18012,21 @@ func NewGetTraderPnlRequest(server string, address string) (*http.Request, error
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -15403,15 +18112,26 @@ func NewGetPositionTimelineRequest(server string, address string, params *GetPos
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -15420,18 +18140,18 @@ func NewGetPositionTimelineRequest(server string, address string, params *GetPos
 }
 
 // NewBatchGetTradersRequest calls the generic BatchGetTraders builder with application/json body
-func NewBatchGetTradersRequest(server string, body BatchGetTradersJSONRequestBody) (*http.Request, error) {
+func NewBatchGetTradersRequest(server string, params *BatchGetTradersParams, body BatchGetTradersJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewBatchGetTradersRequestWithBody(server, "application/json", bodyReader)
+	return NewBatchGetTradersRequestWithBody(server, params, "application/json", bodyReader)
 }
 
 // NewBatchGetTradersRequestWithBody constructs an http.Request for the BatchGetTraders method, with any body, and a specified content type
-func NewBatchGetTradersRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+func NewBatchGetTradersRequestWithBody(server string, params *BatchGetTradersParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -15455,6 +18175,21 @@ func NewBatchGetTradersRequestWithBody(server string, contentType string, body i
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
 
 	return req, nil
 }
@@ -15539,15 +18274,26 @@ func NewGetPositionTimelineByIdRequest(server string, trader string, params *Get
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -15556,7 +18302,7 @@ func NewGetPositionTimelineByIdRequest(server string, trader string, params *Get
 }
 
 // NewGetUsageRequest constructs an http.Request for the GetUsage method
-func NewGetUsageRequest(server string) (*http.Request, error) {
+func NewGetUsageRequest(server string, params *GetUsageParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -15579,11 +18325,26 @@ func NewGetUsageRequest(server string) (*http.Request, error) {
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
 // NewListWebhooksRequest constructs an http.Request for the ListWebhooks method
-func NewListWebhooksRequest(server string) (*http.Request, error) {
+func NewListWebhooksRequest(server string, params *ListWebhooksParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -15604,6 +18365,21 @@ func NewListWebhooksRequest(server string) (*http.Request, error) {
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -15648,15 +18424,26 @@ func NewCreateWebhookRequestWithBody(server string, params *CreateWebhookParams,
 
 	if params != nil {
 
-		if params.IdempotencyKey != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("Idempotency-Key", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
 		}
 
 	}
@@ -15665,7 +18452,7 @@ func NewCreateWebhookRequestWithBody(server string, params *CreateWebhookParams,
 }
 
 // NewListWebhookEventsRequest constructs an http.Request for the ListWebhookEvents method
-func NewListWebhookEventsRequest(server string) (*http.Request, error) {
+func NewListWebhookEventsRequest(server string, params *ListWebhookEventsParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -15686,6 +18473,21 @@ func NewListWebhookEventsRequest(server string) (*http.Request, error) {
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -15724,15 +18526,26 @@ func NewDeleteWebhookRequest(server string, id int64, params *DeleteWebhookParam
 
 	if params != nil {
 
-		if params.IdempotencyKey != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("Idempotency-Key", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
 		}
 
 	}
@@ -15741,7 +18554,7 @@ func NewDeleteWebhookRequest(server string, id int64, params *DeleteWebhookParam
 }
 
 // NewGetWebhookRequest constructs an http.Request for the GetWebhook method
-func NewGetWebhookRequest(server string, id int64) (*http.Request, error) {
+func NewGetWebhookRequest(server string, id int64, params *GetWebhookParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -15769,6 +18582,21 @@ func NewGetWebhookRequest(server string, id int64) (*http.Request, error) {
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -15820,15 +18648,26 @@ func NewUpdateWebhookRequestWithBody(server string, id int64, params *UpdateWebh
 
 	if params != nil {
 
-		if params.IdempotencyKey != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("Idempotency-Key", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
 		}
 
 	}
@@ -15906,6 +18745,21 @@ func NewListWebhookDeliveriesRequest(server string, id int64, params *ListWebhoo
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
@@ -15949,15 +18803,26 @@ func NewRedeliverWebhookDeliveryRequest(server string, id int64, deliveryId int6
 
 	if params != nil {
 
-		if params.IdempotencyKey != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("Idempotency-Key", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
 		}
 
 	}
@@ -15998,6 +18863,164 @@ func NewRotateWebhookSecretRequest(server string, id int64, params *RotateWebhoo
 
 	if params != nil {
 
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewActivateWebhookSecretRequest constructs an http.Request for the ActivateWebhookSecret method
+func NewActivateWebhookSecretRequest(server string, id int64, params *ActivateWebhookSecretParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/webhooks/%s/rotate-secret/activate", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewPrepareWebhookSecretRequest constructs an http.Request for the PrepareWebhookSecret method
+func NewPrepareWebhookSecretRequest(server string, id int64, params *PrepareWebhookSecretParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/webhooks/%s/rotate-secret/prepare", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRetireWebhookSecretRequest constructs an http.Request for the RetireWebhookSecret method
+func NewRetireWebhookSecretRequest(server string, id int64, params *RetireWebhookSecretParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/webhooks/%s/rotate-secret/retire", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
 		if params.IdempotencyKey != nil {
 			var headerParam0 string
 
@@ -16015,18 +19038,18 @@ func NewRotateWebhookSecretRequest(server string, id int64, params *RotateWebhoo
 }
 
 // NewVerifyWebhookRequest calls the generic VerifyWebhook builder with application/json body
-func NewVerifyWebhookRequest(server string, id int64, body VerifyWebhookJSONRequestBody) (*http.Request, error) {
+func NewVerifyWebhookRequest(server string, id int64, params *VerifyWebhookParams, body VerifyWebhookJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewVerifyWebhookRequestWithBody(server, id, "application/json", bodyReader)
+	return NewVerifyWebhookRequestWithBody(server, id, params, "application/json", bodyReader)
 }
 
 // NewVerifyWebhookRequestWithBody constructs an http.Request for the VerifyWebhook method, with any body, and a specified content type
-func NewVerifyWebhookRequestWithBody(server string, id int64, contentType string, body io.Reader) (*http.Request, error) {
+func NewVerifyWebhookRequestWithBody(server string, id int64, params *VerifyWebhookParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -16057,6 +19080,21 @@ func NewVerifyWebhookRequestWithBody(server string, id int64, contentType string
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
 
 	return req, nil
 }
@@ -16174,15 +19212,26 @@ func NewListWhaleTradesRequest(server string, params *ListWhaleTradesParams) (*h
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -16363,15 +19412,26 @@ func NewListWhaleTradeHistoryRequest(server string, params *ListWhaleTradeHistor
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -16412,15 +19472,26 @@ func NewGetWhaleTradeRequest(server string, id string, params *GetWhaleTradePara
 
 	if params != nil {
 
-		if params.IfNoneMatch != nil {
+		if params.XQueryValidation != nil {
 			var headerParam0 string
 
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
 			if err != nil {
 				return nil, err
 			}
 
-			req.Header.Set("If-None-Match", headerParam0)
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -16504,6 +19575,21 @@ func NewListWhaleTradeCounterpartyExecutionsRequest(server string, id string, pa
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -16594,6 +19680,21 @@ func NewListWhaleTradeCounterpartyMakersRequest(server string, id string, execut
 		return nil, err
 	}
 
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
 	return req, nil
 }
 
@@ -16648,7 +19749,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1 (the `GetApiDiscovery` operationId).
-	GetApiDiscoveryWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetApiDiscoveryResponse, error)
+	GetApiDiscoveryWithResponse(ctx context.Context, params *GetApiDiscoveryParams, reqEditors ...RequestEditorFn) (*GetApiDiscoveryResponse, error)
 
 	// RegisterAgentWithResponse Register an agent for a sandbox key
 	//
@@ -16657,7 +19758,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
-	RegisterAgentWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RegisterAgentResponse, error)
+	RegisterAgentWithResponse(ctx context.Context, params *RegisterAgentParams, reqEditors ...RequestEditorFn) (*RegisterAgentResponse, error)
 
 	// SearchContentWithResponse Search editorial content
 	//
@@ -16688,7 +19789,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListInsiderRadarWithResponse Get insider radar flags
 	//
-	// Stored trades whose recorded suspicion score meets the live flag threshold. Evidence contains the scorer's stored signals. Cursor-paginated by suspicion score.
+	// Stored trades whose recorded suspicion score meets the live flag threshold. Evidence contains the scorer's stored signals. Cursor-paginated by suspicion score. mode=live (default) uses fresh cached pages; mode=stable pins pagination to one published scoring generation and returns cursor_expired when scores or filters change.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -16724,7 +19825,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListTrendingWalletsWithResponse List trending wallets
 	//
-	// Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The underlying read model is warmed into Redis; a cold read returns 503 (warming, retry-after), never a 500 or a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'.
+	// Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The underlying read model is warmed into Redis; a cold read returns 503 (warming, retry-after), never a 500 or a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'. Cursors are bound to the effective limit, window and ranked-board generation; a changed board or request scope returns 400 with error.reason=cursor_expired, and legacy page-only cursors must restart from page one.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -16733,7 +19834,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetMarketCandlesWithResponse Get market OHLC price candles
 	//
-	// Provider-first bucketed OHLC price candles for a market's outcome tokens, derived from the stored token_price_snapshots series (the same series the market-detail chart renders; covers open and resolved markets). Because the stored data is daily, a 1d bucket typically carries one point so its open/high/low/close all equal that day's close; 1w aggregates real OHLC across the observed daily closes. No intraday fidelity is fabricated.
+	// Provider-first bucketed OHLC price candles for a market's outcome tokens, derived from the stored token_price_snapshots series (the same series the market-detail chart renders; covers open and resolved markets). Because the stored data is daily, a 1d bucket typically carries one point so its open/high/low/close all equal that day's close; 1w aggregates real OHLC across the observed daily closes. No intraday fidelity is fabricated. Query field names and recognized values are URL-decoded; duplicate recognized fields use the last value and unknown fields are ignored. When both bounds are present, from must be less than or equal to to; malformed or inverted bounds answer 400.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -16747,7 +19848,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/market/{condition_id}/context.md (the `GetMarketContextMarkdown` operationId).
-	GetMarketContextMarkdownWithResponse(ctx context.Context, conditionId string, reqEditors ...RequestEditorFn) (*GetMarketContextMarkdownResponse, error)
+	GetMarketContextMarkdownWithResponse(ctx context.Context, conditionId string, params *GetMarketContextMarkdownParams, reqEditors ...RequestEditorFn) (*GetMarketContextMarkdownResponse, error)
 
 	// GetMarketHoldersWithResponse List a market's graded holders
 	//
@@ -16792,7 +19893,7 @@ type ClientWithResponsesInterface interface {
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /api/v1/markets/intel/batch (the `BatchGetMarketIntel` operationId).
-	BatchGetMarketIntelWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BatchGetMarketIntelResponse, error)
+	BatchGetMarketIntelWithBodyWithResponse(ctx context.Context, params *BatchGetMarketIntelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BatchGetMarketIntelResponse, error)
 
 	// BatchGetMarketIntelWithResponse Batch market intelligence
 	//
@@ -16801,7 +19902,7 @@ type ClientWithResponsesInterface interface {
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /api/v1/markets/intel/batch (the `BatchGetMarketIntel` operationId).
-	BatchGetMarketIntelWithResponse(ctx context.Context, body BatchGetMarketIntelJSONRequestBody, reqEditors ...RequestEditorFn) (*BatchGetMarketIntelResponse, error)
+	BatchGetMarketIntelWithResponse(ctx context.Context, params *BatchGetMarketIntelParams, body BatchGetMarketIntelJSONRequestBody, reqEditors ...RequestEditorFn) (*BatchGetMarketIntelResponse, error)
 
 	// SearchMarketsWithResponse Search markets
 	//
@@ -16814,7 +19915,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListSharpMoneyFlowsWithResponse List ranked sharp-money flows
 	//
-	// Canonical alias of /api/v1/markets/smart-money-flows, which remains live but deprecated. Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first page as_of timestamp so new whale trades do not reorder page 2.
+	// Canonical alias of /api/v1/markets/smart-money-flows, which remains live but deprecated. Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -16823,7 +19924,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListSmartMoneyFlowsWithResponse List ranked smart-money flows
 	//
-	// Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where smart money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first page as_of timestamp so new whale trades do not reorder page 2. Deprecated alias of GET /api/v1/markets/sharp-money-flows, kept live and never removed; every response carries `Deprecation: @1783276950` (RFC 9745, 2026-07-05T18:42:30Z) and a `Link` to the successor (`rel="successor-version"`) and to the versioning policy (`rel="deprecation"`). No `Sunset` header is sent because no removal is planned.
+	// Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where smart money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again. Deprecated alias of GET /api/v1/markets/sharp-money-flows, kept live and never removed; every response carries `Deprecation: @1783276950` (RFC 9745, 2026-07-05T18:42:30Z) and a `Link` to the successor (`rel="successor-version"`) and to the versioning policy (`rel="deprecation"`). No `Sunset` header is sent because no removal is planned.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -16861,12 +19962,12 @@ type ClientWithResponsesInterface interface {
 
 	// GetAccountIdentityWithResponse Identify the authenticated account and credential
 	//
-	// Returns the account and credential IDs admitted by API authentication, credential kind, and approved scopes. Null scopes mean full developer-key access. Requires an active Pro subscription and read scope for OAuth grants. Does not return credentials or personal contact details.
+	// Returns caller-owned account and credential IDs, credential validity, paid-data entitlement and approved scopes. Null scopes mean full developer-key access. Valid credentials can use this control-plane diagnostic path after paid access lapses; data routes still require active paid access. OAuth grants need read scope. Does not return credentials, payment details or personal contact details.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/me (the `GetAccountIdentity` operationId).
-	GetAccountIdentityWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetAccountIdentityResponse, error)
+	GetAccountIdentityWithResponse(ctx context.Context, params *GetAccountIdentityParams, reqEditors ...RequestEditorFn) (*GetAccountIdentityResponse, error)
 
 	// RedirectApiOpenapiSpecWithResponse Redirect to the canonical OpenAPI spec
 	//
@@ -16875,13 +19976,13 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/openapi.json (the `RedirectApiOpenapiSpec` operationId).
-	RedirectApiOpenapiSpecWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RedirectApiOpenapiSpecResponse, error)
+	RedirectApiOpenapiSpecWithResponse(ctx context.Context, params *RedirectApiOpenapiSpecParams, reqEditors ...RequestEditorFn) (*RedirectApiOpenapiSpecResponse, error)
 
 	// GetPickOfTheDayWithResponse Get today's Pick of the Day
 	//
 	// Returns the published picks for the current product day. Pro tier.
 	//
-	// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the $100 return, the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+	// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
 	//
 	// `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
 	//
@@ -16929,11 +20030,11 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/platforms (the `GetPlatforms` operationId).
-	GetPlatformsWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetPlatformsResponse, error)
+	GetPlatformsWithResponse(ctx context.Context, params *GetPlatformsParams, reqEditors ...RequestEditorFn) (*GetPlatformsResponse, error)
 
 	// ListPositionsWithResponse List current positions (positions-board feed)
 	//
-	// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top.
+	// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top. With wallet, the same feed is read for one wallet or a book of up to 25 wallets from each wallet's own ordered index range, so the pages are that wallet's complete reconciled binary open positions and the cost is the page, never the board. min_size then defaults to 0. What a wallet read does not return: positions with shares at 0 (closed), rows the reconciler has not valued yet (current_value_usd IS NULL), and non-binary outcomes; per-row last_reconciled_at and freshness say how old each valuation is.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -16942,7 +20043,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetReportsWithResponse Unified report snapshot (granularity selector)
 	//
-	// Unified convenience route (#4975) that consolidates the three singular report routes. Dispatches to the exact per-granularity cap (daily 50, weekly 100, monthly 200) and date window the legacy /api/v1/reports/{daily,weekly,monthly} routes use, so the response body is byte-identical to the matching legacy route for the same period. The three legacy routes stay live. Also reachable via the MCP get_report selector.
+	// Unified convenience route (#4975) that consolidates the three singular report routes. Dispatches to the exact per-granularity cap (daily 50, weekly 100, monthly 200) and date window the legacy /api/v1/reports/{daily,weekly,monthly} routes use, so the response body is byte-identical to the matching legacy route for the same period. An ISO weekly period is a durable canonical snapshot; an explicit weekly from,to pair is an exact ephemeral range limited to 31 inclusive UTC days and never creates a persisted snapshot identity. A wider explicit range returns 400 invalid_query. The three legacy routes stay live. Also reachable via the MCP get_report selector.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -16969,7 +20070,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetWeeklyReportSnapshotWithResponse Weekly report snapshot
 	//
-	// Returns a weekly whale-activity report snapshot. Pass either from/to UTC dates or an ISO YYYY-WW week token. The response identifies closed ranges as final and current ranges as rolling.
+	// Returns a weekly whale-activity report snapshot. Pass an ISO YYYY-WW token for a durable canonical snapshot, or an exact from/to UTC range of at most 31 inclusive days for an ephemeral response. The response identifies closed ranges as final and current ranges as rolling.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -16996,7 +20097,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetStreamWithResponse Resumable real-time event stream (SSE)
 	//
-	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive.
+	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -17037,7 +20138,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/trader/{address}/context.md (the `GetTraderContextMarkdown` operationId).
-	GetTraderContextMarkdownWithResponse(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*GetTraderContextMarkdownResponse, error)
+	GetTraderContextMarkdownWithResponse(ctx context.Context, address string, params *GetTraderContextMarkdownParams, reqEditors ...RequestEditorFn) (*GetTraderContextMarkdownResponse, error)
 
 	// GetTraderExportSnapshotWithResponse Trader export snapshot metadata
 	//
@@ -17046,7 +20147,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/trader/{address}/export (the `GetTraderExportSnapshot` operationId).
-	GetTraderExportSnapshotWithResponse(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*GetTraderExportSnapshotResponse, error)
+	GetTraderExportSnapshotWithResponse(ctx context.Context, address string, params *GetTraderExportSnapshotParams, reqEditors ...RequestEditorFn) (*GetTraderExportSnapshotResponse, error)
 
 	// SubmitTraderExportWithResponse Submit a trader dataset export job
 	//
@@ -17082,7 +20183,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/trader/{address}/pnl (the `GetTraderPnl` operationId).
-	GetTraderPnlWithResponse(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*GetTraderPnlResponse, error)
+	GetTraderPnlWithResponse(ctx context.Context, address string, params *GetTraderPnlParams, reqEditors ...RequestEditorFn) (*GetTraderPnlResponse, error)
 
 	// GetPositionTimelineWithResponse Get a trader's position timeline for one market
 	//
@@ -17100,7 +20201,7 @@ type ClientWithResponsesInterface interface {
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /api/v1/traders/batch (the `BatchGetTraders` operationId).
-	BatchGetTradersWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BatchGetTradersResponse, error)
+	BatchGetTradersWithBodyWithResponse(ctx context.Context, params *BatchGetTradersParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BatchGetTradersResponse, error)
 
 	// BatchGetTradersWithResponse Batch trader intelligence
 	//
@@ -17109,7 +20210,7 @@ type ClientWithResponsesInterface interface {
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /api/v1/traders/batch (the `BatchGetTraders` operationId).
-	BatchGetTradersWithResponse(ctx context.Context, body BatchGetTradersJSONRequestBody, reqEditors ...RequestEditorFn) (*BatchGetTradersResponse, error)
+	BatchGetTradersWithResponse(ctx context.Context, params *BatchGetTradersParams, body BatchGetTradersJSONRequestBody, reqEditors ...RequestEditorFn) (*BatchGetTradersResponse, error)
 
 	// GetPositionTimelineByIdWithResponse Get a trader's position timeline (unified identity resolver)
 	//
@@ -17122,12 +20223,12 @@ type ClientWithResponsesInterface interface {
 
 	// GetUsageWithResponse Inspect current API usage without spending primary request quota
 	//
-	// Returns the authenticated caller sliding-window request budget and UTC-day usage. This endpoint is authenticated and does not increment the primary Redis rate-limit counter or log itself into the API usage table; it is separately throttled at 100 reads/minute per user to protect the usage-count query. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
+	// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/usage (the `GetUsage` operationId).
-	GetUsageWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetUsageResponse, error)
+	GetUsageWithResponse(ctx context.Context, params *GetUsageParams, reqEditors ...RequestEditorFn) (*GetUsageResponse, error)
 
 	// ListWebhooksWithResponse List builder webhook destinations
 	//
@@ -17136,11 +20237,11 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/webhooks (the `ListWebhooks` operationId).
-	ListWebhooksWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListWebhooksResponse, error)
+	ListWebhooksWithResponse(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*ListWebhooksResponse, error)
 
 	// CreateWebhookWithBodyWithResponse Create a builder webhook destination
 	//
-	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
+	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries one or more HMAC-SHA256 signatures in the x-0xinsider-signature header as comma-separated v1=<hex> candidates. During staged rotation, the current and previous signing secrets are both signed for one hour; accept any valid candidate. Each candidate is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute each candidate over "<timestamp>.<raw_body>" with the active secrets, and compare using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: ordinary transient delivery failures use stable jitter between half and the existing 60, 120, 240, 480, 960, 1920 and 3600-second upper bounds (retry_policy.retry_horizon_seconds = 7380); on 408, 429, or 5xx, a valid Retry-After delta-seconds or HTTP-date replaces that one wait and is clamped to 60–3600 seconds, while missing, malformed, past, or non-retryable-response hints use the ordinary schedule. The delivery still has eight attempts (retry_policy.max_attempts), and an eighth failure becomes dead_letter. The delivery log exposes retry_schedule_reason and next_attempt_at so a receiver can see the active schedule. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at and retry_schedule_reason for a delivery still waiting to retry.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -17149,7 +20250,7 @@ type ClientWithResponsesInterface interface {
 
 	// CreateWebhookWithResponse Create a builder webhook destination
 	//
-	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
+	// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries one or more HMAC-SHA256 signatures in the x-0xinsider-signature header as comma-separated v1=<hex> candidates. During staged rotation, the current and previous signing secrets are both signed for one hour; accept any valid candidate. Each candidate is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute each candidate over "<timestamp>.<raw_body>" with the active secrets, and compare using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: ordinary transient delivery failures use stable jitter between half and the existing 60, 120, 240, 480, 960, 1920 and 3600-second upper bounds (retry_policy.retry_horizon_seconds = 7380); on 408, 429, or 5xx, a valid Retry-After delta-seconds or HTTP-date replaces that one wait and is clamped to 60–3600 seconds, while missing, malformed, past, or non-retryable-response hints use the ordinary schedule. The delivery still has eight attempts (retry_policy.max_attempts), and an eighth failure becomes dead_letter. The delivery log exposes retry_schedule_reason and next_attempt_at so a receiver can see the active schedule. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at and retry_schedule_reason for a delivery still waiting to retry.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -17163,7 +20264,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/webhooks/events (the `ListWebhookEvents` operationId).
-	ListWebhookEventsWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListWebhookEventsResponse, error)
+	ListWebhookEventsWithResponse(ctx context.Context, params *ListWebhookEventsParams, reqEditors ...RequestEditorFn) (*ListWebhookEventsResponse, error)
 
 	// DeleteWebhookWithResponse Disable a builder webhook destination
 	//
@@ -17181,7 +20282,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /api/v1/webhooks/{id} (the `GetWebhook` operationId).
-	GetWebhookWithResponse(ctx context.Context, id int64, reqEditors ...RequestEditorFn) (*GetWebhookResponse, error)
+	GetWebhookWithResponse(ctx context.Context, id int64, params *GetWebhookParams, reqEditors ...RequestEditorFn) (*GetWebhookResponse, error)
 
 	// UpdateWebhookWithBodyWithResponse Update a builder webhook destination
 	//
@@ -17203,7 +20304,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListWebhookDeliveriesWithResponse List webhook delivery log
 	//
-	// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; it is null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery is retried for up to 7380 seconds; see POST /api/v1/webhooks for the retry schedule and the endpoint disable rule. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
+	// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; retry_schedule_reason says whether the queue is following receiver_retry_after, transient_failure, permanent_or_auth_failure, manual_redelivery, or configuration_changed; both are null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery keeps the existing eight-attempt budget, endpoint failure budget, fairness limits, and ordinary 7380-second upper-bound schedule; see POST /api/v1/webhooks for the bounded Retry-After policy. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -17228,6 +20329,33 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret (the `RotateWebhookSecret` operationId).
 	RotateWebhookSecretWithResponse(ctx context.Context, id int64, params *RotateWebhookSecretParams, reqEditors ...RequestEditorFn) (*RotateWebhookSecretResponse, error)
 
+	// ActivateWebhookSecretWithResponse Activate a staged builder webhook signing secret
+	//
+	// Promotes the prepared signing secret to current, returns it once, and signs every delivery with both the new and previous secrets for one hour. Call retire after the receiver has completed its rollout. The current secret remains available through the existing immediate rotate-secret route for emergency replacement.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/activate (the `ActivateWebhookSecret` operationId).
+	ActivateWebhookSecretWithResponse(ctx context.Context, id int64, params *ActivateWebhookSecretParams, reqEditors ...RequestEditorFn) (*ActivateWebhookSecretResponse, error)
+
+	// PrepareWebhookSecretWithResponse Prepare a staged builder webhook signing secret
+	//
+	// Creates a pending signing secret while the current secret remains active. Deploy the returned one-time signing_secret to the receiver before calling activate. The response exposes secret_rotation.status=pending; an existing pending secret is returned again so a lost response can be recovered safely.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/prepare (the `PrepareWebhookSecret` operationId).
+	PrepareWebhookSecretWithResponse(ctx context.Context, id int64, params *PrepareWebhookSecretParams, reqEditors ...RequestEditorFn) (*PrepareWebhookSecretResponse, error)
+
+	// RetireWebhookSecretWithResponse Retire the previous builder webhook signing secret
+	//
+	// Ends the one-hour dual-signature overlap and removes the previous signing secret from future delivery authorization. Call this after the receiver accepts the activated secret. The operation is idempotent and does not return signing_secret.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/retire (the `RetireWebhookSecret` operationId).
+	RetireWebhookSecretWithResponse(ctx context.Context, id int64, params *RetireWebhookSecretParams, reqEditors ...RequestEditorFn) (*RetireWebhookSecretResponse, error)
+
 	// VerifyWebhookWithBodyWithResponse Verify a builder webhook destination
 	//
 	// Activates a pending webhook destination. Two conditions must both hold: the one-time verification token matches and has not expired, AND the destination answers 2xx to a signed challenge this operation POSTs to the endpoint's stored url. The challenge body is {"type":"webhook.verification","token":"<verification_token>","webhook_id":<id>}. It carries x-0xinsider-event-type: webhook.verification plus the same x-0xinsider-timestamp and x-0xinsider-signature headers a delivery carries, signed with that endpoint's signing_secret, so verify it exactly as you verify a delivery. Answer any 2xx within 10 seconds; the challenge response body is never read, and the challenge follows no redirects. A status outside 2xx, no answer within 10 seconds, or a url that does not resolve to a publicly routable address leaves status at pending_verification and returns 422. The token alone never activates an endpoint.
@@ -17235,7 +20363,7 @@ type ClientWithResponsesInterface interface {
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /api/v1/webhooks/{id}/verify (the `VerifyWebhook` operationId).
-	VerifyWebhookWithBodyWithResponse(ctx context.Context, id int64, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyWebhookResponse, error)
+	VerifyWebhookWithBodyWithResponse(ctx context.Context, id int64, params *VerifyWebhookParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyWebhookResponse, error)
 
 	// VerifyWebhookWithResponse Verify a builder webhook destination
 	//
@@ -17244,7 +20372,7 @@ type ClientWithResponsesInterface interface {
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with POST /api/v1/webhooks/{id}/verify (the `VerifyWebhook` operationId).
-	VerifyWebhookWithResponse(ctx context.Context, id int64, body VerifyWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyWebhookResponse, error)
+	VerifyWebhookWithResponse(ctx context.Context, id int64, params *VerifyWebhookParams, body VerifyWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyWebhookResponse, error)
 
 	// ListWhaleTradesWithResponse List whale trades
 	//
@@ -17298,6 +20426,8 @@ type GetApiDiscoveryResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17388,6 +20518,8 @@ type RegisterAgentResponse201Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17487,6 +20619,8 @@ type SearchContentResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17650,6 +20784,8 @@ type GetEventReplaySinceResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17797,6 +20933,8 @@ type GetHealthResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17809,6 +20947,8 @@ type GetHealthResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17948,6 +21088,8 @@ type ListInsiderRadarResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -17962,6 +21104,8 @@ type ListInsiderRadarResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18117,6 +21261,8 @@ type GetInsiderRadarFlagResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18131,6 +21277,8 @@ type GetInsiderRadarFlagResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18283,6 +21431,8 @@ type ListLargePositionsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18297,6 +21447,8 @@ type ListLargePositionsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18456,6 +21608,8 @@ type ListLeaderboardResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18470,6 +21624,8 @@ type ListLeaderboardResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18625,6 +21781,8 @@ type ListTrendingWalletsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18639,6 +21797,8 @@ type ListTrendingWalletsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18798,6 +21958,8 @@ type GetMarketCandlesResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18812,6 +21974,8 @@ type GetMarketCandlesResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -18965,6 +22129,8 @@ type GetMarketContextMarkdownResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19107,6 +22273,8 @@ type GetMarketHoldersResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19121,6 +22289,8 @@ type GetMarketHoldersResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19290,6 +22460,8 @@ type GetMarketIntelResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19304,6 +22476,8 @@ type GetMarketIntelResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19456,6 +22630,8 @@ type GetMarketSnapshotResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19470,6 +22646,8 @@ type GetMarketSnapshotResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19622,6 +22800,8 @@ type ExploreMarketsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19636,6 +22816,8 @@ type ExploreMarketsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -19805,6 +22987,8 @@ type BatchGetMarketIntelResponse200Headers struct {
 	XBatchRateLimitLimit     *int
 	XBatchRateLimitRemaining *int
 	XBatchRateLimitReset     *int
+	XEffectiveQuery          *string
+	XQueryIgnored            *string
 	XRateLimitLimit          *int
 	XRateLimitRemaining      *int
 	XRateLimitReset          *int
@@ -19969,6 +23153,8 @@ type SearchMarketsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20122,6 +23308,8 @@ type ListSharpMoneyFlowsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20136,6 +23324,8 @@ type ListSharpMoneyFlowsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20289,6 +23479,8 @@ type ListSmartMoneyFlowsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20303,6 +23495,8 @@ type ListSmartMoneyFlowsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20546,6 +23740,8 @@ type CreateMcpJsonRpcResponseResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20559,6 +23755,8 @@ type CreateMcpJsonRpcResponseResponse202Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20685,14 +23883,19 @@ func (r CreateMcpJsonRpcResponseResponse) ContentType() string {
 
 // GetAccountIdentityResponse200Headers the declared response headers of an HTTP 200 response for GetAccountIdentity
 type GetAccountIdentityResponse200Headers struct {
-	RateLimitLimit      *int
-	RateLimitRemaining  *int
-	RateLimitReset      *int
-	ServerTiming        *string
-	XRateLimitLimit     *int
-	XRateLimitRemaining *int
-	XRateLimitReset     *int
-	XRequestId          *string
+	RateLimitLimit         *int
+	RateLimitRemaining     *int
+	RateLimitReset         *int
+	ServerTiming           *string
+	XEffectiveQuery        *string
+	XMonthlyQuotaLimit     *int
+	XMonthlyQuotaRemaining *int
+	XMonthlyQuotaReset     *int
+	XQueryIgnored          *string
+	XRateLimitLimit        *int
+	XRateLimitRemaining    *int
+	XRateLimitReset        *int
+	XRequestId             *string
 }
 
 // GetAccountIdentityResponse429Headers the declared response headers of an HTTP 429 response for GetAccountIdentity
@@ -20720,8 +23923,6 @@ type GetAccountIdentityResponse struct {
 	JSON200 *AccountIdentity
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *ApiError
-	// JSON402 the response for an HTTP 402 `application/json` response
-	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
@@ -20746,11 +23947,6 @@ func (r GetAccountIdentityResponse) GetJSON200() *AccountIdentity {
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r GetAccountIdentityResponse) GetJSON401() *ApiError {
 	return r.JSON401
-}
-
-// GetJSON402 returns the response for an HTTP 402 `application/json` response
-func (r GetAccountIdentityResponse) GetJSON402() *ApiError {
-	return r.JSON402
 }
 
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
@@ -20892,6 +24088,8 @@ type GetPickOfTheDayResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -20906,6 +24104,8 @@ type GetPickOfTheDayResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21058,6 +24258,8 @@ type GetPickOfTheDayArchiveResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21072,6 +24274,8 @@ type GetPickOfTheDayArchiveResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21210,6 +24414,8 @@ type GetPickOfTheDayLedgerResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21224,6 +24430,8 @@ type GetPickOfTheDayLedgerResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21363,6 +24571,8 @@ type GetPlatformsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21461,6 +24671,8 @@ type ListPositionsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21475,6 +24687,8 @@ type ListPositionsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21629,6 +24843,8 @@ type GetReportsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21778,6 +24994,8 @@ type GetDailyReportSnapshotResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -21927,6 +25145,8 @@ type GetMonthlyReportSnapshotResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22076,6 +25296,8 @@ type GetWeeklyReportSnapshotResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22227,6 +25449,8 @@ type ListSportsEdgeObservationsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22242,6 +25466,8 @@ type ListSportsEdgeObservationsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22416,6 +25642,8 @@ type ListSportsEdgeSignalsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22430,6 +25658,8 @@ type ListSportsEdgeSignalsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22580,6 +25810,8 @@ type GetStreamResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22701,6 +25933,8 @@ type GetTraderResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22715,6 +25949,8 @@ type GetTraderResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22867,6 +26103,8 @@ type GetTraderCategoryRecordsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -22881,6 +26119,8 @@ type GetTraderCategoryRecordsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -23033,6 +26273,8 @@ type GetTraderContextResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -23047,6 +26289,8 @@ type GetTraderContextResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -23198,6 +26442,8 @@ type GetTraderContextMarkdownResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -23332,6 +26578,8 @@ type GetTraderExportSnapshotResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -23488,6 +26736,8 @@ type SubmitTraderExportResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -23501,6 +26751,8 @@ type SubmitTraderExportResponse202Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -23800,6 +27052,8 @@ type GetTraderExportStatusResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -23942,6 +27196,8 @@ type GetTraderPnlResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -23956,6 +27212,8 @@ type GetTraderPnlResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -24108,6 +27366,8 @@ type GetPositionTimelineResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -24122,6 +27382,8 @@ type GetPositionTimelineResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -24293,6 +27555,8 @@ type BatchGetTradersResponse200Headers struct {
 	XBatchRateLimitLimit     *int
 	XBatchRateLimitRemaining *int
 	XBatchRateLimitReset     *int
+	XEffectiveQuery          *string
+	XQueryIgnored            *string
 	XRateLimitLimit          *int
 	XRateLimitRemaining      *int
 	XRateLimitReset          *int
@@ -24458,6 +27722,8 @@ type GetPositionTimelineByIdResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -24472,6 +27738,8 @@ type GetPositionTimelineByIdResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -24640,9 +27908,11 @@ type GetUsageResponse200Headers struct {
 	RateLimitRemaining     *int
 	RateLimitReset         *int
 	ServerTiming           *string
+	XEffectiveQuery        *string
 	XMonthlyQuotaLimit     *int
 	XMonthlyQuotaRemaining *int
 	XMonthlyQuotaReset     *int
+	XQueryIgnored          *string
 	XRateLimitLimit        *int
 	XRateLimitRemaining    *int
 	XRateLimitReset        *int
@@ -24674,8 +27944,6 @@ type GetUsageResponse struct {
 	JSON200 *Usage
 	// JSON401 the response for an HTTP 401 `application/json` response
 	JSON401 *ApiError
-	// JSON402 the response for an HTTP 402 `application/json` response
-	JSON402 *ApiError
 	// JSON403 the response for an HTTP 403 `application/json` response
 	JSON403 *ApiError
 	// JSON423 the response for an HTTP 423 `application/json` response
@@ -24700,11 +27968,6 @@ func (r GetUsageResponse) GetJSON200() *Usage {
 // GetJSON401 returns the response for an HTTP 401 `application/json` response
 func (r GetUsageResponse) GetJSON401() *ApiError {
 	return r.JSON401
-}
-
-// GetJSON402 returns the response for an HTTP 402 `application/json` response
-func (r GetUsageResponse) GetJSON402() *ApiError {
-	return r.JSON402
 }
 
 // GetJSON403 returns the response for an HTTP 403 `application/json` response
@@ -24762,6 +28025,8 @@ type ListWebhooksResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -24917,6 +28182,8 @@ type CreateWebhookResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -25094,6 +28361,8 @@ type ListWebhookEventsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -25242,6 +28511,8 @@ type DeleteWebhookResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -25405,6 +28676,8 @@ type GetWebhookResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -25554,6 +28827,8 @@ type UpdateWebhookResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -25738,6 +29013,8 @@ type ListWebhookDeliveriesResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -25900,6 +29177,8 @@ type RedeliverWebhookDeliveryResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26072,6 +29351,8 @@ type RotateWebhookSecretResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26236,12 +29517,413 @@ func (r RotateWebhookSecretResponse) ContentType() string {
 	return ""
 }
 
+type ActivateWebhookSecretResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		Data   WebhookEndpoint                                `json:"data"`
+		Meta   ResponseMeta                                   `json:"meta"`
+		Object ActivateWebhookSecret200JSONResponseBodyObject `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON409 the response for an HTTP 409 `application/json` response
+	JSON409 *ApiError
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON200() *struct {
+	Data   WebhookEndpoint                                `json:"data"`
+	Meta   ResponseMeta                                   `json:"meta"`
+	Object ActivateWebhookSecret200JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON409 returns the response for an HTTP 409 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON409() *ApiError {
+	return r.JSON409
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON422() *ApiError {
+	return r.JSON422
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r ActivateWebhookSecretResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r ActivateWebhookSecretResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ActivateWebhookSecretResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ActivateWebhookSecretResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ActivateWebhookSecretResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type PrepareWebhookSecretResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		Data   WebhookEndpoint                               `json:"data"`
+		Meta   ResponseMeta                                  `json:"meta"`
+		Object PrepareWebhookSecret200JSONResponseBodyObject `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON409 the response for an HTTP 409 `application/json` response
+	JSON409 *ApiError
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON200() *struct {
+	Data   WebhookEndpoint                               `json:"data"`
+	Meta   ResponseMeta                                  `json:"meta"`
+	Object PrepareWebhookSecret200JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON409 returns the response for an HTTP 409 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON409() *ApiError {
+	return r.JSON409
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON422() *ApiError {
+	return r.JSON422
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r PrepareWebhookSecretResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r PrepareWebhookSecretResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r PrepareWebhookSecretResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PrepareWebhookSecretResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r PrepareWebhookSecretResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RetireWebhookSecretResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		Data   WebhookEndpoint                              `json:"data"`
+		Meta   ResponseMeta                                 `json:"meta"`
+		Object RetireWebhookSecret200JSONResponseBodyObject `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON409 the response for an HTTP 409 `application/json` response
+	JSON409 *ApiError
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON200() *struct {
+	Data   WebhookEndpoint                              `json:"data"`
+	Meta   ResponseMeta                                 `json:"meta"`
+	Object RetireWebhookSecret200JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON409 returns the response for an HTTP 409 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON409() *ApiError {
+	return r.JSON409
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON422() *ApiError {
+	return r.JSON422
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r RetireWebhookSecretResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r RetireWebhookSecretResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r RetireWebhookSecretResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RetireWebhookSecretResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RetireWebhookSecretResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // VerifyWebhookResponse200Headers the declared response headers of an HTTP 200 response for VerifyWebhook
 type VerifyWebhookResponse200Headers struct {
 	RateLimitLimit      *int
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26420,6 +30102,8 @@ type ListWhaleTradesResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26434,6 +30118,8 @@ type ListWhaleTradesResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26589,6 +30275,8 @@ type ListWhaleTradeHistoryResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26603,6 +30291,8 @@ type ListWhaleTradeHistoryResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26758,6 +30448,8 @@ type GetWhaleTradeResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26772,6 +30464,8 @@ type GetWhaleTradeResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26924,6 +30618,8 @@ type ListWhaleTradeCounterpartyExecutionsResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -26938,6 +30634,8 @@ type ListWhaleTradeCounterpartyExecutionsResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -27076,6 +30774,8 @@ type ListWhaleTradeCounterpartyMakersResponse200Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -27090,6 +30790,8 @@ type ListWhaleTradeCounterpartyMakersResponse304Headers struct {
 	RateLimitRemaining  *int
 	RateLimitReset      *int
 	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
 	XRateLimitLimit     *int
 	XRateLimitRemaining *int
 	XRateLimitReset     *int
@@ -27228,8 +30930,8 @@ func (r ListWhaleTradeCounterpartyMakersResponse) ContentType() string {
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1 (the `GetApiDiscovery` operationId).
-func (c *ClientWithResponses) GetApiDiscoveryWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetApiDiscoveryResponse, error) {
-	rsp, err := c.GetApiDiscovery(ctx, reqEditors...)
+func (c *ClientWithResponses) GetApiDiscoveryWithResponse(ctx context.Context, params *GetApiDiscoveryParams, reqEditors ...RequestEditorFn) (*GetApiDiscoveryResponse, error) {
+	rsp, err := c.GetApiDiscovery(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27243,8 +30945,8 @@ func (c *ClientWithResponses) GetApiDiscoveryWithResponse(ctx context.Context, r
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /api/v1/agents/register (the `RegisterAgent` operationId).
-func (c *ClientWithResponses) RegisterAgentWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RegisterAgentResponse, error) {
-	rsp, err := c.RegisterAgent(ctx, reqEditors...)
+func (c *ClientWithResponses) RegisterAgentWithResponse(ctx context.Context, params *RegisterAgentParams, reqEditors ...RequestEditorFn) (*RegisterAgentResponse, error) {
+	rsp, err := c.RegisterAgent(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27298,7 +31000,7 @@ func (c *ClientWithResponses) GetHealthWithResponse(ctx context.Context, params 
 
 // ListInsiderRadarWithResponse Get insider radar flags
 //
-// Stored trades whose recorded suspicion score meets the live flag threshold. Evidence contains the scorer's stored signals. Cursor-paginated by suspicion score.
+// Stored trades whose recorded suspicion score meets the live flag threshold. Evidence contains the scorer's stored signals. Cursor-paginated by suspicion score. mode=live (default) uses fresh cached pages; mode=stable pins pagination to one published scoring generation and returns cursor_expired when scores or filters change.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -27358,7 +31060,7 @@ func (c *ClientWithResponses) ListLeaderboardWithResponse(ctx context.Context, p
 
 // ListTrendingWalletsWithResponse List trending wallets
 //
-// Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The underlying read model is warmed into Redis; a cold read returns 503 (warming, retry-after), never a 500 or a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'.
+// Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The underlying read model is warmed into Redis; a cold read returns 503 (warming, retry-after), never a 500 or a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'. Cursors are bound to the effective limit, window and ranked-board generation; a changed board or request scope returns 400 with error.reason=cursor_expired, and legacy page-only cursors must restart from page one.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -27373,7 +31075,7 @@ func (c *ClientWithResponses) ListTrendingWalletsWithResponse(ctx context.Contex
 
 // GetMarketCandlesWithResponse Get market OHLC price candles
 //
-// Provider-first bucketed OHLC price candles for a market's outcome tokens, derived from the stored token_price_snapshots series (the same series the market-detail chart renders; covers open and resolved markets). Because the stored data is daily, a 1d bucket typically carries one point so its open/high/low/close all equal that day's close; 1w aggregates real OHLC across the observed daily closes. No intraday fidelity is fabricated.
+// Provider-first bucketed OHLC price candles for a market's outcome tokens, derived from the stored token_price_snapshots series (the same series the market-detail chart renders; covers open and resolved markets). Because the stored data is daily, a 1d bucket typically carries one point so its open/high/low/close all equal that day's close; 1w aggregates real OHLC across the observed daily closes. No intraday fidelity is fabricated. Query field names and recognized values are URL-decoded; duplicate recognized fields use the last value and unknown fields are ignored. When both bounds are present, from must be less than or equal to to; malformed or inverted bounds answer 400.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -27393,8 +31095,8 @@ func (c *ClientWithResponses) GetMarketCandlesWithResponse(ctx context.Context, 
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/market/{condition_id}/context.md (the `GetMarketContextMarkdown` operationId).
-func (c *ClientWithResponses) GetMarketContextMarkdownWithResponse(ctx context.Context, conditionId string, reqEditors ...RequestEditorFn) (*GetMarketContextMarkdownResponse, error) {
-	rsp, err := c.GetMarketContextMarkdown(ctx, conditionId, reqEditors...)
+func (c *ClientWithResponses) GetMarketContextMarkdownWithResponse(ctx context.Context, conditionId string, params *GetMarketContextMarkdownParams, reqEditors ...RequestEditorFn) (*GetMarketContextMarkdownResponse, error) {
+	rsp, err := c.GetMarketContextMarkdown(ctx, conditionId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27468,8 +31170,8 @@ func (c *ClientWithResponses) ExploreMarketsWithResponse(ctx context.Context, pa
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /api/v1/markets/intel/batch (the `BatchGetMarketIntel` operationId).
-func (c *ClientWithResponses) BatchGetMarketIntelWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BatchGetMarketIntelResponse, error) {
-	rsp, err := c.BatchGetMarketIntelWithBody(ctx, contentType, body, reqEditors...)
+func (c *ClientWithResponses) BatchGetMarketIntelWithBodyWithResponse(ctx context.Context, params *BatchGetMarketIntelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BatchGetMarketIntelResponse, error) {
+	rsp, err := c.BatchGetMarketIntelWithBody(ctx, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27483,8 +31185,8 @@ func (c *ClientWithResponses) BatchGetMarketIntelWithBodyWithResponse(ctx contex
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /api/v1/markets/intel/batch (the `BatchGetMarketIntel` operationId).
-func (c *ClientWithResponses) BatchGetMarketIntelWithResponse(ctx context.Context, body BatchGetMarketIntelJSONRequestBody, reqEditors ...RequestEditorFn) (*BatchGetMarketIntelResponse, error) {
-	rsp, err := c.BatchGetMarketIntel(ctx, body, reqEditors...)
+func (c *ClientWithResponses) BatchGetMarketIntelWithResponse(ctx context.Context, params *BatchGetMarketIntelParams, body BatchGetMarketIntelJSONRequestBody, reqEditors ...RequestEditorFn) (*BatchGetMarketIntelResponse, error) {
+	rsp, err := c.BatchGetMarketIntel(ctx, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27508,7 +31210,7 @@ func (c *ClientWithResponses) SearchMarketsWithResponse(ctx context.Context, par
 
 // ListSharpMoneyFlowsWithResponse List ranked sharp-money flows
 //
-// Canonical alias of /api/v1/markets/smart-money-flows, which remains live but deprecated. Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first page as_of timestamp so new whale trades do not reorder page 2.
+// Canonical alias of /api/v1/markets/smart-money-flows, which remains live but deprecated. Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -27523,7 +31225,7 @@ func (c *ClientWithResponses) ListSharpMoneyFlowsWithResponse(ctx context.Contex
 
 // ListSmartMoneyFlowsWithResponse List ranked smart-money flows
 //
-// Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where smart money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first page as_of timestamp so new whale trades do not reorder page 2. Deprecated alias of GET /api/v1/markets/sharp-money-flows, kept live and never removed; every response carries `Deprecation: @1783276950` (RFC 9745, 2026-07-05T18:42:30Z) and a `Link` to the successor (`rel="successor-version"`) and to the versioning policy (`rel="deprecation"`). No `Sunset` header is sent because no removal is planned.
+// Ranks markets by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where smart money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/intel. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again. Deprecated alias of GET /api/v1/markets/sharp-money-flows, kept live and never removed; every response carries `Deprecation: @1783276950` (RFC 9745, 2026-07-05T18:42:30Z) and a `Link` to the successor (`rel="successor-version"`) and to the versioning policy (`rel="deprecation"`). No `Sunset` header is sent because no removal is planned.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -27585,13 +31287,13 @@ func (c *ClientWithResponses) CreateMcpJsonRpcResponseWithResponse(ctx context.C
 
 // GetAccountIdentityWithResponse Identify the authenticated account and credential
 //
-// Returns the account and credential IDs admitted by API authentication, credential kind, and approved scopes. Null scopes mean full developer-key access. Requires an active Pro subscription and read scope for OAuth grants. Does not return credentials or personal contact details.
+// Returns caller-owned account and credential IDs, credential validity, paid-data entitlement and approved scopes. Null scopes mean full developer-key access. Valid credentials can use this control-plane diagnostic path after paid access lapses; data routes still require active paid access. OAuth grants need read scope. Does not return credentials, payment details or personal contact details.
 //
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/me (the `GetAccountIdentity` operationId).
-func (c *ClientWithResponses) GetAccountIdentityWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetAccountIdentityResponse, error) {
-	rsp, err := c.GetAccountIdentity(ctx, reqEditors...)
+func (c *ClientWithResponses) GetAccountIdentityWithResponse(ctx context.Context, params *GetAccountIdentityParams, reqEditors ...RequestEditorFn) (*GetAccountIdentityResponse, error) {
+	rsp, err := c.GetAccountIdentity(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27605,8 +31307,8 @@ func (c *ClientWithResponses) GetAccountIdentityWithResponse(ctx context.Context
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/openapi.json (the `RedirectApiOpenapiSpec` operationId).
-func (c *ClientWithResponses) RedirectApiOpenapiSpecWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*RedirectApiOpenapiSpecResponse, error) {
-	rsp, err := c.RedirectApiOpenapiSpec(ctx, reqEditors...)
+func (c *ClientWithResponses) RedirectApiOpenapiSpecWithResponse(ctx context.Context, params *RedirectApiOpenapiSpecParams, reqEditors ...RequestEditorFn) (*RedirectApiOpenapiSpecResponse, error) {
+	rsp, err := c.RedirectApiOpenapiSpec(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27617,7 +31319,7 @@ func (c *ClientWithResponses) RedirectApiOpenapiSpecWithResponse(ctx context.Con
 //
 // Returns the published picks for the current product day. Pro tier.
 //
-// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the $100 return, the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
 //
 // `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
 //
@@ -27683,8 +31385,8 @@ func (c *ClientWithResponses) GetPickOfTheDayLedgerWithResponse(ctx context.Cont
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/platforms (the `GetPlatforms` operationId).
-func (c *ClientWithResponses) GetPlatformsWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetPlatformsResponse, error) {
-	rsp, err := c.GetPlatforms(ctx, reqEditors...)
+func (c *ClientWithResponses) GetPlatformsWithResponse(ctx context.Context, params *GetPlatformsParams, reqEditors ...RequestEditorFn) (*GetPlatformsResponse, error) {
+	rsp, err := c.GetPlatforms(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27693,7 +31395,7 @@ func (c *ClientWithResponses) GetPlatformsWithResponse(ctx context.Context, reqE
 
 // ListPositionsWithResponse List current positions (positions-board feed)
 //
-// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top.
+// Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top. With wallet, the same feed is read for one wallet or a book of up to 25 wallets from each wallet's own ordered index range, so the pages are that wallet's complete reconciled binary open positions and the cost is the page, never the board. min_size then defaults to 0. What a wallet read does not return: positions with shares at 0 (closed), rows the reconciler has not valued yet (current_value_usd IS NULL), and non-binary outcomes; per-row last_reconciled_at and freshness say how old each valuation is.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -27708,7 +31410,7 @@ func (c *ClientWithResponses) ListPositionsWithResponse(ctx context.Context, par
 
 // GetReportsWithResponse Unified report snapshot (granularity selector)
 //
-// Unified convenience route (#4975) that consolidates the three singular report routes. Dispatches to the exact per-granularity cap (daily 50, weekly 100, monthly 200) and date window the legacy /api/v1/reports/{daily,weekly,monthly} routes use, so the response body is byte-identical to the matching legacy route for the same period. The three legacy routes stay live. Also reachable via the MCP get_report selector.
+// Unified convenience route (#4975) that consolidates the three singular report routes. Dispatches to the exact per-granularity cap (daily 50, weekly 100, monthly 200) and date window the legacy /api/v1/reports/{daily,weekly,monthly} routes use, so the response body is byte-identical to the matching legacy route for the same period. An ISO weekly period is a durable canonical snapshot; an explicit weekly from,to pair is an exact ephemeral range limited to 31 inclusive UTC days and never creates a persisted snapshot identity. A wider explicit range returns 400 invalid_query. The three legacy routes stay live. Also reachable via the MCP get_report selector.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -27753,7 +31455,7 @@ func (c *ClientWithResponses) GetMonthlyReportSnapshotWithResponse(ctx context.C
 
 // GetWeeklyReportSnapshotWithResponse Weekly report snapshot
 //
-// Returns a weekly whale-activity report snapshot. Pass either from/to UTC dates or an ISO YYYY-WW week token. The response identifies closed ranges as final and current ranges as rolling.
+// Returns a weekly whale-activity report snapshot. Pass an ISO YYYY-WW token for a durable canonical snapshot, or an exact from/to UTC range of at most 31 inclusive days for an ephemeral response. The response identifies closed ranges as final and current ranges as rolling.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -27798,7 +31500,7 @@ func (c *ClientWithResponses) ListSportsEdgeSignalsWithResponse(ctx context.Cont
 
 // GetStreamWithResponse Resumable real-time event stream (SSE)
 //
-// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive.
+// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -27863,8 +31565,8 @@ func (c *ClientWithResponses) GetTraderContextWithResponse(ctx context.Context, 
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/trader/{address}/context.md (the `GetTraderContextMarkdown` operationId).
-func (c *ClientWithResponses) GetTraderContextMarkdownWithResponse(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*GetTraderContextMarkdownResponse, error) {
-	rsp, err := c.GetTraderContextMarkdown(ctx, address, reqEditors...)
+func (c *ClientWithResponses) GetTraderContextMarkdownWithResponse(ctx context.Context, address string, params *GetTraderContextMarkdownParams, reqEditors ...RequestEditorFn) (*GetTraderContextMarkdownResponse, error) {
+	rsp, err := c.GetTraderContextMarkdown(ctx, address, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27878,8 +31580,8 @@ func (c *ClientWithResponses) GetTraderContextMarkdownWithResponse(ctx context.C
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/trader/{address}/export (the `GetTraderExportSnapshot` operationId).
-func (c *ClientWithResponses) GetTraderExportSnapshotWithResponse(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*GetTraderExportSnapshotResponse, error) {
-	rsp, err := c.GetTraderExportSnapshot(ctx, address, reqEditors...)
+func (c *ClientWithResponses) GetTraderExportSnapshotWithResponse(ctx context.Context, address string, params *GetTraderExportSnapshotParams, reqEditors ...RequestEditorFn) (*GetTraderExportSnapshotResponse, error) {
+	rsp, err := c.GetTraderExportSnapshot(ctx, address, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27938,8 +31640,8 @@ func (c *ClientWithResponses) GetTraderExportStatusWithResponse(ctx context.Cont
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/trader/{address}/pnl (the `GetTraderPnl` operationId).
-func (c *ClientWithResponses) GetTraderPnlWithResponse(ctx context.Context, address string, reqEditors ...RequestEditorFn) (*GetTraderPnlResponse, error) {
-	rsp, err := c.GetTraderPnl(ctx, address, reqEditors...)
+func (c *ClientWithResponses) GetTraderPnlWithResponse(ctx context.Context, address string, params *GetTraderPnlParams, reqEditors ...RequestEditorFn) (*GetTraderPnlResponse, error) {
+	rsp, err := c.GetTraderPnl(ctx, address, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27968,8 +31670,8 @@ func (c *ClientWithResponses) GetPositionTimelineWithResponse(ctx context.Contex
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /api/v1/traders/batch (the `BatchGetTraders` operationId).
-func (c *ClientWithResponses) BatchGetTradersWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BatchGetTradersResponse, error) {
-	rsp, err := c.BatchGetTradersWithBody(ctx, contentType, body, reqEditors...)
+func (c *ClientWithResponses) BatchGetTradersWithBodyWithResponse(ctx context.Context, params *BatchGetTradersParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BatchGetTradersResponse, error) {
+	rsp, err := c.BatchGetTradersWithBody(ctx, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27983,8 +31685,8 @@ func (c *ClientWithResponses) BatchGetTradersWithBodyWithResponse(ctx context.Co
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /api/v1/traders/batch (the `BatchGetTraders` operationId).
-func (c *ClientWithResponses) BatchGetTradersWithResponse(ctx context.Context, body BatchGetTradersJSONRequestBody, reqEditors ...RequestEditorFn) (*BatchGetTradersResponse, error) {
-	rsp, err := c.BatchGetTraders(ctx, body, reqEditors...)
+func (c *ClientWithResponses) BatchGetTradersWithResponse(ctx context.Context, params *BatchGetTradersParams, body BatchGetTradersJSONRequestBody, reqEditors ...RequestEditorFn) (*BatchGetTradersResponse, error) {
+	rsp, err := c.BatchGetTraders(ctx, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -28008,13 +31710,13 @@ func (c *ClientWithResponses) GetPositionTimelineByIdWithResponse(ctx context.Co
 
 // GetUsageWithResponse Inspect current API usage without spending primary request quota
 //
-// Returns the authenticated caller sliding-window request budget and UTC-day usage. This endpoint is authenticated and does not increment the primary Redis rate-limit counter or log itself into the API usage table; it is separately throttled at 100 reads/minute per user to protect the usage-count query. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
+// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
 //
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/usage (the `GetUsage` operationId).
-func (c *ClientWithResponses) GetUsageWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetUsageResponse, error) {
-	rsp, err := c.GetUsage(ctx, reqEditors...)
+func (c *ClientWithResponses) GetUsageWithResponse(ctx context.Context, params *GetUsageParams, reqEditors ...RequestEditorFn) (*GetUsageResponse, error) {
+	rsp, err := c.GetUsage(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -28028,8 +31730,8 @@ func (c *ClientWithResponses) GetUsageWithResponse(ctx context.Context, reqEdito
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/webhooks (the `ListWebhooks` operationId).
-func (c *ClientWithResponses) ListWebhooksWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListWebhooksResponse, error) {
-	rsp, err := c.ListWebhooks(ctx, reqEditors...)
+func (c *ClientWithResponses) ListWebhooksWithResponse(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*ListWebhooksResponse, error) {
+	rsp, err := c.ListWebhooks(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -28038,7 +31740,7 @@ func (c *ClientWithResponses) ListWebhooksWithResponse(ctx context.Context, reqE
 
 // CreateWebhookWithBodyWithResponse Create a builder webhook destination
 //
-// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
+// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries one or more HMAC-SHA256 signatures in the x-0xinsider-signature header as comma-separated v1=<hex> candidates. During staged rotation, the current and previous signing secrets are both signed for one hour; accept any valid candidate. Each candidate is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute each candidate over "<timestamp>.<raw_body>" with the active secrets, and compare using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: ordinary transient delivery failures use stable jitter between half and the existing 60, 120, 240, 480, 960, 1920 and 3600-second upper bounds (retry_policy.retry_horizon_seconds = 7380); on 408, 429, or 5xx, a valid Retry-After delta-seconds or HTTP-date replaces that one wait and is clamped to 60–3600 seconds, while missing, malformed, past, or non-retryable-response hints use the ordinary schedule. The delivery still has eight attempts (retry_policy.max_attempts), and an eighth failure becomes dead_letter. The delivery log exposes retry_schedule_reason and next_attempt_at so a receiver can see the active schedule. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at and retry_schedule_reason for a delivery still waiting to retry.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -28053,7 +31755,7 @@ func (c *ClientWithResponses) CreateWebhookWithBodyWithResponse(ctx context.Cont
 
 // CreateWebhookWithResponse Create a builder webhook destination
 //
-// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries an HMAC-SHA256 signature in the x-0xinsider-signature header formatted as v1=<hex>, where <hex> is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute v1=<hex> over "<timestamp>.<raw_body>" with your signing_secret, and compare against x-0xinsider-signature using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: a failed delivery is retried after 60, 120, 240, 480, 960, 1920 and 3600 seconds (retry_policy.retry_horizon_seconds = 7380, about 2 h 3 min); if its eighth attempt (retry_policy.max_attempts) also fails it becomes dead_letter. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at for a delivery still waiting to retry.
+// Creates a pending HTTPS webhook destination. The response includes one-time signing_secret and verification.token values. Deliveries are not sent until the endpoint is verified, and verification requires the destination to answer 2xx to a signed webhook.verification challenge (see POST /api/v1/webhooks/{id}/verify). The subscribable event_types and their data payload shapes are described by GET /api/v1/webhooks/events; the per-endpoint delivery log is GET /api/v1/webhooks/{id}/deliveries. Four subscribable event types are Pro-only and only deliver to API keys on an active Pro subscription. whale_trades_inserted is one of them, gated by the same SubscriberScope::InsiderOnly mechanism as the other three (each type carries its own LiveEventContract entry; they share the scope value). The other three: wallet_grade_changed (data: wallet, trader_id, old_grade, new_grade, direction (upgrade|downgrade), skill_index, final_score, date) fires on a Pass-2 grade transition; insider_radar_flag_raised (data: trade_id, wallet, trader_id, condition_id, suspicion_score, track, side (yes|no), size, price) fires the first time a trade's suspicion score crosses the radar flag threshold; smart_money_flow_detected (data: condition_id, net_flow_usd, abs_net_flow_usd, dominant_side (yes|no), grade_floor (S|A|B|C|D|F), whale_trade_count, window) fires when a scheduled scanner detects ranked-trader net flow crossing a threshold (up or down) on a market. Delivery signing: each delivery request carries one or more HMAC-SHA256 signatures in the x-0xinsider-signature header as comma-separated v1=<hex> candidates. During staged rotation, the current and previous signing secrets are both signed for one hour; accept any valid candidate. Each candidate is HMAC-SHA256(signing_secret, "<timestamp>.<raw_request_body>"). The signed <timestamp> is sent separately as x-0xinsider-timestamp (unix seconds). To verify a delivery: read x-0xinsider-timestamp, reject it if it differs from the current time by more than 300 seconds, recompute each candidate over "<timestamp>.<raw_body>" with the active secrets, and compare using a constant-time comparison. Each delivery also carries x-0xinsider-event-id, x-0xinsider-event-type, x-0xinsider-delivery-id, and x-0xinsider-delivery-attempt headers. Retries and disabling: ordinary transient delivery failures use stable jitter between half and the existing 60, 120, 240, 480, 960, 1920 and 3600-second upper bounds (retry_policy.retry_horizon_seconds = 7380); on 408, 429, or 5xx, a valid Retry-After delta-seconds or HTTP-date replaces that one wait and is clamped to 60–3600 seconds, while missing, malformed, past, or non-retryable-response hints use the ordinary schedule. The delivery still has eight attempts (retry_policy.max_attempts), and an eighth failure becomes dead_letter. The delivery log exposes retry_schedule_reason and next_attempt_at so a receiver can see the active schedule. Separately, an endpoint is disabled after 8 consecutive failed attempts across all of its deliveries (retry_policy.disable_after_consecutive_failures); any successful attempt resets that count, so a busy endpoint that goes down can be disabled in minutes, well before any single delivery exhausts its retries. Disabling dead-letters every delivery still queued for the endpoint and emails the account owner, within about an hour, with each disabled endpoint and its last failed response. Re-enable it with PATCH /api/v1/webhooks/{id} {"enabled": true}; re-enabling does not resend dead-lettered deliveries. Resend each one with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver, or catch up with GET /api/v1/events/feed/since from the last event you processed. GET /api/v1/webhooks/{id}/deliveries shows next_attempt_at and retry_schedule_reason for a delivery still waiting to retry.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -28073,8 +31775,8 @@ func (c *ClientWithResponses) CreateWebhookWithResponse(ctx context.Context, par
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/webhooks/events (the `ListWebhookEvents` operationId).
-func (c *ClientWithResponses) ListWebhookEventsWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListWebhookEventsResponse, error) {
-	rsp, err := c.ListWebhookEvents(ctx, reqEditors...)
+func (c *ClientWithResponses) ListWebhookEventsWithResponse(ctx context.Context, params *ListWebhookEventsParams, reqEditors ...RequestEditorFn) (*ListWebhookEventsResponse, error) {
+	rsp, err := c.ListWebhookEvents(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -28103,8 +31805,8 @@ func (c *ClientWithResponses) DeleteWebhookWithResponse(ctx context.Context, id 
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /api/v1/webhooks/{id} (the `GetWebhook` operationId).
-func (c *ClientWithResponses) GetWebhookWithResponse(ctx context.Context, id int64, reqEditors ...RequestEditorFn) (*GetWebhookResponse, error) {
-	rsp, err := c.GetWebhook(ctx, id, reqEditors...)
+func (c *ClientWithResponses) GetWebhookWithResponse(ctx context.Context, id int64, params *GetWebhookParams, reqEditors ...RequestEditorFn) (*GetWebhookResponse, error) {
+	rsp, err := c.GetWebhook(ctx, id, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -28143,7 +31845,7 @@ func (c *ClientWithResponses) UpdateWebhookWithResponse(ctx context.Context, id 
 
 // ListWebhookDeliveriesWithResponse List webhook delivery log
 //
-// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; it is null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery is retried for up to 7380 seconds; see POST /api/v1/webhooks for the retry schedule and the endpoint disable rule. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
+// Recent delivery attempts for one webhook destination owned by the authenticated API key user, newest first, with opaque cursor pagination. Returns 404 (identical to an unknown id) when the endpoint is not owned by the caller, so a non-owner cannot tell an owned-but-empty log apart from someone else's endpoint. Delivery rows omit the request body and signing secret. next_attempt_at is when a pending or retry delivery is next attempted; retry_schedule_reason says whether the queue is following receiver_retry_after, transient_failure, permanent_or_auth_failure, manual_redelivery, or configuration_changed; both are null while an attempt is in flight and once the delivery is delivered or dead_letter. A delivery keeps the existing eight-attempt budget, endpoint failure budget, fairness limits, and ordinary 7380-second upper-bound schedule; see POST /api/v1/webhooks for the bounded Retry-After policy. Resend a dead_letter delivery with POST /api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -28186,6 +31888,51 @@ func (c *ClientWithResponses) RotateWebhookSecretWithResponse(ctx context.Contex
 	return ParseRotateWebhookSecretResponse(rsp)
 }
 
+// ActivateWebhookSecretWithResponse Activate a staged builder webhook signing secret
+//
+// Promotes the prepared signing secret to current, returns it once, and signs every delivery with both the new and previous secrets for one hour. Call retire after the receiver has completed its rollout. The current secret remains available through the existing immediate rotate-secret route for emergency replacement.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/activate (the `ActivateWebhookSecret` operationId).
+func (c *ClientWithResponses) ActivateWebhookSecretWithResponse(ctx context.Context, id int64, params *ActivateWebhookSecretParams, reqEditors ...RequestEditorFn) (*ActivateWebhookSecretResponse, error) {
+	rsp, err := c.ActivateWebhookSecret(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseActivateWebhookSecretResponse(rsp)
+}
+
+// PrepareWebhookSecretWithResponse Prepare a staged builder webhook signing secret
+//
+// Creates a pending signing secret while the current secret remains active. Deploy the returned one-time signing_secret to the receiver before calling activate. The response exposes secret_rotation.status=pending; an existing pending secret is returned again so a lost response can be recovered safely.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/prepare (the `PrepareWebhookSecret` operationId).
+func (c *ClientWithResponses) PrepareWebhookSecretWithResponse(ctx context.Context, id int64, params *PrepareWebhookSecretParams, reqEditors ...RequestEditorFn) (*PrepareWebhookSecretResponse, error) {
+	rsp, err := c.PrepareWebhookSecret(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePrepareWebhookSecretResponse(rsp)
+}
+
+// RetireWebhookSecretWithResponse Retire the previous builder webhook signing secret
+//
+// Ends the one-hour dual-signature overlap and removes the previous signing secret from future delivery authorization. Call this after the receiver accepts the activated secret. The operation is idempotent and does not return signing_secret.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/retire (the `RetireWebhookSecret` operationId).
+func (c *ClientWithResponses) RetireWebhookSecretWithResponse(ctx context.Context, id int64, params *RetireWebhookSecretParams, reqEditors ...RequestEditorFn) (*RetireWebhookSecretResponse, error) {
+	rsp, err := c.RetireWebhookSecret(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRetireWebhookSecretResponse(rsp)
+}
+
 // VerifyWebhookWithBodyWithResponse Verify a builder webhook destination
 //
 // Activates a pending webhook destination. Two conditions must both hold: the one-time verification token matches and has not expired, AND the destination answers 2xx to a signed challenge this operation POSTs to the endpoint's stored url. The challenge body is {"type":"webhook.verification","token":"<verification_token>","webhook_id":<id>}. It carries x-0xinsider-event-type: webhook.verification plus the same x-0xinsider-timestamp and x-0xinsider-signature headers a delivery carries, signed with that endpoint's signing_secret, so verify it exactly as you verify a delivery. Answer any 2xx within 10 seconds; the challenge response body is never read, and the challenge follows no redirects. A status outside 2xx, no answer within 10 seconds, or a url that does not resolve to a publicly routable address leaves status at pending_verification and returns 422. The token alone never activates an endpoint.
@@ -28193,8 +31940,8 @@ func (c *ClientWithResponses) RotateWebhookSecretWithResponse(ctx context.Contex
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /api/v1/webhooks/{id}/verify (the `VerifyWebhook` operationId).
-func (c *ClientWithResponses) VerifyWebhookWithBodyWithResponse(ctx context.Context, id int64, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyWebhookResponse, error) {
-	rsp, err := c.VerifyWebhookWithBody(ctx, id, contentType, body, reqEditors...)
+func (c *ClientWithResponses) VerifyWebhookWithBodyWithResponse(ctx context.Context, id int64, params *VerifyWebhookParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyWebhookResponse, error) {
+	rsp, err := c.VerifyWebhookWithBody(ctx, id, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -28208,8 +31955,8 @@ func (c *ClientWithResponses) VerifyWebhookWithBodyWithResponse(ctx context.Cont
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
 // Corresponds with POST /api/v1/webhooks/{id}/verify (the `VerifyWebhook` operationId).
-func (c *ClientWithResponses) VerifyWebhookWithResponse(ctx context.Context, id int64, body VerifyWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyWebhookResponse, error) {
-	rsp, err := c.VerifyWebhook(ctx, id, body, reqEditors...)
+func (c *ClientWithResponses) VerifyWebhookWithResponse(ctx context.Context, id int64, params *VerifyWebhookParams, body VerifyWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyWebhookResponse, error) {
+	rsp, err := c.VerifyWebhook(ctx, id, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -28362,6 +32109,20 @@ func ParseGetApiDiscoveryResponse(rsp *http.Response) (*GetApiDiscoveryResponse,
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -28528,6 +32289,20 @@ func ParseRegisterAgentResponse(rsp *http.Response) (*RegisterAgentResponse, err
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -28742,6 +32517,20 @@ func ParseSearchContentResponse(rsp *http.Response) (*SearchContentResponse, err
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -28976,6 +32765,20 @@ func ParseGetEventReplaySinceResponse(rsp *http.Response) (*GetEventReplaySinceR
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -29198,6 +33001,20 @@ func ParseGetHealthResponse(rsp *http.Response) (*GetHealthResponse, error) {
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -29256,6 +33073,20 @@ func ParseGetHealthResponse(rsp *http.Response) (*GetHealthResponse, error) {
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -29472,6 +33303,20 @@ func ParseListInsiderRadarResponse(rsp *http.Response) (*ListInsiderRadarRespons
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -29544,6 +33389,20 @@ func ParseListInsiderRadarResponse(rsp *http.Response) (*ListInsiderRadarRespons
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -29793,6 +33652,20 @@ func ParseGetInsiderRadarFlagResponse(rsp *http.Response) (*GetInsiderRadarFlagR
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -29865,6 +33738,20 @@ func ParseGetInsiderRadarFlagResponse(rsp *http.Response) (*GetInsiderRadarFlagR
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -30114,6 +34001,20 @@ func ParseListLargePositionsResponse(rsp *http.Response) (*ListLargePositionsRes
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -30186,6 +34087,20 @@ func ParseListLargePositionsResponse(rsp *http.Response) (*ListLargePositionsRes
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -30433,6 +34348,20 @@ func ParseListLeaderboardResponse(rsp *http.Response) (*ListLeaderboardResponse,
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -30505,6 +34434,20 @@ func ParseListLeaderboardResponse(rsp *http.Response) (*ListLeaderboardResponse,
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -30754,6 +34697,20 @@ func ParseListTrendingWalletsResponse(rsp *http.Response) (*ListTrendingWalletsR
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -30826,6 +34783,20 @@ func ParseListTrendingWalletsResponse(rsp *http.Response) (*ListTrendingWalletsR
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -31076,6 +35047,20 @@ func ParseGetMarketCandlesResponse(rsp *http.Response) (*GetMarketCandlesRespons
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -31148,6 +35133,20 @@ func ParseGetMarketCandlesResponse(rsp *http.Response) (*GetMarketCandlesRespons
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -31382,6 +35381,20 @@ func ParseGetMarketContextMarkdownResponse(rsp *http.Response) (*GetMarketContex
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -31636,6 +35649,20 @@ func ParseGetMarketHoldersResponse(rsp *http.Response) (*GetMarketHoldersRespons
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -31708,6 +35735,20 @@ func ParseGetMarketHoldersResponse(rsp *http.Response) (*GetMarketHoldersRespons
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -31957,6 +35998,20 @@ func ParseGetMarketIntelResponse(rsp *http.Response) (*GetMarketIntelResponse, e
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -32029,6 +36084,20 @@ func ParseGetMarketIntelResponse(rsp *http.Response) (*GetMarketIntelResponse, e
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -32278,6 +36347,20 @@ func ParseGetMarketSnapshotResponse(rsp *http.Response) (*GetMarketSnapshotRespo
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -32350,6 +36433,20 @@ func ParseGetMarketSnapshotResponse(rsp *http.Response) (*GetMarketSnapshotRespo
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -32603,6 +36700,20 @@ func ParseExploreMarketsResponse(rsp *http.Response) (*ExploreMarketsResponse, e
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -32675,6 +36786,20 @@ func ParseExploreMarketsResponse(rsp *http.Response) (*ExploreMarketsResponse, e
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -32949,6 +37074,20 @@ func ParseBatchGetMarketIntelResponse(rsp *http.Response) (*BatchGetMarketIntelR
 			}
 			headers.XBatchRateLimitReset = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -33191,6 +37330,20 @@ func ParseSearchMarketsResponse(rsp *http.Response) (*SearchMarketsResponse, err
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -33436,6 +37589,20 @@ func ParseListSharpMoneyFlowsResponse(rsp *http.Response) (*ListSharpMoneyFlowsR
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -33508,6 +37675,20 @@ func ParseListSharpMoneyFlowsResponse(rsp *http.Response) (*ListSharpMoneyFlowsR
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -33767,6 +37948,20 @@ func ParseListSmartMoneyFlowsResponse(rsp *http.Response) (*ListSmartMoneyFlowsR
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -33839,6 +38034,20 @@ func ParseListSmartMoneyFlowsResponse(rsp *http.Response) (*ListSmartMoneyFlowsR
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -34253,6 +38462,20 @@ func ParseCreateMcpJsonRpcResponseResponse(rsp *http.Response) (*CreateMcpJsonRp
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -34318,6 +38541,20 @@ func ParseCreateMcpJsonRpcResponseResponse(rsp *http.Response) (*CreateMcpJsonRp
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -34447,13 +38684,6 @@ func ParseGetAccountIdentityResponse(rsp *http.Response) (*GetAccountIdentityRes
 		}
 		response.JSON401 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
-		var dest ApiError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON402 = &dest
-
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -34514,6 +38744,41 @@ func ParseGetAccountIdentityResponse(rsp *http.Response) (*GetAccountIdentityRes
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Monthly-Quota-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Monthly-Quota-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XMonthlyQuotaLimit = &value
+		}
+		if values := rsp.Header.Values("X-Monthly-Quota-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Monthly-Quota-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XMonthlyQuotaRemaining = &value
+		}
+		if values := rsp.Header.Values("X-Monthly-Quota-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Monthly-Quota-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XMonthlyQuotaReset = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -34913,6 +39178,20 @@ func ParseGetPickOfTheDayResponse(rsp *http.Response) (*GetPickOfTheDayResponse,
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -34985,6 +39264,20 @@ func ParseGetPickOfTheDayResponse(rsp *http.Response) (*GetPickOfTheDayResponse,
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -35230,6 +39523,20 @@ func ParseGetPickOfTheDayArchiveResponse(rsp *http.Response) (*GetPickOfTheDayAr
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -35302,6 +39609,20 @@ func ParseGetPickOfTheDayArchiveResponse(rsp *http.Response) (*GetPickOfTheDayAr
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -35538,6 +39859,20 @@ func ParseGetPickOfTheDayLedgerResponse(rsp *http.Response) (*GetPickOfTheDayLed
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -35610,6 +39945,20 @@ func ParseGetPickOfTheDayLedgerResponse(rsp *http.Response) (*GetPickOfTheDayLed
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -35806,6 +40155,20 @@ func ParseGetPlatformsResponse(rsp *http.Response) (*GetPlatformsResponse, error
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -36022,6 +40385,20 @@ func ParseListPositionsResponse(rsp *http.Response) (*ListPositionsResponse, err
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -36094,6 +40471,20 @@ func ParseListPositionsResponse(rsp *http.Response) (*ListPositionsResponse, err
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -36333,6 +40724,20 @@ func ParseGetReportsResponse(rsp *http.Response) (*GetReportsResponse, error) {
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -36570,6 +40975,20 @@ func ParseGetDailyReportSnapshotResponse(rsp *http.Response) (*GetDailyReportSna
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -36809,6 +41228,20 @@ func ParseGetMonthlyReportSnapshotResponse(rsp *http.Response) (*GetMonthlyRepor
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -37046,6 +41479,20 @@ func ParseGetWeeklyReportSnapshotResponse(rsp *http.Response) (*GetWeeklyReportS
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -37313,6 +41760,20 @@ func ParseListSportsEdgeObservationsResponse(rsp *http.Response) (*ListSportsEdg
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -37392,6 +41853,20 @@ func ParseListSportsEdgeObservationsResponse(rsp *http.Response) (*ListSportsEdg
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -37637,6 +42112,20 @@ func ParseListSportsEdgeSignalsResponse(rsp *http.Response) (*ListSportsEdgeSign
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -37709,6 +42198,20 @@ func ParseListSportsEdgeSignalsResponse(rsp *http.Response) (*ListSportsEdgeSign
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -37922,6 +42425,20 @@ func ParseGetStreamResponse(rsp *http.Response) (*GetStreamResponse, error) {
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -38171,6 +42688,20 @@ func ParseGetTraderResponse(rsp *http.Response) (*GetTraderResponse, error) {
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -38243,6 +42774,20 @@ func ParseGetTraderResponse(rsp *http.Response) (*GetTraderResponse, error) {
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -38492,6 +43037,20 @@ func ParseGetTraderCategoryRecordsResponse(rsp *http.Response) (*GetTraderCatego
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -38564,6 +43123,20 @@ func ParseGetTraderCategoryRecordsResponse(rsp *http.Response) (*GetTraderCatego
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -38813,6 +43386,20 @@ func ParseGetTraderContextResponse(rsp *http.Response) (*GetTraderContextRespons
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -38885,6 +43472,20 @@ func ParseGetTraderContextResponse(rsp *http.Response) (*GetTraderContextRespons
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -39112,6 +43713,20 @@ func ParseGetTraderContextMarkdownResponse(rsp *http.Response) (*GetTraderContex
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -39357,6 +43972,20 @@ func ParseGetTraderExportSnapshotResponse(rsp *http.Response) (*GetTraderExportS
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -39606,6 +44235,20 @@ func ParseSubmitTraderExportResponse(rsp *http.Response) (*SubmitTraderExportRes
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -39671,6 +44314,20 @@ func ParseSubmitTraderExportResponse(rsp *http.Response) (*SubmitTraderExportRes
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -40150,6 +44807,20 @@ func ParseGetTraderExportStatusResponse(rsp *http.Response) (*GetTraderExportSta
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -40398,6 +45069,20 @@ func ParseGetTraderPnlResponse(rsp *http.Response) (*GetTraderPnlResponse, error
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -40470,6 +45155,20 @@ func ParseGetTraderPnlResponse(rsp *http.Response) (*GetTraderPnlResponse, error
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -40731,6 +45430,20 @@ func ParseGetPositionTimelineResponse(rsp *http.Response) (*GetPositionTimelineR
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -40803,6 +45516,20 @@ func ParseGetPositionTimelineResponse(rsp *http.Response) (*GetPositionTimelineR
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -41077,6 +45804,20 @@ func ParseBatchGetTradersResponse(rsp *http.Response) (*BatchGetTradersResponse,
 			}
 			headers.XBatchRateLimitReset = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -41344,6 +46085,20 @@ func ParseGetPositionTimelineByIdResponse(rsp *http.Response) (*GetPositionTimel
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -41416,6 +46171,20 @@ func ParseGetPositionTimelineByIdResponse(rsp *http.Response) (*GetPositionTimel
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -41562,13 +46331,6 @@ func ParseGetUsageResponse(rsp *http.Response) (*GetUsageResponse, error) {
 		}
 		response.JSON401 = &dest
 
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
-		var dest ApiError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON402 = &dest
-
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -41630,6 +46392,13 @@ func ParseGetUsageResponse(rsp *http.Response) (*GetUsageResponse, error) {
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
 		if values := rsp.Header.Values("X-Monthly-Quota-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-Monthly-Quota-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -41650,6 +46419,13 @@ func ParseGetUsageResponse(rsp *http.Response) (*GetUsageResponse, error) {
 				return nil, err
 			}
 			headers.XMonthlyQuotaReset = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -41884,6 +46660,20 @@ func ParseListWebhooksResponse(rsp *http.Response) (*ListWebhooksResponse, error
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -42151,6 +46941,20 @@ func ParseCreateWebhookResponse(rsp *http.Response) (*CreateWebhookResponse, err
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -42384,6 +47188,20 @@ func ParseListWebhookEventsResponse(rsp *http.Response) (*ListWebhookEventsRespo
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -42637,6 +47455,20 @@ func ParseDeleteWebhookResponse(rsp *http.Response) (*DeleteWebhookResponse, err
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -42874,6 +47706,20 @@ func ParseGetWebhookResponse(rsp *http.Response) (*GetWebhookResponse, error) {
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -43148,6 +47994,20 @@ func ParseUpdateWebhookResponse(rsp *http.Response) (*UpdateWebhookResponse, err
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -43395,6 +48255,20 @@ func ParseListWebhookDeliveriesResponse(rsp *http.Response) (*ListWebhookDeliver
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -43656,6 +48530,20 @@ func ParseRedeliverWebhookDeliveryResponse(rsp *http.Response) (*RedeliverWebhoo
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -43915,6 +48803,20 @@ func ParseRotateWebhookSecretResponse(rsp *http.Response) (*RotateWebhookSecretR
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -44027,6 +48929,348 @@ func ParseRotateWebhookSecretResponse(rsp *http.Response) (*RotateWebhookSecretR
 			headers.XRequestId = &value
 		}
 		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseActivateWebhookSecretResponse parses an HTTP response from a ActivateWebhookSecretWithResponse call
+func ParseActivateWebhookSecretResponse(rsp *http.Response) (*ActivateWebhookSecretResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ActivateWebhookSecretResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			Data   WebhookEndpoint                                `json:"data"`
+			Meta   ResponseMeta                                   `json:"meta"`
+			Object ActivateWebhookSecret200JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePrepareWebhookSecretResponse parses an HTTP response from a PrepareWebhookSecretWithResponse call
+func ParsePrepareWebhookSecretResponse(rsp *http.Response) (*PrepareWebhookSecretResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PrepareWebhookSecretResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			Data   WebhookEndpoint                               `json:"data"`
+			Meta   ResponseMeta                                  `json:"meta"`
+			Object PrepareWebhookSecret200JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRetireWebhookSecretResponse parses an HTTP response from a RetireWebhookSecretWithResponse call
+func ParseRetireWebhookSecretResponse(rsp *http.Response) (*RetireWebhookSecretResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RetireWebhookSecretResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			Data   WebhookEndpoint                              `json:"data"`
+			Meta   ResponseMeta                                 `json:"meta"`
+			Object RetireWebhookSecret200JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -44180,6 +49424,20 @@ func ParseVerifyWebhookResponse(rsp *http.Response) (*VerifyWebhookResponse, err
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -44427,6 +49685,20 @@ func ParseListWhaleTradesResponse(rsp *http.Response) (*ListWhaleTradesResponse,
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -44499,6 +49771,20 @@ func ParseListWhaleTradesResponse(rsp *http.Response) (*ListWhaleTradesResponse,
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -44746,6 +50032,20 @@ func ParseListWhaleTradeHistoryResponse(rsp *http.Response) (*ListWhaleTradeHist
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -44818,6 +50118,20 @@ func ParseListWhaleTradeHistoryResponse(rsp *http.Response) (*ListWhaleTradeHist
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -45067,6 +50381,20 @@ func ParseGetWhaleTradeResponse(rsp *http.Response) (*GetWhaleTradeResponse, err
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -45139,6 +50467,20 @@ func ParseGetWhaleTradeResponse(rsp *http.Response) (*GetWhaleTradeResponse, err
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -45374,6 +50716,20 @@ func ParseListWhaleTradeCounterpartyExecutionsResponse(rsp *http.Response) (*Lis
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -45446,6 +50802,20 @@ func ParseListWhaleTradeCounterpartyExecutionsResponse(rsp *http.Response) (*Lis
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
@@ -45681,6 +51051,20 @@ func ParseListWhaleTradeCounterpartyMakersResponse(rsp *http.Response) (*ListWha
 			}
 			headers.ServerTiming = &value
 		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
@@ -45753,6 +51137,20 @@ func ParseListWhaleTradeCounterpartyMakersResponse(rsp *http.Response) (*ListWha
 				return nil, err
 			}
 			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
 		}
 		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
 			var value int
