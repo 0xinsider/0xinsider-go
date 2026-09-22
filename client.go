@@ -12,7 +12,7 @@ import (
 const DefaultServer = "https://api.0xinsider.com"
 
 // Version is this SDK's release, sent in the User-Agent header.
-const Version = "0.1.0"
+const Version = "0.2.0"
 
 // WithBearerToken authenticates every request with an API key
 // (oxi_sk_live_...) or an OAuth 2.1 access token (oxi_at_...). Discovery,
@@ -39,6 +39,22 @@ func withUserAgent() ClientOption {
 
 // New returns a typed client for the production API. Pass WithBearerToken for
 // authenticated operations; pass WithBaseURL to target another server.
+//
+// The client refuses GET /api/v1/stream outside OpenStream with
+// ErrStreamBuffered: the generated GetStreamWithResponse reads the unbounded
+// event stream to EOF, so it would neither return nor bound its memory. Read
+// the stream with OpenStream, or take the raw body through GetStream with
+// RawStreamContext. The generated NewClientWithResponses carries none of
+// this; New is the supported constructor.
 func New(opts ...ClientOption) (*ClientWithResponses, error) {
-	return NewClientWithResponses(DefaultServer, append([]ClientOption{withUserAgent()}, opts...)...)
+	client, err := NewClientWithResponses(DefaultServer, append([]ClientOption{withUserAgent()}, opts...)...)
+	if err != nil {
+		return nil, err
+	}
+	inner, ok := client.ClientInterface.(*Client)
+	if !ok {
+		return nil, fmt.Errorf("oxinsider: generated client is %T, not *Client", client.ClientInterface)
+	}
+	inner.Client = streamGuardDoer{inner: inner.Client}
+	return client, nil
 }

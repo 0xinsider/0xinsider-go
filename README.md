@@ -54,11 +54,44 @@ Every operation in the OpenAPI document has a typed `...WithResponse` method. `J
 - **Numbers.** Money and price fields keep the API's full precision. Do not round before you display them.
 - **Missing values.** A missing, stale, partial or unavailable field means the provider did not report that value. Do not read it as zero.
 
+## Stream
+
+`GET /api/v1/stream` is an unbounded Server-Sent Events stream. Read it with `OpenStream`, which delivers each frame as it arrives, holds at most `WithMaxFrameBytes` (1 MiB by default) for one undelivered frame, and closes the connection when the context is cancelled or the reader is closed:
+
+```go
+cursor := "0" // the last seq you processed; omit LastEventID to attach live
+reader, err := client.OpenStream(ctx, &oxinsider.GetStreamParams{LastEventID: &cursor})
+if err != nil {
+	log.Fatal(err) // *oxinsider.StreamHTTPError (401, 429 with Retry-After, ...) or *oxinsider.StreamProtocolError
+}
+defer reader.Close()
+for {
+	frame, err := reader.Next()
+	if errors.Is(err, io.EOF) {
+		break // the server closed the stream; reconnect with the last seq
+	}
+	if err != nil {
+		log.Fatal(err) // ctx.Err(), a transport error, or *oxinsider.StreamProtocolError
+	}
+	if frame.Resync {
+		// The resume point is outside the retained window: refetch state, then continue live.
+		continue
+	}
+	cursor = strconv.FormatInt(frame.Seq, 10)
+	fmt.Println(frame.Type, string(frame.Data))
+}
+```
+
+A frame that breaks the SSE contract (not JSON, not an object, no usable sequence, a malformed `resync` marker, a `200` that is not `text/event-stream`, or a frame past the byte ceiling) ends the stream with a `*StreamProtocolError` whose `Reason`, `LastSeq` and `FrameID` say which frame and where to resume from; a malformed frame never moves `LastSeq`. Keep-alive comments are consumed silently, `retry:` is exposed as `RetryHint`, and the stream's headers are on `Response()`.
+
+Do not read the stream with the generated `GetStreamWithResponse`: it reads the body to EOF, which a healthy stream never reaches, so it would neither return nor bound its memory. A client from `New` refuses that call with `ErrStreamBuffered`. To own the raw `*http.Response` instead, call `GetStream` with `RawStreamContext(ctx)`.
+
 Run the example, which needs no key for discovery and health:
 
 ```sh
 go run ./examples/discovery
 OXI_API_KEY=oxi_sk_live_... go run ./examples/discovery
+OXI_API_KEY=oxi_sk_live_... go run ./examples/stream
 ```
 
 ## Regenerate
