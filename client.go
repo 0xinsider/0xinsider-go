@@ -12,7 +12,7 @@ import (
 const DefaultServer = "https://api.0xinsider.com"
 
 // Version is this SDK's release, sent in the User-Agent header.
-const Version = "0.2.0"
+const Version = "0.3.0"
 
 // WithBearerToken authenticates every request with an API key
 // (oxi_sk_live_...) or an OAuth 2.1 access token (oxi_at_...). Discovery,
