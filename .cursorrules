@@ -62,6 +62,7 @@ wrong number.
 - Run `gofmt` before committing. `oxinsider.gen.go` is generated from `openapi.sdk.json`; regenerate it with the script in `scripts/` rather than editing it.
 - A bearer credential goes over `https://` only, or `http://` to a loopback host (`policy.go`, hand-written, kept outside the generated file): `WithBearerToken` checks the final URL, the doer `New` installs checks every request that carries `Authorization`, and its `CheckRedirect` refuses a credentialed downgrade. Regeneration must not route credentials around it.
 - Read `GET /api/v1/stream` with `OpenStream` (`stream.go`, hand-written, kept outside the generated file). The generated `GetStreamWithResponse` reads the unbounded body to EOF and is refused by a client from `New`; regeneration must not make it the documented path again.
+- Every ordinary request from `New` is bounded: a total deadline per request and connect, TLS and response-header bounds on the transport (`timeout.go`, hand-written, kept outside the generated file). A caller's context deadline always wins, and `GET /api/v1/stream` is excluded and bounded by `OpenStream`'s start and idle timeouts instead. `scripts/generate.sh` fails when `New` stops installing these; regeneration must not leave a request unbounded.
 
 ## Official resources
 

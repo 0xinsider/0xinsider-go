@@ -48,6 +48,15 @@ func withUserAgent() ClientOption {
 // New returns a typed client for the production API. Pass WithBearerToken for
 // authenticated operations; pass WithBaseURL to target another server.
 //
+// Every ordinary request is finitely bounded: DefaultRequestTimeout end to
+// end (DefaultDownloadTimeout for the export download), over a transport that
+// bounds the dial, the TLS handshake and the wait for response headers. A
+// context deadline the caller brings wins, WithRequestTimeout changes the
+// default, and a deadline this client applied is reported as
+// *RequestTimeoutError. GET /api/v1/stream is bounded by OpenStream's start
+// and idle timeouts instead, so a healthy stream is never cut by the
+// ordinary-request deadline (timeout.go).
+//
 // The client refuses GET /api/v1/stream outside OpenStream with
 // ErrStreamBuffered: the generated GetStreamWithResponse reads the unbounded
 // event stream to EOF, so it would neither return nor bound its memory. Read
@@ -57,8 +66,12 @@ func withUserAgent() ClientOption {
 // the default http.Client follows (*InsecureTransportError). The generated
 // NewClientWithResponses carries none of this; New is the supported
 // constructor.
+//
+// WithHTTPClient still replaces the HTTP client, and its owner then owns the
+// transport bounds; the per-request deadline is applied around it either way.
 func New(opts ...ClientOption) (*ClientWithResponses, error) {
-	client, err := NewClientWithResponses(DefaultServer, append([]ClientOption{withUserAgent()}, opts...)...)
+	defaults := []ClientOption{WithHTTPClient(newDefaultHTTPClient()), withUserAgent()}
+	client, err := NewClientWithResponses(DefaultServer, append(defaults, opts...)...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,6 +79,10 @@ func New(opts ...ClientOption) (*ClientWithResponses, error) {
 	if !ok {
 		return nil, fmt.Errorf("oxinsider: generated client is %T, not *Client", client.ClientInterface)
 	}
-	inner.Client = policyDoer{inner: withRedirectPolicy(inner.Client)}
+	inner.Client = deadlineDoer{
+		inner:    policyDoer{inner: withRedirectPolicy(inner.Client)},
+		request:  DefaultRequestTimeout,
+		download: DefaultDownloadTimeout,
+	}
 	return client, nil
 }

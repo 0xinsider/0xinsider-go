@@ -47,8 +47,12 @@ if [ -z "$app_commit" ]; then
     echo "warning: app commit not resolved from the GitHub API; recording \"\"" >&2
   fi
 fi
+# Filter through a temporary file: SPEC=openapi.sdk.json is a reasonable thing
+# to type, and a redirect straight onto the destination would truncate the
+# input before jq read it.
 jq '(.paths[][] | objects | select(has("parameters")) | .parameters) |= map(select((.name // "") | endswith("[]") | not))' \
-  "$spec" > openapi.sdk.json
+  "$spec" > "$tmp/openapi.sdk.json"
+mv "$tmp/openapi.sdk.json" openapi.sdk.json
 go run "github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@${OAPI_CODEGEN_VERSION}" \
   -config scripts/oapi-codegen.yaml openapi.sdk.json
 cat > provenance.go <<PROVENANCE
@@ -75,4 +79,30 @@ gofmt -w provenance.go
 gofmt -l . | (! grep .)
 go vet ./...
 go build ./...
+
+# The hand-maintained transport policy lives outside the generated file, and
+# only New installs it: the credential destination guard, the stream guard, and
+# the request deadlines. A regeneration that rewrites the constructor or drops
+# one of these files would leave requests unbounded or credentials unchecked,
+# silently, so fail here instead.
+policy_ok=1
+require_policy() {
+  if ! grep -qF "$2" "$1"; then
+    echo "error: $1 no longer carries $3" >&2
+    policy_ok=0
+  fi
+}
+require_policy client.go 'newDefaultHTTPClient()' "the bounded default HTTP client (timeout.go)"
+require_policy client.go 'deadlineDoer{' "the per-request deadline (timeout.go)"
+require_policy client.go 'policyDoer{' "the credential and stream guard (policy.go)"
+require_policy client.go 'withRedirectPolicy(' "the redirect downgrade guard (policy.go)"
+require_policy timeout.go 'func (d deadlineDoer) Do(' "the doer that bounds an ordinary request"
+require_policy timeout.go 'ResponseHeaderTimeout: DefaultResponseHeaderTimeout' "the transport's response-header bound"
+require_policy stream.go 'func isStreamRequest(' "the predicate that keeps the event stream off the request deadline"
+require_policy stream.go 'func newIdleGuard(' "the stream idle bound"
+if [ "$policy_ok" -ne 1 ]; then
+  echo "error: regeneration must not drop the hand-maintained transport policy; see AGENTS.md" >&2
+  exit 1
+fi
+
 echo "generated ${operation_count} operations from ${source_label} (sha256 ${sha256}, app commit ${app_commit:-unknown})"
