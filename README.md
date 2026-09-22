@@ -97,7 +97,9 @@ OXI_API_KEY=oxi_sk_live_... go run ./examples/stream
 
 ## Regenerate
 
-`./scripts/generate.sh` fetches the published OpenAPI document, drops the bracketed `expand[]` query aliases (the SDK always sends `expand`), regenerates `oxinsider.gen.go` with oapi-codegen, and vets and builds the module. A weekly workflow opens a pull request when the published document changes.
+`./scripts/generate.sh` fetches the published OpenAPI document, drops the bracketed `expand[]` query aliases (the SDK always sends `expand`), regenerates `oxinsider.gen.go` with oapi-codegen, writes `provenance.go`, and vets and builds the module. A weekly workflow opens a pull request when the published document changes.
+
+`provenance.go` says which document a release was generated from: `OpenAPISHA256` (the SHA-256 of the document bytes), `OpenAPIVersion`, `OperationCount`, and `AppCommit`, the `0xinsider/0xinsider` commit that last changed `web/public/api/v1/openapi.json` (empty when it could not be resolved). Compare `OpenAPISHA256` with `shasum -a 256` of the live document to see whether a release is behind the API.
 
 ## License
 
