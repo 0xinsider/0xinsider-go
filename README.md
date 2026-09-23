@@ -55,6 +55,24 @@ Every operation in the OpenAPI document has a typed `...WithResponse` method. `J
 - **Numbers.** Money and price fields keep the API's full precision. Do not round before you display them.
 - **Missing values.** A missing, stale, partial or unavailable field means the provider did not report that value. Do not read it as zero.
 
+## How old is it?
+
+A trader carries `data_quality` inside `data`, and the positions and large-trade pages carry it beside `data`: a `status`, the oldest `as_of` the body rests on, and one entry per field group. `AssessDataQuality` turns it into one decision against your own tolerance. It reads the raw bytes a `...WithResponse` method keeps in `Body`, so it needs no generated type, and it makes no request:
+
+```go
+verdict, err := oxinsider.AssessDataQuality(resp.Body, oxinsider.DataQualityOptions{MaxAge: 15 * time.Minute})
+if err != nil {
+	log.Fatal(err) // the body carries no data_quality block
+}
+if !verdict.OK {
+	for _, f := range verdict.Failing {
+		log.Println(f.Group, f.Status, f.Reason)
+	}
+}
+```
+
+A group passes only when its `status` is `fresh`, it carries `as_of`, and that clock is within `MaxAge`. `fresh` means tracked and clocked, not current enough for you. `unknown` fails: the read cannot date that group, and missing is never recent. `untracked` groups are listed in `verdict.Untracked` and left out of the verdict. Set `Groups: []string{"ranking", "volume"}` to judge only the groups you read; a named group the body does not carry fails as `missing`. The TypeScript (`assessDataQuality`) and Python (`assess_data_quality`) SDKs apply the same rule.
+
 ## Timeouts
 
 `net/http` has no default timeout, so the quickstart above would otherwise wait forever on a stalled connection. A client from `New` bounds every ordinary request:
