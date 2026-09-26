@@ -5688,12 +5688,13 @@ func (e ExploreMarketsParamsPlatform) Valid() bool {
 
 // Defines values for ExploreMarketsParamsSort.
 const (
-	ExploreMarketsParamsSortExpiring ExploreMarketsParamsSort = "expiring"
-	ExploreMarketsParamsSortHot      ExploreMarketsParamsSort = "hot"
-	ExploreMarketsParamsSortNewest   ExploreMarketsParamsSort = "newest"
-	ExploreMarketsParamsSortTrending ExploreMarketsParamsSort = "trending"
-	ExploreMarketsParamsSortVolume   ExploreMarketsParamsSort = "volume"
-	ExploreMarketsParamsSortWhales   ExploreMarketsParamsSort = "whales"
+	ExploreMarketsParamsSortExpiring    ExploreMarketsParamsSort = "expiring"
+	ExploreMarketsParamsSortHot         ExploreMarketsParamsSort = "hot"
+	ExploreMarketsParamsSortLargeTrades ExploreMarketsParamsSort = "large_trades"
+	ExploreMarketsParamsSortNewest      ExploreMarketsParamsSort = "newest"
+	ExploreMarketsParamsSortTrending    ExploreMarketsParamsSort = "trending"
+	ExploreMarketsParamsSortVolume      ExploreMarketsParamsSort = "volume"
+	ExploreMarketsParamsSortWhales      ExploreMarketsParamsSort = "whales"
 )
 
 // Valid indicates whether the value is a known member of the ExploreMarketsParamsSort enum.
@@ -5702,6 +5703,8 @@ func (e ExploreMarketsParamsSort) Valid() bool {
 	case ExploreMarketsParamsSortExpiring:
 		return true
 	case ExploreMarketsParamsSortHot:
+		return true
+	case ExploreMarketsParamsSortLargeTrades:
 		return true
 	case ExploreMarketsParamsSortNewest:
 		return true
@@ -8190,7 +8193,7 @@ type ApiErrorBody struct {
 	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown.
 	Reason *ApiErrorBodyReason `json:"reason,omitempty"`
 
-	// RetryAt The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited including reason=monthly_quota_exceeded, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 11:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt. Every value is advisory under supported operator actions: manual publication, release-time override, or admin generation can make a pick available first. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew.
+	// RetryAt The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited including reason=monthly_quota_exceeded, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 11:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt. Every value is advisory and can change before release. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew.
 	RetryAt *time.Time `json:"retry_at,omitempty"`
 }
 
@@ -8764,11 +8767,15 @@ type ExploreMarket struct {
 	} `json:"score_components,omitempty"`
 
 	// Slug Provider-native market slug.
-	Slug       string              `json:"slug"`
-	SmartCount int                 `json:"smart_count"`
-	SmartLabel string              `json:"smart_label"`
-	SmartScore float32             `json:"smart_score"`
-	Status     ExploreMarketStatus `json:"status"`
+	Slug       string `json:"slug"`
+	SmartCount int    `json:"smart_count"`
+
+	// SmartLabel The outcome graded money leans toward RELATIVE TO THE PRICE: named only when the graded money's share of a side diverges from that side's price-implied share by at least 10 points, with at least $500 on the leaning side and outside the crowded-side guard. Null when the money sits with the price (no lean), when there is no graded money, or when the price is unavailable. The same rule as the market page.
+	SmartLabel string  `json:"smart_label"`
+	SmartScore float32 `json:"smart_score"`
+
+	// Status closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot.
+	Status ExploreMarketStatus `json:"status"`
 
 	// Title Non-empty market title.
 	Title string `json:"title"`
@@ -8794,7 +8801,7 @@ type ExploreMarketFreshnessEnrichmentStatus string
 // ExploreMarketFreshnessPriceStatus defines model for ExploreMarket.Freshness.PriceStatus.
 type ExploreMarketFreshnessPriceStatus string
 
-// ExploreMarketStatus defines model for ExploreMarket.Status.
+// ExploreMarketStatus closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot.
 type ExploreMarketStatus string
 
 // ExploreStandalone defines model for ExploreStandalone.
@@ -9808,16 +9815,18 @@ type MarketHoldersTotals struct {
 
 // MarketSearchResult defines model for MarketSearchResult.
 type MarketSearchResult struct {
-	Category    string                   `json:"category"`
-	ConditionId string                   `json:"condition_id"`
-	Id          string                   `json:"id"`
-	Platform    string                   `json:"platform"`
-	Slug        string                   `json:"slug"`
-	Status      MarketSearchResultStatus `json:"status"`
-	Title       string                   `json:"title"`
+	Category    string `json:"category"`
+	ConditionId string `json:"condition_id"`
+	Id          string `json:"id"`
+	Platform    string `json:"platform"`
+	Slug        string `json:"slug"`
+
+	// Status closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot.
+	Status MarketSearchResultStatus `json:"status"`
+	Title  string                   `json:"title"`
 }
 
-// MarketSearchResultStatus defines model for MarketSearchResult.Status.
+// MarketSearchResultStatus closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot.
 type MarketSearchResultStatus string
 
 // MarketSnapshot defines model for MarketSnapshot.
@@ -9852,10 +9861,12 @@ type MarketSnapshot struct {
 		ResolvedAt   time.Time `json:"resolved_at"`
 
 		// SeriesSlug Polymarket series slug from the canonical identity row, null when unavailable. A sports series identifies a league and must not be used as a per-matchup grouping key.
-		SeriesSlug string                     `json:"series_slug"`
-		Slug       string                     `json:"slug"`
-		Status     MarketSnapshotMarketStatus `json:"status"`
-		Title      string                     `json:"title"`
+		SeriesSlug string `json:"series_slug"`
+		Slug       string `json:"slug"`
+
+		// Status closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot.
+		Status MarketSnapshotMarketStatus `json:"status"`
+		Title  string                     `json:"title"`
 	} `json:"market"`
 	Outcomes []struct {
 		CurrentPrice *float32                   `json:"current_price,omitempty"`
@@ -9879,7 +9890,7 @@ type MarketSnapshot struct {
 	Trust *MarketSnapshotTrust `json:"trust,omitempty"`
 }
 
-// MarketSnapshotMarketStatus defines model for MarketSnapshot.Market.Status.
+// MarketSnapshotMarketStatus closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot.
 type MarketSnapshotMarketStatus string
 
 // MarketSnapshotOutcomesSide defines model for MarketSnapshot.Outcomes.Side.
@@ -10013,6 +10024,9 @@ type PickHolder struct {
 		Wins int `json:"wins"`
 	} `json:"category_win_record,omitempty"`
 
+	// EntryValueUsd USD entry value of this wallet's position: `shares` times the pick's frozen `backed_price`. An entry valuation, never a live balance or the provider's current value. Omitted when the holder snapshot has no valid price.
+	EntryValueUsd *float32 `json:"entry_value_usd,omitempty"`
+
 	// Grade All-time trader grade (S, A, B, C, D, F).
 	Grade string `json:"grade"`
 
@@ -10021,6 +10035,9 @@ type PickHolder struct {
 
 	// IsNewWallet True when the wallet's first trade was under 30 days ago. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
 	IsNewWallet *bool `json:"is_new_wallet,omitempty"`
+
+	// LastTradedAt The wallet's most recent recorded trade time, stamped at serve time from its current trader record rather than frozen with the pick. Always sent; null when no trade time is recorded.
+	LastTradedAt time.Time `json:"last_traded_at"`
 
 	// MarketsTraded Distinct markets this wallet has traded. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
 	MarketsTraded *int   `json:"markets_traded,omitempty"`
@@ -10081,7 +10098,7 @@ type PickOfTheDay struct {
 	// Disclaimer Risk disclaimer shown with every pick.
 	Disclaimer *string `json:"disclaimer,omitempty"`
 
-	// DisplayCategory Frozen public presentation category. For supported Polymarket sports this is the exact verified provider event identity: an official league (e.g. "WNBA" or "UFC"), the esports title (e.g. "CS2", "LoL", "Dota 2" or "Valorant"), or a soccer competition whose official mark we vendor (e.g. "LaLiga", "Premier League", "Serie A" or "UEFA Champions League"). Only identities with a vendored official mark are split out; every other competition keeps its canonical bucket, so "Soccer" remains a live value; otherwise it equals category. An esports pick keeps the pooled "Esports" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility.
+	// DisplayCategory Frozen public presentation category: the competition the Polymarket event belongs to. A curated label comes first -- an official league (e.g. "WNBA" or "UFC"), the esports title (e.g. "CS2", "LoL", "Dota 2" or "Valorant"), or a soccer competition (e.g. "LaLiga", "Premier League", "Serie A" or "UEFA Champions League"); any other competition carries the provider's own competition name without its season year (e.g. "UEFA Nations League", "ATP" or "Wimbledon"). It equals category only when the provider names no competition. An esports pick keeps the pooled "Esports" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility.
 	DisplayCategory *string `json:"display_category,omitempty"`
 
 	// DisplayHolders Full-only complete provider-confirmed S/A/B holder roster for the current Pick of the Day backing policy. Omitted for teaser, no-pick, and historical rows whose frozen holder proof predates this policy. Each entry may additionally carry `category_win_rate` / `category_win_rate_status`: the wallet's win rate in the pick's canonical `category`, stamped at serve time from the current category read model (the same annotation the sports sharp-money chips carry). The bounded `holders` compatibility projection never carries these fields.
@@ -10101,6 +10118,9 @@ type PickOfTheDay struct {
 
 	// EventSlug The canonical /event game-page slug (one neutral page per game); omitted when the game has no neutral event page.
 	EventSlug *string `json:"event_slug,omitempty"`
+
+	// GameEnded Whether the backed game is over according to the cached live scoreboard, read at serve time. Tells a finished game from one still in play before `outcome` settles. Omitted when the pick has no event slug or no scoreboard is cached for it; absence is unknown, never false.
+	GameEnded *bool `json:"game_ended,omitempty"`
 
 	// GameStarted True once the backed game's kickoff has passed (kickoff <= now). When true the snapshotted pre-game price is no longer actionable. Absent for a legacy pick with no stored kickoff (treat as not-started).
 	GameStarted *bool `json:"game_started,omitempty"`
@@ -10161,6 +10181,9 @@ type PickOfTheDay struct {
 
 	// Platform Provider platform (e.g. "polymarket").
 	Platform *string `json:"platform,omitempty"`
+
+	// PolymarketUrl Where this pick's outbound Polymarket link lands: Polymarket's own redirect answer for `/event/<event_slug>`, carrying the referral tag. Omitted until that redirect has been resolved; link to the event page instead when it is absent.
+	PolymarketUrl *string `json:"polymarket_url,omitempty"`
 
 	// Position The backed side phrased as a bet (e.g. "Portugal to win").
 	Position *string `json:"position,omitempty"`
@@ -10384,7 +10407,7 @@ type PickOfTheDayArchiveEntry struct {
 	// ClvStatus Exact backend CLV capture disposition for this visible row. Pending and terminal provider or quality statuses are distinguishable; capture timestamps are never serialized, while a measured row's entry and close prices are published as clv_entry_price and clv_close_price.
 	ClvStatus *string `json:"clv_status,omitempty"`
 
-	// DisplayCategory Frozen public presentation category. For supported Polymarket sports this is the exact verified provider event identity: an official league (e.g. "WNBA" or "UFC"), the esports title (e.g. "CS2", "LoL", "Dota 2" or "Valorant"), or a soccer competition whose official mark we vendor (e.g. "LaLiga", "Premier League", "Serie A" or "UEFA Champions League"). Only identities with a vendored official mark are split out; every other competition keeps its canonical bucket, so "Soccer" remains a live value; otherwise it equals category. An esports pick keeps the pooled "Esports" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility.
+	// DisplayCategory Frozen public presentation category: the competition the Polymarket event belongs to. A curated label comes first -- an official league (e.g. "WNBA" or "UFC"), the esports title (e.g. "CS2", "LoL", "Dota 2" or "Valorant"), or a soccer competition (e.g. "LaLiga", "Premier League", "Serie A" or "UEFA Champions League"); any other competition carries the provider's own competition name without its season year (e.g. "UEFA Nations League", "ATP" or "Wimbledon"). It equals category only when the provider names no competition. An esports pick keeps the pooled "Esports" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility.
 	DisplayCategory *string `json:"display_category,omitempty"`
 
 	// ImageUrl Provider (Polymarket Gamma) market thumbnail URL (markets.image); omitted (not null) when the market has no image. Public regardless of the backed-side gate, so present for pending rows too.
@@ -10410,6 +10433,12 @@ type PickOfTheDayArchiveEntry struct {
 
 	// PickRank Stable 1-based slot within the product day's ranked picks.
 	PickRank *int `json:"pick_rank,omitempty"`
+
+	// PublishedAt When this pick became public (RFC3339 UTC). pick_date above is the America/New_York product day, not an instant, so read this whenever you need a real time: reading the bare date as UTC midnight places it hours before the earliest instant a pick can drop (11:00 UTC on that date). A day's last pick can drop at 23:00 ET, which is the following UTC date. Omitted (not null) when the instant is unknown; additive and optional for mixed-version client compatibility.
+	PublishedAt *time.Time `json:"published_at,omitempty"`
+
+	// ResolvedAt When outcome was LAST written to a settled value (RFC3339 UTC), the same instant the commitment ledger publishes. It moves with a corrected market re-mapping an already-settled pick. Omitted (not null) for a pending pick and for a pick that settled before the instant was recorded, so absence means the instant is unknown, never that the pick is unsettled -- outcome answers that. Additive and optional for mixed-version client compatibility.
+	ResolvedAt *time.Time `json:"resolved_at,omitempty"`
 
 	// ReturnPer100 The same return on a literal $100 (a win returns 100 / backed_price, a loss 0, a void 100), kept for compatibility: the field predates stake_usd and its name promises the $100 basis. Present exactly when return_usd is.
 	ReturnPer100 *float32 `json:"return_per_100,omitempty"`
@@ -10806,6 +10835,9 @@ type PickSportsTeam struct {
 	// Logo Team crest or flag URL. Provider-owned for most teams (Polymarket /teams crest for clubs, country flag for national teams and tennis players). A club with a vendored crest carries it instead, served same-origin as a relative path (`/api/sports/team-logos/{league}/{abbr}.svg?v=<content hash>` or `.png`, resolve it against this server): every NFL and WNBA team, whose provider asset is a text tile, and the soccer clubs whose provider asset is an empty object.
 	Logo string `json:"logo"`
 
+	// LogoMarkDark True when the team mark is dark enough to disappear on a dark background, measured from the artwork by the teams sync. Render a dark mark on a light plate. Always sent; false until the artwork has been measured.
+	LogoMarkDark bool `json:"logo_mark_dark"`
+
 	// ProviderId Provider team identifier (Polymarket /teams id).
 	ProviderId int `json:"provider_id"`
 
@@ -10833,7 +10865,7 @@ type PickSportsTeamTour string
 
 // PickTrust Field-level trust metadata for the full Pick of the Day payload. Present on the full shape only (omitted on the teaser and the no-pick state, because whether a specialist backs the pick is itself backed-side evidence). Unlike TraderTrust it is not gated behind expand=trust: it carries one member on an endpoint that returns a single object per day.
 type PickTrust struct {
-	// QualifyingExpert Provenance of the frozen qualifying category expert. source.kind=database with reconciliation.status=db_mirror means the evidence deserialized, still satisfies every frozen selection gate, and is being served. On that arm freshness.status is always not_live and never fresh, because this evidence is frozen at selection and never refreshed, so on an archived pick the as_of (the expert's own stats_computed_at) can be days or months old by design. source.kind=computed with reconciliation.status=not_applicable means the selector evaluated the backed side and nobody qualified -- a real negative. source.kind=computed with freshness.status=unknown and completeness.status=not_computed means the selector never evaluated this field, as on a pre-feature pick or manual takeover. source.kind=unavailable means the payload is malformed, violates a selection gate, or conflicts with its persisted status, or the public V1 adapter intentionally omitted a current-policy B-grade expert; read the reason before treating it as a negative. Do not read an omitted qualifying_expert as 'no specialist' without checking this field.
+	// QualifyingExpert Provenance of the frozen qualifying category expert. source.kind=database with reconciliation.status=db_mirror means the evidence deserialized, still satisfies every frozen selection gate, and is being served. On that arm freshness.status is always not_live and never fresh, because this evidence is frozen at selection and never refreshed, so on an archived pick the as_of (the expert's own stats_computed_at) can be days or months old by design. source.kind=computed with reconciliation.status=not_applicable means the selector evaluated the backed side and nobody qualified -- a real negative. source.kind=computed with freshness.status=unknown and completeness.status=not_computed means the selector never evaluated this field, as on a pre-feature pick. source.kind=unavailable means the payload is malformed, violates a selection gate, or conflicts with its persisted status, or the public V1 adapter intentionally omitted a current-policy B-grade expert; read the reason before treating it as a negative. Do not read an omitted qualifying_expert as 'no specialist' without checking this field.
 	QualifyingExpert TrustMetadata `json:"qualifying_expert"`
 }
 
@@ -11759,7 +11791,7 @@ type Trader struct {
 	// CategoryStrengths Per-category performance breakdown (expand=categories or expand[]=categories). Omitted unless expanded. Object keyed by category name; each value is the precomputed trader_rankings.category_ranks payload (rank, total_in_category, total_pnl, scaled_total_pnl, n_markets, wins, losses, win_rate; scaled_total_pnl is a legacy alias that currently equals total_pnl). BASIS: the calibration sample, which admits a position only above a 20 USD notional floor and with a chosen-side entry price strictly inside (0,1), because the ranks and the calibration edge derived from it depend on both rules. That is a different sample from GET /api/v1/trader/{address}/categories, which counts every settled market at any size, and the two differ in both directions. Measured on production 2026-09-22 over the 122,497 wallet-category pairs with at least 20 decided markets on both bases: the floored rate was higher in 56.5% of pairs, lower in 34.5% and equal in 9.0%, median +0.6 points, p10 -4.6, p90 +9.8, and 14.0% of pairs differ by 10 points or more. The difference is not only small positions: on a 1-in-250 wallet sample the same day, admitted markets won 56.6% while markets dropped by the notional floor alone won 45.2% and markets dropped by the entry-price rule alone won 48.7%. n_markets counts every admitted market including the ones that resolved at exactly zero P&L, so it is not the denominator of win_rate: it differed from wins + losses in 15.8% of pairs with at least 5 decided markets. The two tables also run on different clocks, this one updated incrementally and that route rebuilt daily, so a same-day read can differ on timing alone. Use this for rank context and that route for the wallet's plain record. Pass-through DB JSON: keys and value shape are DB-owned, so the inner shape is intentionally unconstrained and may carry additional compatibility fields.
 	CategoryStrengths *map[string]interface{} `json:"category_strengths,omitempty"`
 
-	// DataQuality Data age and coverage for this trader body. Always present. Its five groups are sync (traders.last_synced, covering pnl.total, pnl.realized, stats.markets_traded, stats.win_rate, stats.daily_win_rate, last_active, synced_at and sync_status), ranking (trader_rankings.computed_at, covering grade, score, streak_tier, forecast_score and forecast_evidence), leaderboard_rank (leaderboard_rank_refresh_state.completed_at, the completion time of the latest fully completed global rank refresh, covering rank), volume (trader_usd_volume.observed_at, covering stats.total_volume) and positions (trader_position_snapshots.last_refreshed_at with traders.last_synced as fallback, covering pnl.unrealized, the open-position aggregate). The positions clock is the latest successful /positions snapshot when one exists, otherwise the last completed trader sync; it does not date closed or native accounting values. A rank or position value remains unknown or unavailable when its clock or value is absent. For an unknown wallet every group is unavailable.
+	// DataQuality Data age and coverage for this trader body. Always present. Its five groups are sync (traders.last_synced, covering pnl.total, pnl.realized, stats.markets_traded, stats.win_rate, stats.daily_win_rate, last_active, synced_at and sync_status), ranking (trader_rankings.computed_at, covering grade, score, streak_tier, forecast_score and forecast_evidence), leaderboard_rank (leaderboard_rank_refresh_state.completed_at, the completion time of the latest fully completed global rank refresh, covering rank), volume (trader_usd_volume.observed_at, covering stats.total_volume) and positions (trader_position_snapshots.last_refreshed_at with traders.last_synced as fallback, covering pnl.unrealized, the open-position aggregate). The positions clock is the latest successful /positions snapshot when one exists, otherwise the last completed trader sync; it does not date closed or native accounting values. A rank or position value remains unknown or unavailable when its clock or value is absent. For an unknown wallet every group is unavailable. If the open-position read itself fails, positions is unavailable with a reason that says so, pnl.unrealized is absent, and the body is answered fresh (meta.cached false) and is not kept for later callers.
 	DataQuality DataQuality `json:"data_quality"`
 
 	// ForecastEvidence Share of forecast_score supported by the trader's own resolved-market record rather than the cohort prior: n / (n + 30). Omitted when forecast_score is unavailable.
@@ -11796,7 +11828,7 @@ type Trader struct {
 		// CopyScore Copyability score, 0-100. Same base as smart_score minus penalties for traits that make a strategy hard to replicate: -20 if fewer than 50 markets traded, -15 if positions are highly concentrated, -15 if position sizing exceeds about 2x Kelly, -10 if the worst single-trade loss exceeds 30%, -10 if edge is inconsistent; result clamped to 0-100. Higher means easier to follow. null when insufficient history.
 		CopyScore float32 `json:"copy_score"`
 
-		// EdgeConsistency Stability of the trader's edge over time, 0-1 (higher is more consistent). null when insufficient history.
+		// EdgeConsistency Share of the trader's last 30 days with realized P&L that closed positive, 0-1 (higher is more consistent). A day with no realized P&L is not one of them, so the window can span months. null below 10 such days; null never means 0.
 		EdgeConsistency float32 `json:"edge_consistency"`
 
 		// PfPercentile Cross-sectional percentile rank of profit factor versus all traders, 0-100. null when insufficient history.
@@ -12769,7 +12801,7 @@ type SearchContentParams struct {
 	// Q Search query. Must be 1-256 characters before whitespace trimming and non-empty after trimming.
 	Q string `form:"q" json:"q"`
 
-	// Limit Maximum content items to return.
+	// Limit Maximum content items to return. Out-of-range values are clamped to 1..50.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -12802,7 +12834,7 @@ type GetEventReplaySinceParams struct {
 	// Cursor Opaque event replay cursor returned as next_cursor by a prior response. The cursor maps to the global (whale_alerts.inserted_xid, whale_alerts.id) commit-order position, is valid across backend replicas, and is bound to the filter set the walk ran with (trader, condition_id, min_grade, min_size): presenting it under different filters answers 400 bad_request with error.reason cursor_expired, and the walk restarts without a cursor. Cursors issued before 2026-09-22 (id-only) stay accepted and are bound to no filters. Omit to fetch the latest durable public suffix.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// Limit Maximum durable public whale-trade events to return.
+	// Limit Maximum durable public whale-trade events to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Trader Only this wallet's trades: a wallet address, trd_-prefixed trader id or username resolved against the traders table. Bound to the cursor: a cursor issued under other filters answers 400 with error.reason cursor_expired. An unknown trader matches nothing and the walk still advances.
@@ -12853,7 +12885,7 @@ type ListGamesParams struct {
 	// StartsBefore RFC 3339 instant. Keep only games whose kickoff is at or before it. Must be at or after starts_after.
 	StartsBefore *time.Time `form:"starts_before,omitempty" json:"starts_before,omitempty"`
 
-	// Limit Page size.
+	// Limit Page size. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Opaque gms_v1_ cursor from next_cursor. It pins the page position (kickoff and event_slug), not a snapshot: the catalog is live, so a game added or removed between pages moves with it. A cursor this endpoint did not issue returns 400 with error.param=cursor.
@@ -12913,7 +12945,7 @@ type GetHealth200JSONResponseBodyObject string
 
 // ListInsiderRadarParams defines parameters for ListInsiderRadar.
 type ListInsiderRadarParams struct {
-	// Limit Maximum number of radar flags to return.
+	// Limit Maximum number of radar flags to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response.
@@ -12964,7 +12996,7 @@ type GetInsiderRadarFlag200JSONResponseBodyObject string
 
 // ListLargePositionsParams defines parameters for ListLargePositions.
 type ListLargePositionsParams struct {
-	// Limit Maximum number of large positions to return.
+	// Limit Maximum number of large positions to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Opaque pagination cursor from a previous response.
@@ -12997,7 +13029,7 @@ type ListLargePositions200JSONResponseBodyObject string
 
 // ListLargeTradesParams defines parameters for ListLargeTrades.
 type ListLargeTradesParams struct {
-	// Limit Maximum number of recent large trades to return.
+	// Limit Maximum number of recent large trades to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response's next_cursor.
@@ -13036,7 +13068,7 @@ type ListLargeTrades200JSONResponseBodyObject string
 
 // ListLargeTradeHistoryParams defines parameters for ListLargeTradeHistory.
 type ListLargeTradeHistoryParams struct {
-	// Limit Maximum number of historical large trades to return.
+	// Limit Maximum number of historical large trades to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response's next_cursor. Prefix: wth_. URL-encode when replaying as a query parameter.
@@ -13120,7 +13152,7 @@ type ListLargeTradeCounterpartyExecutionsParams struct {
 	// Cursor Opaque cursor from the previous response's next_cursor.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// Limit Maximum number of counterparty execution rows to return.
+	// Limit Maximum number of counterparty execution rows to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -13141,7 +13173,7 @@ type ListLargeTradeCounterpartyMakersParams struct {
 	// Cursor Opaque cursor from the previous response's next_cursor.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// Limit Maximum number of maker rows to return.
+	// Limit Maximum number of maker rows to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
@@ -13150,7 +13182,7 @@ type ListLargeTradeCounterpartyMakers200JSONResponseBodyObject string
 
 // ListLeaderboardParams defines parameters for ListLeaderboard.
 type ListLeaderboardParams struct {
-	// Limit Maximum number of ranked traders to return.
+	// Limit Maximum number of ranked traders to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Opaque lbv1_ pagination cursor from a prior response. It binds the finite score/address boundary to the committed leaderboard generation and the effective category/strategy filters; legacy, malformed, non-finite, and unsupported-version cursors are rejected.
@@ -13180,7 +13212,7 @@ type ListLeaderboard200JSONResponseBodyObject string
 
 // ListTrendingWalletsParams defines parameters for ListTrendingWallets.
 type ListTrendingWalletsParams struct {
-	// Limit Polymarket's weekly leaderboard caps the ranked set at 50 wallets; requests above 50 still return at most 50.
+	// Limit Polymarket's weekly leaderboard caps the ranked set at 50 wallets; requests above 50 still return at most 50. Out-of-range values are clamped to 1..50.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Opaque pagination cursor from a previous response, bound to its effective limit, window and ranked-board generation. A changed board or request scope returns error.reason=cursor_expired; legacy page-only cursors must restart from page one.
@@ -13267,7 +13299,7 @@ type GetMarketHoldersParams struct {
 	// MinGrade Narrow within the graded cohort: `S` keeps S, `A` keeps S and A, `B` (default) keeps S, A and B. `C`, `D` and `F` are rejected with 400: the route lists the S/A/B cohort only. The cohort is the wallet's current grade (`traders.latest_grade`), so no value here reaches a C, D, F or ungraded holder; those are counted only in `scan.wallet_count`. `min_grade=D` on GET /api/v1/positions does return C and D, which is one of the three reasons the two routes' counts differ for the same market.
 	MinGrade *GetMarketHoldersParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
 
-	// Limit Maximum holders per page.
+	// Limit Maximum holders per page. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Opaque pagination cursor from the previous response's next_cursor. It encodes a page of one shared roster, so it stays valid across the roster's refresh, but a page read after a refresh can repeat or skip a holder.
@@ -13339,19 +13371,19 @@ type ExploreMarketsParams struct {
 	// Category Filter by market category (case-insensitive). A canonical bucket name (e.g. Basketball) matches every provider member that folds into it (NBA, WNBA, NCAAB); a raw provider value also resolves to its bucket. Facet values are returned as the canonical bucket.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Status Filter by market status.
+	// Status Filter by market status. A market is closed once Polymarket has closed trading or it has resolved, and active otherwise; all returns both.
 	Status *ExploreMarketsParamsStatus `form:"status,omitempty" json:"status,omitempty"`
 
 	// Platform Filter by source platform. Explore is Polymarket-only; polymarket is the only supported value and the parameter is accepted for backward-compatibility but does not change the result set.
 	Platform *ExploreMarketsParamsPlatform `form:"platform,omitempty" json:"platform,omitempty"`
 
-	// Sort Sort order for the discovery feed.
+	// Sort Sort order for the discovery feed. `large_trades` ranks by large-trade activity; `whales` is its deprecated spelling and selects the same order.
 	Sort *ExploreMarketsParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Cursor Opaque pagination cursor from the previous response.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// Limit Page size.
+	// Limit Page size. Out-of-range values are clamped to 1..48.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Q Keyword search against market titles. At most 64 characters before whitespace trimming.
@@ -13432,13 +13464,13 @@ type SearchMarketsParams struct {
 	// Q Search query. Must be 1-512 characters before whitespace trimming and non-empty after trimming.
 	Q string `form:"q" json:"q"`
 
-	// Limit Maximum number of matching markets to return.
+	// Limit Maximum number of matching markets to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response's next_cursor.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// Status Filter by market status.
+	// Status Filter by market status. A market is closed once Polymarket has closed trading or it has resolved, and active otherwise; all returns both.
 	Status *SearchMarketsParamsStatus `form:"status,omitempty" json:"status,omitempty"`
 
 	// Category Filter by category.
@@ -13462,7 +13494,7 @@ type ListSharpMoneyFlowsParams struct {
 	// Timeframe Lookback window for grade-filtered whale flow aggregation.
 	Timeframe *ListSharpMoneyFlowsParamsTimeframe `form:"timeframe,omitempty" json:"timeframe,omitempty"`
 
-	// Limit Page size.
+	// Limit Page size. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Opaque cursor from previous response's next_cursor. Encodes the first-page as_of timestamp, normalized effective filters, ranking and aggregate collection revisions, plus the last row's absolute net flow and condition_id. A changed filter or collection returns cursor_expired; request the first page again.
@@ -13510,7 +13542,7 @@ type ListSmartMoneyFlowsParams struct {
 	// Timeframe Lookback window for grade-filtered whale flow aggregation.
 	Timeframe *ListSmartMoneyFlowsParamsTimeframe `form:"timeframe,omitempty" json:"timeframe,omitempty"`
 
-	// Limit Page size.
+	// Limit Page size. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Opaque cursor from previous response's next_cursor. Encodes the first-page as_of timestamp, normalized effective filters, ranking and aggregate collection revisions, plus the last row's absolute net flow and condition_id. A changed filter or collection returns cursor_expired; request the first page again.
@@ -13712,7 +13744,7 @@ type GetPlatforms200JSONResponseBodyObject string
 
 // ListPositionsParams defines parameters for ListPositions.
 type ListPositionsParams struct {
-	// Limit Maximum number of current positions to return.
+	// Limit Maximum number of current positions to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response's next_cursor.
@@ -13766,7 +13798,7 @@ type GetReportsParams struct {
 	// Granularity Report granularity selector.
 	Granularity GetReportsParamsGranularity `form:"granularity" json:"granularity"`
 
-	// Period Period token for the granularity. daily: UTC date YYYY-MM-DD. weekly: ISO week YYYY-WW for a durable canonical snapshot, or a from,to YYYY-MM-DD pair for an exact ephemeral range limited to 31 inclusive UTC days. A wider explicit range returns 400 invalid_query. monthly: UTC month YYYY-MM.
+	// Period Period token for the granularity. daily: UTC date YYYY-MM-DD. weekly: ISO week YYYY-WW for a durable canonical snapshot, or a from,to YYYY-MM-DD pair for an exact ephemeral range limited to 31 inclusive UTC days. A wider explicit range returns 400 invalid_query. monthly: UTC month YYYY-MM. A period that ends before 2024-03-01, the first day report data covers, or starts after tomorrow UTC returns 400 bad_request with error.param=period.
 	Period string `form:"period" json:"period"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -13784,7 +13816,7 @@ type GetReports200JSONResponseBodyObject string
 
 // GetDailyReportSnapshotParams defines parameters for GetDailyReportSnapshot.
 type GetDailyReportSnapshotParams struct {
-	// Date UTC report date in YYYY-MM-DD format.
+	// Date UTC report date in YYYY-MM-DD format, from 2024-03-01 (the first day report data covers) through tomorrow UTC. Any other date returns 400 bad_request with error.param=date.
 	Date string `form:"date" json:"date"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -13799,7 +13831,7 @@ type GetDailyReportSnapshot200JSONResponseBodyObject string
 
 // GetMonthlyReportSnapshotParams defines parameters for GetMonthlyReportSnapshot.
 type GetMonthlyReportSnapshotParams struct {
-	// Month UTC report month in YYYY-MM format.
+	// Month UTC report month in YYYY-MM format. A month that ends before 2024-03-01, the first day report data covers, or starts after tomorrow UTC returns 400 bad_request with error.param=month.
 	Month string `form:"month" json:"month"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -13814,13 +13846,13 @@ type GetMonthlyReportSnapshot200JSONResponseBodyObject string
 
 // GetWeeklyReportSnapshotParams defines parameters for GetWeeklyReportSnapshot.
 type GetWeeklyReportSnapshotParams struct {
-	// From UTC source-range start in YYYY-MM-DD format; required with to. Together with to, selects an exact ephemeral range of at most 31 inclusive UTC days.
+	// From UTC source-range start in YYYY-MM-DD format; required with to. Together with to, selects an exact ephemeral range of at most 31 inclusive UTC days. A start after tomorrow UTC returns 400 bad_request with error.param=from.
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// To UTC source-range end in YYYY-MM-DD format; required with from. Together with from, selects an exact ephemeral range of at most 31 inclusive UTC days.
+	// To UTC source-range end in YYYY-MM-DD format; required with from. Together with from, selects an exact ephemeral range of at most 31 inclusive UTC days. An end before 2024-03-01, the first day report data covers, returns 400 bad_request with error.param=to.
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
-	// Week ISO week selector in YYYY-WW format; alternative to from/to. Selects a durable canonical snapshot.
+	// Week ISO week selector in YYYY-WW format; alternative to from/to. Selects a durable canonical snapshot. A week that ends before 2024-03-01, the first day report data covers, or starts after tomorrow UTC returns 400 bad_request with error.param=week.
 	Week *string `form:"week,omitempty" json:"week,omitempty"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -13841,7 +13873,7 @@ type ListSportsEdgeObservationsParams struct {
 	// Category Optional canonical sport bucket. Omitted or blank selects all registered sports. Raw provider categories resolve through the canonical taxonomy, including table-tennis or table tennis to Table Tennis and pickleball to Pickleball; a non-sport category returns an empty list.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Limit Page size.
+	// Limit Page size. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Server-authenticated opaque seo_v2_ cursor from next_cursor. Pins snapshot_as_of, cohort, rank, and condition_id; pre-deploy unsigned seo_ cursors are rejected, so clients must request the first page after this contract ships; emerging_pile cursors also pin the first-page projection_now cutoff so kickoff filtering cannot renumber continuation pages. Client edits fail closed; it cannot cross cohorts; a refreshed snapshot invalidates it with 400.
@@ -13868,7 +13900,7 @@ type ListSportsEdgeSignalsParams struct {
 	// Category Optional canonical sport bucket filter (e.g. Basketball, Tennis, Soccer). A raw provider value (NBA) resolves to its canonical bucket. A non-sport category returns an empty list.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Limit Page size.
+	// Limit Page size. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Opaque cursor from a previous response's next_cursor. Encodes the snapshot anchor plus the last row's directional_rank_score, conviction_score, smart_score and condition_id. A cursor from an expired snapshot returns 400.
@@ -13904,7 +13936,7 @@ type ListPreGameSideObservationsParams struct {
 	// Category Optional canonical sport bucket. Omitted or blank selects all registered sports. Raw provider categories resolve through the canonical taxonomy, including table-tennis or table tennis to Table Tennis and pickleball to Pickleball; a non-sport category returns an empty list.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Limit Page size.
+	// Limit Page size. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Server-authenticated opaque seo_v2_ cursor from next_cursor. Pins snapshot_as_of, cohort, rank, and condition_id; pre-deploy unsigned seo_ cursors are rejected, so clients must request the first page after this contract ships; emerging_pile cursors also pin the first-page projection_now cutoff so kickoff filtering cannot renumber continuation pages. Client edits fail closed; it cannot cross cohorts; a refreshed snapshot invalidates it with 400.
@@ -13931,7 +13963,7 @@ type ListPreGameSidesParams struct {
 	// Category Optional canonical sport bucket filter (e.g. Basketball, Tennis, Soccer). A raw provider value (NBA) resolves to its canonical bucket. A non-sport category returns an empty list.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Limit Page size.
+	// Limit Page size. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Opaque cursor from a previous response's next_cursor. Encodes the snapshot anchor plus the last row's directional_rank_score, conviction_score, smart_score and condition_id. A cursor from an expired snapshot returns 400.
@@ -13997,7 +14029,7 @@ type GetStreamParamsXQueryValidation string
 
 // ListSuspiciousTradesParams defines parameters for ListSuspiciousTrades.
 type ListSuspiciousTradesParams struct {
-	// Limit Maximum number of suspicious trades to return.
+	// Limit Maximum number of suspicious trades to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response.
@@ -14225,7 +14257,7 @@ type GetPositionTimelineParams struct {
 	// ConditionId Market condition_id. One timeline per (trader, market).
 	ConditionId string `form:"condition_id" json:"condition_id"`
 
-	// Limit Maximum number of timeline events to return.
+	// Limit Maximum number of timeline events to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response's next_cursor.
@@ -14273,7 +14305,7 @@ type GetPositionTimelineByIdParams struct {
 	// ConditionId Market condition_id. One timeline per (trader, market).
 	ConditionId string `form:"condition_id" json:"condition_id"`
 
-	// Limit Maximum number of timeline events to return.
+	// Limit Maximum number of timeline events to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response's next_cursor.
@@ -14471,7 +14503,7 @@ type VerifyWebhook200JSONResponseBodyObject string
 
 // ListWhaleTradesParams defines parameters for ListWhaleTrades.
 type ListWhaleTradesParams struct {
-	// Limit Maximum number of recent large trades to return.
+	// Limit Maximum number of recent large trades to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response's next_cursor.
@@ -14516,7 +14548,7 @@ type ListWhaleTrades200JSONResponseBodyObject string
 
 // ListWhaleTradeHistoryParams defines parameters for ListWhaleTradeHistory.
 type ListWhaleTradeHistoryParams struct {
-	// Limit Maximum number of historical large trades to return.
+	// Limit Maximum number of historical large trades to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor Pagination cursor from previous response's next_cursor. Prefix: wth_. URL-encode when replaying as a query parameter.
@@ -14588,7 +14620,7 @@ type ListWhaleTradeCounterpartyExecutionsParams struct {
 	// Cursor Opaque cursor from the previous response's next_cursor.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// Limit Maximum number of counterparty execution rows to return.
+	// Limit Maximum number of counterparty execution rows to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -14609,7 +14641,7 @@ type ListWhaleTradeCounterpartyMakersParams struct {
 	// Cursor Opaque cursor from the previous response's next_cursor.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
-	// Limit Maximum number of maker rows to return.
+	// Limit Maximum number of maker rows to return. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
@@ -15819,7 +15851,7 @@ type ClientInterface interface {
 	//
 	// Returns the published picks for the current product day. Pro tier.
 	//
-	// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+	// `picks` holds up to ten ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
 	//
 	// `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
 	//
@@ -15932,7 +15964,7 @@ type ClientInterface interface {
 
 	// GetStream Resumable real-time event stream (SSE)
 	//
-	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
+	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
 	//
 	// Corresponds with GET /api/v1/stream (the `GetStream` operationId).
 	GetStream(ctx context.Context, params *GetStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16888,7 +16920,7 @@ func (c *Client) RedirectApiOpenapiSpec(ctx context.Context, params *RedirectApi
 //
 // Returns the published picks for the current product day. Pro tier.
 //
-// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+// `picks` holds up to ten ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
 //
 // `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
 //
@@ -17128,7 +17160,7 @@ func (c *Client) ListPreGameSides(ctx context.Context, params *ListPreGameSidesP
 
 // GetStream Resumable real-time event stream (SSE)
 //
-// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
+// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
 //
 // Corresponds with GET /api/v1/stream (the `GetStream` operationId).
 func (c *Client) GetStream(ctx context.Context, params *GetStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -25425,7 +25457,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// Returns the published picks for the current product day. Pro tier.
 	//
-	// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+	// `picks` holds up to ten ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
 	//
 	// `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
 	//
@@ -25564,7 +25596,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetStreamWithResponse Resumable real-time event stream (SSE)
 	//
-	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
+	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -25971,6 +26003,8 @@ type GetApiDiscoveryResponse struct {
 	JSON408 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
 	Headers200 *GetApiDiscoveryResponse200Headers
 	// Headers429 the parsed response headers for an HTTP 429 response
@@ -25994,6 +26028,11 @@ func (r GetApiDiscoveryResponse) GetJSON408() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetApiDiscoveryResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetApiDiscoveryResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetBody returns the raw response body bytes
@@ -26448,6 +26487,8 @@ type GetEventReplaySinceResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -26502,6 +26543,11 @@ func (r GetEventReplaySinceResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetEventReplaySinceResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetEventReplaySinceResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -26614,6 +26660,8 @@ type ListGamesResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -26675,6 +26723,11 @@ func (r ListGamesResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListGamesResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListGamesResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -26782,6 +26835,8 @@ type GetGameResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -26838,6 +26893,11 @@ func (r GetGameResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetGameResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetGameResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -26950,6 +27010,8 @@ type GetHealthResponse struct {
 	JSON408 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
 	Headers200 *GetHealthResponse200Headers
 	// Headers304 the parsed response headers for an HTTP 304 response
@@ -26998,6 +27060,11 @@ func (r GetHealthResponse) GetJSON408() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetHealthResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetHealthResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetBody returns the raw response body bytes
@@ -27107,6 +27174,8 @@ type ListInsiderRadarResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -27166,6 +27235,11 @@ func (r ListInsiderRadarResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListInsiderRadarResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListInsiderRadarResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -27277,6 +27351,8 @@ type GetInsiderRadarFlagResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -27336,6 +27412,11 @@ func (r GetInsiderRadarFlagResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetInsiderRadarFlagResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetInsiderRadarFlagResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -27452,6 +27533,8 @@ type ListLargePositionsResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -27513,6 +27596,11 @@ func (r ListLargePositionsResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListLargePositionsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListLargePositionsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -27626,6 +27714,8 @@ type ListLargeTradesResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -27688,6 +27778,11 @@ func (r ListLargeTradesResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListLargeTradesResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListLargeTradesResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -27805,6 +27900,8 @@ type ListLargeTradeHistoryResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -27867,6 +27964,11 @@ func (r ListLargeTradeHistoryResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListLargeTradeHistoryResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListLargeTradeHistoryResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -27978,6 +28080,8 @@ type GetLargeTradeResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -28037,6 +28141,11 @@ func (r GetLargeTradeResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetLargeTradeResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetLargeTradeResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -28144,6 +28253,8 @@ type ListLargeTradeCounterpartyExecutionsResponse struct {
 	JSON404 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -28193,6 +28304,11 @@ func (r ListLargeTradeCounterpartyExecutionsResponse) GetJSON404() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListLargeTradeCounterpartyExecutionsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListLargeTradeCounterpartyExecutionsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -28300,6 +28416,8 @@ type ListLargeTradeCounterpartyMakersResponse struct {
 	JSON404 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -28349,6 +28467,11 @@ func (r ListLargeTradeCounterpartyMakersResponse) GetJSON404() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListLargeTradeCounterpartyMakersResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListLargeTradeCounterpartyMakersResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -28463,6 +28586,8 @@ type ListLeaderboardResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -28522,6 +28647,11 @@ func (r ListLeaderboardResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListLeaderboardResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListLeaderboardResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -28638,6 +28768,8 @@ type ListTrendingWalletsResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -28699,6 +28831,11 @@ func (r ListTrendingWalletsResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListTrendingWalletsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListTrendingWalletsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -28811,6 +28948,8 @@ type GetMarketCandlesResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -28871,6 +29010,11 @@ func (r GetMarketCandlesResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetMarketCandlesResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetMarketCandlesResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -29125,6 +29269,8 @@ type GetMarketFlowResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -29184,6 +29330,11 @@ func (r GetMarketFlowResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetMarketFlowResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetMarketFlowResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -29305,6 +29456,8 @@ type GetMarketHoldersResponse struct {
 	JSON408 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -29371,6 +29524,11 @@ func (r GetMarketHoldersResponse) GetJSON408() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetMarketHoldersResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetMarketHoldersResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -29482,6 +29640,8 @@ type GetMarketIntelResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -29541,6 +29701,11 @@ func (r GetMarketIntelResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetMarketIntelResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetMarketIntelResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -29652,6 +29817,8 @@ type GetMarketSnapshotResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -29711,6 +29878,11 @@ func (r GetMarketSnapshotResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetMarketSnapshotResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetMarketSnapshotResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -29831,6 +30003,8 @@ type ExploreMarketsResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -29896,6 +30070,11 @@ func (r ExploreMarketsResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ExploreMarketsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ExploreMarketsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -30331,6 +30510,8 @@ type SearchMarketsResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -30388,6 +30569,11 @@ func (r SearchMarketsResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r SearchMarketsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r SearchMarketsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -30500,6 +30686,8 @@ type ListSharpMoneyFlowsResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -30557,6 +30745,11 @@ func (r ListSharpMoneyFlowsResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListSharpMoneyFlowsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListSharpMoneyFlowsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -30671,6 +30864,8 @@ type ListSmartMoneyFlowsResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -30728,6 +30923,11 @@ func (r ListSmartMoneyFlowsResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListSmartMoneyFlowsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListSmartMoneyFlowsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -30802,6 +31002,8 @@ type OpenMcpEventStreamResponse struct {
 	JSON405 *McpJsonRpcError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// Headers405 the parsed response headers for an HTTP 405 response
 	Headers405 *OpenMcpEventStreamResponse405Headers
 	// Headers429 the parsed response headers for an HTTP 429 response
@@ -30826,6 +31028,11 @@ func (r OpenMcpEventStreamResponse) GetJSON405() *McpJsonRpcError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r OpenMcpEventStreamResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r OpenMcpEventStreamResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetBody returns the raw response body bytes
@@ -31052,6 +31259,8 @@ type GetAccountIdentityResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -31085,6 +31294,11 @@ func (r GetAccountIdentityResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetAccountIdentityResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetAccountIdentityResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -31282,6 +31496,8 @@ type GetPickOfTheDayResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -31338,6 +31554,11 @@ func (r GetPickOfTheDayResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetPickOfTheDayResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetPickOfTheDayResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -31445,6 +31666,8 @@ type GetPickOfTheDayArchiveResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -31494,6 +31717,11 @@ func (r GetPickOfTheDayArchiveResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetPickOfTheDayArchiveResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetPickOfTheDayArchiveResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -31594,6 +31822,8 @@ type GetPickOfTheDayLedgerResponse struct {
 	JSON408 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -31624,6 +31854,11 @@ func (r GetPickOfTheDayLedgerResponse) GetJSON408() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetPickOfTheDayLedgerResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetPickOfTheDayLedgerResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -31849,6 +32084,8 @@ type ListPositionsResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -31923,6 +32160,11 @@ func (r ListPositionsResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListPositionsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListPositionsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -32626,10 +32868,12 @@ type ListSportsEdgeObservationsResponse struct {
 		Degraded bool `json:"degraded"`
 
 		// Funnel Per-sport accountable funnel for the full observation snapshot, returned on every page.
-		Funnel     PreGameSideFunnelReport                             `json:"funnel"`
-		HasMore    bool                                                `json:"has_more"`
-		Meta       ResponseMeta                                        `json:"meta"`
-		NextCursor *string                                             `json:"next_cursor,omitempty"`
+		Funnel  PreGameSideFunnelReport `json:"funnel"`
+		HasMore bool                    `json:"has_more"`
+		Meta    ResponseMeta            `json:"meta"`
+
+		// NextCursor Pass as cursor for the next page. Always sent; null on the last page.
+		NextCursor string                                              `json:"next_cursor"`
 		Object     ListSportsEdgeObservations200JSONResponseBodyObject `json:"object"`
 
 		// SnapshotAsOf Completion time of the shared observation snapshot pinned by the cursor.
@@ -32671,10 +32915,12 @@ func (r ListSportsEdgeObservationsResponse) GetJSON200() *struct {
 	Degraded bool `json:"degraded"`
 
 	// Funnel Per-sport accountable funnel for the full observation snapshot, returned on every page.
-	Funnel     PreGameSideFunnelReport                             `json:"funnel"`
-	HasMore    bool                                                `json:"has_more"`
-	Meta       ResponseMeta                                        `json:"meta"`
-	NextCursor *string                                             `json:"next_cursor,omitempty"`
+	Funnel  PreGameSideFunnelReport `json:"funnel"`
+	HasMore bool                    `json:"has_more"`
+	Meta    ResponseMeta            `json:"meta"`
+
+	// NextCursor Pass as cursor for the next page. Always sent; null on the last page.
+	NextCursor string                                              `json:"next_cursor"`
 	Object     ListSportsEdgeObservations200JSONResponseBodyObject `json:"object"`
 
 	// SnapshotAsOf Completion time of the shared observation snapshot pinned by the cursor.
@@ -32833,6 +33079,8 @@ type ListSportsEdgeSignalsResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -32890,6 +33138,11 @@ func (r ListSportsEdgeSignalsResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListSportsEdgeSignalsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListSportsEdgeSignalsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -32989,10 +33242,12 @@ type ListPreGameSideObservationsResponse struct {
 		Degraded bool `json:"degraded"`
 
 		// Funnel Per-sport accountable funnel for the full observation snapshot, returned on every page.
-		Funnel     PreGameSideFunnelReport                              `json:"funnel"`
-		HasMore    bool                                                 `json:"has_more"`
-		Meta       ResponseMeta                                         `json:"meta"`
-		NextCursor *string                                              `json:"next_cursor,omitempty"`
+		Funnel  PreGameSideFunnelReport `json:"funnel"`
+		HasMore bool                    `json:"has_more"`
+		Meta    ResponseMeta            `json:"meta"`
+
+		// NextCursor Pass as cursor for the next page. Always sent; null on the last page.
+		NextCursor string                                               `json:"next_cursor"`
 		Object     ListPreGameSideObservations200JSONResponseBodyObject `json:"object"`
 
 		// SnapshotAsOf Completion time of the shared observation snapshot pinned by the cursor.
@@ -33034,10 +33289,12 @@ func (r ListPreGameSideObservationsResponse) GetJSON200() *struct {
 	Degraded bool `json:"degraded"`
 
 	// Funnel Per-sport accountable funnel for the full observation snapshot, returned on every page.
-	Funnel     PreGameSideFunnelReport                              `json:"funnel"`
-	HasMore    bool                                                 `json:"has_more"`
-	Meta       ResponseMeta                                         `json:"meta"`
-	NextCursor *string                                              `json:"next_cursor,omitempty"`
+	Funnel  PreGameSideFunnelReport `json:"funnel"`
+	HasMore bool                    `json:"has_more"`
+	Meta    ResponseMeta            `json:"meta"`
+
+	// NextCursor Pass as cursor for the next page. Always sent; null on the last page.
+	NextCursor string                                               `json:"next_cursor"`
 	Object     ListPreGameSideObservations200JSONResponseBodyObject `json:"object"`
 
 	// SnapshotAsOf Completion time of the shared observation snapshot pinned by the cursor.
@@ -33196,6 +33453,8 @@ type ListPreGameSidesResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -33253,6 +33512,11 @@ func (r ListPreGameSidesResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListPreGameSidesResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListPreGameSidesResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -33337,6 +33601,8 @@ type GetStreamResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -33375,6 +33641,11 @@ func (r GetStreamResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetStreamResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetStreamResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -33489,6 +33760,8 @@ type ListSuspiciousTradesResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -33548,6 +33821,11 @@ func (r ListSuspiciousTradesResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListSuspiciousTradesResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListSuspiciousTradesResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -33659,6 +33937,8 @@ type GetSuspiciousTradeResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -33718,6 +33998,11 @@ func (r GetSuspiciousTradeResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetSuspiciousTradeResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetSuspiciousTradeResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -34006,6 +34291,8 @@ type GetTraderCategoryRecordsResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -34065,6 +34352,11 @@ func (r GetTraderCategoryRecordsResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetTraderCategoryRecordsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetTraderCategoryRecordsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -35256,6 +35548,8 @@ type GetTraderGradeAtResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -35315,6 +35609,11 @@ func (r GetTraderGradeAtResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetTraderGradeAtResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetTraderGradeAtResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -35427,6 +35726,8 @@ type GetTraderPnlResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -35487,6 +35788,11 @@ func (r GetTraderPnlResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetTraderPnlResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetTraderPnlResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -36114,6 +36420,8 @@ type GetUsageResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -36147,6 +36455,11 @@ func (r GetUsageResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetUsageResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetUsageResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -38342,6 +38655,8 @@ type ListWhaleTradesResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -38404,6 +38719,11 @@ func (r ListWhaleTradesResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListWhaleTradesResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListWhaleTradesResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -38519,6 +38839,8 @@ type ListWhaleTradeHistoryResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -38581,6 +38903,11 @@ func (r ListWhaleTradeHistoryResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListWhaleTradeHistoryResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListWhaleTradeHistoryResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -38690,6 +39017,8 @@ type GetWhaleTradeResponse struct {
 	JSON423 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -38749,6 +39078,11 @@ func (r GetWhaleTradeResponse) GetJSON423() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r GetWhaleTradeResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetWhaleTradeResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -38854,6 +39188,8 @@ type ListWhaleTradeCounterpartyExecutionsResponse struct {
 	JSON404 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -38903,6 +39239,11 @@ func (r ListWhaleTradeCounterpartyExecutionsResponse) GetJSON404() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListWhaleTradeCounterpartyExecutionsResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListWhaleTradeCounterpartyExecutionsResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -39008,6 +39349,8 @@ type ListWhaleTradeCounterpartyMakersResponse struct {
 	JSON404 *ApiError
 	// JSON429 the response for an HTTP 429 `application/json` response
 	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
 	// JSON503 the response for an HTTP 503 `application/json` response
 	JSON503 *ApiError
 	// Headers200 the parsed response headers for an HTTP 200 response
@@ -39057,6 +39400,11 @@ func (r ListWhaleTradeCounterpartyMakersResponse) GetJSON404() *ApiError {
 // GetJSON429 returns the response for an HTTP 429 `application/json` response
 func (r ListWhaleTradeCounterpartyMakersResponse) GetJSON429() *ApiError {
 	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListWhaleTradeCounterpartyMakersResponse) GetJSON500() *ApiError {
+	return r.JSON500
 }
 
 // GetJSON503 returns the response for an HTTP 503 `application/json` response
@@ -39663,7 +40011,7 @@ func (c *ClientWithResponses) RedirectApiOpenapiSpecWithResponse(ctx context.Con
 //
 // Returns the published picks for the current product day. Pro tier.
 //
-// `picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+// `picks` holds up to ten ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
 //
 // `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
 //
@@ -39880,7 +40228,7 @@ func (c *ClientWithResponses) ListPreGameSidesWithResponse(ctx context.Context, 
 
 // GetStreamWithResponse Resumable real-time event stream (SSE)
 //
-// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
+// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -40526,6 +40874,13 @@ func ParseGetApiDiscoveryResponse(rsp *http.Response) (*GetApiDiscoveryResponse,
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -41354,6 +41709,13 @@ func ParseGetEventReplaySinceResponse(rsp *http.Response) (*GetEventReplaySinceR
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -41610,6 +41972,13 @@ func ParseListGamesResponse(rsp *http.Response) (*ListGamesResponse, error) {
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -41940,6 +42309,13 @@ func ParseGetGameResponse(rsp *http.Response) (*GetGameResponse, error) {
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -42253,6 +42629,13 @@ func ParseGetHealthResponse(rsp *http.Response) (*GetHealthResponse, error) {
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	}
 
 	switch {
@@ -42547,6 +42930,13 @@ func ParseListInsiderRadarResponse(rsp *http.Response) (*ListInsiderRadarRespons
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -42897,6 +43287,13 @@ func ParseGetInsiderRadarFlagResponse(rsp *http.Response) (*GetInsiderRadarFlagR
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -43245,6 +43642,13 @@ func ParseListLargePositionsResponse(rsp *http.Response) (*ListLargePositionsRes
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -43596,6 +44000,13 @@ func ParseListLargeTradesResponse(rsp *http.Response) (*ListLargeTradesResponse,
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -43917,6 +44328,13 @@ func ParseListLargeTradeHistoryResponse(rsp *http.Response) (*ListLargeTradeHist
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -44267,6 +44685,13 @@ func ParseGetLargeTradeResponse(rsp *http.Response) (*GetLargeTradeResponse, err
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -44602,6 +45027,13 @@ func ParseListLargeTradeCounterpartyExecutionsResponse(rsp *http.Response) (*Lis
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -44936,6 +45368,13 @@ func ParseListLargeTradeCounterpartyMakersResponse(rsp *http.Response) (*ListLar
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -45283,6 +45722,13 @@ func ParseListLeaderboardResponse(rsp *http.Response) (*ListLeaderboardResponse,
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -45633,6 +46079,13 @@ func ParseListTrendingWalletsResponse(rsp *http.Response) (*ListTrendingWalletsR
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -45982,6 +46435,13 @@ func ParseGetMarketCandlesResponse(rsp *http.Response) (*GetMarketCandlesRespons
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -46580,6 +47040,13 @@ func ParseGetMarketFlowResponse(rsp *http.Response) (*GetMarketFlowResponse, err
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -46934,6 +47401,13 @@ func ParseGetMarketHoldersResponse(rsp *http.Response) (*GetMarketHoldersRespons
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -47283,6 +47757,13 @@ func ParseGetMarketIntelResponse(rsp *http.Response) (*GetMarketIntelResponse, e
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -47631,6 +48112,13 @@ func ParseGetMarketSnapshotResponse(rsp *http.Response) (*GetMarketSnapshotRespo
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -47984,6 +48472,13 @@ func ParseExploreMarketsResponse(rsp *http.Response) (*ExploreMarketsResponse, e
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -48917,6 +49412,13 @@ func ParseSearchMarketsResponse(rsp *http.Response) (*SearchMarketsResponse, err
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -49167,6 +49669,13 @@ func ParseListSharpMoneyFlowsResponse(rsp *http.Response) (*ListSharpMoneyFlowsR
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -49513,6 +50022,13 @@ func ParseListSmartMoneyFlowsResponse(rsp *http.Response) (*ListSmartMoneyFlowsR
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -49833,6 +50349,13 @@ func ParseOpenMcpEventStreamResponse(rsp *http.Response) (*OpenMcpEventStreamRes
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -50331,6 +50854,13 @@ func ParseGetAccountIdentityResponse(rsp *http.Response) (*GetAccountIdentityRes
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -50757,6 +51287,13 @@ func ParseGetPickOfTheDayResponse(rsp *http.Response) (*GetPickOfTheDayResponse,
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -51102,6 +51639,13 @@ func ParseGetPickOfTheDayArchiveResponse(rsp *http.Response) (*GetPickOfTheDayAr
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -51409,6 +51953,13 @@ func ParseGetPickOfTheDayLedgerResponse(rsp *http.Response) (*GetPickOfTheDayLed
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -51952,6 +52503,13 @@ func ParseListPositionsResponse(rsp *http.Response) (*ListPositionsResponse, err
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -53248,10 +53806,12 @@ func ParseListSportsEdgeObservationsResponse(rsp *http.Response) (*ListSportsEdg
 			Degraded bool `json:"degraded"`
 
 			// Funnel Per-sport accountable funnel for the full observation snapshot, returned on every page.
-			Funnel     PreGameSideFunnelReport                             `json:"funnel"`
-			HasMore    bool                                                `json:"has_more"`
-			Meta       ResponseMeta                                        `json:"meta"`
-			NextCursor *string                                             `json:"next_cursor,omitempty"`
+			Funnel  PreGameSideFunnelReport `json:"funnel"`
+			HasMore bool                    `json:"has_more"`
+			Meta    ResponseMeta            `json:"meta"`
+
+			// NextCursor Pass as cursor for the next page. Always sent; null on the last page.
+			NextCursor string                                              `json:"next_cursor"`
 			Object     ListSportsEdgeObservations200JSONResponseBodyObject `json:"object"`
 
 			// SnapshotAsOf Completion time of the shared observation snapshot pinned by the cursor.
@@ -53680,6 +54240,13 @@ func ParseListSportsEdgeSignalsResponse(rsp *http.Response) (*ListSportsEdgeSign
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -53967,10 +54534,12 @@ func ParseListPreGameSideObservationsResponse(rsp *http.Response) (*ListPreGameS
 			Degraded bool `json:"degraded"`
 
 			// Funnel Per-sport accountable funnel for the full observation snapshot, returned on every page.
-			Funnel     PreGameSideFunnelReport                              `json:"funnel"`
-			HasMore    bool                                                 `json:"has_more"`
-			Meta       ResponseMeta                                         `json:"meta"`
-			NextCursor *string                                              `json:"next_cursor,omitempty"`
+			Funnel  PreGameSideFunnelReport `json:"funnel"`
+			HasMore bool                    `json:"has_more"`
+			Meta    ResponseMeta            `json:"meta"`
+
+			// NextCursor Pass as cursor for the next page. Always sent; null on the last page.
+			NextCursor string                                               `json:"next_cursor"`
 			Object     ListPreGameSideObservations200JSONResponseBodyObject `json:"object"`
 
 			// SnapshotAsOf Completion time of the shared observation snapshot pinned by the cursor.
@@ -54399,6 +54968,13 @@ func ParseListPreGameSidesResponse(rsp *http.Response) (*ListPreGameSidesRespons
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -54720,6 +55296,13 @@ func ParseGetStreamResponse(rsp *http.Response) (*GetStreamResponse, error) {
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -54972,6 +55555,13 @@ func ParseListSuspiciousTradesResponse(rsp *http.Response) (*ListSuspiciousTrade
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -55321,6 +55911,13 @@ func ParseGetSuspiciousTradeResponse(rsp *http.Response) (*GetSuspiciousTradeRes
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -56026,6 +56623,13 @@ func ParseGetTraderCategoryRecordsResponse(rsp *http.Response) (*GetTraderCatego
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -58321,6 +58925,13 @@ func ParseGetTraderGradeAtResponse(rsp *http.Response) (*GetTraderGradeAtRespons
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -58670,6 +59281,13 @@ func ParseGetTraderPnlResponse(rsp *http.Response) (*GetTraderPnlResponse, error
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -60000,6 +60618,13 @@ func ParseGetUsageResponse(rsp *http.Response) (*GetUsageResponse, error) {
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
@@ -63290,6 +63915,13 @@ func ParseListWhaleTradesResponse(rsp *http.Response) (*ListWhaleTradesResponse,
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -63654,6 +64286,13 @@ func ParseListWhaleTradeHistoryResponse(rsp *http.Response) (*ListWhaleTradeHist
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -63989,6 +64628,13 @@ func ParseGetWhaleTradeResponse(rsp *http.Response) (*GetWhaleTradeResponse, err
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -64310,6 +64956,13 @@ func ParseListWhaleTradeCounterpartyExecutionsResponse(rsp *http.Response) (*Lis
 		}
 		response.JSON429 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -64630,6 +65283,13 @@ func ParseListWhaleTradeCounterpartyMakersResponse(rsp *http.Response) (*ListWha
 			return nil, err
 		}
 		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
 		var dest ApiError

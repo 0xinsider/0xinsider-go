@@ -3,7 +3,7 @@
   "info": {
     "x-generated-rate-limit-policy-from": "web/src/lib/rate-limit-facts.ts via web/scripts/generate-api-policy.ts",
     "title": "0xinsider API",
-    "description": "Follow provider-exposed large-trade activity from Polymarket. Polymarket wallet-attributed trades can add grades, P&L, strategy, and diagnostic-score context when sufficient source data exists. Fields can be null or unavailable. Normal API requests use a 30-second server timeout that returns HTTP 408 Request Timeout with the standard error envelope (error.code request_timeout) when exceeded. Every /api/v1 failure answers that envelope, including a body that is not JSON or does not fit the request schema (400 invalid_body), a query or path value that does not parse (400 invalid_query, invalid_path), a missing Content-Type: application/json (415 unsupported_media_type), a body over 1048576 bytes (413 payload_too_large) and a method the path does not serve (405 method_not_allowed), each with error.param naming the field where one is known and meta.request_id equal to X-Request-Id. Unknown query names are ignored by default and reported in X-Query-Ignored, while X-Effective-Query lists the normalized names and values applied using form-urlencoded decoding, where + is a space; strict mode returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including for an unknown name with an incomplete percent escape. Public REST /api/v1/* endpoints, excluding /api/v1/mcp, use Bearer-token based non-credentialed browser CORS: any Origin may call with Authorization, Content-Type, If-None-Match, Idempotency-Key, Mcp-Session-Id, Mcp-Protocol-Version, Last-Event-Id, and X-Query-Validation request headers. X-Query-Validation: strict opts into rejecting unknown query names; the default remains compatible. Remote MCP at /api/v1/mcp is non-credentialed, but still validates Origin against the 0xinsider/localhost allowlist per MCP Streamable HTTP DNS-rebinding guidance. Successful browser CORS preflight responses advertise Access-Control-Max-Age: 86400. Browser JavaScript may read RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, the legacy X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After, ETag, X-Request-Id, X-Request-Cost, X-Usage-Accounting, X-Batch-RateLimit-Limit, X-Batch-RateLimit-Remaining, X-Batch-RateLimit-Reset, Mcp-Session-Id, X-Mcp-Error-Code, X-Query-Ignored, and X-Effective-Query response headers. Rate-limit headers describe the budget a request was counted against: the API key's per-minute window on an authenticated call, and the per-IP budget on a public route or on a refused credential (401, 402, 403, 423), so a client looping on a bad or lapsed key still sees how much room it has. Conditional GET: these operations return a weak ETag and answer If-None-Match with 304 Not Modified and an empty body: GET /api/v1/health, GET /api/v1/insider-radar, GET /api/v1/insider-radar/{id}, GET /api/v1/large-positions, GET /api/v1/leaderboard, GET /api/v1/leaderboard/trending, GET /api/v1/market/{condition_id}/candles, GET /api/v1/market/{condition_id}/flow, GET /api/v1/market/{condition_id}/intel, GET /api/v1/market/{condition_id}/snapshot, GET /api/v1/markets/explore, GET /api/v1/markets/sharp-money-flows, GET /api/v1/markets/smart-money-flows, GET /api/v1/pick-of-the-day, GET /api/v1/pick-of-the-day/archive, GET /api/v1/positions, GET /api/v1/sports-edge-observations, GET /api/v1/sports-edge-signals, GET /api/v1/trader/{address}, GET /api/v1/trader/{address}/context, GET /api/v1/trader/{address}/pnl, GET /api/v1/trader/{address}/position-timeline, GET /api/v1/traders/{trader}/position-timeline, GET /api/v1/whale-trades, GET /api/v1/whale-trades/history, GET /api/v1/whale-trades/{id}, GET /api/v1/whale-trades/{id}/counterparties/executions, GET /api/v1/whale-trades/{id}/counterparties/executions/{execution_id}/makers. Credentialed first-party routes such as /api/keys, /api/billing, and auth endpoints remain restricted to configured 0xinsider origins. Protected V1 responses, except the zero-cost /api/v1/usage route, after handler execution carry X-Usage-Accounting: persisted, failed, or unknown. This reports the usage-record write; it does not change the handler result. Do not replay a successful mutation to repair an unknown usage record. Before execution, unavailable accounting capacity returns HTTP 503 with error.reason=request_accounting_unavailable; honor Retry-After. Public API responses add the browser-readable Server-Timing header: Processing time in milliseconds, for example api;dur=12.345. Includes API authentication, quota admission, handler work and response construction. Excludes network transit and streamed body or export-file transfer. The engineering budget is strictly below 250 ms; this header reports observations, not a latency guarantee or a new timeout.",
+    "description": "Follow provider-exposed large-trade activity from Polymarket. Polymarket wallet-attributed trades can add grades, P&L, strategy, and diagnostic-score context when sufficient source data exists. Fields can be null or unavailable. Normal API requests use a 30-second server timeout that returns HTTP 408 Request Timeout with the standard error envelope (error.code request_timeout) when exceeded. Every /api/v1 failure answers that envelope, including a body that is not JSON or does not fit the request schema (400 invalid_body), a query or path value that does not parse (400 invalid_query, invalid_path), a missing Content-Type: application/json (415 unsupported_media_type), a body over 1048576 bytes (413 payload_too_large) and a method the path does not serve (405 method_not_allowed), each with error.param naming the field where one is known and meta.request_id equal to X-Request-Id. Unknown query names are ignored by default and reported in X-Query-Ignored, while X-Effective-Query lists the normalized names and values applied using form-urlencoded decoding, where + is a space; strict mode returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including for an unknown name with an incomplete percent escape. Every list operation clamps an out-of-range limit into its published minimum..maximum instead of refusing it (limit=0 reads one row, limit=500 reads the maximum), and X-Effective-Query reports the clamped value; only a limit that is not an integer is refused, with 400 invalid_query. Public REST /api/v1/* endpoints, excluding /api/v1/mcp, use Bearer-token based non-credentialed browser CORS: any Origin may call with Authorization, Content-Type, If-None-Match, Idempotency-Key, Mcp-Session-Id, Mcp-Protocol-Version, Last-Event-Id, and X-Query-Validation request headers. X-Query-Validation: strict opts into rejecting unknown query names; the default remains compatible. Remote MCP at /api/v1/mcp is non-credentialed, but still validates Origin against the 0xinsider/localhost allowlist per MCP Streamable HTTP DNS-rebinding guidance. Successful browser CORS preflight responses advertise Access-Control-Max-Age: 86400. Browser JavaScript may read RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, the legacy X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After, ETag, X-Request-Id, X-Request-Cost, X-Usage-Accounting, X-Batch-RateLimit-Limit, X-Batch-RateLimit-Remaining, X-Batch-RateLimit-Reset, Mcp-Session-Id, X-Mcp-Error-Code, X-Query-Ignored, and X-Effective-Query response headers. Rate-limit headers describe the budget a request was counted against: the API key's per-minute window on an authenticated call, and the per-IP budget on a public route or on a refused credential (401, 402, 403, 423), so a client looping on a bad or lapsed key still sees how much room it has. Conditional GET: these operations return a weak ETag and answer If-None-Match with 304 Not Modified and an empty body: GET /api/v1/health, GET /api/v1/insider-radar, GET /api/v1/insider-radar/{id}, GET /api/v1/large-positions, GET /api/v1/leaderboard, GET /api/v1/leaderboard/trending, GET /api/v1/market/{condition_id}/candles, GET /api/v1/market/{condition_id}/flow, GET /api/v1/market/{condition_id}/intel, GET /api/v1/market/{condition_id}/snapshot, GET /api/v1/markets/explore, GET /api/v1/markets/sharp-money-flows, GET /api/v1/markets/smart-money-flows, GET /api/v1/pick-of-the-day, GET /api/v1/pick-of-the-day/archive, GET /api/v1/positions, GET /api/v1/sports-edge-observations, GET /api/v1/sports-edge-signals, GET /api/v1/trader/{address}, GET /api/v1/trader/{address}/context, GET /api/v1/trader/{address}/pnl, GET /api/v1/trader/{address}/position-timeline, GET /api/v1/traders/{trader}/position-timeline, GET /api/v1/whale-trades, GET /api/v1/whale-trades/history, GET /api/v1/whale-trades/{id}, GET /api/v1/whale-trades/{id}/counterparties/executions, GET /api/v1/whale-trades/{id}/counterparties/executions/{execution_id}/makers. Credentialed first-party routes such as /api/keys, /api/billing, and auth endpoints remain restricted to configured 0xinsider origins. Protected V1 responses, except the zero-cost /api/v1/usage route, after handler execution carry X-Usage-Accounting: persisted, failed, or unknown. This reports the usage-record write; it does not change the handler result. Do not replay a successful mutation to repair an unknown usage record. Before execution, unavailable accounting capacity returns HTTP 503 with error.reason=request_accounting_unavailable; honor Retry-After. Public API responses add the browser-readable Server-Timing header: Processing time in milliseconds, for example api;dur=12.345. Includes API authentication, quota admission, handler work and response construction. Excludes network transit and streamed body or export-file transfer. The engineering budget is strictly below 250 ms; this header reports observations, not a latency guarantee or a new timeout.",
     "version": "1.0.0",
     "contact": {
       "name": "0xinsider",
@@ -198,6 +198,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1557,6 +1567,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -2553,7 +2573,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of timeline events to return.",
+            "description": "Maximum number of timeline events to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -3204,6 +3224,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -3624,6 +3654,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -3704,7 +3744,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of timeline events to return.",
+            "description": "Maximum number of timeline events to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -4072,7 +4112,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of current positions to return.",
+            "description": "Maximum number of current positions to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -4484,6 +4524,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -4588,7 +4638,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of large positions to return.",
+            "description": "Maximum number of large positions to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -4894,6 +4944,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -4944,7 +5004,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of recent large trades to return.",
+            "description": "Maximum number of recent large trades to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -5314,6 +5374,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -5431,7 +5501,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of recent large trades to return.",
+            "description": "Maximum number of recent large trades to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -5826,6 +5896,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -5903,7 +5983,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of historical large trades to return.",
+            "description": "Maximum number of historical large trades to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -6400,6 +6480,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -6505,7 +6595,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of historical large trades to return.",
+            "description": "Maximum number of historical large trades to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -7003,6 +7093,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -7373,6 +7473,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -7728,6 +7838,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -7830,7 +7950,7 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Maximum number of counterparty execution rows to return.",
+            "description": "Maximum number of counterparty execution rows to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -8036,6 +8156,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -8127,7 +8257,7 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Maximum number of counterparty execution rows to return.",
+            "description": "Maximum number of counterparty execution rows to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -8342,6 +8472,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Service unavailable. On this route a 503 has TWO distinct causes; branch on error.reason. (1) error.reason=\"read_model_warming\": the requested endpoint cannot serve its read model yet. Exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh; consult that endpoint's contract and do not infer dependency health from this shared reason. This is endpoint-local unavailability, not rate limiting: retry only this route after Retry-After (or error.retry_at), and do not feed it into a rate-limit backoff shared with other endpoints. (2) no error.reason: the Redis-backed authenticated rate limiter is unavailable and the middleware failed closed; Retry-After is the seconds until it probes Redis again. Both carry error.code=\"rate_limit_unavailable\" (a FROZEN contract value, so it cannot be split per cause) and X-Request-Id -- which is why error.reason, not error.code, is the discriminator.",
             "headers": {
@@ -8423,7 +8563,7 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Maximum number of maker rows to return.",
+            "description": "Maximum number of maker rows to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -8637,6 +8777,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Service unavailable. On this route a 503 has TWO distinct causes; branch on error.reason. (1) error.reason=\"read_model_warming\": the requested endpoint cannot serve its read model yet. Exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh; consult that endpoint's contract and do not infer dependency health from this shared reason. This is endpoint-local unavailability, not rate limiting: retry only this route after Retry-After (or error.retry_at), and do not feed it into a rate-limit backoff shared with other endpoints. (2) no error.reason: the Redis-backed authenticated rate limiter is unavailable and the middleware failed closed; Retry-After is the seconds until it probes Redis again. Both carry error.code=\"rate_limit_unavailable\" (a FROZEN contract value, so it cannot be split per cause) and X-Request-Id -- which is why error.reason, not error.code, is the discriminator.",
             "headers": {
@@ -8717,7 +8867,7 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Maximum number of maker rows to return.",
+            "description": "Maximum number of maker rows to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -8932,6 +9082,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Service unavailable. On this route a 503 has TWO distinct causes; branch on error.reason. (1) error.reason=\"read_model_warming\": the requested endpoint cannot serve its read model yet. Exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh; consult that endpoint's contract and do not infer dependency health from this shared reason. This is endpoint-local unavailability, not rate limiting: retry only this route after Retry-After (or error.retry_at), and do not feed it into a rate-limit backoff shared with other endpoints. (2) no error.reason: the Redis-backed authenticated rate limiter is unavailable and the middleware failed closed; Retry-After is the seconds until it probes Redis again. Both carry error.code=\"rate_limit_unavailable\" (a FROZEN contract value, so it cannot be split per cause) and X-Request-Id -- which is why error.reason, not error.code, is the discriminator.",
             "headers": {
@@ -8988,7 +9148,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of ranked traders to return.",
+            "description": "Maximum number of ranked traders to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -9295,6 +9455,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -9351,7 +9521,7 @@
       "get": {
         "operationId": "getPickOfTheDay",
         "summary": "Get today's Pick of the Day",
-        "description": "Returns the published picks for the current product day. Pro tier.\n\n`picks` holds up to six ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.\n\n`scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.\n\nWhen no pick is published for the current product day, the endpoint returns `404` with `error.code=\"not_found\"` and `error.reason=\"pick_not_released\"`. Branch on the reason; the code is frozen. The `404` is a schedule, not an outage.\n\nDo not poll. Read `Retry-After` or `error.retry_at` and schedule one request for that instant. The `404` response below says how the instant is chosen.",
+        "description": "Returns the published picks for the current product day. Pro tier.\n\n`picks` holds up to ten ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.\n\n`scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.\n\nWhen no pick is published for the current product day, the endpoint returns `404` with `error.code=\"not_found\"` and `error.reason=\"pick_not_released\"`. Branch on the reason; the code is frozen. The `404` is a schedule, not an outage.\n\nDo not poll. Read `Retry-After` or `error.retry_at` and schedule one request for that instant. The `404` response below says how the instant is chosen.",
         "tags": [
           "Pick of the Day"
         ],
@@ -9479,6 +9649,7 @@
                             "address": "0x0000000000000000000000000000000000000000",
                             "name": "swisstony",
                             "grade": "A",
+                            "last_traded_at": "2026-06-18T17:42:10Z",
                             "shares": 12500
                           }
                         ],
@@ -9487,6 +9658,7 @@
                             "address": "0x0000000000000000000000000000000000000000",
                             "name": "swisstony",
                             "grade": "A",
+                            "last_traded_at": "2026-06-18T17:42:10Z",
                             "shares": 12500,
                             "category_win_rate": 0.64,
                             "category_win_record": {
@@ -9499,6 +9671,7 @@
                             "address": "0x1111111111111111111111111111111111111111",
                             "name": "marketmaker",
                             "grade": "B",
+                            "last_traded_at": "2026-06-18T17:42:10Z",
                             "shares": 9800,
                             "category_win_rate_status": "not_enough_data"
                           }
@@ -9517,6 +9690,7 @@
                             "full_name": "Portugal national football team",
                             "provider_id": 1421,
                             "logo": "https://polymarket.com/teams/portugal.png",
+                            "logo_mark_dark": false,
                             "color": "#C8102E",
                             "record": null,
                             "score": null
@@ -9527,6 +9701,7 @@
                             "full_name": "Uzbekistan national football team",
                             "provider_id": 1738,
                             "logo": "https://polymarket.com/teams/uzbekistan.png",
+                            "logo_mark_dark": false,
                             "color": "#1EB53A",
                             "record": null,
                             "score": null
@@ -9598,6 +9773,7 @@
                             "address": "0x0000000000000000000000000000000000000000",
                             "name": "swisstony",
                             "grade": "A",
+                            "last_traded_at": "2026-06-18T17:42:10Z",
                             "shares": 12500
                           }
                         ],
@@ -9606,6 +9782,7 @@
                             "address": "0x0000000000000000000000000000000000000000",
                             "name": "swisstony",
                             "grade": "A",
+                            "last_traded_at": "2026-06-18T17:42:10Z",
                             "shares": 12500,
                             "category_win_rate": 0.64,
                             "category_win_record": {
@@ -9618,6 +9795,7 @@
                             "address": "0x1111111111111111111111111111111111111111",
                             "name": "marketmaker",
                             "grade": "B",
+                            "last_traded_at": "2026-06-18T17:42:10Z",
                             "shares": 9800,
                             "category_win_rate_status": "not_enough_data"
                           }
@@ -9636,6 +9814,7 @@
                             "full_name": "Portugal national football team",
                             "provider_id": 1421,
                             "logo": "https://polymarket.com/teams/portugal.png",
+                            "logo_mark_dark": false,
                             "color": "#C8102E",
                             "record": null,
                             "score": null
@@ -9646,6 +9825,7 @@
                             "full_name": "Uzbekistan national football team",
                             "provider_id": 1738,
                             "logo": "https://polymarket.com/teams/uzbekistan.png",
+                            "logo_mark_dark": false,
                             "color": "#1EB53A",
                             "record": null,
                             "score": null
@@ -9847,6 +10027,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Service unavailable. On this route a 503 has TWO distinct causes; branch on error.reason. (1) error.reason=\"read_model_warming\": the requested endpoint cannot serve its read model yet. Exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh; consult that endpoint's contract and do not infer dependency health from this shared reason. This is endpoint-local unavailability, not rate limiting: retry only this route after Retry-After (or error.retry_at), and do not feed it into a rate-limit backoff shared with other endpoints. (2) no error.reason: the Redis-backed authenticated rate limiter is unavailable and the middleware failed closed; Retry-After is the seconds until it probes Redis again. Both carry error.code=\"rate_limit_unavailable\" (a FROZEN contract value, so it cannot be split per cause) and X-Request-Id -- which is why error.reason, not error.code, is the discriminator.",
             "headers": {
@@ -9982,11 +10172,11 @@
                   },
                   "reconciliation": {
                     "status": "not_applicable",
-                    "detail": "this pick was never evaluated for a qualifying category expert: it predates the field or was replaced by a manual takeover"
+                    "detail": "this pick was never evaluated for a qualifying category expert: it predates the field"
                   },
                   "completeness": {
                     "status": "not_computed",
-                    "detail": "this pick was never evaluated for a qualifying category expert: it predates the field or was replaced by a manual takeover"
+                    "detail": "this pick was never evaluated for a qualifying category expert: it predates the field"
                   }
                 }
               }
@@ -10111,6 +10301,7 @@
                         "picks": [
                           {
                             "pick_date": "2026-06-23",
+                            "published_at": "2026-06-23T15:30:00Z",
                             "matchup": "Portugal vs. Uzbekistan",
                             "category": "Soccer",
                             "display_category": "Soccer",
@@ -10121,6 +10312,7 @@
                           },
                           {
                             "pick_date": "2026-06-22",
+                            "published_at": "2026-06-22T15:30:00Z",
                             "matchup": "Spain vs. France",
                             "category": "Soccer",
                             "display_category": "Soccer",
@@ -10128,6 +10320,7 @@
                             "pick_outcome_label": "Spain",
                             "top_grade": "A",
                             "outcome": "win",
+                            "resolved_at": "2026-06-22T22:10:00Z",
                             "stake_usd": 1000,
                             "return_usd": 2000,
                             "return_per_100": 200,
@@ -10341,6 +10534,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -10657,6 +10860,16 @@
               }
             }
           },
+          "500": {
+            "description": "Integrity refusal: a ledger row failed a consistency check, for example a pending pick that arrived carrying a column that must stay withheld until it settles. The whole response is refused and the row logged, rather than publishing a partial or unsafe record; the body carries a generic message. A database connection failure answers 503 instead.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -10719,7 +10932,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Polymarket's weekly leaderboard caps the ranked set at 50 wallets; requests above 50 still return at most 50.",
+            "description": "Polymarket's weekly leaderboard caps the ranked set at 50 wallets; requests above 50 still return at most 50. Out-of-range values are clamped to 1..50.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -10997,6 +11210,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Service unavailable. On this route a 503 has TWO distinct causes; branch on error.reason. (1) error.reason=\"read_model_warming\": the requested endpoint cannot serve its read model yet. Exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh; consult that endpoint's contract and do not infer dependency health from this shared reason. This is endpoint-local unavailability, not rate limiting: retry only this route after Retry-After (or error.retry_at), and do not feed it into a rate-limit backoff shared with other endpoints. (2) no error.reason: the Redis-backed authenticated rate limiter is unavailable and the middleware failed closed; Retry-After is the seconds until it probes Redis again. Both carry error.code=\"rate_limit_unavailable\" (a FROZEN contract value, so it cannot be split per cause) and X-Request-Id -- which is why error.reason, not error.code, is the discriminator.",
             "headers": {
@@ -11070,7 +11293,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of matching markets to return.",
+            "description": "Maximum number of matching markets to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -11089,7 +11312,7 @@
           {
             "name": "status",
             "in": "query",
-            "description": "Filter by market status.",
+            "description": "Filter by market status. A market is closed once Polymarket has closed trading or it has resolved, and active otherwise; all returns both.",
             "schema": {
               "type": "string",
               "enum": [
@@ -11309,6 +11532,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -11396,7 +11629,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum content items to return.",
+            "description": "Maximum content items to return. Out-of-range values are clamped to 1..50.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -11698,7 +11931,7 @@
           {
             "name": "status",
             "in": "query",
-            "description": "Filter by market status.",
+            "description": "Filter by market status. A market is closed once Polymarket has closed trading or it has resolved, and active otherwise; all returns both.",
             "schema": {
               "type": "string",
               "enum": [
@@ -11724,13 +11957,14 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "Sort order for the discovery feed.",
+            "description": "Sort order for the discovery feed. `large_trades` ranks by large-trade activity; `whales` is its deprecated spelling and selects the same order.",
             "schema": {
               "type": "string",
               "enum": [
                 "trending",
                 "hot",
                 "expiring",
+                "large_trades",
                 "whales",
                 "volume",
                 "newest"
@@ -11749,7 +11983,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Page size.",
+            "description": "Page size. Out-of-range values are clamped to 1..48.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -12344,6 +12578,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -12435,7 +12679,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Page size.",
+            "description": "Page size. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -12797,6 +13041,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -12888,7 +13142,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Page size.",
+            "description": "Page size. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -13237,6 +13491,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -13320,7 +13584,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Page size.",
+            "description": "Page size. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -13612,6 +13876,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -13696,7 +13970,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Page size.",
+            "description": "Page size. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -13778,6 +14052,7 @@
                     "object",
                     "data",
                     "has_more",
+                    "next_cursor",
                     "snapshot_as_of",
                     "degraded",
                     "funnel",
@@ -13798,7 +14073,9 @@
                       "type": "boolean"
                     },
                     "next_cursor": {
-                      "type": "string"
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Pass as cursor for the next page. Always sent; null on the last page."
                     },
                     "snapshot_as_of": {
                       "type": "string",
@@ -14057,7 +14334,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Page size.",
+            "description": "Page size. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -14349,6 +14626,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -14434,7 +14721,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Page size.",
+            "description": "Page size. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -14516,6 +14803,7 @@
                     "object",
                     "data",
                     "has_more",
+                    "next_cursor",
                     "snapshot_as_of",
                     "degraded",
                     "funnel",
@@ -14536,7 +14824,9 @@
                       "type": "boolean"
                     },
                     "next_cursor": {
-                      "type": "string"
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Pass as cursor for the next page. Always sent; null on the last page."
                     },
                     "snapshot_as_of": {
                       "type": "string",
@@ -15254,7 +15544,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum holders per page.",
+            "description": "Maximum holders per page. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -15576,6 +15866,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -15933,6 +16233,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -16339,6 +16649,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -17646,6 +17966,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -18026,6 +18356,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -18088,7 +18428,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of suspicious trades to return.",
+            "description": "Maximum number of suspicious trades to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -18384,6 +18724,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -18748,6 +19098,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -18880,7 +19240,7 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Page size.",
+            "description": "Page size. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -19279,6 +19639,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Temporarily unavailable. error.reason=read_model_warming means the sports board supply did not answer this read; Retry-After is 5 seconds and the next read normally succeeds. The authenticated rate limiter being unavailable answers the same status with its own per-process cooldown.",
             "content": {
@@ -19642,6 +20012,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Temporarily unavailable. error.reason=read_model_warming means the sports board supply did not answer this read; Retry-After is 5 seconds. The authenticated rate limiter being unavailable answers the same status with its own per-process cooldown.",
             "content": {
@@ -19680,7 +20060,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of radar flags to return.",
+            "description": "Maximum number of radar flags to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -19976,6 +20356,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20341,6 +20731,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -20394,7 +20794,7 @@
       "get": {
         "operationId": "getStream",
         "summary": "Resumable real-time event stream (SSE)",
-        "description": "Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, or separated from live delivery by an uncovered gap, the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.",
+        "description": "Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.",
         "tags": [
           "Streaming"
         ],
@@ -20496,7 +20896,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Open Server-Sent Events stream. The body is an unbounded text/event-stream of frames; each data frame is a JSON feed envelope (with cluster-shared seq, published_at, type, and event-specific fields) and carries an SSE id equal to seq. resync marker frames use event: resync for expired, future, lagged, or otherwise uncovered cursors. A terminal event: error frame (id: <last observed seq>, data: { type: 'error', error: { code, message, ... }, retry: <boolean> }) ends the stream when the key or account it was opened with no longer authorizes it, or when the credential store has not confirmed it within 90 seconds; the connection closes after it.",
+            "description": "Open Server-Sent Events stream. The body is an unbounded text/event-stream of frames; each data frame is a JSON feed envelope (with cluster-shared seq, published_at, type, and event-specific fields) and carries an SSE id equal to seq. resync marker frames use event: resync for expired, future, lagged, sequence-reset, or otherwise uncovered cursors. A terminal event: error frame (id: <last observed seq>, data: { type: 'error', error: { code, message, ... }, retry: <boolean> }) ends the stream when the key or account it was opened with no longer authorizes it, or when the credential store has not confirmed it within 90 seconds; the connection closes after it.",
             "content": {
               "text/event-stream": {
                 "schema": {
@@ -20652,6 +21052,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "A required Redis-backed admission or shared replay service is unavailable; retry after the outage cooldown",
             "headers": {
@@ -20729,7 +21139,7 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "description": "Maximum durable public whale-trade events to return.",
+            "description": "Maximum durable public whale-trade events to return. Out-of-range values are clamped to 1..100.",
             "schema": {
               "type": "integer",
               "minimum": 1,
@@ -21007,6 +21417,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -25708,6 +26128,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
           }
         },
         "x-codeSamples": [
@@ -26348,6 +26778,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
           }
         },
         "x-codeSamples": [
@@ -26403,7 +26843,7 @@
             "name": "period",
             "in": "query",
             "required": true,
-            "description": "Period token for the granularity. daily: UTC date YYYY-MM-DD. weekly: ISO week YYYY-WW for a durable canonical snapshot, or a from,to YYYY-MM-DD pair for an exact ephemeral range limited to 31 inclusive UTC days. A wider explicit range returns 400 invalid_query. monthly: UTC month YYYY-MM.",
+            "description": "Period token for the granularity. daily: UTC date YYYY-MM-DD. weekly: ISO week YYYY-WW for a durable canonical snapshot, or a from,to YYYY-MM-DD pair for an exact ephemeral range limited to 31 inclusive UTC days. A wider explicit range returns 400 invalid_query. monthly: UTC month YYYY-MM. A period that ends before 2024-03-01, the first day report data covers, or starts after tomorrow UTC returns 400 bad_request with error.param=period.",
             "schema": {
               "type": "string",
               "minLength": 1
@@ -26602,7 +27042,7 @@
             }
           },
           "400": {
-            "description": "Invalid request parameter. A weekly explicit from/to range wider than 31 inclusive UTC days returns 400 with error.reason=invalid_query.",
+            "description": "Invalid request parameter. A weekly explicit from/to range wider than 31 inclusive UTC days returns 400 with error.reason=invalid_query. A period that ends before 2024-03-01, the first day report data covers, or starts after tomorrow UTC returns 400 bad_request with error.param=period.",
             "content": {
               "application/json": {
                 "schema": {
@@ -26796,7 +27236,7 @@
             "name": "date",
             "in": "query",
             "required": true,
-            "description": "UTC report date in YYYY-MM-DD format.",
+            "description": "UTC report date in YYYY-MM-DD format, from 2024-03-01 (the first day report data covers) through tomorrow UTC. Any other date returns 400 bad_request with error.param=date.",
             "schema": {
               "type": "string",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
@@ -26995,7 +27435,7 @@
             }
           },
           "400": {
-            "description": "Invalid request parameter",
+            "description": "Invalid request parameter. A date before 2024-03-01, the first day report data covers, or after tomorrow UTC returns 400 bad_request with error.param=date.",
             "content": {
               "application/json": {
                 "schema": {
@@ -27188,7 +27628,7 @@
             "name": "from",
             "in": "query",
             "required": false,
-            "description": "UTC source-range start in YYYY-MM-DD format; required with to. Together with to, selects an exact ephemeral range of at most 31 inclusive UTC days.",
+            "description": "UTC source-range start in YYYY-MM-DD format; required with to. Together with to, selects an exact ephemeral range of at most 31 inclusive UTC days. A start after tomorrow UTC returns 400 bad_request with error.param=from.",
             "schema": {
               "type": "string",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
@@ -27198,7 +27638,7 @@
             "name": "to",
             "in": "query",
             "required": false,
-            "description": "UTC source-range end in YYYY-MM-DD format; required with from. Together with from, selects an exact ephemeral range of at most 31 inclusive UTC days.",
+            "description": "UTC source-range end in YYYY-MM-DD format; required with from. Together with from, selects an exact ephemeral range of at most 31 inclusive UTC days. An end before 2024-03-01, the first day report data covers, returns 400 bad_request with error.param=to.",
             "schema": {
               "type": "string",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
@@ -27208,7 +27648,7 @@
             "name": "week",
             "in": "query",
             "required": false,
-            "description": "ISO week selector in YYYY-WW format; alternative to from/to. Selects a durable canonical snapshot.",
+            "description": "ISO week selector in YYYY-WW format; alternative to from/to. Selects a durable canonical snapshot. A week that ends before 2024-03-01, the first day report data covers, or starts after tomorrow UTC returns 400 bad_request with error.param=week.",
             "schema": {
               "type": "string",
               "pattern": "^\\d{4}-\\d{2}$"
@@ -27407,7 +27847,7 @@
             }
           },
           "400": {
-            "description": "Invalid request parameter. A weekly explicit from/to range wider than 31 inclusive UTC days returns 400 with error.reason=invalid_query.",
+            "description": "Invalid request parameter. A weekly explicit from/to range wider than 31 inclusive UTC days returns 400 with error.reason=invalid_query. A period that ends before 2024-03-01, the first day report data covers, returns 400 bad_request with error.param=week or to; one that starts after tomorrow UTC, with error.param=week or from.",
             "content": {
               "application/json": {
                 "schema": {
@@ -27600,7 +28040,7 @@
             "name": "month",
             "in": "query",
             "required": true,
-            "description": "UTC report month in YYYY-MM format.",
+            "description": "UTC report month in YYYY-MM format. A month that ends before 2024-03-01, the first day report data covers, or starts after tomorrow UTC returns 400 bad_request with error.param=month.",
             "schema": {
               "type": "string",
               "pattern": "^\\d{4}-\\d{2}$"
@@ -27799,7 +28239,7 @@
             }
           },
           "400": {
-            "description": "Invalid request parameter",
+            "description": "Invalid request parameter. A month that ends before 2024-03-01, the first day report data covers, or starts after tomorrow UTC returns 400 bad_request with error.param=month.",
             "content": {
               "application/json": {
                 "schema": {
@@ -29985,6 +30425,16 @@
               }
             }
           },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
             "headers": {
@@ -30468,6 +30918,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -32336,7 +32796,7 @@
                 "$ref": "#/components/schemas/TrustMetadata"
               }
             ],
-            "description": "Provenance of the frozen qualifying category expert. source.kind=database with reconciliation.status=db_mirror means the evidence deserialized, still satisfies every frozen selection gate, and is being served. On that arm freshness.status is always not_live and never fresh, because this evidence is frozen at selection and never refreshed, so on an archived pick the as_of (the expert's own stats_computed_at) can be days or months old by design. source.kind=computed with reconciliation.status=not_applicable means the selector evaluated the backed side and nobody qualified -- a real negative. source.kind=computed with freshness.status=unknown and completeness.status=not_computed means the selector never evaluated this field, as on a pre-feature pick or manual takeover. source.kind=unavailable means the payload is malformed, violates a selection gate, or conflicts with its persisted status, or the public V1 adapter intentionally omitted a current-policy B-grade expert; read the reason before treating it as a negative. Do not read an omitted qualifying_expert as 'no specialist' without checking this field."
+            "description": "Provenance of the frozen qualifying category expert. source.kind=database with reconciliation.status=db_mirror means the evidence deserialized, still satisfies every frozen selection gate, and is being served. On that arm freshness.status is always not_live and never fresh, because this evidence is frozen at selection and never refreshed, so on an archived pick the as_of (the expert's own stats_computed_at) can be days or months old by design. source.kind=computed with reconciliation.status=not_applicable means the selector evaluated the backed side and nobody qualified -- a real negative. source.kind=computed with freshness.status=unknown and completeness.status=not_computed means the selector never evaluated this field, as on a pre-feature pick. source.kind=unavailable means the payload is malformed, violates a selection gate, or conflicts with its persisted status, or the public V1 adapter intentionally omitted a current-policy B-grade expert; read the reason before treating it as a negative. Do not read an omitted qualifying_expert as 'no specialist' without checking this field."
           }
         }
       },
@@ -32904,7 +33364,7 @@
               "edge_consistency": {
                 "type": "number",
                 "nullable": true,
-                "description": "Stability of the trader's edge over time, 0-1 (higher is more consistent). null when insufficient history."
+                "description": "Share of the trader's last 30 days with realized P&L that closed positive, 0-1 (higher is more consistent). A day with no realized P&L is not one of them, so the window can span months. null below 10 such days; null never means 0."
               },
               "sharpe_percentile": {
                 "type": "number",
@@ -32937,7 +33397,7 @@
           },
           "data_quality": {
             "$ref": "#/components/schemas/DataQuality",
-            "description": "Data age and coverage for this trader body. Always present. Its five groups are sync (traders.last_synced, covering pnl.total, pnl.realized, stats.markets_traded, stats.win_rate, stats.daily_win_rate, last_active, synced_at and sync_status), ranking (trader_rankings.computed_at, covering grade, score, streak_tier, forecast_score and forecast_evidence), leaderboard_rank (leaderboard_rank_refresh_state.completed_at, the completion time of the latest fully completed global rank refresh, covering rank), volume (trader_usd_volume.observed_at, covering stats.total_volume) and positions (trader_position_snapshots.last_refreshed_at with traders.last_synced as fallback, covering pnl.unrealized, the open-position aggregate). The positions clock is the latest successful /positions snapshot when one exists, otherwise the last completed trader sync; it does not date closed or native accounting values. A rank or position value remains unknown or unavailable when its clock or value is absent. For an unknown wallet every group is unavailable."
+            "description": "Data age and coverage for this trader body. Always present. Its five groups are sync (traders.last_synced, covering pnl.total, pnl.realized, stats.markets_traded, stats.win_rate, stats.daily_win_rate, last_active, synced_at and sync_status), ranking (trader_rankings.computed_at, covering grade, score, streak_tier, forecast_score and forecast_evidence), leaderboard_rank (leaderboard_rank_refresh_state.completed_at, the completion time of the latest fully completed global rank refresh, covering rank), volume (trader_usd_volume.observed_at, covering stats.total_volume) and positions (trader_position_snapshots.last_refreshed_at with traders.last_synced as fallback, covering pnl.unrealized, the open-position aggregate). The positions clock is the latest successful /positions snapshot when one exists, otherwise the last completed trader sync; it does not date closed or native accounting values. A rank or position value remains unknown or unavailable when its clock or value is absent. For an unknown wallet every group is unavailable. If the open-position read itself fails, positions is unavailable with a reason that says so, pnl.unrealized is absent, and the body is answered fresh (meta.cached false) and is not kept for later callers."
           },
           "trust": {
             "$ref": "#/components/schemas/TraderTrust",
@@ -33647,6 +34107,7 @@
           "address",
           "name",
           "grade",
+          "last_traded_at",
           "shares"
         ],
         "properties": {
@@ -33662,12 +34123,22 @@
             "nullable": true,
             "description": "All-time trader grade (S, A, B, C, D, F)."
           },
+          "last_traded_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The wallet's most recent recorded trade time, stamped at serve time from its current trader record rather than frozen with the pick. Always sent; null when no trade time is recorded."
+          },
           "profile_segment": {
             "type": "string",
             "description": "0xinsider profile path segment this wallet links to: `@<username>` when that username resolves to this wallet alone, otherwise the lowercase wallet. Percent-encode the part after `@` and append to `https://0xinsider.com/profile/`. Stamped at serve time; absent on a body cached before the field shipped."
           },
           "shares": {
             "type": "number"
+          },
+          "entry_value_usd": {
+            "type": "number",
+            "description": "USD entry value of this wallet's position: `shares` times the pick's frozen `backed_price`. An entry valuation, never a live balance or the provider's current value. Omitted when the holder snapshot has no valid price."
           },
           "category_win_rate": {
             "type": "number",
@@ -33748,7 +34219,7 @@
           "pick_rank": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 6,
+            "maximum": 10,
             "description": "Stable 1-based slot within the product day's ranked picks. The slot keeps this rank when it releases."
           },
           "release_at": {
@@ -33784,7 +34255,7 @@
           "pick_rank": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 6,
+            "maximum": 10,
             "description": "Stable 1-based slot within the product day's ranked picks."
           },
           "picks": {
@@ -33797,7 +34268,7 @@
           "pick_count": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 6,
+            "maximum": 10,
             "description": "Number of items in `picks`: the proof-readable picks. Picks held in `proof_pending_picks` are not counted."
           },
           "scheduled_picks": {
@@ -33817,7 +34288,7 @@
           },
           "display_category": {
             "type": "string",
-            "description": "Frozen public presentation category. For supported Polymarket sports this is the exact verified provider event identity: an official league (e.g. \"WNBA\" or \"UFC\"), the esports title (e.g. \"CS2\", \"LoL\", \"Dota 2\" or \"Valorant\"), or a soccer competition whose official mark we vendor (e.g. \"LaLiga\", \"Premier League\", \"Serie A\" or \"UEFA Champions League\"). Only identities with a vendored official mark are split out; every other competition keeps its canonical bucket, so \"Soccer\" remains a live value; otherwise it equals category. An esports pick keeps the pooled \"Esports\" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility."
+            "description": "Frozen public presentation category: the competition the Polymarket event belongs to. A curated label comes first -- an official league (e.g. \"WNBA\" or \"UFC\"), the esports title (e.g. \"CS2\", \"LoL\", \"Dota 2\" or \"Valorant\"), or a soccer competition (e.g. \"LaLiga\", \"Premier League\", \"Serie A\" or \"UEFA Champions League\"); any other competition carries the provider's own competition name without its season year (e.g. \"UEFA Nations League\", \"ATP\" or \"Wimbledon\"). It equals category only when the provider names no competition. An esports pick keeps the pooled \"Esports\" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility."
           },
           "platform": {
             "type": "string",
@@ -33835,6 +34306,10 @@
           "game_started": {
             "type": "boolean",
             "description": "True once the backed game's kickoff has passed (kickoff <= now). When true the snapshotted pre-game price is no longer actionable. Absent for a legacy pick with no stored kickoff (treat as not-started)."
+          },
+          "game_ended": {
+            "type": "boolean",
+            "description": "Whether the backed game is over according to the cached live scoreboard, read at serve time. Tells a finished game from one still in play before `outcome` settles. Omitted when the pick has no event slug or no scoreboard is cached for it; absence is unknown, never false."
           },
           "outcome": {
             "type": "string",
@@ -34127,6 +34602,10 @@
             "type": "string",
             "description": "Canonical web market URL."
           },
+          "polymarket_url": {
+            "type": "string",
+            "description": "Where this pick's outbound Polymarket link lands: Polymarket's own redirect answer for `/event/<event_slug>`, carrying the referral tag. Omitted until that redirect has been resolved; link to the event page instead when it is absent."
+          },
           "event_slug": {
             "type": "string",
             "description": "The canonical /event game-page slug (one neutral page per game); omitted when the game has no neutral event page."
@@ -34242,6 +34721,7 @@
           "full_name",
           "provider_id",
           "logo",
+          "logo_mark_dark",
           "color",
           "record",
           "score"
@@ -34271,6 +34751,10 @@
             "type": "string",
             "nullable": true,
             "description": "Team crest or flag URL. Provider-owned for most teams (Polymarket /teams crest for clubs, country flag for national teams and tennis players). A club with a vendored crest carries it instead, served same-origin as a relative path (`/api/sports/team-logos/{league}/{abbr}.svg?v=<content hash>` or `.png`, resolve it against this server): every NFL and WNBA team, whose provider asset is a text tile, and the soccer clubs whose provider asset is an empty object."
+          },
+          "logo_mark_dark": {
+            "type": "boolean",
+            "description": "True when the team mark is dark enough to disappear on a dark background, measured from the artwork by the teams sync. Render a dark mark on a light plate. Always sent; false until the artwork has been measured."
           },
           "color": {
             "type": "string",
@@ -34446,8 +34930,13 @@
           "pick_rank": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 6,
+            "maximum": 10,
             "description": "Stable 1-based slot within the product day's ranked picks."
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this pick became public (RFC3339 UTC). pick_date above is the America/New_York product day, not an instant, so read this whenever you need a real time: reading the bare date as UTC midnight places it hours before the earliest instant a pick can drop (11:00 UTC on that date). A day's last pick can drop at 23:00 ET, which is the following UTC date. Omitted (not null) when the instant is unknown; additive and optional for mixed-version client compatibility."
           },
           "matchup": {
             "type": "string",
@@ -34459,7 +34948,7 @@
           },
           "display_category": {
             "type": "string",
-            "description": "Frozen public presentation category. For supported Polymarket sports this is the exact verified provider event identity: an official league (e.g. \"WNBA\" or \"UFC\"), the esports title (e.g. \"CS2\", \"LoL\", \"Dota 2\" or \"Valorant\"), or a soccer competition whose official mark we vendor (e.g. \"LaLiga\", \"Premier League\", \"Serie A\" or \"UEFA Champions League\"). Only identities with a vendored official mark are split out; every other competition keeps its canonical bucket, so \"Soccer\" remains a live value; otherwise it equals category. An esports pick keeps the pooled \"Esports\" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility."
+            "description": "Frozen public presentation category: the competition the Polymarket event belongs to. A curated label comes first -- an official league (e.g. \"WNBA\" or \"UFC\"), the esports title (e.g. \"CS2\", \"LoL\", \"Dota 2\" or \"Valorant\"), or a soccer competition (e.g. \"LaLiga\", \"Premier League\", \"Serie A\" or \"UEFA Champions League\"); any other competition carries the provider's own competition name without its season year (e.g. \"UEFA Nations League\", \"ATP\" or \"Wimbledon\"). It equals category only when the provider names no competition. An esports pick keeps the pooled \"Esports\" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility."
           },
           "image_url": {
             "type": "string",
@@ -34486,6 +34975,11 @@
           "outcome_display": {
             "type": "string",
             "description": "Pre-formatted settlement status for display: \"Win\" / \"Loss\" / \"Void\" / \"Pending\" -- the outcome enum above as a label, from the same formatter the pick payload's outcome_display uses. Convenience only; outcome is the source value."
+          },
+          "resolved_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When outcome was LAST written to a settled value (RFC3339 UTC), the same instant the commitment ledger publishes. It moves with a corrected market re-mapping an already-settled pick. Omitted (not null) for a pending pick and for a pick that settled before the instant was recorded, so absence means the instant is unknown, never that the pick is unsettled -- outcome answers that. Additive and optional for mixed-version client compatibility."
           },
           "stake_usd": {
             "type": "number",
@@ -35282,7 +35776,8 @@
             "enum": [
               "active",
               "closed"
-            ]
+            ],
+            "description": "closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot."
           }
         }
       },
@@ -35376,7 +35871,8 @@
             "enum": [
               "active",
               "closed"
-            ]
+            ],
+            "description": "closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot."
           },
           "volume": {
             "type": "number",
@@ -35466,7 +35962,8 @@
           },
           "smart_label": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "description": "The outcome graded money leans toward RELATIVE TO THE PRICE: named only when the graded money's share of a side diverges from that side's price-implied share by at least 10 points, with at least $500 on the leaning side and outside the crowded-side guard. Null when the money sits with the price (no lean), when there is no graded money, or when the price is unavailable. The same rule as the market page."
           },
           "outcome_yes_label": {
             "type": "string",
@@ -37349,7 +37846,8 @@
                 "enum": [
                   "active",
                   "closed"
-                ]
+                ],
+                "description": "closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot."
               },
               "description": {
                 "type": "string",
@@ -37661,7 +38159,7 @@
           "retry_at": {
             "type": "string",
             "format": "date-time",
-            "description": "The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited including reason=monthly_quota_exceeded, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 11:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt. Every value is advisory under supported operator actions: manual publication, release-time override, or admin generation can make a pick available first. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew."
+            "description": "The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited including reason=monthly_quota_exceeded, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 11:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt. Every value is advisory and can change before release. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew."
           },
           "freshness": {
             "$ref": "#/components/schemas/FreshnessFailure"
@@ -40259,7 +40757,7 @@
           "pick_rank": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 6,
+            "maximum": 10,
             "description": "Stable 1-based slot within the product day's ranked picks. The pick keeps this rank once its proof is readable and it moves into `picks`."
           },
           "release_at": {
@@ -41170,7 +41668,7 @@
         }
       },
       "X-Effective-Query": {
-        "description": "Normalized, percent-encoded query string containing only the recognized names and values applied by the operation. Query names and values use form-urlencoded decoding, where + is a space. Repeated names are retained and sorted by name.",
+        "description": "Normalized, percent-encoded query string containing only the recognized names and values applied by the operation. Query names and values use form-urlencoded decoding, where + is a space. Repeated names are retained and sorted by name. A limit outside the operation's published minimum..maximum is reported as the clamped value the page used, so the header states the page size served rather than the one requested.",
         "schema": {
           "type": "string"
         }
