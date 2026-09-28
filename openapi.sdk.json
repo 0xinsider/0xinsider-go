@@ -3,7 +3,7 @@
   "info": {
     "x-generated-rate-limit-policy-from": "web/src/lib/rate-limit-facts.ts via web/scripts/generate-api-policy.ts",
     "title": "0xinsider API",
-    "description": "Follow provider-exposed large-trade activity from Polymarket. Polymarket wallet-attributed trades can add grades, P&L, strategy, and diagnostic-score context when sufficient source data exists. Fields can be null or unavailable. Normal API requests use a 30-second server timeout that returns HTTP 408 Request Timeout with the standard error envelope (error.code request_timeout) when exceeded. Every /api/v1 failure answers that envelope, including a body that is not JSON or does not fit the request schema (400 invalid_body), a query or path value that does not parse (400 invalid_query, invalid_path), a missing Content-Type: application/json (415 unsupported_media_type), a body over 1048576 bytes (413 payload_too_large) and a method the path does not serve (405 method_not_allowed), each with error.param naming the field where one is known and meta.request_id equal to X-Request-Id. Unknown query names are ignored by default and reported in X-Query-Ignored, while X-Effective-Query lists the normalized names and values applied using form-urlencoded decoding, where + is a space; strict mode returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including for an unknown name with an incomplete percent escape. Every list operation clamps an out-of-range limit into its published minimum..maximum instead of refusing it (limit=0 reads one row, limit=500 reads the maximum), and X-Effective-Query reports the clamped value; only a limit that is not an integer is refused, with 400 invalid_query. Public REST /api/v1/* endpoints, excluding /api/v1/mcp, use Bearer-token based non-credentialed browser CORS: any Origin may call with Authorization, Content-Type, If-None-Match, Idempotency-Key, Mcp-Session-Id, Mcp-Protocol-Version, Last-Event-Id, and X-Query-Validation request headers. X-Query-Validation: strict opts into rejecting unknown query names; the default remains compatible. Remote MCP at /api/v1/mcp is non-credentialed, but still validates Origin against the 0xinsider/localhost allowlist per MCP Streamable HTTP DNS-rebinding guidance. Successful browser CORS preflight responses advertise Access-Control-Max-Age: 86400. Browser JavaScript may read RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, the legacy X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After, ETag, X-Request-Id, X-Request-Cost, X-Usage-Accounting, X-Batch-RateLimit-Limit, X-Batch-RateLimit-Remaining, X-Batch-RateLimit-Reset, Mcp-Session-Id, X-Mcp-Error-Code, X-Query-Ignored, and X-Effective-Query response headers. Rate-limit headers describe the budget a request was counted against: the API key's per-minute window on an authenticated call, and the per-IP budget on a public route or on a refused credential (401, 402, 403, 423), so a client looping on a bad or lapsed key still sees how much room it has. Conditional GET: these operations return a weak ETag and answer If-None-Match with 304 Not Modified and an empty body: GET /api/v1/health, GET /api/v1/insider-radar, GET /api/v1/insider-radar/{id}, GET /api/v1/large-positions, GET /api/v1/leaderboard, GET /api/v1/leaderboard/trending, GET /api/v1/market/{condition_id}/candles, GET /api/v1/market/{condition_id}/flow, GET /api/v1/market/{condition_id}/intel, GET /api/v1/market/{condition_id}/snapshot, GET /api/v1/markets/explore, GET /api/v1/markets/sharp-money-flows, GET /api/v1/markets/smart-money-flows, GET /api/v1/pick-of-the-day, GET /api/v1/pick-of-the-day/archive, GET /api/v1/positions, GET /api/v1/sports-edge-observations, GET /api/v1/sports-edge-signals, GET /api/v1/trader/{address}, GET /api/v1/trader/{address}/context, GET /api/v1/trader/{address}/pnl, GET /api/v1/trader/{address}/position-timeline, GET /api/v1/traders/{trader}/position-timeline, GET /api/v1/whale-trades, GET /api/v1/whale-trades/history, GET /api/v1/whale-trades/{id}, GET /api/v1/whale-trades/{id}/counterparties/executions, GET /api/v1/whale-trades/{id}/counterparties/executions/{execution_id}/makers. Credentialed first-party routes such as /api/keys, /api/billing, and auth endpoints remain restricted to configured 0xinsider origins. Protected V1 responses, except the zero-cost /api/v1/usage route, after handler execution carry X-Usage-Accounting: persisted, failed, or unknown. This reports the usage-record write; it does not change the handler result. Do not replay a successful mutation to repair an unknown usage record. Before execution, unavailable accounting capacity returns HTTP 503 with error.reason=request_accounting_unavailable; honor Retry-After. Public API responses add the browser-readable Server-Timing header: Processing time in milliseconds, for example api;dur=12.345. Includes API authentication, quota admission, handler work and response construction. Excludes network transit and streamed body or export-file transfer. The engineering budget is strictly below 250 ms; this header reports observations, not a latency guarantee or a new timeout.",
+    "description": "Follow provider-exposed large-trade activity from Polymarket. Polymarket wallet-attributed trades can add grades, P&L, strategy, and diagnostic-score context when sufficient source data exists. Fields can be null or unavailable. Normal API requests use a 30-second server timeout that returns HTTP 408 Request Timeout with the standard error envelope (error.code request_timeout) when exceeded. Every /api/v1 failure answers that envelope, including a body that is not JSON or does not fit the request schema (400 invalid_body), a query or path value that does not parse (400 invalid_query, invalid_path), a missing Content-Type: application/json (415 unsupported_media_type), a body over 1048576 bytes (413 payload_too_large) and a method the path does not serve (405 method_not_allowed), each with error.param naming the field where one is known and meta.request_id equal to X-Request-Id. Unknown query names are ignored by default and reported in X-Query-Ignored, while X-Effective-Query lists the normalized names and values applied using form-urlencoded decoding, where + is a space; strict mode returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including for an unknown name with an incomplete percent escape. Every list operation clamps an out-of-range limit into its published minimum..maximum instead of refusing it (limit=0 reads one row, limit=500 reads the maximum), and X-Effective-Query reports the clamped value; only a limit that is not an integer is refused, with 400 invalid_query. Public REST /api/v1/* endpoints, excluding /api/v1/mcp, use Bearer-token based non-credentialed browser CORS: any Origin may call with Authorization, Content-Type, If-None-Match, Idempotency-Key, Mcp-Session-Id, Mcp-Protocol-Version, Last-Event-Id, and X-Query-Validation request headers. X-Query-Validation: strict opts into rejecting unknown query names; the default remains compatible. Remote MCP at /api/v1/mcp is non-credentialed, but still validates Origin against the 0xinsider/localhost allowlist per MCP Streamable HTTP DNS-rebinding guidance. Successful browser CORS preflight responses advertise Access-Control-Max-Age: 86400. Browser JavaScript may read RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, the legacy X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After, ETag, X-Request-Id, X-Request-Cost, X-Usage-Accounting, X-Batch-RateLimit-Limit, X-Batch-RateLimit-Remaining, X-Batch-RateLimit-Reset, Mcp-Session-Id, X-Mcp-Error-Code, X-Query-Ignored, and X-Effective-Query response headers. Rate-limit headers describe the budget a request was counted against: the API key's per-minute window on an authenticated call, and the per-IP budget on a public route or on a refused credential (401, 402, 403, 423), so a client looping on a bad or lapsed key still sees how much room it has. Conditional GET: these operations return a weak ETag and answer If-None-Match with 304 Not Modified and an empty body: GET /api/v1/health, GET /api/v1/insider-radar, GET /api/v1/insider-radar/{id}, GET /api/v1/large-positions, GET /api/v1/leaderboard, GET /api/v1/leaderboard/trending, GET /api/v1/market/{condition_id}/candles, GET /api/v1/market/{condition_id}/flow, GET /api/v1/market/{condition_id}/intel, GET /api/v1/market/{condition_id}/snapshot, GET /api/v1/markets/explore, GET /api/v1/markets/sharp-money-flows, GET /api/v1/markets/smart-money-flows, GET /api/v1/pick-of-the-day, GET /api/v1/pick-of-the-day/archive, GET /api/v1/positions, GET /api/v1/sports-edge-observations, GET /api/v1/sports-edge-signals, GET /api/v1/trader/{address}, GET /api/v1/trader/{address}/context, GET /api/v1/trader/{address}/pnl, GET /api/v1/trader/{address}/position-timeline, GET /api/v1/traders/{trader}/position-timeline, GET /api/v1/large-trades, GET /api/v1/large-trades/history, GET /api/v1/large-trades/{id}, GET /api/v1/whale-trades, GET /api/v1/whale-trades/history, GET /api/v1/whale-trades/{id}, GET /api/v1/whale-trades/{id}/counterparties/executions, GET /api/v1/whale-trades/{id}/counterparties/executions/{execution_id}/makers. Credentialed first-party routes such as /api/keys, /api/billing, and auth endpoints remain restricted to configured 0xinsider origins. Protected V1 responses, except the zero-cost /api/v1/usage route, after handler execution carry X-Usage-Accounting: persisted, failed, or unknown. This reports the usage-record write; it does not change the handler result. Do not replay a successful mutation to repair an unknown usage record. Before execution, unavailable accounting capacity returns HTTP 503 with error.reason=request_accounting_unavailable; honor Retry-After. Public API responses add the browser-readable Server-Timing header: Processing time in milliseconds, for example api;dur=12.345. Includes API authentication, quota admission, handler work and response construction. Excludes network transit and streamed body or export-file transfer. The engineering budget is strictly below 250 ms; this header reports observations, not a latency guarantee or a new timeout. Requests through https://0xinsider.com/api/* append Server-Timing: web_api;dur=<milliseconds> and X-Web-Request-Id for that web origin handler. The web clock includes upstream waiting and existing body construction, so do not add it to api;dur. It excludes platform routing, cold module initialization, CDN hits and later stream/file transfer. On a cache hit these headers describe the earlier origin fill, not the current request; static Markdown API routes have no fresh web clock.",
     "version": "1.0.0",
     "contact": {
       "name": "0xinsider",
@@ -594,7 +594,7 @@
       "get": {
         "operationId": "getTrader",
         "summary": "Get trader",
-        "description": "Returns a trader's grade (S through F; ranked about 95% by realized profit, with calibration, track record, and consistency as a tie-breaker and proven-trader guardrails), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. Unknown lookups return sync_status \"unknown\" instead of 404. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.",
+        "description": "Returns a trader's grade (S through F; ranked about 95% by realized profit, with calibration, track record, and consistency as a tie-breaker and proven-trader guardrails), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet returns 200 with sync_status \"unknown\" instead of 404, so it can be polled. A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address; it is never echoed back as a trader address. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.",
         "tags": [
           "Traders"
         ],
@@ -912,6 +912,16 @@
               }
             }
           },
+          "404": {
+            "description": "The address value names no trader: it is not a wallet address, and no username or trader ID this API knows matches it. error.code is not_found and error.param is address. A wallet address 0xinsider does not track yet is not an error; it returns 200 with sync_status \"unknown\".",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "408": {
             "description": "The handler did not answer inside the server's 30-second timeout. error.code is request_timeout. On GET and HEAD the response carries Retry-After and error.retry_at; on a mutation it carries neither, because the request may have completed on the server: check its state before repeating it, and reuse its Idempotency-Key.",
             "content": {
@@ -1042,7 +1052,7 @@
       "get": {
         "operationId": "getTraderContextMarkdown",
         "summary": "Get trader context (Markdown)",
-        "description": "Returns a single human- and LLM-readable Markdown briefing for one trader: identity, grade, P&L, position coverage, and freshness. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. Unknown traders still return 200 with a degraded 'not yet synced' document (no 404). The Markdown variant does not emit an ETag and does not support conditional requests; use the JSON variant (drop the .md suffix) for ETag/If-None-Match handling.",
+        "description": "Returns a single human- and LLM-readable Markdown briefing for one trader: identity, grade, P&L, position coverage, and freshness. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet still returns 200 with a degraded 'not yet synced' document (no 404). A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address, as the JSON error envelope. The Markdown variant does not emit an ETag and does not support conditional requests; use the JSON variant (drop the .md suffix) for ETag/If-None-Match handling.",
         "tags": [
           "Traders"
         ],
@@ -1148,6 +1158,16 @@
           },
           "403": {
             "description": "Account access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The address value names no trader: it is not a wallet address, and no username or trader ID this API knows matches it. error.code is not_found and error.param is address. A wallet address 0xinsider does not track yet is not an error; it returns 200 with sync_status \"unknown\".",
             "content": {
               "application/json": {
                 "schema": {
@@ -1612,7 +1632,7 @@
       "get": {
         "operationId": "getTraderContext",
         "summary": "Get trader context (JSON)",
-        "description": "Returns a single structured context object for one trader: the full trader profile (same shape as GET /api/v1/trader/{address}) plus a position_summary (sync coverage and realized/unrealized P&L rollups, with an as_of open-position freshness clock), the data_as_of freshness timestamp (the open-position data's latest /positions snapshot, else last completed sync; the snapshot advances only open positions, so resolved counts and win rate still date to the last full sync; native realized P&L follows its accounting snapshot), and a freshness_note describing the point-in-time snapshot semantics. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. position_summary is omitted when the trader is not in the local database or native net economics is unavailable; realized fields remain numeric when present; unknown lookups return 200 with sync_status 'unknown' on the nested trader (no 404). Append .md to the path for the Markdown rendering.",
+        "description": "Returns a single structured context object for one trader: the full trader profile (same shape as GET /api/v1/trader/{address}) plus a position_summary (sync coverage and realized/unrealized P&L rollups, with an as_of open-position freshness clock), the data_as_of freshness timestamp (the open-position data's latest /positions snapshot, else last completed sync; the snapshot advances only open positions, so resolved counts and win rate still date to the last full sync; native realized P&L follows its accounting snapshot), and a freshness_note describing the point-in-time snapshot semantics. The path accepts an Ethereum wallet address (0x...), a known trader username, or a trd_-prefixed trader ID emitted by this API. position_summary is omitted when the trader is not in the local database or native net economics is unavailable; realized fields remain numeric when present; a wallet address this API does not track yet returns 200 with sync_status 'unknown' on the nested trader (no 404), while a value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address. Append .md to the path for the Markdown rendering.",
         "tags": [
           "Traders"
         ],
@@ -1924,6 +1944,16 @@
               }
             }
           },
+          "404": {
+            "description": "The address value names no trader: it is not a wallet address, and no username or trader ID this API knows matches it. error.code is not_found and error.param is address. A wallet address 0xinsider does not track yet is not an error; it returns 200 with sync_status \"unknown\".",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "408": {
             "description": "The handler did not answer inside the server's 30-second timeout. error.code is request_timeout. On GET and HEAD the response carries Retry-After and error.retry_at; on a mutation it carries neither, because the request may have completed on the server: check its state before repeating it, and reuse its Idempotency-Key.",
             "content": {
@@ -2054,7 +2084,7 @@
       "post": {
         "operationId": "batchGetTraders",
         "summary": "Batch traders",
-        "description": "Returns traders for 1-25 wallet addresses or known usernames. Results preserve request order, duplicate inputs return duplicate rows, and each item is charged one batch item unit before execution. Unknown trader lookups return data with sync_status \"unknown\" matching the single trader endpoint.",
+        "description": "Returns traders for 1-25 wallet addresses or known usernames. Results preserve request order, duplicate inputs return duplicate rows, and each item is charged one batch item unit before execution. A wallet address this API does not track yet returns data with sync_status \"unknown\", matching the single trader endpoint. A username, trd_ id or numeric trader id that resolves to no trader is a per-item not_found error with error.param \"traders\", never an ok row keyed on the input.",
         "tags": [
           "Traders"
         ],
@@ -4092,7 +4122,7 @@
         "operationId": "listPositions",
         "summary": "List current positions (positions-board feed)",
         "x-snapshot-consistency": "With consistency=snapshot and at least one wallet, the server freezes at most 500 matching rows and 2 MB of position data for up to five minutes. One snapshot per API key is retained; a new first-page snapshot replaces the prior one. A missing, replaced, or expired snapshot returns cursor_expired and the client starts at page one. Snapshot consistency does not imply complete provider coverage.",
-        "description": "Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top. With wallet, the same feed is read for one wallet or a book of up to 25 wallets from each wallet's own ordered index range, so the pages are that wallet's complete reconciled binary open positions and the cost is the page, never the board. min_size then defaults to 0. What a wallet read does not return: positions with shares at 0 (closed), rows the reconciler has not valued yet (current_value_usd IS NULL), and non-binary outcomes; per-row last_reconciled_at and freshness say how old each valuation is. Each row also carries additive `exact` source atoms as decimal strings with unit, scale and basis metadata; parse those values with decimal-safe arithmetic and do not reconstruct them from the display-safe numeric fields. The response adds a top-level `data_quality` object beside `data`, with positions, trader, and market groups owned by `wallet_positions.last_reconciled_at|updated_at`, `traders.last_synced`, and `market_canonical.last_refreshed_at`. Its stored clocks are part of the ETag; `meta` continues to hold transport cache facts.",
+        "description": "Returns the current positions-board feed backed by the wallet_positions mirror. Ordered by current_value_usd DESC with deterministic (wallet, condition_id, outcome_index) tiebreakers. Pre-reconcile rows (current_value_usd IS NULL) are excluded. Cursor-paginated. Every filter pushes into SQL. Deep cursor pages cost the same as the first page: the value bounds and the cursor are index conditions, so a page never rescans the feed from the top. With wallet, the same feed is read for one wallet or a book of up to 25 wallets from each wallet's own ordered index range, so the pages are that wallet's complete reconciled binary open positions and the cost is the page, never the board. min_size defaults to 100 on the board read, so a request with no wallet and no min_size drops positions valued under 100 USD; with wallet it defaults to 0 instead. Send min_size=0 to include every reconciled position. What a wallet read does not return: positions with shares at 0 (closed), rows the reconciler has not valued yet (current_value_usd IS NULL), and non-binary outcomes; per-row last_reconciled_at and freshness say how old each valuation is. Each row also carries additive `exact` source atoms as decimal strings with unit, scale and basis metadata; parse those values with decimal-safe arithmetic and do not reconstruct them from the display-safe numeric fields. The response adds a top-level `data_quality` object beside `data`, with positions, trader, and market groups owned by `wallet_positions.last_reconciled_at|updated_at`, `traders.last_synced`, and `market_canonical.last_refreshed_at`. Its stored clocks are part of the ETag; `meta` continues to hold transport cache facts.",
         "tags": [
           "Positions"
         ],
@@ -4690,7 +4720,7 @@
           {
             "name": "condition_id",
             "in": "query",
-            "description": "Scope to one market. Accepts the raw provider condition_id or the mkt_-prefixed market id (round-trips a value from a list response). Polymarket-only; an unknown id returns [].",
+            "description": "Scope to one market. Accepts the raw provider condition_id or the mkt_-prefixed market id (round-trips a value from a list response). Must be 0x followed by 64 hexadecimal characters after any mkt_ prefix is stripped; any other value returns 400. Polymarket-only; an unknown but well-formed id returns [].",
             "schema": {
               "type": "string"
             }
@@ -4996,7 +5026,7 @@
       "get": {
         "operationId": "listLargeTrades",
         "summary": "List large trades",
-        "description": "Returns recent large trades with signal scoring and persisted suspicion facts. Filter by size, category, trader grade, or persisted suspicion. Filters are applied before pagination, and every request uses SQL-backed limit + 1 pagination so has_more and next_cursor reflect the filtered result set. Cursor-paginated, newest first. Market categories come from provider-backed market_canonical identity. The response adds a top-level `data_quality` object beside `data`, grouping alert, trade, trader, ranking, market, and volume fields by their database writer. `whale_alerts.inserted_xid` is reported as unknown because it is a transaction identifier rather than a timestamp. Its stored clocks are part of the ETag; `meta` continues to hold transport cache facts.",
+        "description": "Returns recent large trades with signal scoring and persisted suspicion facts. Filter by size, category, trader grade, or persisted suspicion. Filters are applied before pagination, and every request uses SQL-backed limit + 1 pagination so has_more and next_cursor reflect the filtered result set. Cursor-paginated, newest first. Market categories come from provider-backed market_canonical identity. The response adds a top-level `data_quality` object beside `data`, grouping alert, trade, trader, ranking, market, and volume fields by their database writer. `whale_alerts.inserted_xid` is reported as unknown because it is a transaction identifier rather than a timestamp. Its stored clocks are part of the ETag; `meta` continues to hold transport cache facts. Pass since to poll for new trades: the answer holds only the trades recorded after the one you name, and with If-None-Match a poll that finds none is 304 with an empty body.",
         "tags": [
           "Large trades"
         ],
@@ -5083,6 +5113,14 @@
                 "market_volume_share"
               ],
               "default": "recent"
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "description": "Return only the trades recorded after this one. Pass the id of a large trade this API returned (wt_<n>, or the bare integer). The answer keeps the list shape and newest-first order, and next_cursor pages within it. After means commit order: a trade recorded late with an earlier traded_at is still returned, and a trade whose write has not committed yet is returned on a later poll, never skipped. To poll, send the id of the first trade on the first page of your last answer that had trades, with If-None-Match set to the ETag you last received; when nothing new was recorded the answer is 304 with an empty body. A late trade can come back once, so deduplicate on id. Only with sort=recent. An id that names no trade, or one more than 10000 trades behind the newest, answers 400 with error.param since; request the list without since and continue from its first trade.",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -5413,6 +5451,11 @@
             "lang": "curl",
             "label": "cURL",
             "source": "curl -sS \\\n  -H \"Authorization: Bearer $OXINSIDER_API_KEY\" \\\n  'https://api.0xinsider.com/api/v1/large-trades'"
+          },
+          {
+            "lang": "curl",
+            "label": "cURL (poll for new trades)",
+            "source": "curl -sS \\\n  -H \"Authorization: Bearer $OXINSIDER_API_KEY\" \\\n  -H \"If-None-Match: $LAST_ETAG\" \\\n  \"https://api.0xinsider.com/api/v1/large-trades?since=$NEWEST_TRADE_ID\""
           }
         ],
         "x-examples": {
@@ -5481,7 +5524,7 @@
       "get": {
         "operationId": "listWhaleTrades",
         "summary": "List whale trades",
-        "description": "Returns recent large trades with signal scoring and persisted suspicion facts. Filter by size, category, trader grade, or persisted suspicion. Filters are applied before pagination, and every request uses SQL-backed limit + 1 pagination so has_more and next_cursor reflect the filtered result set. Cursor-paginated, newest first. Market categories come from provider-backed market_canonical identity. Deprecated alias of GET /api/v1/large-trades, kept live and never removed (#16304); every response carries `Deprecation: @1790047200` (RFC 9745, 2026-09-22T03:20:00Z) and a `Link` to the successor (`rel=\"successor-version\"`) and to the versioning policy (`rel=\"deprecation\"`). No `Sunset` header is sent because no removal is planned. The response adds a top-level `data_quality` object beside `data`, grouping alert, trade, trader, ranking, market, and volume fields by their database writer. `whale_alerts.inserted_xid` is reported as unknown because it is a transaction identifier rather than a timestamp. Its stored clocks are part of the ETag; `meta` continues to hold transport cache facts.",
+        "description": "Returns recent large trades with signal scoring and persisted suspicion facts. Filter by size, category, trader grade, or persisted suspicion. Filters are applied before pagination, and every request uses SQL-backed limit + 1 pagination so has_more and next_cursor reflect the filtered result set. Cursor-paginated, newest first. Market categories come from provider-backed market_canonical identity. Deprecated alias of GET /api/v1/large-trades, kept live and never removed (#16304); every response carries `Deprecation: @1790047200` (RFC 9745, 2026-09-22T03:20:00Z) and a `Link` to the successor (`rel=\"successor-version\"`) and to the versioning policy (`rel=\"deprecation\"`). No `Sunset` header is sent because no removal is planned. The response adds a top-level `data_quality` object beside `data`, grouping alert, trade, trader, ranking, market, and volume fields by their database writer. `whale_alerts.inserted_xid` is reported as unknown because it is a transaction identifier rather than a timestamp. Its stored clocks are part of the ETag; `meta` continues to hold transport cache facts. Pass since to poll for new trades: the answer holds only the trades recorded after the one you name, and with If-None-Match a poll that finds none is 304 with an empty body.",
         "tags": [
           "Large trades"
         ],
@@ -5580,6 +5623,14 @@
                 "market_volume_share"
               ],
               "default": "recent"
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "description": "Return only the trades recorded after this one. Pass the id of a large trade this API returned (wt_<n>, or the bare integer). The answer keeps the list shape and newest-first order, and next_cursor pages within it. After means commit order: a trade recorded late with an earlier traded_at is still returned, and a trade whose write has not committed yet is returned on a later poll, never skipped. To poll, send the id of the first trade on the first page of your last answer that had trades, with If-None-Match set to the ETag you last received; when nothing new was recorded the answer is 304 with an empty body. A late trade can come back once, so deduplicate on id. Only with sort=recent. An id that names no trade, or one more than 10000 trades behind the newest, answers 400 with error.param since; request the list without since and continue from its first trade.",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -5935,6 +5986,11 @@
             "lang": "curl",
             "label": "cURL",
             "source": "curl -sS \\\n  -H \"Authorization: Bearer $OXINSIDER_API_KEY\" \\\n  'https://api.0xinsider.com/api/v1/whale-trades'"
+          },
+          {
+            "lang": "curl",
+            "label": "cURL (poll for new trades)",
+            "source": "curl -sS \\\n  -H \"Authorization: Bearer $OXINSIDER_API_KEY\" \\\n  -H \"If-None-Match: $LAST_ETAG\" \\\n  \"https://api.0xinsider.com/api/v1/whale-trades?since=$NEWEST_TRADE_ID\""
           }
         ],
         "x-examples": {
@@ -10912,7 +10968,7 @@
       "get": {
         "operationId": "listTrendingWallets",
         "summary": "List trending wallets",
-        "description": "Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The underlying read model is warmed into Redis; a cold read returns 503 (warming, retry-after), never a 500 or a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'. Cursors are bound to the effective limit, window and ranked-board generation; a changed board or request scope returns 400 with error.reason=cursor_expired, and legacy page-only cursors must restart from page one.",
+        "description": "Returns wallets ranked by Polymarket weekly/monthly P&L (Polymarket-only discovery), with opaque page-cursor pagination. trending_pnl_usd and the by-PNL row order come from Polymarket's canonical leaderboard (data-api.polymarket.com/v2/leaderboard?time_period=week|month&sort_by=PNL), not a locally summed realized-leaf total. Each row also carries window volume, distinct markets, grade, hot-streak tier, and a shape-only daily P&L sparkline derived from the Polymarket user-pnl cumulative curve (per-day deltas; not guaranteed to sum to trending_pnl_usd). The response comes from a retained Redis board: meta.cached is true, and meta.cache_age_s reports the original board age when known (omitted when unknown). A backend read of a board at least 120 seconds old attempts a detached refresh; after a quiet spell a product board may be up to a day old. HTTP freshness ends at 120 seconds; max-age plus stale-while-revalidate cannot exceed the remaining original retention. Unknown age grants no cache window. A true cold read returns 503 (warming, retry-after), never a fabricated ranking. Polymarket-only: the read model filters platform = 'polymarket'. Cursors are bound to the effective limit, window and ranked-board generation; a changed board or request scope returns 400 with error.reason=cursor_expired, and legacy page-only cursors must restart from page one.",
         "tags": [
           "Leaderboard"
         ],
@@ -11001,6 +11057,12 @@
               },
               "Server-Timing": {
                 "$ref": "#/components/headers/Server-Timing"
+              },
+              "Cache-Control": {
+                "description": "Private age-aware freshness with at most 120 seconds from the original board computation. Any stale replay is capped by remaining original retention; unknown or expired backing grants max-age=0 and no stale replay. The same policy applies to 304.",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -11049,8 +11111,9 @@
                       "has_more": false,
                       "meta": {
                         "request_id": "req_example",
-                        "cached": false,
-                        "cost": 1
+                        "cached": true,
+                        "cost": 1,
+                        "cache_age_s": 180
                       }
                     }
                   }
@@ -11099,6 +11162,12 @@
               },
               "Server-Timing": {
                 "$ref": "#/components/headers/Server-Timing"
+              },
+              "Cache-Control": {
+                "description": "Private age-aware freshness with at most 120 seconds from the original board computation. Any stale replay is capped by remaining original retention; unknown or expired backing grants max-age=0 and no stale replay. The same policy applies to 304.",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "x-empty-body": true
@@ -13928,7 +13997,7 @@
       "get": {
         "operationId": "listPreGameSideObservations",
         "summary": "List observation-only pre-game side cohorts",
-        "description": "Canonical since #16310; GET /api/v1/sports-edge-observations is its deprecated alias and serves the same body. Pro-tier. Measures three explicitly observation-only Polymarket sports cohorts without changing or feeding GET /api/v1/sports/pre-game-sides: wider_holder measures pre-game holder piles outside the funded route's exact raw signals admission, including recent-flow rows rejected by its event, bucket, or total caps; in_play admits provider-confirmed live games and fails closed when the provider live-board snapshot is stale or unavailable or holder/directional evidence is stale or unavailable; emerging_pile is an additive post-compute projection of wider_holder rows with finite sharp_pct in [0.75, 0.85), holder_scan_complete=true, and a kickoff after its pinned projection cutoff. emerging_pile overlaps wider_holder, remains attributed to that source terminal and denominator, and is not holder-arrival history. Every row carries observation_only=true, provider/holder freshness and completeness fields, and the response carries a required snapshot-wide operational/unknown-completeness degraded boolean plus an accountable per-sport funnel over a closed 25-value terminal-reason vocabulary. Omitted or blank category selects all 14 registered observation sport buckets, including Table Tennis and Pickleball; those two remain outside the funded sports projection. All category and all-sports cache scopes share one global observation provider-work admission, so distinct scope keys cannot multiply concurrent provider fanout. One absolute ~25s compute deadline covers cache coordination, board/universe and primary-signals membership reads, holder cache/provider work, price/metadata evaluation, and directional reads, leaving ~5s below the public router timeout for funnel reconciliation, cleanup, and response transport. A shared pre-holder stage deadline jointly bounds those database reads and board reconciliation to the smaller of 12s or half of the absolute budget remaining when that stage starts, preserving holder/post-holder opportunity; board reads use bounded fair waves and cold holder admission gives each represented canonical sport one row before any sport repeats. A request that finds its scope's refresh in flight waits for that snapshot, and a scope refresh waits for another scope's global provider-work admission while at least ~15s of the absolute deadline remain. Absolute deadline exhaustion before a usable cache, provider-work admission still held at that ~15s bound, an in-flight refresh that ends without publishing while another waiting request takes it over, or pre-holder stage expiry before a usable stored universe or primary-signals membership result returns 503 with error.reason=read_model_warming. Category-resolution SQL errors, Redis coordination failures, observation-universe SQL errors, and primary-signals membership query failures return 500 internal_error instead. Once a usable universe exists, later operational or unknown-completeness board, holder, or price/metadata failures are retained as explicit terminal reasons in a degraded 200 response with degraded=true: board_source_unavailable is a completed board-source failure, board_deadline_unavailable means live-board work missed either an internal configured-scope deadline or the outer fair-wave deadline; both classify only already-started rows, so for the upcoming source read funnel.sports[].board_upcoming_status instead; provider_unavailable is an attempted holder-provider failure, and holder_deadline_unavailable is holder-stage deadline exhaustion. Directional incompleteness is cohort-specific: a wider_holder row remains emitted with terminal wider_holder_emitted and directional_status=unavailable, while an in_play row fails closed with terminal in_play_directional_unavailable. capacity_limited records intentional bounded provider-work admission in the funnel and does not by itself set degraded=true. Healthy wider_holder requests may reuse a snapshot for ~180s; healthy emerging_pile requests may use the same snapshot. in_play never serves a cached observation snapshot older than ~30s, and degraded snapshots use ~30s. The ETag is a weak semantic validator over the stable page payload, including next_cursor page position; request-specific meta excluded; the opaque emerging_pile projection cutoff in next_cursor is not itself a validator input. Rows carry the canonical field names side, backing_score and side_share; the older piled_side, conviction_score and smart_score keys carry the same values and stay on the wire.",
+        "description": "Canonical since #16310; GET /api/v1/sports-edge-observations is its deprecated alias and serves the same body. Pro-tier. Measures three explicitly observation-only Polymarket sports cohorts without changing or feeding GET /api/v1/sports/pre-game-sides: wider_holder measures pre-game holder piles outside the funded route's exact raw signals admission, including recent-flow rows rejected by its event, bucket, or total caps; in_play admits provider-confirmed live games and fails closed when the provider live-board snapshot is stale or unavailable or holder/directional evidence is stale or unavailable; emerging_pile is an additive post-compute projection of wider_holder rows with finite sharp_pct in [0.75, 0.85), holder_scan_complete=true, and a kickoff after its pinned projection cutoff. emerging_pile overlaps wider_holder, remains attributed to that source terminal and denominator, and is not holder-arrival history. Every row carries observation_only=true, provider/holder freshness and completeness fields, and the response carries a required snapshot-wide operational/unknown-completeness degraded boolean plus an accountable per-sport funnel over a closed 25-value terminal-reason vocabulary. Omitted or blank category selects all 14 registered observation sport buckets, including Table Tennis and Pickleball; those two remain outside the funded sports projection. All category and all-sports cache scopes share one global observation provider-work admission, so distinct scope keys cannot multiply concurrent provider fanout. One absolute ~25s compute deadline covers cache coordination, board/universe and primary-signals membership reads, holder cache/provider work, price/metadata evaluation, and directional reads, leaving ~5s below the public router timeout for funnel reconciliation, cleanup, and response transport. A shared pre-holder stage deadline jointly bounds those database reads and board reconciliation to the smaller of 12s or half of the absolute budget remaining when that stage starts, preserving holder/post-holder opportunity; board reads use bounded fair waves and cold holder admission gives each represented canonical sport one row before any sport repeats. A request that finds its scope's refresh in flight waits for that snapshot, and a scope refresh waits for another scope's global provider-work admission while at least ~15s of the absolute deadline remain. Absolute deadline exhaustion before a usable cache, provider-work admission still held at that ~15s bound, an in-flight refresh that ends without publishing while another waiting request takes it over, or pre-holder stage expiry before a usable stored universe or primary-signals membership result returns 503 with error.reason=read_model_warming. Category-resolution SQL errors, Redis coordination failures, and primary-signals membership query failures return 500 internal_error instead. With no usable stored universe, a replica-side observation-universe refresh failure (a recovery conflict, its statement timeout, a busy pool, or a replica marked down) returns the same 503 read_model_warming; any other observation-universe SQL error, or an invalid compact result, still returns 500 internal_error. Once a usable universe exists, later operational or unknown-completeness board, holder, or price/metadata failures are retained as explicit terminal reasons in a degraded 200 response with degraded=true: board_source_unavailable is a completed board-source failure, board_deadline_unavailable means live-board work missed either an internal configured-scope deadline or the outer fair-wave deadline; both classify only already-started rows, so for the upcoming source read funnel.sports[].board_upcoming_status instead; provider_unavailable is an attempted holder-provider failure, and holder_deadline_unavailable is holder-stage deadline exhaustion. Directional incompleteness is cohort-specific: a wider_holder row remains emitted with terminal wider_holder_emitted and directional_status=unavailable, while an in_play row fails closed with terminal in_play_directional_unavailable. capacity_limited records intentional bounded provider-work admission in the funnel and does not by itself set degraded=true. Healthy wider_holder requests may reuse a snapshot for ~180s; healthy emerging_pile requests may use the same snapshot. in_play never serves a cached observation snapshot older than ~30s, and degraded snapshots use ~30s. The ETag is a weak semantic validator over the stable page payload, including next_cursor page position; request-specific meta excluded; the opaque emerging_pile projection cutoff in next_cursor is not itself a validator input. Rows carry the canonical field names side, backing_score and side_share; the older piled_side, conviction_score and smart_score keys carry the same values and stay on the wire.",
         "tags": [
           "Markets"
         ],
@@ -14679,7 +14748,7 @@
         "operationId": "listSportsEdgeObservations",
         "summary": "List observation-only sports-edge cohorts",
         "deprecated": true,
-        "description": "Deprecated since #16310: use GET /api/v1/sports/pre-game-side-observations, which serves the same body. This path stays live and answers with Deprecation and successor Link headers. Pro-tier. Measures three explicitly observation-only Polymarket sports cohorts without changing or feeding GET /api/v1/sports-edge-signals: wider_holder measures pre-game holder piles outside the funded route's exact raw signals admission, including recent-flow rows rejected by its event, bucket, or total caps; in_play admits provider-confirmed live games and fails closed when the provider live-board snapshot is stale or unavailable or holder/directional evidence is stale or unavailable; emerging_pile is an additive post-compute projection of wider_holder rows with finite sharp_pct in [0.75, 0.85), holder_scan_complete=true, and a kickoff after its pinned projection cutoff. emerging_pile overlaps wider_holder, remains attributed to that source terminal and denominator, and is not holder-arrival history. Every row carries observation_only=true, provider/holder freshness and completeness fields, and the response carries a required snapshot-wide operational/unknown-completeness degraded boolean plus an accountable per-sport funnel over a closed 25-value terminal-reason vocabulary. Omitted or blank category selects all 14 registered observation sport buckets, including Table Tennis and Pickleball; those two remain outside the funded sports projection. All category and all-sports cache scopes share one global observation provider-work admission, so distinct scope keys cannot multiply concurrent provider fanout. One absolute ~25s compute deadline covers cache coordination, board/universe and primary-signals membership reads, holder cache/provider work, price/metadata evaluation, and directional reads, leaving ~5s below the public router timeout for funnel reconciliation, cleanup, and response transport. A shared pre-holder stage deadline jointly bounds those database reads and board reconciliation to the smaller of 12s or half of the absolute budget remaining when that stage starts, preserving holder/post-holder opportunity; board reads use bounded fair waves and cold holder admission gives each represented canonical sport one row before any sport repeats. A request that finds its scope's refresh in flight waits for that snapshot, and a scope refresh waits for another scope's global provider-work admission while at least ~15s of the absolute deadline remain. Absolute deadline exhaustion before a usable cache, provider-work admission still held at that ~15s bound, an in-flight refresh that ends without publishing while another waiting request takes it over, or pre-holder stage expiry before a usable stored universe or primary-signals membership result returns 503 with error.reason=read_model_warming. Category-resolution SQL errors, Redis coordination failures, observation-universe SQL errors, and primary-signals membership query failures return 500 internal_error instead. Once a usable universe exists, later operational or unknown-completeness board, holder, or price/metadata failures are retained as explicit terminal reasons in a degraded 200 response with degraded=true: board_source_unavailable is a completed board-source failure, board_deadline_unavailable means live-board work missed either an internal configured-scope deadline or the outer fair-wave deadline; both classify only already-started rows, so for the upcoming source read funnel.sports[].board_upcoming_status instead; provider_unavailable is an attempted holder-provider failure, and holder_deadline_unavailable is holder-stage deadline exhaustion. Directional incompleteness is cohort-specific: a wider_holder row remains emitted with terminal wider_holder_emitted and directional_status=unavailable, while an in_play row fails closed with terminal in_play_directional_unavailable. capacity_limited records intentional bounded provider-work admission in the funnel and does not by itself set degraded=true. Healthy wider_holder requests may reuse a snapshot for ~180s; healthy emerging_pile requests may use the same snapshot. in_play never serves a cached observation snapshot older than ~30s, and degraded snapshots use ~30s. The ETag is a weak semantic validator over the stable page payload, including next_cursor page position; request-specific meta excluded; the opaque emerging_pile projection cutoff in next_cursor is not itself a validator input.",
+        "description": "Deprecated since #16310: use GET /api/v1/sports/pre-game-side-observations, which serves the same body. This path stays live and answers with Deprecation and successor Link headers. Pro-tier. Measures three explicitly observation-only Polymarket sports cohorts without changing or feeding GET /api/v1/sports-edge-signals: wider_holder measures pre-game holder piles outside the funded route's exact raw signals admission, including recent-flow rows rejected by its event, bucket, or total caps; in_play admits provider-confirmed live games and fails closed when the provider live-board snapshot is stale or unavailable or holder/directional evidence is stale or unavailable; emerging_pile is an additive post-compute projection of wider_holder rows with finite sharp_pct in [0.75, 0.85), holder_scan_complete=true, and a kickoff after its pinned projection cutoff. emerging_pile overlaps wider_holder, remains attributed to that source terminal and denominator, and is not holder-arrival history. Every row carries observation_only=true, provider/holder freshness and completeness fields, and the response carries a required snapshot-wide operational/unknown-completeness degraded boolean plus an accountable per-sport funnel over a closed 25-value terminal-reason vocabulary. Omitted or blank category selects all 14 registered observation sport buckets, including Table Tennis and Pickleball; those two remain outside the funded sports projection. All category and all-sports cache scopes share one global observation provider-work admission, so distinct scope keys cannot multiply concurrent provider fanout. One absolute ~25s compute deadline covers cache coordination, board/universe and primary-signals membership reads, holder cache/provider work, price/metadata evaluation, and directional reads, leaving ~5s below the public router timeout for funnel reconciliation, cleanup, and response transport. A shared pre-holder stage deadline jointly bounds those database reads and board reconciliation to the smaller of 12s or half of the absolute budget remaining when that stage starts, preserving holder/post-holder opportunity; board reads use bounded fair waves and cold holder admission gives each represented canonical sport one row before any sport repeats. A request that finds its scope's refresh in flight waits for that snapshot, and a scope refresh waits for another scope's global provider-work admission while at least ~15s of the absolute deadline remain. Absolute deadline exhaustion before a usable cache, provider-work admission still held at that ~15s bound, an in-flight refresh that ends without publishing while another waiting request takes it over, or pre-holder stage expiry before a usable stored universe or primary-signals membership result returns 503 with error.reason=read_model_warming. Category-resolution SQL errors, Redis coordination failures, and primary-signals membership query failures return 500 internal_error instead. With no usable stored universe, a replica-side observation-universe refresh failure (a recovery conflict, its statement timeout, a busy pool, or a replica marked down) returns the same 503 read_model_warming; any other observation-universe SQL error, or an invalid compact result, still returns 500 internal_error. Once a usable universe exists, later operational or unknown-completeness board, holder, or price/metadata failures are retained as explicit terminal reasons in a degraded 200 response with degraded=true: board_source_unavailable is a completed board-source failure, board_deadline_unavailable means live-board work missed either an internal configured-scope deadline or the outer fair-wave deadline; both classify only already-started rows, so for the upcoming source read funnel.sports[].board_upcoming_status instead; provider_unavailable is an attempted holder-provider failure, and holder_deadline_unavailable is holder-stage deadline exhaustion. Directional incompleteness is cohort-specific: a wider_holder row remains emitted with terminal wider_holder_emitted and directional_status=unavailable, while an in_play row fails closed with terminal in_play_directional_unavailable. capacity_limited records intentional bounded provider-work admission in the funnel and does not by itself set degraded=true. Healthy wider_holder requests may reuse a snapshot for ~180s; healthy emerging_pile requests may use the same snapshot. in_play never serves a cached observation snapshot older than ~30s, and degraded snapshots use ~30s. The ETag is a weak semantic validator over the stable page payload, including next_cursor page position; request-specific meta excluded; the opaque emerging_pile projection cutoff in next_cursor is not itself a validator input.",
         "tags": [
           "Markets"
         ],
@@ -15056,7 +15125,7 @@
       "get": {
         "operationId": "getCoverage",
         "summary": "Which reads the API serves for Polymarket",
-        "description": "Unauthenticated discovery endpoint that declares which V1 data surfaces are supported, partial, or unsupported for Polymarket, the one venue the API covers. Canonical since #16315; GET /api/v1/platforms is its deprecated alias with the same body.",
+        "description": "Unauthenticated discovery endpoint that declares which V1 data surfaces the API serves for Polymarket, the one venue it covers. Every capability reports supported. Canonical since #16315; GET /api/v1/platforms is its deprecated alias with the same body.",
         "tags": [
           "System"
         ],
@@ -15272,7 +15341,7 @@
         "deprecated": true,
         "operationId": "getPlatforms",
         "summary": "Get platform capability matrix",
-        "description": "Deprecated since #16315: use GET /api/v1/coverage, which serves the same body. This path stays live and answers with Deprecation and successor Link headers. Unauthenticated discovery endpoint that declares which V1 data surfaces are supported, partial, or unsupported per provider platform.",
+        "description": "Deprecated since #16315: use GET /api/v1/coverage, which serves the same body. This path stays live and answers with Deprecation and successor Link headers. Unauthenticated discovery endpoint that declares which V1 data surfaces the API serves for Polymarket, the one venue it covers. Every capability reports supported.",
         "tags": [
           "System"
         ],
@@ -26374,7 +26443,7 @@
                               "readOnlyHint": true,
                               "title": "Get trader"
                             },
-                            "description": "Look up a prediction market trader by wallet address or username. Returns grade (S through F), P&L breakdown, win rate, and volume.\n\nOptional expand fields for heavier data:\n- strategy: Trading strategy classification\n- categories: Per-category performance breakdown\n- quant_metrics: curated advanced metrics (copy_score and smart_score 0-100, sharpe_30d, sharpe_7d, profit_factor, edge_consistency, sharpe_percentile, pf_percentile, consistency_percentile); emitted only for a computed row strictly under six hours old, otherwise omitted; each present value is a number or null\n- trust: Per-field provenance (source, freshness, reconciliation, completeness) for grade, P&L, and stats\n\nUnknown addresses or usernames return sync_status \"unknown\" (not an error).\n\nArgs:\n  - address (string, required): Ethereum wallet address (0x...) or trader username\n  - expand (string[], optional): Heavy fields to include: \"strategy\", \"categories\", \"quant_metrics\", \"trust\"\n\nReturns: Trader profile with grade, P&L, stats, and optional expanded fields.",
+                            "description": "Look up a prediction market trader by wallet address or username. Returns grade (S through F), P&L breakdown, win rate, and volume.\n\nOptional expand fields for heavier data:\n- strategy: Trading strategy classification\n- categories: Per-category performance breakdown\n- quant_metrics: curated advanced metrics (copy_score and smart_score 0-100, sharpe_30d, sharpe_7d, profit_factor, edge_consistency, sharpe_percentile, pf_percentile, consistency_percentile); emitted only for a computed row strictly under six hours old, otherwise omitted; each present value is a number or null\n- trust: Per-field provenance (source, freshness, reconciliation, completeness) for grade, P&L, and stats\n\nA wallet address with no trader yet returns sync_status \"unknown\" (not an error). A username or trader id that matches no trader is a not_found error.\n\nArgs:\n  - address (string, required): Ethereum wallet address (0x...) or trader username\n  - expand (string[], optional): Heavy fields to include: \"strategy\", \"categories\", \"quant_metrics\", \"trust\"\n\nReturns: Trader profile with grade, P&L, stats, and optional expanded fields.",
                             "inputSchema": {
                               "additionalProperties": false,
                               "properties": {
@@ -31945,6 +32014,9 @@
           },
           "platform": {
             "type": "string",
+            "enum": [
+              "polymarket"
+            ],
             "description": "Always polymarket."
           },
           "slug": {
@@ -32967,10 +33039,9 @@
       "PlatformCapabilityStatus": {
         "type": "string",
         "enum": [
-          "supported",
-          "partial",
-          "unsupported"
-        ]
+          "supported"
+        ],
+        "description": "Every capability the API serves reports supported. The field names a per-capability status so a client can branch on coverage; no other value is emitted."
       },
       "PlatformCapabilities": {
         "type": "object",
@@ -33318,7 +33389,7 @@
           "category_strengths": {
             "type": "object",
             "additionalProperties": true,
-            "description": "Per-category performance breakdown (expand=categories or expand[]=categories). Omitted unless expanded. Object keyed by category name; each value is the precomputed trader_rankings.category_ranks payload (rank, total_in_category, total_pnl, scaled_total_pnl, n_markets, wins, losses, win_rate; scaled_total_pnl is a legacy alias that currently equals total_pnl). BASIS: the calibration sample, which admits a position only above a 20 USD notional floor and with a chosen-side entry price strictly inside (0,1), because the ranks and the calibration edge derived from it depend on both rules. That is a different sample from GET /api/v1/trader/{address}/categories, which counts every settled market at any size, and the two differ in both directions. Measured on production 2026-09-22 over the 122,497 wallet-category pairs with at least 20 decided markets on both bases: the floored rate was higher in 56.5% of pairs, lower in 34.5% and equal in 9.0%, median +0.6 points, p10 -4.6, p90 +9.8, and 14.0% of pairs differ by 10 points or more. The difference is not only small positions: on a 1-in-250 wallet sample the same day, admitted markets won 56.6% while markets dropped by the notional floor alone won 45.2% and markets dropped by the entry-price rule alone won 48.7%. n_markets counts every admitted market including the ones that resolved at exactly zero P&L, so it is not the denominator of win_rate: it differed from wins + losses in 15.8% of pairs with at least 5 decided markets. The two tables also run on different clocks, this one updated incrementally and that route rebuilt daily, so a same-day read can differ on timing alone. Use this for rank context and that route for the wallet's plain record. Pass-through DB JSON: keys and value shape are DB-owned, so the inner shape is intentionally unconstrained and may carry additional compatibility fields."
+            "description": "Per-category performance breakdown (expand=categories or expand[]=categories). Omitted unless expanded. Object keyed by category name; each value is the precomputed trader_rankings.category_ranks payload (rank, total_in_category, total_pnl, scaled_total_pnl, n_markets, wins, losses, win_rate; scaled_total_pnl is a legacy alias that currently equals total_pnl). RANK BASIS: rank and total_in_category use the same hourly breakpoint publication; categories absent from that publication are omitted until a later publication includes them. Current trader performance values update separately, so this is not a frozen historical record. BASIS: the calibration sample, which admits a position only above a 20 USD notional floor and with a chosen-side entry price strictly inside (0,1), because the ranks and the calibration edge derived from it depend on both rules. That is a different sample from GET /api/v1/trader/{address}/categories, which counts every settled market at any size, and the two differ in both directions. Measured on production 2026-09-22 over the 122,497 wallet-category pairs with at least 20 decided markets on both bases: the floored rate was higher in 56.5% of pairs, lower in 34.5% and equal in 9.0%, median +0.6 points, p10 -4.6, p90 +9.8, and 14.0% of pairs differ by 10 points or more. The difference is not only small positions: on a 1-in-250 wallet sample the same day, admitted markets won 56.6% while markets dropped by the notional floor alone won 45.2% and markets dropped by the entry-price rule alone won 48.7%. n_markets counts every admitted market including the ones that resolved at exactly zero P&L, so it is not the denominator of win_rate: it differed from wins + losses in 15.8% of pairs with at least 5 decided markets. The two tables also run on different clocks, this one updated incrementally and that route rebuilt daily, so a same-day read can differ on timing alone. Use this for rank context and that route for the wallet's plain record. Pass-through DB JSON: keys and value shape are DB-owned, so the inner shape is intentionally unconstrained and may carry additional compatibility fields."
           },
           "quant_metrics": {
             "type": "object",
@@ -34292,7 +34363,10 @@
           },
           "platform": {
             "type": "string",
-            "description": "Provider platform (e.g. \"polymarket\")."
+            "enum": [
+              "polymarket"
+            ],
+            "description": "Provider platform. Always polymarket."
           },
           "release_at": {
             "type": "string",
@@ -35568,7 +35642,10 @@
           },
           "platform": {
             "type": "string",
-            "description": "Provider platform."
+            "enum": [
+              "polymarket"
+            ],
+            "description": "Provider platform. Always polymarket."
           }
         }
       },
@@ -35625,7 +35702,10 @@
           },
           "platform": {
             "type": "string",
-            "description": "Provider platform."
+            "enum": [
+              "polymarket"
+            ],
+            "description": "Provider platform. Always polymarket."
           }
         }
       },
@@ -35686,7 +35766,11 @@
             "type": "string"
           },
           "platform": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "polymarket"
+            ],
+            "description": "Provider platform. Always polymarket."
           },
           "last_active": {
             "type": "string",
@@ -35769,7 +35853,11 @@
           },
           "platform": {
             "type": "string",
-            "nullable": true
+            "enum": [
+              "polymarket"
+            ],
+            "nullable": true,
+            "description": "Provider platform. Always polymarket, or null when the row carries no stored value."
           },
           "status": {
             "type": "string",
@@ -35864,7 +35952,11 @@
           },
           "platform": {
             "type": "string",
-            "nullable": true
+            "enum": [
+              "polymarket"
+            ],
+            "nullable": true,
+            "description": "Provider platform. Always polymarket, or null when the row carries no stored value."
           },
           "status": {
             "type": "string",
@@ -36149,7 +36241,11 @@
           },
           "platform": {
             "type": "string",
-            "nullable": true
+            "enum": [
+              "polymarket"
+            ],
+            "nullable": true,
+            "description": "Provider platform. Always polymarket, or null when the row carries no stored value."
           },
           "category": {
             "type": "string",
@@ -36598,7 +36694,11 @@
               },
               "platform": {
                 "type": "string",
-                "nullable": true
+                "enum": [
+                  "polymarket"
+                ],
+                "nullable": true,
+                "description": "Provider platform. Always polymarket, or null when the row carries no stored value."
               }
             }
           },
@@ -36840,7 +36940,11 @@
               },
               "platform": {
                 "type": "string",
-                "nullable": true
+                "enum": [
+                  "polymarket"
+                ],
+                "nullable": true,
+                "description": "Provider platform. Always polymarket, or null when the row carries no stored value."
               }
             }
           },
@@ -38738,8 +38842,11 @@
                 },
                 "platform": {
                   "type": "string",
+                  "enum": [
+                    "polymarket"
+                  ],
                   "nullable": true,
-                  "description": "Venue: polymarket."
+                  "description": "Always polymarket, or null when the row carries no stored value."
                 },
                 "name": {
                   "type": "string",
@@ -38829,8 +38936,11 @@
                 },
                 "platform": {
                   "type": "string",
+                  "enum": [
+                    "polymarket"
+                  ],
                   "nullable": true,
-                  "description": "Venue: polymarket."
+                  "description": "Always polymarket, or null when the row carries no stored value."
                 },
                 "name": {
                   "type": "string",
@@ -39947,7 +40057,7 @@
           },
           "trending_pnl_usd": {
             "type": "number",
-            "description": "Polymarket weekly/monthly P&L for the wallet in USD, taken from Polymarket's canonical leaderboard (data-api.polymarket.com/v1/leaderboard?timePeriod=week|month&orderBy=PNL). This is the ranking axis and the rows are returned in Polymarket's by-PNL order; it is the provider's number, not a locally summed realized-leaf total."
+            "description": "Polymarket weekly/monthly P&L for the wallet in USD, taken from Polymarket's canonical leaderboard (data-api.polymarket.com/v2/leaderboard?time_period=week|month&sort_by=PNL). This is the ranking axis and the rows are returned in Polymarket's by-PNL order; it is the provider's number, not a locally summed realized-leaf total."
           },
           "window_volume_usd": {
             "type": "number",
