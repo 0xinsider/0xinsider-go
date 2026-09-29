@@ -252,8 +252,13 @@ func (b *deadlineBody) Close() error {
 }
 
 // isExportDownloadRequest reports whether req is
-// GET /api/v1/trader/{address}/export/download, which redirects to a presigned
+// a trader export or whale dataset download, which redirects to a presigned
 // file: a body this SDK does not size, so it gets the longer default.
 func isExportDownloadRequest(req *http.Request) bool {
-	return req.Method == http.MethodGet && strings.HasSuffix(req.URL.Path, "/export/download")
+	if req.Method != http.MethodGet {
+		return false
+	}
+	path := req.URL.Path
+	return strings.HasSuffix(path, "/export/download") ||
+		(strings.HasPrefix(path, "/api/v1/datasets/whale-trades/") && strings.HasSuffix(path, "/download"))
 }

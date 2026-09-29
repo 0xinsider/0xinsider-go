@@ -9,6 +9,8 @@
 # The bracketed query aliases (`expand[]`) are backward-compatible spellings of
 # `expand`; they collide with the canonical parameter in Go names, so they are
 # dropped before generation. Requests from this SDK always use `expand`.
+# Replay min_size is query text: use an exact decimal string rather than the
+# generator's inaccessible anonymous number/string union.
 #
 # provenance.go records the SHA-256 of the document bytes as fetched (before
 # the alias filter), its info.version, the operation count, and the app commit
@@ -50,7 +52,8 @@ fi
 # Filter through a temporary file: SPEC=openapi.sdk.json is a reasonable thing
 # to type, and a redirect straight onto the destination would truncate the
 # input before jq read it.
-jq '(.paths[][] | objects | select(has("parameters")) | .parameters) |= map(select((.name // "") | endswith("[]") | not))' \
+jq '(.paths[][] | objects | select(has("parameters")) | .parameters) |= map(select((.name // "") | endswith("[]") | not))
+    | (.paths["/api/v1/events/feed/since"].get.parameters[] | select(.name == "min_size").schema)["x-go-type"] = "string"' \
   "$spec" > "$tmp/openapi.sdk.json"
 mv "$tmp/openapi.sdk.json" openapi.sdk.json
 go run "github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@${OAPI_CODEGEN_VERSION}" \

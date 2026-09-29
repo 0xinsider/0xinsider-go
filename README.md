@@ -145,6 +145,14 @@ OXI_API_KEY=oxi_sk_live_... go run ./examples/stream
 
 `provenance.go` says which document a release was generated from: `OpenAPISHA256` (the SHA-256 of the document bytes), `OpenAPIVersion`, `OperationCount`, and `AppCommit`, the `0xinsider/0xinsider` commit that last changed `web/public/api/v1/openapi.json` (empty when it could not be resolved). Compare `OpenAPISHA256` with `shasum -a 256` of the live document to see whether a release is behind the API.
 
+## Immutable whale datasets
+
+`SubmitWhaleDatasetWithResponse` creates a bounded NDJSON snapshot. Read `GetWhaleDatasetStatusWithResponse` and follow `next_action` and `poll_after_s`; `CancelWhaleDatasetWithResponse` cancels work before its completion fence.
+
+For a ready job, use the raw `DownloadWhaleDataset` response and stream `Body` with `io.Copy`, then close it. The default client follows the storage redirect without forwarding the API credential and applies the file-transfer timeout. Hash the gzip bytes against the manifest's compressed SHA-256, or decode gzip and hash the content against its content SHA-256. The generated `WithResponse` download method buffers the file.
+
+Resume `GetEventReplaySinceWithResponse` with the manifest's continuation cursor and non-null filters. Its `MinSize` query parameter is a decimal string so the handoff remains exact. The finite snapshot window does not restrict later deltas; deduplicate snapshot and expanded replay rows by their `wt_` trade ID. Coverage is detected whale alerts, not all provider fills or updates and deletions.
+
 ## License
 
 MIT

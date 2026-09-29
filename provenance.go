@@ -8,11 +8,11 @@ package oxinsider
 // when it could be resolved, else "". Compare OpenAPISHA256 with the live
 // document to see whether a release is behind the API.
 const (
-	OpenAPISource  = "https://0xinsider.com/api/v1/openapi.json"
-	OpenAPISHA256  = "37c5805b409a82fa719fa76fd8af7cd090bb7226cccd5a6f70f99e44c01224c7"
+	OpenAPISource  = "0xinsider/0xinsider:web/public/api/v1/openapi.json"
+	OpenAPISHA256  = "99be30eda181b9464fb925a2f609a86bc96bb9253f6e264bd1d63380573fce64"
 	OpenAPIVersion = "1.0.0"
-	OperationCount = 83
+	OperationCount = 87
 	AppRepository  = "0xinsider/0xinsider"
 	AppSpecPath    = "web/public/api/v1/openapi.json"
-	AppCommit      = ""
+	AppCommit      = "0db0fe65d309cdb55ef8ddef28afaafe53f455c2"
 )

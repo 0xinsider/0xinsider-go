@@ -21255,10 +21255,20 @@
             "name": "min_size",
             "in": "query",
             "required": false,
-            "description": "Only trades of at least this size in USD (compared in cents). Bound to the cursor.",
+            "description": "Only trades of at least this USD amount. Decimal and scientific query spellings normalize exactly to cents, rounding half away from zero; maximum 1e15 USD. Pass the dataset continuation decimal string unchanged to preserve the bound. Bound to the cursor.",
             "schema": {
-              "type": "number",
-              "minimum": 0
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1000000000000000.0
+                },
+                {
+                  "type": "string",
+                  "description": "Exact decimal query spelling, including scientific notation."
+                }
+              ],
+              "x-go-type": "string"
             }
           },
           {
@@ -31054,6 +31064,872 @@
               "request_id": "req_example",
               "cached": false,
               "cost": 1
+            }
+          }
+        },
+        "x-latency-budget": {
+          "milliseconds": 250,
+          "measurement": "response-ready",
+          "requirement": "engineering-budget"
+        }
+      }
+    },
+    "/api/v1/datasets/whale-trades": {
+      "post": {
+        "operationId": "submitWhaleDataset",
+        "summary": "Create an immutable whale dataset",
+        "description": "Extract at most 1,000,000 rows and 256 MiB uncompressed; exceeding either bound fails the job and publishes no partial file. Window and filters freeze on admission; rows and source facts freeze on one worker database snapshot. NDJSON uses exact decimal strings, with no current grade or market enrichment. The manifest checkpoint includes already committed arrivals after to plus later/open writers, with intentional overlap. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.",
+        "tags": [
+          "Traders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "export"
+            ]
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Invalid request parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "The handler did not answer inside the server's 30-second timeout. error.code is request_timeout. On GET and HEAD the response carries Retry-After and error.retry_at; on a mutation it carries neither, because the request may have completed on the server: check its state before repeating it, and reuse its Idempotency-Key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "423": {
+            "description": "Account is locked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Three independent budgets. (1) 100 requests/minute per user (sliding window), on every authenticated route. (2) On the BATCH routes only: 2500 batch item units/minute per user, reserved before any item is executed. A batch with N requested items costs N item units, including duplicate and invalid items. 2500 = 100 requests x 25 items per batch, which is the most item work a key can buy through the request limiter at all: a caller may spend their entire 100-request minute on full 25-item batches without the item budget being what stops them. The REQUEST budget is the effective ceiling, and batching is never the more expensive choice. The item budget can still deny at a sliding-window boundary (both counters carry the previous window forward with a floor, and the item counter runs 25x the request counter), so honor a 429 from either. Over-quota batches return 429 with Retry-After plus RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset before any item work is done. (3) The monthly quota: Pro includes 250,000 authenticated requests per UTC calendar month, whatever the billing cadence. Over 250,000: with pay as you go on, requests keep answering and the excess bills at USD 0.20 per 1,000 on a monthly invoice, up to 1,000,000 requests a month; without it, from October 1, 2026, the next request answers 429 rate_limited with error.reason monthly_quota_exceeded and a Retry-After to the month's reset, and from the same day a pay-as-you-go account answers the same past 1,000,000. A refused request is not counted. Every authenticated response carries X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining, and X-Monthly-Quota-Reset (unix seconds, the first of next month). (4) The per-address budget: 1200 requests/minute per IP, shared by every caller behind one address and counted before authentication, on every route. A 429 from it carries error.reason ip_rate_limited and describes that bucket in RateLimit-*; a throttled address (sustained over-limit traffic) carries error.reason ip_throttled with a Retry-After of minutes to days, and a request before it does not shorten the cooldown. Every 429 is the standard error envelope with meta.request_id equal to X-Request-Id.",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until rate limit resets.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the middleware will probe the Redis-backed rate limiter again.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Owner-scoped dataset lifecycle and immutable manifest when ready.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhaleDatasetJob"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Reused identical live dataset job.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhaleDatasetJob"
+                }
+              }
+            }
+          }
+        },
+        "x-latency-budget": {
+          "milliseconds": 250,
+          "measurement": "response-ready",
+          "requirement": "engineering-budget"
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Finite past [from, to) window up to 31 days, with optional stable source filters. Identical live normalized requests reuse their job without another reservation. A failed or expired job can be resubmitted.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "from",
+                  "to"
+                ],
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "to": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "condition_id": {
+                    "type": "string",
+                    "description": "Raw provider condition id or mkt_-prefixed id."
+                  },
+                  "min_size": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000.0,
+                    "description": "USD minimum, normalized to cents like replay."
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/datasets/whale-trades/{job_id}": {
+      "get": {
+        "operationId": "getWhaleDatasetStatus",
+        "summary": "Read a whale dataset job",
+        "description": "Read queued, running, cancel_requested, ready, failed, reconcile_required, expired or cancelled. Poll only while next_action is poll, after poll_after_s. Ready manifests contain count, content and compressed SHA-256, schema, filters, source, horizon, expiry and replay continuation. Deltas do not retain the finite time filter and can repeat rows; deduplicate by wt_ ID (payload.whale_alert_id when not expanded). This is an insertion feed, not update/delete CDC. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.",
+        "tags": [
+          "Traders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "export"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "description": "Dataset job ID returned by submit; another owner or a trader export returns 404.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid request parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "The handler did not answer inside the server's 30-second timeout. error.code is request_timeout. On GET and HEAD the response carries Retry-After and error.retry_at; on a mutation it carries neither, because the request may have completed on the server: check its state before repeating it, and reuse its Idempotency-Key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "423": {
+            "description": "Account is locked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Three independent budgets. (1) 100 requests/minute per user (sliding window), on every authenticated route. (2) On the BATCH routes only: 2500 batch item units/minute per user, reserved before any item is executed. A batch with N requested items costs N item units, including duplicate and invalid items. 2500 = 100 requests x 25 items per batch, which is the most item work a key can buy through the request limiter at all: a caller may spend their entire 100-request minute on full 25-item batches without the item budget being what stops them. The REQUEST budget is the effective ceiling, and batching is never the more expensive choice. The item budget can still deny at a sliding-window boundary (both counters carry the previous window forward with a floor, and the item counter runs 25x the request counter), so honor a 429 from either. Over-quota batches return 429 with Retry-After plus RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset before any item work is done. (3) The monthly quota: Pro includes 250,000 authenticated requests per UTC calendar month, whatever the billing cadence. Over 250,000: with pay as you go on, requests keep answering and the excess bills at USD 0.20 per 1,000 on a monthly invoice, up to 1,000,000 requests a month; without it, from October 1, 2026, the next request answers 429 rate_limited with error.reason monthly_quota_exceeded and a Retry-After to the month's reset, and from the same day a pay-as-you-go account answers the same past 1,000,000. A refused request is not counted. Every authenticated response carries X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining, and X-Monthly-Quota-Reset (unix seconds, the first of next month). (4) The per-address budget: 1200 requests/minute per IP, shared by every caller behind one address and counted before authentication, on every route. A 429 from it carries error.reason ip_rate_limited and describes that bucket in RateLimit-*; a throttled address (sustained over-limit traffic) carries error.reason ip_throttled with a Retry-After of minutes to days, and a request before it does not shorten the cooldown. Every 429 is the standard error envelope with meta.request_id equal to X-Request-Id.",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until rate limit resets.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the middleware will probe the Redis-backed rate limiter again.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Owner-scoped dataset lifecycle and immutable manifest when ready.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhaleDatasetJob"
+                }
+              }
+            }
+          }
+        },
+        "x-latency-budget": {
+          "milliseconds": 250,
+          "measurement": "response-ready",
+          "requirement": "engineering-budget"
+        }
+      }
+    },
+    "/api/v1/datasets/whale-trades/{job_id}/download": {
+      "get": {
+        "operationId": "downloadWhaleDataset",
+        "summary": "Download an immutable whale dataset",
+        "description": "Download only a ready artifact; status handles failure and cancellation. Retired artifacts return 410 at serving time. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.",
+        "tags": [
+          "Traders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "export"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "description": "Dataset job ID returned by submit; another owner or a trader export returns 404.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid request parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "The handler did not answer inside the server's 30-second timeout. error.code is request_timeout. On GET and HEAD the response carries Retry-After and error.retry_at; on a mutation it carries neither, because the request may have completed on the server: check its state before repeating it, and reuse its Idempotency-Key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "423": {
+            "description": "Account is locked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Three independent budgets. (1) 100 requests/minute per user (sliding window), on every authenticated route. (2) On the BATCH routes only: 2500 batch item units/minute per user, reserved before any item is executed. A batch with N requested items costs N item units, including duplicate and invalid items. 2500 = 100 requests x 25 items per batch, which is the most item work a key can buy through the request limiter at all: a caller may spend their entire 100-request minute on full 25-item batches without the item budget being what stops them. The REQUEST budget is the effective ceiling, and batching is never the more expensive choice. The item budget can still deny at a sliding-window boundary (both counters carry the previous window forward with a floor, and the item counter runs 25x the request counter), so honor a 429 from either. Over-quota batches return 429 with Retry-After plus RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset before any item work is done. (3) The monthly quota: Pro includes 250,000 authenticated requests per UTC calendar month, whatever the billing cadence. Over 250,000: with pay as you go on, requests keep answering and the excess bills at USD 0.20 per 1,000 on a monthly invoice, up to 1,000,000 requests a month; without it, from October 1, 2026, the next request answers 429 rate_limited with error.reason monthly_quota_exceeded and a Retry-After to the month's reset, and from the same day a pay-as-you-go account answers the same past 1,000,000. A refused request is not counted. Every authenticated response carries X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining, and X-Monthly-Quota-Reset (unix seconds, the first of next month). (4) The per-address budget: 1200 requests/minute per IP, shared by every caller behind one address and counted before authentication, on every route. A 429 from it carries error.reason ip_rate_limited and describes that bucket in RateLimit-*; a throttled address (sustained over-limit traffic) carries error.reason ip_throttled with a Retry-After of minutes to days, and a request before it does not shorten the cooldown. Every 429 is the standard error envelope with meta.request_id equal to X-Request-Id.",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until rate limit resets.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the middleware will probe the Redis-backed rate limiter again.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "302": {
+            "description": "Private redirect to the immutable gzip NDJSON object. Fetch without API Authorization. Content-Encoding gzip: decompress before parsing; each line conforms to WhaleDatasetTrade. URL validity is min(1 hour, remaining artifact retention); get a fresh URL after expiry.",
+            "x-empty-body": true,
+            "headers": {
+              "Location": {
+                "description": "Temporary signed R2 URL; never persist it as the artifact identity.",
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "The export's retention window has passed and its file is retired. error.code is not_found, error.reason is export_expired, error.message names expired_at. Submit a new export; polling or retrying the download cannot succeed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "expired": {
+                    "summary": "Download after the retention window",
+                    "value": {
+                      "object": "error",
+                      "error": {
+                        "code": "not_found",
+                        "message": "Export job 123 expired at 2026-09-23T09:00:00Z and its file is no longer available. Submit a new export.",
+                        "doc_url": "https://docs.0xinsider.com/api-reference/endpoint/get-trader-export-status",
+                        "reason": "export_expired"
+                      },
+                      "meta": {
+                        "request_id": "req_example",
+                        "cached": false,
+                        "cost": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-latency-budget": {
+          "milliseconds": 250,
+          "measurement": "response-ready",
+          "requirement": "engineering-budget"
+        }
+      }
+    },
+    "/api/v1/datasets/whale-trades/{job_id}/cancel": {
+      "post": {
+        "operationId": "cancelWhaleDataset",
+        "summary": "Cancel a whale dataset job",
+        "description": "Cancel queued jobs immediately and request running jobs stop at their next safe point. Repeating cancel converges on the current state; cancellation after the completion fence leaves the artifact ready. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.",
+        "tags": [
+          "Traders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "export"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "description": "Dataset job ID returned by submit; another owner or a trader export returns 404.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid request parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "The handler did not answer inside the server's 30-second timeout. error.code is request_timeout. On GET and HEAD the response carries Retry-After and error.retry_at; on a mutation it carries neither, because the request may have completed on the server: check its state before repeating it, and reuse its Idempotency-Key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "423": {
+            "description": "Account is locked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Three independent budgets. (1) 100 requests/minute per user (sliding window), on every authenticated route. (2) On the BATCH routes only: 2500 batch item units/minute per user, reserved before any item is executed. A batch with N requested items costs N item units, including duplicate and invalid items. 2500 = 100 requests x 25 items per batch, which is the most item work a key can buy through the request limiter at all: a caller may spend their entire 100-request minute on full 25-item batches without the item budget being what stops them. The REQUEST budget is the effective ceiling, and batching is never the more expensive choice. The item budget can still deny at a sliding-window boundary (both counters carry the previous window forward with a floor, and the item counter runs 25x the request counter), so honor a 429 from either. Over-quota batches return 429 with Retry-After plus RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset before any item work is done. (3) The monthly quota: Pro includes 250,000 authenticated requests per UTC calendar month, whatever the billing cadence. Over 250,000: with pay as you go on, requests keep answering and the excess bills at USD 0.20 per 1,000 on a monthly invoice, up to 1,000,000 requests a month; without it, from October 1, 2026, the next request answers 429 rate_limited with error.reason monthly_quota_exceeded and a Retry-After to the month's reset, and from the same day a pay-as-you-go account answers the same past 1,000,000. A refused request is not counted. Every authenticated response carries X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining, and X-Monthly-Quota-Reset (unix seconds, the first of next month). (4) The per-address budget: 1200 requests/minute per IP, shared by every caller behind one address and counted before authentication, on every route. A 429 from it carries error.reason ip_rate_limited and describes that bucket in RateLimit-*; a throttled address (sustained over-limit traffic) carries error.reason ip_throttled with a Retry-After of minutes to days, and a request before it does not shorten the cooldown. Every 429 is the standard error envelope with meta.request_id equal to X-Request-Id.",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until rate limit resets.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Redis-backed authenticated rate limiter unavailable; retry after the per-process outage cooldown",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the middleware will probe the Redis-backed rate limiter again.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Owner-scoped dataset lifecycle and immutable manifest when ready.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhaleDatasetJob"
+                }
+              }
             }
           }
         },
@@ -41338,6 +42214,491 @@
           },
           "skill": {
             "$ref": "#/components/schemas/CategorySkillV2"
+          }
+        }
+      },
+      "WhaleDatasetFilters": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "condition_id",
+          "min_size_cents"
+        ],
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "condition_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "min_size_cents": {
+            "type": "integer",
+            "nullable": true,
+            "minimum": 0
+          }
+        },
+        "description": "Normalized immutable request; [from, to), maximum 31 days; min_size rounded to cents like durable replay."
+      },
+      "WhaleDatasetContinuation": {
+        "type": "object",
+        "required": [
+          "path",
+          "cursor",
+          "from_commit_xid",
+          "condition_id",
+          "min_size",
+          "deduplication_identity",
+          "time_window_applies_to_deltas",
+          "delivery"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "const": "/api/v1/events/feed/since"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Opaque commit-safe replay cursor; replay the same condition_id and min_size."
+          },
+          "from_commit_xid": {
+            "type": "string",
+            "description": "Writer floor included by the replay cursor. It can precede the snapshot horizon to include arrivals after the finite window end."
+          },
+          "condition_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "min_size": {
+            "type": "string",
+            "description": "Normalized USD threshold; pass it to the replay query.",
+            "nullable": true
+          },
+          "deduplication_identity": {
+            "type": "string"
+          },
+          "time_window_applies_to_deltas": {
+            "type": "boolean",
+            "const": false
+          },
+          "delivery": {
+            "type": "string"
+          }
+        }
+      },
+      "WhaleDatasetGeneration": {
+        "type": "object",
+        "required": [
+          "dataset_schema_version",
+          "id",
+          "selected_at",
+          "consistency",
+          "filters",
+          "commit_horizon_xid",
+          "continuation",
+          "source",
+          "coverage",
+          "expires_at",
+          "extraction_elapsed_ms"
+        ],
+        "properties": {
+          "dataset_schema_version": {
+            "type": "string",
+            "const": "whale_dataset_v1"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "selected_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "consistency": {
+            "type": "string",
+            "const": "repeatable_read_commit_horizon"
+          },
+          "filters": {
+            "$ref": "#/components/schemas/WhaleDatasetFilters"
+          },
+          "commit_horizon_xid": {
+            "type": "string",
+            "description": "All snapshot rows have a writer xid strictly below this closed visibility horizon. Decimal string preserves integer precision."
+          },
+          "continuation": {
+            "$ref": "#/components/schemas/WhaleDatasetContinuation"
+          },
+          "source": {
+            "type": "string",
+            "const": "whale_alerts"
+          },
+          "coverage": {
+            "type": "string",
+            "description": "Best-effort detected whale alerts only; not all provider fills. No trader or market enrichment."
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "extraction_elapsed_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "WhaleDatasetArtifactManifest": {
+        "type": "object",
+        "required": [
+          "manifest_version",
+          "format",
+          "schema_version",
+          "coverage",
+          "generation",
+          "row_count",
+          "content_size_bytes",
+          "content_sha256",
+          "compressed_size_bytes",
+          "compressed_sha256"
+        ],
+        "properties": {
+          "manifest_version": {
+            "type": "string",
+            "description": "Version of the artifact manifest contract."
+          },
+          "format": {
+            "type": "string",
+            "const": "ndjson"
+          },
+          "schema_version": {
+            "type": "string",
+            "const": "whale_dataset_v1"
+          },
+          "coverage": {
+            "type": "string",
+            "const": "best_effort_detected_whale_alerts"
+          },
+          "generation": {
+            "$ref": "#/components/schemas/WhaleDatasetGeneration"
+          },
+          "row_count": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Number of trade rows written."
+          },
+          "content_size_bytes": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Exact byte count of the decompressed content stream clients receive."
+          },
+          "content_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "Lowercase SHA-256 of the decompressed content bytes."
+          },
+          "compressed_size_bytes": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Exact byte count of the gzip-compressed bytes stored by the object provider."
+          },
+          "compressed_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "Lowercase SHA-256 of the stored gzip bytes; the multipart ETag is not used as this checksum."
+          }
+        }
+      },
+      "WhaleDatasetJob": {
+        "type": "object",
+        "required": [
+          "object",
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "object": {
+            "type": "string",
+            "const": "whale_dataset_job"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "status",
+              "format",
+              "total_trades",
+              "processed_trades",
+              "file_size",
+              "error",
+              "terminal",
+              "next_action",
+              "created_at",
+              "started_at",
+              "ready_at",
+              "failed_at",
+              "expires_at",
+              "expired_at",
+              "data_as_of",
+              "cancel_requested_at",
+              "cancelled_at",
+              "attempt",
+              "max_attempts",
+              "filters"
+            ],
+            "properties": {
+              "job_id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "queued",
+                  "running",
+                  "ready",
+                  "failed",
+                  "reconcile_required",
+                  "expired",
+                  "cancel_requested",
+                  "cancelled"
+                ],
+                "description": "queued: accepted, not started. running: the worker is streaming rows. reconcile_required: the upload finished but the storage completion answer was lost; the hourly reconciler reads the object back and moves the job to ready or failed, and expires_at bounds the wait. ready: downloadable until expires_at. failed: terminal; error says why; submit a new export. expired: the retention window passed; the file is retired, the download route answers 410, submit a new export. cancel_requested: the owner cancelled a running job (POST /api/v1/trader/{address}/export/cancel); the worker stops at its next safe point and the job reads cancelled. cancelled: terminal; the owner cancelled the job and no file was published; submit a new export. A job that has not reached ready by expires_at reads failed with error 'export expired before completion'. failed, cancelled and expired rows stay readable for 48 hours, then the job answers 404."
+              },
+              "format": {
+                "type": "string",
+                "const": "ndjson"
+              },
+              "total_trades": {
+                "type": "integer",
+                "format": "int64",
+                "nullable": true
+              },
+              "processed_trades": {
+                "type": "integer",
+                "format": "int64",
+                "nullable": true
+              },
+              "file_size": {
+                "type": "integer",
+                "format": "int64",
+                "nullable": true
+              },
+              "error": {
+                "type": "string",
+                "nullable": true
+              },
+              "terminal": {
+                "type": "boolean",
+                "description": "True when status never changes again (ready, failed, expired, cancelled). Stop polling."
+              },
+              "next_action": {
+                "type": "string",
+                "enum": [
+                  "poll",
+                  "download",
+                  "resubmit"
+                ],
+                "description": "What to do next: poll the status route after poll_after_s, follow the download route, or submit a new export. Published beside status so a status value added later does not strand a client."
+              },
+              "poll_after_s": {
+                "type": "integer",
+                "description": "Seconds to wait before polling again. Absent when terminal. 5 while queued, running or cancel_requested; 300 while reconcile_required, the cadence that state can change at."
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "started_at": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true,
+                "description": "When the worker last claimed the job; null while queued."
+              },
+              "ready_at": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true,
+                "description": "When the file became downloadable. null before ready, and on jobs finalized before this field existed."
+              },
+              "failed_at": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "expires_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The retention window: 24 hours from submit. A ready file downloads until this instant; a job that has not reached ready by it fails. A reused job (200 on submit) keeps its original window."
+              },
+              "expired_at": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true,
+                "description": "When the job became expired; null until then."
+              },
+              "data_as_of": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true,
+                "description": "Snapshot selection clock, null until the artifact is written; not provider completeness."
+              },
+              "cancel_requested_at": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true,
+                "description": "When the owner asked to cancel the job; null otherwise. Set on every cancelled job, including one cancelled while queued. While status is cancel_requested this is the instant the worker was asked to stop."
+              },
+              "cancelled_at": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true,
+                "description": "When the job reached cancelled; null until then."
+              },
+              "attempt": {
+                "type": "integer",
+                "description": "Worker claims so far."
+              },
+              "max_attempts": {
+                "type": "integer",
+                "description": "The job fails when attempt reaches this."
+              },
+              "artifact": {
+                "type": "object",
+                "description": "Present only while status is ready: the stored object's identity, so a client can check the download it receives.",
+                "required": [
+                  "artifact_id",
+                  "etag",
+                  "compressed_size_bytes",
+                  "content_type",
+                  "content_encoding",
+                  "manifest"
+                ],
+                "properties": {
+                  "artifact_id": {
+                    "type": "string",
+                    "description": "Stable identity for this completed export artifact; unchanged when a temporary download URL is renewed."
+                  },
+                  "etag": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "The storage ETag of the object."
+                  },
+                  "compressed_size_bytes": {
+                    "type": "integer",
+                    "format": "int64",
+                    "nullable": true,
+                    "description": "Bytes on the wire (gzip); file_size is the decompressed size."
+                  },
+                  "content_type": {
+                    "type": "string",
+                    "const": "application/x-ndjson"
+                  },
+                  "content_encoding": {
+                    "type": "string",
+                    "const": "gzip"
+                  },
+                  "manifest": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/WhaleDatasetArtifactManifest"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "nullable": true,
+                    "description": "Immutable source, window, replay handoff, count and hashes of both content and gzip bytes."
+                  }
+                }
+              },
+              "filters": {
+                "$ref": "#/components/schemas/WhaleDatasetFilters"
+              }
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          }
+        }
+      },
+      "WhaleDatasetTrade": {
+        "type": "object",
+        "required": [
+          "id",
+          "sequence",
+          "trader_id",
+          "condition_id",
+          "platform",
+          "traded_at",
+          "side",
+          "outcome_index",
+          "price",
+          "size_usd",
+          "inserted_xid",
+          "trade_event_id",
+          "source_trade_ingested_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "wt_<whale_alert_id>; deduplication identity shared with expanded replay."
+          },
+          "sequence": {
+            "type": "string",
+            "description": "Decimal whale-alert ID."
+          },
+          "trader_id": {
+            "type": "string",
+            "description": "trd_<local trader ID>."
+          },
+          "condition_id": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string",
+            "const": "polymarket"
+          },
+          "traded_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "side": {
+            "type": "string",
+            "enum": [
+              "BUY",
+              "SELL"
+            ]
+          },
+          "outcome_index": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Provider outcome index, null before the canonical outcome trust boundary."
+          },
+          "price": {
+            "type": "string",
+            "description": "Exact stored NUMERIC price; decimal string."
+          },
+          "size_usd": {
+            "type": "string",
+            "description": "Exact stored NUMERIC USD notional; decimal string."
+          },
+          "inserted_xid": {
+            "type": "string",
+            "description": "Writer transaction ID, decimal string."
+          },
+          "trade_event_id": {
+            "type": "string",
+            "description": "Stored source trade identity."
+          },
+          "source_trade_ingested_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         }
       }
