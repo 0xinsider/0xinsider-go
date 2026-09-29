@@ -3993,13 +3993,13 @@ func (e TraderExportGenerationConsistency) Valid() bool {
 
 // Defines values for TraderExportJobDataArtifactContentEncoding.
 const (
-	Gzip TraderExportJobDataArtifactContentEncoding = "gzip"
+	TraderExportJobDataArtifactContentEncodingGzip TraderExportJobDataArtifactContentEncoding = "gzip"
 )
 
 // Valid indicates whether the value is a known member of the TraderExportJobDataArtifactContentEncoding enum.
 func (e TraderExportJobDataArtifactContentEncoding) Valid() bool {
 	switch e {
-	case Gzip:
+	case TraderExportJobDataArtifactContentEncodingGzip:
 		return true
 	default:
 		return false
@@ -4008,19 +4008,19 @@ func (e TraderExportJobDataArtifactContentEncoding) Valid() bool {
 
 // Defines values for TraderExportJobDataArtifactContentType.
 const (
-	Applicationjson    TraderExportJobDataArtifactContentType = "application/json"
-	ApplicationxNdjson TraderExportJobDataArtifactContentType = "application/x-ndjson"
-	Textcsv            TraderExportJobDataArtifactContentType = "text/csv"
+	TraderExportJobDataArtifactContentTypeApplicationjson    TraderExportJobDataArtifactContentType = "application/json"
+	TraderExportJobDataArtifactContentTypeApplicationxNdjson TraderExportJobDataArtifactContentType = "application/x-ndjson"
+	TraderExportJobDataArtifactContentTypeTextcsv            TraderExportJobDataArtifactContentType = "text/csv"
 )
 
 // Valid indicates whether the value is a known member of the TraderExportJobDataArtifactContentType enum.
 func (e TraderExportJobDataArtifactContentType) Valid() bool {
 	switch e {
-	case Applicationjson:
+	case TraderExportJobDataArtifactContentTypeApplicationjson:
 		return true
-	case ApplicationxNdjson:
+	case TraderExportJobDataArtifactContentTypeApplicationxNdjson:
 		return true
-	case Textcsv:
+	case TraderExportJobDataArtifactContentTypeTextcsv:
 		return true
 	default:
 		return false
@@ -4050,19 +4050,19 @@ func (e TraderExportJobDataFormat) Valid() bool {
 
 // Defines values for TraderExportJobDataNextAction.
 const (
-	Download TraderExportJobDataNextAction = "download"
-	Poll     TraderExportJobDataNextAction = "poll"
-	Resubmit TraderExportJobDataNextAction = "resubmit"
+	TraderExportJobDataNextActionDownload TraderExportJobDataNextAction = "download"
+	TraderExportJobDataNextActionPoll     TraderExportJobDataNextAction = "poll"
+	TraderExportJobDataNextActionResubmit TraderExportJobDataNextAction = "resubmit"
 )
 
 // Valid indicates whether the value is a known member of the TraderExportJobDataNextAction enum.
 func (e TraderExportJobDataNextAction) Valid() bool {
 	switch e {
-	case Download:
+	case TraderExportJobDataNextActionDownload:
 		return true
-	case Poll:
+	case TraderExportJobDataNextActionPoll:
 		return true
-	case Resubmit:
+	case TraderExportJobDataNextActionResubmit:
 		return true
 	default:
 		return false
@@ -4633,6 +4633,243 @@ func (e WebhookStatus) Valid() bool {
 	case WebhookStatusDisabled:
 		return true
 	case WebhookStatusPendingVerification:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetArtifactManifestCoverage.
+const (
+	BestEffortDetectedWhaleAlerts WhaleDatasetArtifactManifestCoverage = "best_effort_detected_whale_alerts"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetArtifactManifestCoverage enum.
+func (e WhaleDatasetArtifactManifestCoverage) Valid() bool {
+	switch e {
+	case BestEffortDetectedWhaleAlerts:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetArtifactManifestFormat.
+const (
+	WhaleDatasetArtifactManifestFormatNdjson WhaleDatasetArtifactManifestFormat = "ndjson"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetArtifactManifestFormat enum.
+func (e WhaleDatasetArtifactManifestFormat) Valid() bool {
+	switch e {
+	case WhaleDatasetArtifactManifestFormatNdjson:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetArtifactManifestSchemaVersion.
+const (
+	WhaleDatasetArtifactManifestSchemaVersionWhaleDatasetV1 WhaleDatasetArtifactManifestSchemaVersion = "whale_dataset_v1"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetArtifactManifestSchemaVersion enum.
+func (e WhaleDatasetArtifactManifestSchemaVersion) Valid() bool {
+	switch e {
+	case WhaleDatasetArtifactManifestSchemaVersionWhaleDatasetV1:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetContinuationPath.
+const (
+	Apiv1eventsfeedsince WhaleDatasetContinuationPath = "/api/v1/events/feed/since"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetContinuationPath enum.
+func (e WhaleDatasetContinuationPath) Valid() bool {
+	switch e {
+	case Apiv1eventsfeedsince:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetContinuationTimeWindowAppliesToDeltas.
+const (
+	WhaleDatasetContinuationTimeWindowAppliesToDeltasFalse WhaleDatasetContinuationTimeWindowAppliesToDeltas = false
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetContinuationTimeWindowAppliesToDeltas enum.
+func (e WhaleDatasetContinuationTimeWindowAppliesToDeltas) Valid() bool {
+	switch e {
+	case WhaleDatasetContinuationTimeWindowAppliesToDeltasFalse:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetGenerationConsistency.
+const (
+	RepeatableReadCommitHorizon WhaleDatasetGenerationConsistency = "repeatable_read_commit_horizon"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetGenerationConsistency enum.
+func (e WhaleDatasetGenerationConsistency) Valid() bool {
+	switch e {
+	case RepeatableReadCommitHorizon:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetGenerationDatasetSchemaVersion.
+const (
+	WhaleDatasetGenerationDatasetSchemaVersionWhaleDatasetV1 WhaleDatasetGenerationDatasetSchemaVersion = "whale_dataset_v1"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetGenerationDatasetSchemaVersion enum.
+func (e WhaleDatasetGenerationDatasetSchemaVersion) Valid() bool {
+	switch e {
+	case WhaleDatasetGenerationDatasetSchemaVersionWhaleDatasetV1:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetGenerationSource.
+const (
+	WhaleDatasetGenerationSourceWhaleAlerts WhaleDatasetGenerationSource = "whale_alerts"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetGenerationSource enum.
+func (e WhaleDatasetGenerationSource) Valid() bool {
+	switch e {
+	case WhaleDatasetGenerationSourceWhaleAlerts:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetJobDataArtifactContentEncoding.
+const (
+	WhaleDatasetJobDataArtifactContentEncodingGzip WhaleDatasetJobDataArtifactContentEncoding = "gzip"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetJobDataArtifactContentEncoding enum.
+func (e WhaleDatasetJobDataArtifactContentEncoding) Valid() bool {
+	switch e {
+	case WhaleDatasetJobDataArtifactContentEncodingGzip:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetJobDataArtifactContentType.
+const (
+	WhaleDatasetJobDataArtifactContentTypeApplicationxNdjson WhaleDatasetJobDataArtifactContentType = "application/x-ndjson"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetJobDataArtifactContentType enum.
+func (e WhaleDatasetJobDataArtifactContentType) Valid() bool {
+	switch e {
+	case WhaleDatasetJobDataArtifactContentTypeApplicationxNdjson:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetJobDataFormat.
+const (
+	WhaleDatasetJobDataFormatNdjson WhaleDatasetJobDataFormat = "ndjson"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetJobDataFormat enum.
+func (e WhaleDatasetJobDataFormat) Valid() bool {
+	switch e {
+	case WhaleDatasetJobDataFormatNdjson:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetJobDataNextAction.
+const (
+	WhaleDatasetJobDataNextActionDownload WhaleDatasetJobDataNextAction = "download"
+	WhaleDatasetJobDataNextActionPoll     WhaleDatasetJobDataNextAction = "poll"
+	WhaleDatasetJobDataNextActionResubmit WhaleDatasetJobDataNextAction = "resubmit"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetJobDataNextAction enum.
+func (e WhaleDatasetJobDataNextAction) Valid() bool {
+	switch e {
+	case WhaleDatasetJobDataNextActionDownload:
+		return true
+	case WhaleDatasetJobDataNextActionPoll:
+		return true
+	case WhaleDatasetJobDataNextActionResubmit:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetJobDataStatus.
+const (
+	WhaleDatasetJobDataStatusCancelRequested   WhaleDatasetJobDataStatus = "cancel_requested"
+	WhaleDatasetJobDataStatusCancelled         WhaleDatasetJobDataStatus = "cancelled"
+	WhaleDatasetJobDataStatusExpired           WhaleDatasetJobDataStatus = "expired"
+	WhaleDatasetJobDataStatusFailed            WhaleDatasetJobDataStatus = "failed"
+	WhaleDatasetJobDataStatusQueued            WhaleDatasetJobDataStatus = "queued"
+	WhaleDatasetJobDataStatusReady             WhaleDatasetJobDataStatus = "ready"
+	WhaleDatasetJobDataStatusReconcileRequired WhaleDatasetJobDataStatus = "reconcile_required"
+	WhaleDatasetJobDataStatusRunning           WhaleDatasetJobDataStatus = "running"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetJobDataStatus enum.
+func (e WhaleDatasetJobDataStatus) Valid() bool {
+	switch e {
+	case WhaleDatasetJobDataStatusCancelRequested:
+		return true
+	case WhaleDatasetJobDataStatusCancelled:
+		return true
+	case WhaleDatasetJobDataStatusExpired:
+		return true
+	case WhaleDatasetJobDataStatusFailed:
+		return true
+	case WhaleDatasetJobDataStatusQueued:
+		return true
+	case WhaleDatasetJobDataStatusReady:
+		return true
+	case WhaleDatasetJobDataStatusReconcileRequired:
+		return true
+	case WhaleDatasetJobDataStatusRunning:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhaleDatasetJobObject.
+const (
+	WhaleDatasetJobObjectWhaleDatasetJob WhaleDatasetJobObject = "whale_dataset_job"
+)
+
+// Valid indicates whether the value is a known member of the WhaleDatasetJobObject enum.
+func (e WhaleDatasetJobObject) Valid() bool {
+	switch e {
+	case WhaleDatasetJobObjectWhaleDatasetJob:
 		return true
 	default:
 		return false
@@ -13009,6 +13246,193 @@ type WebhookVerification struct {
 	Token string `json:"token"`
 }
 
+// WhaleDatasetArtifactManifest defines model for WhaleDatasetArtifactManifest.
+type WhaleDatasetArtifactManifest struct {
+	// CompressedSha256 Lowercase SHA-256 of the stored gzip bytes; the multipart ETag is not used as this checksum.
+	CompressedSha256 string `json:"compressed_sha256"`
+
+	// CompressedSizeBytes Exact byte count of the gzip-compressed bytes stored by the object provider.
+	CompressedSizeBytes int64 `json:"compressed_size_bytes"`
+
+	// ContentSha256 Lowercase SHA-256 of the decompressed content bytes.
+	ContentSha256 string `json:"content_sha256"`
+
+	// ContentSizeBytes Exact byte count of the decompressed content stream clients receive.
+	ContentSizeBytes int64                                `json:"content_size_bytes"`
+	Coverage         WhaleDatasetArtifactManifestCoverage `json:"coverage"`
+	Format           WhaleDatasetArtifactManifestFormat   `json:"format"`
+	Generation       WhaleDatasetGeneration               `json:"generation"`
+
+	// ManifestVersion Version of the artifact manifest contract.
+	ManifestVersion string `json:"manifest_version"`
+
+	// RowCount Number of trade rows written.
+	RowCount      int64                                     `json:"row_count"`
+	SchemaVersion WhaleDatasetArtifactManifestSchemaVersion `json:"schema_version"`
+}
+
+// WhaleDatasetArtifactManifestCoverage defines model for WhaleDatasetArtifactManifest.Coverage.
+type WhaleDatasetArtifactManifestCoverage string
+
+// WhaleDatasetArtifactManifestFormat defines model for WhaleDatasetArtifactManifest.Format.
+type WhaleDatasetArtifactManifestFormat string
+
+// WhaleDatasetArtifactManifestSchemaVersion defines model for WhaleDatasetArtifactManifest.SchemaVersion.
+type WhaleDatasetArtifactManifestSchemaVersion string
+
+// WhaleDatasetContinuation defines model for WhaleDatasetContinuation.
+type WhaleDatasetContinuation struct {
+	ConditionId string `json:"condition_id"`
+
+	// Cursor Opaque commit-safe replay cursor; replay the same condition_id and min_size.
+	Cursor                string `json:"cursor"`
+	DeduplicationIdentity string `json:"deduplication_identity"`
+	Delivery              string `json:"delivery"`
+
+	// FromCommitXid Writer floor included by the replay cursor. It can precede the snapshot horizon to include arrivals after the finite window end.
+	FromCommitXid string `json:"from_commit_xid"`
+
+	// MinSize Normalized USD threshold; pass it to the replay query.
+	MinSize                   string                                            `json:"min_size"`
+	Path                      WhaleDatasetContinuationPath                      `json:"path"`
+	TimeWindowAppliesToDeltas WhaleDatasetContinuationTimeWindowAppliesToDeltas `json:"time_window_applies_to_deltas"`
+}
+
+// WhaleDatasetContinuationPath defines model for WhaleDatasetContinuation.Path.
+type WhaleDatasetContinuationPath string
+
+// WhaleDatasetContinuationTimeWindowAppliesToDeltas defines model for WhaleDatasetContinuation.TimeWindowAppliesToDeltas.
+type WhaleDatasetContinuationTimeWindowAppliesToDeltas bool
+
+// WhaleDatasetFilters Normalized immutable request; [from, to), maximum 31 days; min_size rounded to cents like durable replay.
+type WhaleDatasetFilters struct {
+	ConditionId  string    `json:"condition_id"`
+	From         time.Time `json:"from"`
+	MinSizeCents int       `json:"min_size_cents"`
+	To           time.Time `json:"to"`
+}
+
+// WhaleDatasetGeneration defines model for WhaleDatasetGeneration.
+type WhaleDatasetGeneration struct {
+	// CommitHorizonXid All snapshot rows have a writer xid strictly below this closed visibility horizon. Decimal string preserves integer precision.
+	CommitHorizonXid string                            `json:"commit_horizon_xid"`
+	Consistency      WhaleDatasetGenerationConsistency `json:"consistency"`
+	Continuation     WhaleDatasetContinuation          `json:"continuation"`
+
+	// Coverage Best-effort detected whale alerts only; not all provider fills. No trader or market enrichment.
+	Coverage             string                                     `json:"coverage"`
+	DatasetSchemaVersion WhaleDatasetGenerationDatasetSchemaVersion `json:"dataset_schema_version"`
+	ExpiresAt            time.Time                                  `json:"expires_at"`
+	ExtractionElapsedMs  int                                        `json:"extraction_elapsed_ms"`
+
+	// Filters Normalized immutable request; [from, to), maximum 31 days; min_size rounded to cents like durable replay.
+	Filters    WhaleDatasetFilters          `json:"filters"`
+	Id         openapi_types.UUID           `json:"id"`
+	SelectedAt time.Time                    `json:"selected_at"`
+	Source     WhaleDatasetGenerationSource `json:"source"`
+}
+
+// WhaleDatasetGenerationConsistency defines model for WhaleDatasetGeneration.Consistency.
+type WhaleDatasetGenerationConsistency string
+
+// WhaleDatasetGenerationDatasetSchemaVersion defines model for WhaleDatasetGeneration.DatasetSchemaVersion.
+type WhaleDatasetGenerationDatasetSchemaVersion string
+
+// WhaleDatasetGenerationSource defines model for WhaleDatasetGeneration.Source.
+type WhaleDatasetGenerationSource string
+
+// WhaleDatasetJob defines model for WhaleDatasetJob.
+type WhaleDatasetJob struct {
+	Data struct {
+		// Artifact Present only while status is ready: the stored object's identity, so a client can check the download it receives.
+		Artifact *struct {
+			// ArtifactId Stable identity for this completed export artifact; unchanged when a temporary download URL is renewed.
+			ArtifactId string `json:"artifact_id"`
+
+			// CompressedSizeBytes Bytes on the wire (gzip); file_size is the decompressed size.
+			CompressedSizeBytes int64                                      `json:"compressed_size_bytes"`
+			ContentEncoding     WhaleDatasetJobDataArtifactContentEncoding `json:"content_encoding"`
+			ContentType         WhaleDatasetJobDataArtifactContentType     `json:"content_type"`
+
+			// Etag The storage ETag of the object.
+			Etag string `json:"etag"`
+
+			// Manifest Immutable source, window, replay handoff, count and hashes of both content and gzip bytes.
+			Manifest *WhaleDatasetArtifactManifest `json:"manifest"`
+		} `json:"artifact,omitempty"`
+
+		// Attempt Worker claims so far.
+		Attempt int `json:"attempt"`
+
+		// CancelRequestedAt When the owner asked to cancel the job; null otherwise. Set on every cancelled job, including one cancelled while queued. While status is cancel_requested this is the instant the worker was asked to stop.
+		CancelRequestedAt time.Time `json:"cancel_requested_at"`
+
+		// CancelledAt When the job reached cancelled; null until then.
+		CancelledAt time.Time `json:"cancelled_at"`
+		CreatedAt   time.Time `json:"created_at"`
+
+		// DataAsOf Snapshot selection clock, null until the artifact is written; not provider completeness.
+		DataAsOf time.Time `json:"data_as_of"`
+		Error    string    `json:"error"`
+
+		// ExpiredAt When the job became expired; null until then.
+		ExpiredAt time.Time `json:"expired_at"`
+
+		// ExpiresAt The retention window: 24 hours from submit. A ready file downloads until this instant; a job that has not reached ready by it fails. A reused job (200 on submit) keeps its original window.
+		ExpiresAt time.Time `json:"expires_at"`
+		FailedAt  time.Time `json:"failed_at"`
+		FileSize  int64     `json:"file_size"`
+
+		// Filters Normalized immutable request; [from, to), maximum 31 days; min_size rounded to cents like durable replay.
+		Filters WhaleDatasetFilters       `json:"filters"`
+		Format  WhaleDatasetJobDataFormat `json:"format"`
+		JobId   int64                     `json:"job_id"`
+
+		// MaxAttempts The job fails when attempt reaches this.
+		MaxAttempts int `json:"max_attempts"`
+
+		// NextAction What to do next: poll the status route after poll_after_s, follow the download route, or submit a new export. Published beside status so a status value added later does not strand a client.
+		NextAction WhaleDatasetJobDataNextAction `json:"next_action"`
+
+		// PollAfterS Seconds to wait before polling again. Absent when terminal. 5 while queued, running or cancel_requested; 300 while reconcile_required, the cadence that state can change at.
+		PollAfterS      *int  `json:"poll_after_s,omitempty"`
+		ProcessedTrades int64 `json:"processed_trades"`
+
+		// ReadyAt When the file became downloadable. null before ready, and on jobs finalized before this field existed.
+		ReadyAt time.Time `json:"ready_at"`
+
+		// StartedAt When the worker last claimed the job; null while queued.
+		StartedAt time.Time `json:"started_at"`
+
+		// Status queued: accepted, not started. running: the worker is streaming rows. reconcile_required: the upload finished but the storage completion answer was lost; the hourly reconciler reads the object back and moves the job to ready or failed, and expires_at bounds the wait. ready: downloadable until expires_at. failed: terminal; error says why; submit a new export. expired: the retention window passed; the file is retired, the download route answers 410, submit a new export. cancel_requested: the owner cancelled a running job (POST /api/v1/trader/{address}/export/cancel); the worker stops at its next safe point and the job reads cancelled. cancelled: terminal; the owner cancelled the job and no file was published; submit a new export. A job that has not reached ready by expires_at reads failed with error 'export expired before completion'. failed, cancelled and expired rows stay readable for 48 hours, then the job answers 404.
+		Status WhaleDatasetJobDataStatus `json:"status"`
+
+		// Terminal True when status never changes again (ready, failed, expired, cancelled). Stop polling.
+		Terminal    bool  `json:"terminal"`
+		TotalTrades int64 `json:"total_trades"`
+	} `json:"data"`
+	Meta   ResponseMeta          `json:"meta"`
+	Object WhaleDatasetJobObject `json:"object"`
+}
+
+// WhaleDatasetJobDataArtifactContentEncoding defines model for WhaleDatasetJob.Data.Artifact.ContentEncoding.
+type WhaleDatasetJobDataArtifactContentEncoding string
+
+// WhaleDatasetJobDataArtifactContentType defines model for WhaleDatasetJob.Data.Artifact.ContentType.
+type WhaleDatasetJobDataArtifactContentType string
+
+// WhaleDatasetJobDataFormat defines model for WhaleDatasetJob.Data.Format.
+type WhaleDatasetJobDataFormat string
+
+// WhaleDatasetJobDataNextAction What to do next: poll the status route after poll_after_s, follow the download route, or submit a new export. Published beside status so a status value added later does not strand a client.
+type WhaleDatasetJobDataNextAction string
+
+// WhaleDatasetJobDataStatus queued: accepted, not started. running: the worker is streaming rows. reconcile_required: the upload finished but the storage completion answer was lost; the hourly reconciler reads the object back and moves the job to ready or failed, and expires_at bounds the wait. ready: downloadable until expires_at. failed: terminal; error says why; submit a new export. expired: the retention window passed; the file is retired, the download route answers 410, submit a new export. cancel_requested: the owner cancelled a running job (POST /api/v1/trader/{address}/export/cancel); the worker stops at its next safe point and the job reads cancelled. cancelled: terminal; the owner cancelled the job and no file was published; submit a new export. A job that has not reached ready by expires_at reads failed with error 'export expired before completion'. failed, cancelled and expired rows stay readable for 48 hours, then the job answers 404.
+type WhaleDatasetJobDataStatus string
+
+// WhaleDatasetJobObject defines model for WhaleDatasetJob.Object.
+type WhaleDatasetJobObject string
+
 // GetApiDiscoveryParams defines parameters for GetApiDiscovery.
 type GetApiDiscoveryParams struct {
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -13066,6 +13490,17 @@ type GetCoverageParamsXQueryValidation string
 // GetCoverage200JSONResponseBodyObject defines parameters for GetCoverage.
 type GetCoverage200JSONResponseBodyObject string
 
+// SubmitWhaleDatasetJSONBody defines parameters for SubmitWhaleDataset.
+type SubmitWhaleDatasetJSONBody struct {
+	// ConditionId Raw provider condition id or mkt_-prefixed id.
+	ConditionId *string   `json:"condition_id,omitempty"`
+	From        time.Time `json:"from"`
+
+	// MinSize USD minimum, normalized to cents like replay.
+	MinSize *float32  `json:"min_size,omitempty"`
+	To      time.Time `json:"to"`
+}
+
 // GetEventReplaySinceParams defines parameters for GetEventReplaySince.
 type GetEventReplaySinceParams struct {
 	// Cursor Opaque event replay cursor returned as next_cursor by a prior response. The cursor maps to the global (whale_alerts.inserted_xid, whale_alerts.id) commit-order position, is valid across backend replicas, and is bound to the filter set the walk ran with (trader, condition_id, min_grade, min_size): presenting it under different filters answers 400 bad_request with error.reason cursor_expired, and the walk restarts without a cursor. Cursors issued before 2026-09-22 (id-only) stay accepted and are bound to no filters. Omit to fetch the latest durable public suffix.
@@ -13083,8 +13518,8 @@ type GetEventReplaySinceParams struct {
 	// MinGrade Only trades by wallets at this grade or better (S best), read from the wallet's newest ranking at request time; a wallet with no grade never passes. Bound to the cursor.
 	MinGrade *GetEventReplaySinceParamsMinGrade `form:"min_grade,omitempty" json:"min_grade,omitempty"`
 
-	// MinSize Only trades of at least this size in USD (compared in cents). Bound to the cursor.
-	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
+	// MinSize Only trades of at least this USD amount. Decimal and scientific query spellings normalize exactly to cents, rounding half away from zero; maximum 1e15 USD. Pass the dataset continuation decimal string unchanged to preserve the bound. Bound to the cursor.
+	MinSize *string `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// Expand Repeatable. trade adds the public trade read to every event (the object GET /api/v1/whale-trades/{id} returns for it), from one query per page, so a page of 100 events needs no per-event detail request. Not bound to the cursor: switch it on or off mid-walk.
 	Expand *[]GetEventReplaySinceParamsExpand `form:"expand,omitempty" json:"expand,omitempty"`
@@ -14891,6 +15326,9 @@ type ListWhaleTradeCounterpartyMakersParams struct {
 // ListWhaleTradeCounterpartyMakers200JSONResponseBodyObject defines parameters for ListWhaleTradeCounterpartyMakers.
 type ListWhaleTradeCounterpartyMakers200JSONResponseBodyObject string
 
+// SubmitWhaleDatasetJSONRequestBody defines body for SubmitWhaleDataset for application/json ContentType.
+type SubmitWhaleDatasetJSONRequestBody SubmitWhaleDatasetJSONBody
+
 // BatchGetMarketFlowJSONRequestBody defines body for BatchGetMarketFlow for application/json ContentType.
 type BatchGetMarketFlowJSONRequestBody BatchGetMarketFlowJSONBody
 
@@ -15835,6 +16273,45 @@ type ClientInterface interface {
 	// Corresponds with GET /api/v1/coverage (the `GetCoverage` operationId).
 	GetCoverage(ctx context.Context, params *GetCoverageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// SubmitWhaleDatasetWithBody Create an immutable whale dataset
+	//
+	// Extract at most 1,000,000 rows and 256 MiB uncompressed; exceeding either bound fails the job and publishes no partial file. Window and filters freeze on admission; rows and source facts freeze on one worker database snapshot. NDJSON uses exact decimal strings, with no current grade or market enrichment. The manifest checkpoint includes already committed arrivals after to plus later/open writers, with intentional overlap. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with POST /api/v1/datasets/whale-trades (the `SubmitWhaleDataset` operationId).
+	SubmitWhaleDatasetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SubmitWhaleDataset Create an immutable whale dataset
+	//
+	// Extract at most 1,000,000 rows and 256 MiB uncompressed; exceeding either bound fails the job and publishes no partial file. Window and filters freeze on admission; rows and source facts freeze on one worker database snapshot. NDJSON uses exact decimal strings, with no current grade or market enrichment. The manifest checkpoint includes already committed arrivals after to plus later/open writers, with intentional overlap. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with POST /api/v1/datasets/whale-trades (the `SubmitWhaleDataset` operationId).
+	SubmitWhaleDataset(ctx context.Context, body SubmitWhaleDatasetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhaleDatasetStatus Read a whale dataset job
+	//
+	// Read queued, running, cancel_requested, ready, failed, reconcile_required, expired or cancelled. Poll only while next_action is poll, after poll_after_s. Ready manifests contain count, content and compressed SHA-256, schema, filters, source, horizon, expiry and replay continuation. Deltas do not retain the finite time filter and can repeat rows; deduplicate by wt_ ID (payload.whale_alert_id when not expanded). This is an insertion feed, not update/delete CDC. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Corresponds with GET /api/v1/datasets/whale-trades/{job_id} (the `GetWhaleDatasetStatus` operationId).
+	GetWhaleDatasetStatus(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CancelWhaleDataset Cancel a whale dataset job
+	//
+	// Cancel queued jobs immediately and request running jobs stop at their next safe point. Repeating cancel converges on the current state; cancellation after the completion fence leaves the artifact ready. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Corresponds with POST /api/v1/datasets/whale-trades/{job_id}/cancel (the `CancelWhaleDataset` operationId).
+	CancelWhaleDataset(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DownloadWhaleDataset Download an immutable whale dataset
+	//
+	// Download only a ready artifact; status handles failure and cancellation. Retired artifacts return 410 at serving time. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Corresponds with GET /api/v1/datasets/whale-trades/{job_id}/download (the `DownloadWhaleDataset` operationId).
+	DownloadWhaleDataset(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetEventReplaySince Replay public large-trade events
 	//
 	// Returns durable public large-trade events strictly after an opaque cursor, in commit order: events are ordered by the position at which their write became visible to every reader (whale_alerts.inserted_xid), then by whale_alerts.id, and a page never reaches past the oldest write transaction still open when it was read. A trade whose id is lower than one already delivered but whose write finished later is therefore delivered on a later request instead of being skipped (#16180). This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
@@ -16570,6 +17047,95 @@ func (c *Client) SearchContent(ctx context.Context, params *SearchContentParams,
 // Corresponds with GET /api/v1/coverage (the `GetCoverage` operationId).
 func (c *Client) GetCoverage(ctx context.Context, params *GetCoverageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetCoverageRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SubmitWhaleDatasetWithBody Create an immutable whale dataset
+//
+// Extract at most 1,000,000 rows and 256 MiB uncompressed; exceeding either bound fails the job and publishes no partial file. Window and filters freeze on admission; rows and source facts freeze on one worker database snapshot. NDJSON uses exact decimal strings, with no current grade or market enrichment. The manifest checkpoint includes already committed arrivals after to plus later/open writers, with intentional overlap. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /api/v1/datasets/whale-trades (the `SubmitWhaleDataset` operationId).
+func (c *Client) SubmitWhaleDatasetWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSubmitWhaleDatasetRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// SubmitWhaleDataset Create an immutable whale dataset
+//
+// Extract at most 1,000,000 rows and 256 MiB uncompressed; exceeding either bound fails the job and publishes no partial file. Window and filters freeze on admission; rows and source facts freeze on one worker database snapshot. NDJSON uses exact decimal strings, with no current grade or market enrichment. The manifest checkpoint includes already committed arrivals after to plus later/open writers, with intentional overlap. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /api/v1/datasets/whale-trades (the `SubmitWhaleDataset` operationId).
+func (c *Client) SubmitWhaleDataset(ctx context.Context, body SubmitWhaleDatasetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSubmitWhaleDatasetRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetWhaleDatasetStatus Read a whale dataset job
+//
+// Read queued, running, cancel_requested, ready, failed, reconcile_required, expired or cancelled. Poll only while next_action is poll, after poll_after_s. Ready manifests contain count, content and compressed SHA-256, schema, filters, source, horizon, expiry and replay continuation. Deltas do not retain the finite time filter and can repeat rows; deduplicate by wt_ ID (payload.whale_alert_id when not expanded). This is an insertion feed, not update/delete CDC. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Corresponds with GET /api/v1/datasets/whale-trades/{job_id} (the `GetWhaleDatasetStatus` operationId).
+func (c *Client) GetWhaleDatasetStatus(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhaleDatasetStatusRequest(c.Server, jobId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CancelWhaleDataset Cancel a whale dataset job
+//
+// Cancel queued jobs immediately and request running jobs stop at their next safe point. Repeating cancel converges on the current state; cancellation after the completion fence leaves the artifact ready. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Corresponds with POST /api/v1/datasets/whale-trades/{job_id}/cancel (the `CancelWhaleDataset` operationId).
+func (c *Client) CancelWhaleDataset(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelWhaleDatasetRequest(c.Server, jobId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DownloadWhaleDataset Download an immutable whale dataset
+//
+// Download only a ready artifact; status handles failure and cancellation. Retired artifacts return 410 at serving time. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Corresponds with GET /api/v1/datasets/whale-trades/{job_id}/download (the `DownloadWhaleDataset` operationId).
+func (c *Client) DownloadWhaleDataset(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDownloadWhaleDatasetRequest(c.Server, jobId)
 	if err != nil {
 		return nil, err
 	}
@@ -18305,6 +18871,148 @@ func NewGetCoverageRequest(server string, params *GetCoverageParams) (*http.Requ
 	return req, nil
 }
 
+// NewSubmitWhaleDatasetRequest calls the generic SubmitWhaleDataset builder with application/json body
+func NewSubmitWhaleDatasetRequest(server string, body SubmitWhaleDatasetJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSubmitWhaleDatasetRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewSubmitWhaleDatasetRequestWithBody constructs an http.Request for the SubmitWhaleDataset method, with any body, and a specified content type
+func NewSubmitWhaleDatasetRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/datasets/whale-trades")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewGetWhaleDatasetStatusRequest constructs an http.Request for the GetWhaleDatasetStatus method
+func NewGetWhaleDatasetStatusRequest(server string, jobId int64) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "job_id", jobId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/datasets/whale-trades/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCancelWhaleDatasetRequest constructs an http.Request for the CancelWhaleDataset method
+func NewCancelWhaleDatasetRequest(server string, jobId int64) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "job_id", jobId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/datasets/whale-trades/%s/cancel", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewDownloadWhaleDatasetRequest constructs an http.Request for the DownloadWhaleDataset method
+func NewDownloadWhaleDatasetRequest(server string, jobId int64) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "job_id", jobId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/datasets/whale-trades/%s/download", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetEventReplaySinceRequest constructs an http.Request for the GetEventReplaySince method
 func NewGetEventReplaySinceRequest(server string, params *GetEventReplaySinceParams) (*http.Request, error) {
 	var err error
@@ -18395,7 +19103,7 @@ func NewGetEventReplaySinceRequest(server string, params *GetEventReplaySincePar
 
 		if params.MinSize != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "min_size", *params.MinSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "number", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "min_size", *params.MinSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -25411,6 +26119,51 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /api/v1/coverage (the `GetCoverage` operationId).
 	GetCoverageWithResponse(ctx context.Context, params *GetCoverageParams, reqEditors ...RequestEditorFn) (*GetCoverageResponse, error)
 
+	// SubmitWhaleDatasetWithBodyWithResponse Create an immutable whale dataset
+	//
+	// Extract at most 1,000,000 rows and 256 MiB uncompressed; exceeding either bound fails the job and publishes no partial file. Window and filters freeze on admission; rows and source facts freeze on one worker database snapshot. NDJSON uses exact decimal strings, with no current grade or market enrichment. The manifest checkpoint includes already committed arrivals after to plus later/open writers, with intentional overlap. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/datasets/whale-trades (the `SubmitWhaleDataset` operationId).
+	SubmitWhaleDatasetWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SubmitWhaleDatasetResponse, error)
+
+	// SubmitWhaleDatasetWithResponse Create an immutable whale dataset
+	//
+	// Extract at most 1,000,000 rows and 256 MiB uncompressed; exceeding either bound fails the job and publishes no partial file. Window and filters freeze on admission; rows and source facts freeze on one worker database snapshot. NDJSON uses exact decimal strings, with no current grade or market enrichment. The manifest checkpoint includes already committed arrivals after to plus later/open writers, with intentional overlap. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/datasets/whale-trades (the `SubmitWhaleDataset` operationId).
+	SubmitWhaleDatasetWithResponse(ctx context.Context, body SubmitWhaleDatasetJSONRequestBody, reqEditors ...RequestEditorFn) (*SubmitWhaleDatasetResponse, error)
+
+	// GetWhaleDatasetStatusWithResponse Read a whale dataset job
+	//
+	// Read queued, running, cancel_requested, ready, failed, reconcile_required, expired or cancelled. Poll only while next_action is poll, after poll_after_s. Ready manifests contain count, content and compressed SHA-256, schema, filters, source, horizon, expiry and replay continuation. Deltas do not retain the finite time filter and can repeat rows; deduplicate by wt_ ID (payload.whale_alert_id when not expanded). This is an insertion feed, not update/delete CDC. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/datasets/whale-trades/{job_id} (the `GetWhaleDatasetStatus` operationId).
+	GetWhaleDatasetStatusWithResponse(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*GetWhaleDatasetStatusResponse, error)
+
+	// CancelWhaleDatasetWithResponse Cancel a whale dataset job
+	//
+	// Cancel queued jobs immediately and request running jobs stop at their next safe point. Repeating cancel converges on the current state; cancellation after the completion fence leaves the artifact ready. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/datasets/whale-trades/{job_id}/cancel (the `CancelWhaleDataset` operationId).
+	CancelWhaleDatasetWithResponse(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*CancelWhaleDatasetResponse, error)
+
+	// DownloadWhaleDatasetWithResponse Download an immutable whale dataset
+	//
+	// Download only a ready artifact; status handles failure and cancellation. Retired artifacts return 410 at serving time. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/datasets/whale-trades/{job_id}/download (the `DownloadWhaleDataset` operationId).
+	DownloadWhaleDatasetWithResponse(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*DownloadWhaleDatasetResponse, error)
+
 	// GetEventReplaySinceWithResponse Replay public large-trade events
 	//
 	// Returns durable public large-trade events strictly after an opaque cursor, in commit order: events are ordered by the position at which their write became visible to every reader (whale_alerts.inserted_xid), then by whale_alerts.id, and a page never reaches past the oldest write transaction still open when it was read. A trade whose id is lower than one already delivered but whose write finished later is therefore delivered on a later request instead of being skipped (#16180). This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
@@ -26690,6 +27443,552 @@ func (r GetCoverageResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetCoverageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// SubmitWhaleDatasetResponse429Headers the declared response headers of an HTTP 429 response for SubmitWhaleDataset
+type SubmitWhaleDatasetResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// SubmitWhaleDatasetResponse503Headers the declared response headers of an HTTP 503 response for SubmitWhaleDataset
+type SubmitWhaleDatasetResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type SubmitWhaleDatasetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *WhaleDatasetJob
+	// JSON202 the response for an HTTP 202 `application/json` response
+	JSON202 *WhaleDatasetJob
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *SubmitWhaleDatasetResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *SubmitWhaleDatasetResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON200() *WhaleDatasetJob {
+	return r.JSON200
+}
+
+// GetJSON202 returns the response for an HTTP 202 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON202() *WhaleDatasetJob {
+	return r.JSON202
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r SubmitWhaleDatasetResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r SubmitWhaleDatasetResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r SubmitWhaleDatasetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SubmitWhaleDatasetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SubmitWhaleDatasetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// GetWhaleDatasetStatusResponse429Headers the declared response headers of an HTTP 429 response for GetWhaleDatasetStatus
+type GetWhaleDatasetStatusResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// GetWhaleDatasetStatusResponse503Headers the declared response headers of an HTTP 503 response for GetWhaleDatasetStatus
+type GetWhaleDatasetStatusResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type GetWhaleDatasetStatusResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *WhaleDatasetJob
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *GetWhaleDatasetStatusResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *GetWhaleDatasetStatusResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON200() *WhaleDatasetJob {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r GetWhaleDatasetStatusResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r GetWhaleDatasetStatusResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhaleDatasetStatusResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhaleDatasetStatusResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhaleDatasetStatusResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// CancelWhaleDatasetResponse429Headers the declared response headers of an HTTP 429 response for CancelWhaleDataset
+type CancelWhaleDatasetResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// CancelWhaleDatasetResponse503Headers the declared response headers of an HTTP 503 response for CancelWhaleDataset
+type CancelWhaleDatasetResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type CancelWhaleDatasetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *WhaleDatasetJob
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *CancelWhaleDatasetResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *CancelWhaleDatasetResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON200() *WhaleDatasetJob {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r CancelWhaleDatasetResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r CancelWhaleDatasetResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CancelWhaleDatasetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CancelWhaleDatasetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CancelWhaleDatasetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// DownloadWhaleDatasetResponse302Headers the declared response headers of an HTTP 302 response for DownloadWhaleDataset
+type DownloadWhaleDatasetResponse302Headers struct {
+	Location *string
+}
+
+// DownloadWhaleDatasetResponse429Headers the declared response headers of an HTTP 429 response for DownloadWhaleDataset
+type DownloadWhaleDatasetResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// DownloadWhaleDatasetResponse503Headers the declared response headers of an HTTP 503 response for DownloadWhaleDataset
+type DownloadWhaleDatasetResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type DownloadWhaleDatasetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON410 the response for an HTTP 410 `application/json` response
+	JSON410 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers302 the parsed response headers for an HTTP 302 response
+	Headers302 *DownloadWhaleDatasetResponse302Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *DownloadWhaleDatasetResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *DownloadWhaleDatasetResponse503Headers
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON410 returns the response for an HTTP 410 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON410() *ApiError {
+	return r.JSON410
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r DownloadWhaleDatasetResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r DownloadWhaleDatasetResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DownloadWhaleDatasetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DownloadWhaleDatasetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DownloadWhaleDatasetResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -39791,6 +41090,81 @@ func (c *ClientWithResponses) GetCoverageWithResponse(ctx context.Context, param
 	return ParseGetCoverageResponse(rsp)
 }
 
+// SubmitWhaleDatasetWithBodyWithResponse Create an immutable whale dataset
+//
+// Extract at most 1,000,000 rows and 256 MiB uncompressed; exceeding either bound fails the job and publishes no partial file. Window and filters freeze on admission; rows and source facts freeze on one worker database snapshot. NDJSON uses exact decimal strings, with no current grade or market enrichment. The manifest checkpoint includes already committed arrivals after to plus later/open writers, with intentional overlap. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/datasets/whale-trades (the `SubmitWhaleDataset` operationId).
+func (c *ClientWithResponses) SubmitWhaleDatasetWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SubmitWhaleDatasetResponse, error) {
+	rsp, err := c.SubmitWhaleDatasetWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSubmitWhaleDatasetResponse(rsp)
+}
+
+// SubmitWhaleDatasetWithResponse Create an immutable whale dataset
+//
+// Extract at most 1,000,000 rows and 256 MiB uncompressed; exceeding either bound fails the job and publishes no partial file. Window and filters freeze on admission; rows and source facts freeze on one worker database snapshot. NDJSON uses exact decimal strings, with no current grade or market enrichment. The manifest checkpoint includes already committed arrivals after to plus later/open writers, with intentional overlap. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/datasets/whale-trades (the `SubmitWhaleDataset` operationId).
+func (c *ClientWithResponses) SubmitWhaleDatasetWithResponse(ctx context.Context, body SubmitWhaleDatasetJSONRequestBody, reqEditors ...RequestEditorFn) (*SubmitWhaleDatasetResponse, error) {
+	rsp, err := c.SubmitWhaleDataset(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSubmitWhaleDatasetResponse(rsp)
+}
+
+// GetWhaleDatasetStatusWithResponse Read a whale dataset job
+//
+// Read queued, running, cancel_requested, ready, failed, reconcile_required, expired or cancelled. Poll only while next_action is poll, after poll_after_s. Ready manifests contain count, content and compressed SHA-256, schema, filters, source, horizon, expiry and replay continuation. Deltas do not retain the finite time filter and can repeat rows; deduplicate by wt_ ID (payload.whale_alert_id when not expanded). This is an insertion feed, not update/delete CDC. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/datasets/whale-trades/{job_id} (the `GetWhaleDatasetStatus` operationId).
+func (c *ClientWithResponses) GetWhaleDatasetStatusWithResponse(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*GetWhaleDatasetStatusResponse, error) {
+	rsp, err := c.GetWhaleDatasetStatus(ctx, jobId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhaleDatasetStatusResponse(rsp)
+}
+
+// CancelWhaleDatasetWithResponse Cancel a whale dataset job
+//
+// Cancel queued jobs immediately and request running jobs stop at their next safe point. Repeating cancel converges on the current state; cancellation after the completion fence leaves the artifact ready. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/datasets/whale-trades/{job_id}/cancel (the `CancelWhaleDataset` operationId).
+func (c *ClientWithResponses) CancelWhaleDatasetWithResponse(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*CancelWhaleDatasetResponse, error) {
+	rsp, err := c.CancelWhaleDataset(ctx, jobId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCancelWhaleDatasetResponse(rsp)
+}
+
+// DownloadWhaleDatasetWithResponse Download an immutable whale dataset
+//
+// Download only a ready artifact; status handles failure and cancellation. Retired artifacts return 410 at serving time. Paid export scope; jobs are private to the credential owner. Shares the 20/day owner export quota and fair worker admission with trader exports; datasets also have a combined 5/hour quota. Three worker attempts, 24-hour retention, no partial download; cancellation consumes its reservation. Coverage is whale alerts, not all provider fills.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/datasets/whale-trades/{job_id}/download (the `DownloadWhaleDataset` operationId).
+func (c *ClientWithResponses) DownloadWhaleDatasetWithResponse(ctx context.Context, jobId int64, reqEditors ...RequestEditorFn) (*DownloadWhaleDatasetResponse, error) {
+	rsp, err := c.DownloadWhaleDataset(ctx, jobId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDownloadWhaleDatasetResponse(rsp)
+}
+
 // GetEventReplaySinceWithResponse Replay public large-trade events
 //
 // Returns durable public large-trade events strictly after an opaque cursor, in commit order: events are ordered by the position at which their write became visible to every reader (whale_alerts.inserted_xid), then by whale_alerts.id, and a page never reaches past the oldest write transaction still open when it was read. A trade whose id is lower than one already delivered but whose write finished later is therefore delivered on a later request instead of being skipped (#16180). This is a separate API-key contract from the browser/session /api/events/feed stream: browser-only and private alert, following, radar, and position patch events are excluded until they have a durable public outbox.
@@ -41918,6 +43292,726 @@ func ParseGetCoverageResponse(rsp *http.Response) (*GetCoverageResponse, error) 
 			headers.XRequestId = &value
 		}
 		response.Headers429 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseSubmitWhaleDatasetResponse parses an HTTP response from a SubmitWhaleDatasetWithResponse call
+func ParseSubmitWhaleDatasetResponse(rsp *http.Response) (*SubmitWhaleDatasetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SubmitWhaleDatasetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhaleDatasetJob
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhaleDatasetJob
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 429:
+		var headers SubmitWhaleDatasetResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers SubmitWhaleDatasetResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseGetWhaleDatasetStatusResponse parses an HTTP response from a GetWhaleDatasetStatusWithResponse call
+func ParseGetWhaleDatasetStatusResponse(rsp *http.Response) (*GetWhaleDatasetStatusResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhaleDatasetStatusResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhaleDatasetJob
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 429:
+		var headers GetWhaleDatasetStatusResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers GetWhaleDatasetStatusResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseCancelWhaleDatasetResponse parses an HTTP response from a CancelWhaleDatasetWithResponse call
+func ParseCancelWhaleDatasetResponse(rsp *http.Response) (*CancelWhaleDatasetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CancelWhaleDatasetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhaleDatasetJob
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 429:
+		var headers CancelWhaleDatasetResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers CancelWhaleDatasetResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseDownloadWhaleDatasetResponse parses an HTTP response from a DownloadWhaleDatasetWithResponse call
+func ParseDownloadWhaleDatasetResponse(rsp *http.Response) (*DownloadWhaleDatasetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DownloadWhaleDatasetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case rsp.StatusCode == 302:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 302:
+		var headers DownloadWhaleDatasetResponse302Headers
+		if values := rsp.Header.Values("Location"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Location", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: "uri"}); err != nil {
+				return nil, err
+			}
+			headers.Location = &value
+		}
+		response.Headers302 = &headers
+	case rsp.StatusCode == 429:
+		var headers DownloadWhaleDatasetResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers DownloadWhaleDatasetResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
 	}
 
 	return response, nil
