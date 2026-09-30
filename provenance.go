@@ -14,5 +14,5 @@ const (
 	OperationCount = 88
 	AppRepository  = "0xinsider/0xinsider"
 	AppSpecPath    = "web/public/api/v1/openapi.json"
-	AppCommit      = "f651cbfa3e9e8b9c9e86be68f299a6c4f72e207f"
+	AppCommit      = "e0e77bbf198862553e626ed93e21dcef73df3b64"
 )
