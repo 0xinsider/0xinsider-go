@@ -35788,7 +35788,8 @@
           },
           "event_link_slug": {
             "type": "string",
-            "description": "Backend-resolved /event destination slug for this pick's source market; its absence is an authoritative no-link decision."
+            "description": "Backend-resolved /event destination slug for the source market. Omitted outside full responses; null is an authoritative no-link decision.",
+            "nullable": true
           },
           "sports_context": {
             "allOf": [

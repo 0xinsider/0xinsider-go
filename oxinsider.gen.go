@@ -10582,7 +10582,7 @@ type PickOfTheDay struct {
 	// EntryPriceNote Full-only disclosure when backed_price was recovered from provider history within 30 seconds before publication. Render beside the price. Absent for ordinary publication captures and teasers; this is a historical reference, not an executed fill.
 	EntryPriceNote *string `json:"entry_price_note,omitempty"`
 
-	// EventLinkSlug Backend-resolved /event destination slug for this pick's source market; its absence is an authoritative no-link decision.
+	// EventLinkSlug Backend-resolved /event destination slug for the source market. Omitted outside full responses; null is an authoritative no-link decision.
 	EventLinkSlug *string `json:"event_link_slug,omitempty"`
 
 	// EventSlug The canonical /event game-page slug (one neutral page per game); omitted when the game has no neutral event page.
