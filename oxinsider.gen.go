@@ -2470,75 +2470,6 @@ func (e PickOfTheDayPlatform) Valid() bool {
 	}
 }
 
-// Defines values for PickOfTheDayQualifyingExpertLane.
-const (
-	PickOfTheDayQualifyingExpertLaneLongshotSpecialist PickOfTheDayQualifyingExpertLane = "longshot_specialist"
-	PickOfTheDayQualifyingExpertLaneStandard           PickOfTheDayQualifyingExpertLane = "standard"
-)
-
-// Valid indicates whether the value is a known member of the PickOfTheDayQualifyingExpertLane enum.
-func (e PickOfTheDayQualifyingExpertLane) Valid() bool {
-	switch e {
-	case PickOfTheDayQualifyingExpertLaneLongshotSpecialist:
-		return true
-	case PickOfTheDayQualifyingExpertLaneStandard:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for PickOfTheDayQualifyingExpertLaneProbabilitySource.
-const (
-	P PickOfTheDayQualifyingExpertLaneProbabilitySource = "p"
-)
-
-// Valid indicates whether the value is a known member of the PickOfTheDayQualifyingExpertLaneProbabilitySource enum.
-func (e PickOfTheDayQualifyingExpertLaneProbabilitySource) Valid() bool {
-	switch e {
-	case P:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for PickOfTheDayQualifyingExpertSource.
-const (
-	V1 PickOfTheDayQualifyingExpertSource = "v1"
-	V2 PickOfTheDayQualifyingExpertSource = "v2"
-)
-
-// Valid indicates whether the value is a known member of the PickOfTheDayQualifyingExpertSource enum.
-func (e PickOfTheDayQualifyingExpertSource) Valid() bool {
-	switch e {
-	case V1:
-		return true
-	case V2:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for PickOfTheDaySelectionLane.
-const (
-	PickOfTheDaySelectionLaneLongshotSpecialist PickOfTheDaySelectionLane = "longshot_specialist"
-	PickOfTheDaySelectionLaneStandard           PickOfTheDaySelectionLane = "standard"
-)
-
-// Valid indicates whether the value is a known member of the PickOfTheDaySelectionLane enum.
-func (e PickOfTheDaySelectionLane) Valid() bool {
-	switch e {
-	case PickOfTheDaySelectionLaneLongshotSpecialist:
-		return true
-	case PickOfTheDaySelectionLaneStandard:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for PickOfTheDayState.
 const (
 	Full PickOfTheDayState = "full"
@@ -2614,33 +2545,81 @@ func (e PickOfTheDayArchiveEntryOutcome) Valid() bool {
 	}
 }
 
-// Defines values for PickOfTheDayCommitmentPayloadPickOutcomeIndex.
+// Defines values for PickOfTheDayCommitmentPayloadV1PickOutcomeIndex.
 const (
-	PickOfTheDayCommitmentPayloadPickOutcomeIndexN0 PickOfTheDayCommitmentPayloadPickOutcomeIndex = 0
-	PickOfTheDayCommitmentPayloadPickOutcomeIndexN1 PickOfTheDayCommitmentPayloadPickOutcomeIndex = 1
+	PickOfTheDayCommitmentPayloadV1PickOutcomeIndexN0 PickOfTheDayCommitmentPayloadV1PickOutcomeIndex = 0
+	PickOfTheDayCommitmentPayloadV1PickOutcomeIndexN1 PickOfTheDayCommitmentPayloadV1PickOutcomeIndex = 1
 )
 
-// Valid indicates whether the value is a known member of the PickOfTheDayCommitmentPayloadPickOutcomeIndex enum.
-func (e PickOfTheDayCommitmentPayloadPickOutcomeIndex) Valid() bool {
+// Valid indicates whether the value is a known member of the PickOfTheDayCommitmentPayloadV1PickOutcomeIndex enum.
+func (e PickOfTheDayCommitmentPayloadV1PickOutcomeIndex) Valid() bool {
 	switch e {
-	case PickOfTheDayCommitmentPayloadPickOutcomeIndexN0:
+	case PickOfTheDayCommitmentPayloadV1PickOutcomeIndexN0:
 		return true
-	case PickOfTheDayCommitmentPayloadPickOutcomeIndexN1:
+	case PickOfTheDayCommitmentPayloadV1PickOutcomeIndexN1:
 		return true
 	default:
 		return false
 	}
 }
 
-// Defines values for PickOfTheDayCommitmentPayloadPlatform.
+// Defines values for PickOfTheDayCommitmentPayloadV1Platform.
 const (
-	PickOfTheDayCommitmentPayloadPlatformPolymarket PickOfTheDayCommitmentPayloadPlatform = "polymarket"
+	PickOfTheDayCommitmentPayloadV1PlatformPolymarket PickOfTheDayCommitmentPayloadV1Platform = "polymarket"
 )
 
-// Valid indicates whether the value is a known member of the PickOfTheDayCommitmentPayloadPlatform enum.
-func (e PickOfTheDayCommitmentPayloadPlatform) Valid() bool {
+// Valid indicates whether the value is a known member of the PickOfTheDayCommitmentPayloadV1Platform enum.
+func (e PickOfTheDayCommitmentPayloadV1Platform) Valid() bool {
 	switch e {
-	case PickOfTheDayCommitmentPayloadPlatformPolymarket:
+	case PickOfTheDayCommitmentPayloadV1PlatformPolymarket:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayCommitmentPayloadV2PickOutcomeIndex.
+const (
+	PickOfTheDayCommitmentPayloadV2PickOutcomeIndexN0 PickOfTheDayCommitmentPayloadV2PickOutcomeIndex = 0
+	PickOfTheDayCommitmentPayloadV2PickOutcomeIndexN1 PickOfTheDayCommitmentPayloadV2PickOutcomeIndex = 1
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayCommitmentPayloadV2PickOutcomeIndex enum.
+func (e PickOfTheDayCommitmentPayloadV2PickOutcomeIndex) Valid() bool {
+	switch e {
+	case PickOfTheDayCommitmentPayloadV2PickOutcomeIndexN0:
+		return true
+	case PickOfTheDayCommitmentPayloadV2PickOutcomeIndexN1:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayCommitmentPayloadV2Platform.
+const (
+	PickOfTheDayCommitmentPayloadV2PlatformPolymarket PickOfTheDayCommitmentPayloadV2Platform = "polymarket"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayCommitmentPayloadV2Platform enum.
+func (e PickOfTheDayCommitmentPayloadV2Platform) Valid() bool {
+	switch e {
+	case PickOfTheDayCommitmentPayloadV2PlatformPolymarket:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayCommitmentPayloadV2Version.
+const (
+	PickOfTheDayCommitmentPayloadV2VersionN2 PickOfTheDayCommitmentPayloadV2Version = 2
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayCommitmentPayloadV2Version enum.
+func (e PickOfTheDayCommitmentPayloadV2Version) Valid() bool {
+	switch e {
+	case PickOfTheDayCommitmentPayloadV2VersionN2:
 		return true
 	default:
 		return false
@@ -2683,6 +2662,24 @@ const (
 func (e PickOfTheDayLedgerOpenedEntryCommitmentAlgo) Valid() bool {
 	switch e {
 	case PickOfTheDayLedgerOpenedEntryCommitmentAlgoSha256CanonicalJsonPayloadnonce:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerOpenedEntryCommitmentVersion.
+const (
+	PickOfTheDayLedgerOpenedEntryCommitmentVersionN1 PickOfTheDayLedgerOpenedEntryCommitmentVersion = 1
+	PickOfTheDayLedgerOpenedEntryCommitmentVersionN2 PickOfTheDayLedgerOpenedEntryCommitmentVersion = 2
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerOpenedEntryCommitmentVersion enum.
+func (e PickOfTheDayLedgerOpenedEntryCommitmentVersion) Valid() bool {
+	switch e {
+	case PickOfTheDayLedgerOpenedEntryCommitmentVersionN1:
+		return true
+	case PickOfTheDayLedgerOpenedEntryCommitmentVersionN2:
 		return true
 	default:
 		return false
@@ -2734,6 +2731,24 @@ const (
 func (e PickOfTheDayLedgerSealedEntryCommitmentAlgo) Valid() bool {
 	switch e {
 	case PickOfTheDayLedgerSealedEntryCommitmentAlgoSha256CanonicalJsonPayloadnonce:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayLedgerSealedEntryCommitmentVersion.
+const (
+	PickOfTheDayLedgerSealedEntryCommitmentVersionN1 PickOfTheDayLedgerSealedEntryCommitmentVersion = 1
+	PickOfTheDayLedgerSealedEntryCommitmentVersionN2 PickOfTheDayLedgerSealedEntryCommitmentVersion = 2
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLedgerSealedEntryCommitmentVersion enum.
+func (e PickOfTheDayLedgerSealedEntryCommitmentVersion) Valid() bool {
+	switch e {
+	case PickOfTheDayLedgerSealedEntryCommitmentVersionN1:
+		return true
+	case PickOfTheDayLedgerSealedEntryCommitmentVersionN2:
 		return true
 	default:
 		return false
@@ -6817,6 +6832,36 @@ func (e GetPickOfTheDayLedger200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for GetPickOfTheDayLedgerEntryParamsXQueryValidation.
+const (
+	GetPickOfTheDayLedgerEntryParamsXQueryValidationStrict GetPickOfTheDayLedgerEntryParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetPickOfTheDayLedgerEntryParamsXQueryValidation enum.
+func (e GetPickOfTheDayLedgerEntryParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetPickOfTheDayLedgerEntryParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetPickOfTheDayLedgerEntry200JSONResponseBodyObject.
+const (
+	GetPickOfTheDayLedgerEntry200JSONResponseBodyObjectPickOfTheDayLedgerEntry GetPickOfTheDayLedgerEntry200JSONResponseBodyObject = "pick_of_the_day_ledger_entry"
+)
+
+// Valid indicates whether the value is a known member of the GetPickOfTheDayLedgerEntry200JSONResponseBodyObject enum.
+func (e GetPickOfTheDayLedgerEntry200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case GetPickOfTheDayLedgerEntry200JSONResponseBodyObjectPickOfTheDayLedgerEntry:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetPlatformsParamsXQueryValidation.
 const (
 	GetPlatformsParamsXQueryValidationStrict GetPlatformsParamsXQueryValidation = "strict"
@@ -9788,11 +9833,11 @@ type LargeTrade struct {
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	RecordedSignalScore float32 `json:"recorded_signal_score"`
 
-	// ReviewScore Current 0.0–1.0 review score, computed at request time from the trade's size, the trader's win rate today, a bonus when a trader with a win rate above 55% trades at a price below 30¢, and the trade's age now. A higher score means read this trade first; it does not measure edge or predict an outcome. On a historical row it is today's view of the trade, not what a reader saw then; use recorded_review_score for that. Canonical since #16311; signal_score carries the same value.
+	// ReviewScore Current trade review score on a 0..1 scale; higher values indicate a stronger review signal. This is the current response value and can differ from the recorded score. Missing measurements remain unavailable.
 	ReviewScore float32        `json:"review_score"`
 	Side        LargeTradeSide `json:"side"`
 
-	// SignalScore Current 0.0–1.0 review score, computed at request time from the trader's win rate today and the trade's age now. Deprecated (#16311): `review_score` is the canonical spelling and carries the same value; this key stays on the wire.
+	// SignalScore Deprecated alias of review_score with the same current value and 0..1 scale.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SignalScore float32 `json:"signal_score"`
 	SizeUsd     float32 `json:"size_usd"`
@@ -9863,11 +9908,11 @@ type LargeTradeDetail struct {
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	RecordedSignalScore float32 `json:"recorded_signal_score"`
 
-	// ReviewScore Current 0.0–1.0 review score, computed at request time from the trade's size, the trader's win rate today, a bonus when a trader with a win rate above 55% trades at a price below 30¢, and the trade's age now. A higher score means read this trade first; it does not measure edge or predict an outcome. On a historical row it is today's view of the trade, not what a reader saw then; use recorded_review_score for that. Canonical since #16311; signal_score carries the same value.
+	// ReviewScore Current trade review score on a 0..1 scale; higher values indicate a stronger review signal. This is the current response value and can differ from the recorded score. Missing measurements remain unavailable.
 	ReviewScore float32              `json:"review_score"`
 	Side        LargeTradeDetailSide `json:"side"`
 
-	// SignalScore Current 0.0–1.0 review score, computed at request time from the trader's win rate today and the trade's age now. Deprecated (#16311): `review_score` is the canonical spelling and carries the same value; this key stays on the wire.
+	// SignalScore Deprecated alias of review_score with the same current value and 0..1 scale.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SignalScore float32 `json:"signal_score"`
 	SizeUsd     float32 `json:"size_usd"`
@@ -10442,9 +10487,6 @@ type OutcomeCandlesOutcome string
 type PickHolder struct {
 	Address string `json:"address"`
 
-	// CategoryEvidence Current category evidence, independent of the global grade. Pick of the Day stamps only the served display roster; frozen entry snapshots remain unchanged.
-	CategoryEvidence *HolderCategoryEvidence `json:"category_evidence,omitempty"`
-
 	// CategoryWinRate This wallet's win rate in the pick's canonical category bucket (the pick's `category` field, e.g. Basketball -- label the rate with it, never with the narrower `display_category` league, except when `category_win_rate_game` is present, in which case the rate is that game's and is labelled with it): the share of the wallet's resolved markets in that category whose realized P&L closed positive, as a 0..1 fraction. Present only with `category_win_rate_status` = `measured`, on `display_holders` entries, and only when the wallet clears the resolved-market floor; recomputed at serve time from the current category read model, not frozen with the pick. Absent on `holders` entries, legacy rows, and payloads predating the field.
 	CategoryWinRate *float32 `json:"category_win_rate,omitempty"`
 
@@ -10501,17 +10543,11 @@ type PickOfTheDay struct {
 	// BackedPrice Frozen pre-game probability (0..1) for the backed side, written once at publication. It is the Polymarket CLOB order book midpoint at release, not an executed fill: a buyer lifts the ask, so a subscriber's own entry is usually a little worse than this price.
 	BackedPrice *float32 `json:"backed_price,omitempty"`
 
-	// BackedSharpUsd Raw backed-side sharp-money USD frozen at generation. This is the Sharp USD value, not the recency-weighted sharp_usd which decays. Omitted on current public V1 rows when the B-inclusive value has no reconstructible S/A equivalent.
+	// BackedSharpUsd Recorded backed-side sharp-money value in USD when available.
 	BackedSharpUsd *float32 `json:"backed_sharp_usd,omitempty"`
 
-	// Category Frozen canonical calibration/report bucket (e.g. "Basketball", "MMA", or "Soccer"). Existing semantics are unchanged; presentation consumers should prefer display_category when present.
+	// Category Recorded canonical sport category. Prefer display_category for the public competition label.
 	Category *string `json:"category,omitempty"`
-
-	// CategoryEdgePct Deprecated (#7170): no longer populated for picks selected on/after the calibration-edge change; omitted (absent) for new picks (the field uses skip_serializing_if, so a null value is dropped from the JSON rather than serialized as null). Permanently frozen-legacy -- retained for historical picks, with no removal or replacement planned, so no v2 is implied. Historical picks may still carry a value. Legacy meaning: category win-rate edge as a fraction (the backed-side cohort's win rate in this category minus the non-market-maker category baseline, e.g. 0.09 = +9 points), paired with category_edge_sample.
-	CategoryEdgePct *float32 `json:"category_edge_pct,omitempty"`
-
-	// CategoryEdgeSample Deprecated (#7170): no longer populated for picks selected on/after the calibration-edge change; omitted (absent) for new picks (the field uses skip_serializing_if, so a null value is dropped from the JSON rather than serialized as null). Permanently frozen-legacy -- retained for historical picks, with no removal or replacement planned, so no v2 is implied. Historical picks may still carry a value. Legacy meaning: pooled count of resolved markets behind category_edge_pct (the headline's n).
-	CategoryEdgeSample *int `json:"category_edge_sample,omitempty"`
 
 	// ClvBasis Backend-owned CLV evidence basis. `frozen_displayed_entry` uses the persisted displayed entry. `historical_provider_entry` uses a known-CLOB point at or before publication. `historical_provider_price_match` requires the latest point in the prior hour to match. `historical_provider_nearby_price_match` requires a matching point within five minutes before publication. Source-null bases preserve unknown original provenance.
 	ClvBasis *string `json:"clv_basis,omitempty"`
@@ -10528,25 +10564,19 @@ type PickOfTheDay struct {
 	// ClvStatus Backend-owned CLV capture disposition. "pending" means no capture decision exists yet; terminal provider or quality statuses remain distinguishable. The raw close price and timestamp are never serialized.
 	ClvStatus *string `json:"clv_status,omitempty"`
 
-	// ConsensusEdgePct First-party/internal consensus edge = sharp_pct - market_pct, the conviction-vs-price gap (how much more of the current-policy sharp money sits on this side than the price implies). Omitted on current public V1 rows when the B-inclusive value has no reconstructible S/A equivalent. This is NOT an expected-value or guaranteed edge. Omitted when either input is unavailable.
-	ConsensusEdgePct *float32 `json:"consensus_edge_pct,omitempty"`
-
-	// DirectionalConfidence First-party/internal team-directional commitment read at selection time: the fraction (0..1) of the backed side's current-policy graded sharp-money DOLLARS held by wallets read one-way rather than hedged: no opposite leg on this market worth at least 10% of the backed leg (Polymarket's own currentValue pair), and no opposing team across the game's markets where the wallet's synced legs are fresh. Current public V1 rows omit this B-inclusive read because its historical S/A equivalent is not reconstructed. A high value means the graded pile is really committed to this side; a low one means much of it is hedged or unreadable. Omitted when the read was not computed (a pick selected before the field existed, an ungroupable game, an empty graded pile, or a pile where no holder carried usable evidence) -- which is NOT the same as 0.0, a computed reading that classified holders and found none one-way.
-	DirectionalConfidence *float32 `json:"directional_confidence,omitempty"`
-
 	// Disclaimer Risk disclaimer shown with every pick.
 	Disclaimer *string `json:"disclaimer,omitempty"`
 
 	// DisplayCategory Frozen public presentation category: the competition the Polymarket event belongs to. A curated label comes first -- an official league (e.g. "WNBA" or "UFC"), the esports title (e.g. "CS2", "LoL", "Dota 2" or "Valorant"), or a soccer competition (e.g. "LaLiga", "Premier League", "Serie A" or "UEFA Champions League"); any other competition carries the provider's own competition name without its season year (e.g. "UEFA Nations League", "ATP" or "Wimbledon"). It equals category only when the provider names no competition. An esports pick keeps the pooled "Esports" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility.
 	DisplayCategory *string `json:"display_category,omitempty"`
 
-	// DisplayHolders Full-only complete provider-confirmed S/A/B holder roster for the current Pick of the Day backing policy. Omitted for teaser, no-pick, and historical rows whose frozen holder proof predates this policy. Each entry may additionally carry `category_win_rate` / `category_win_rate_status`: the wallet's win rate in the pick's canonical `category`, stamped at serve time from the current category read model (the same annotation the sports sharp-money chips carry). The bounded `holders` compatibility projection never carries these fields.
+	// DisplayHolders Optional complete holder display roster. Each entry carries ordinary trader and recorded position facts.
 	DisplayHolders *[]PickHolder `json:"display_holders,omitempty"`
 
 	// EditorialNote Optional editorial note attached to the pick.
 	EditorialNote *string `json:"editorial_note,omitempty"`
 
-	// EntryAuthorization Optional full-only authorization for newly issued policy-7 picks; omitted for legacy or unissued picks and teasers. It remains historical after expiry.
+	// EntryAuthorization Optional full-response entry authorization. Missing or expired authorization cannot authorize an automated entry.
 	EntryAuthorization *PotdEntryAuthorization `json:"entry_authorization,omitempty"`
 
 	// EntryPriceNote Full-only disclosure when backed_price was recovered from provider history within 30 seconds before publication. Render beside the price. Absent for ordinary publication captures and teasers; this is a historical reference, not an executed fill.
@@ -10564,19 +10594,19 @@ type PickOfTheDay struct {
 	// GameStarted True once the backed game's kickoff has passed (kickoff <= now). When true the snapshotted pre-game price is no longer actionable. Absent for a legacy pick with no stored kickoff (treat as not-started).
 	GameStarted *bool `json:"game_started,omitempty"`
 
-	// HedgedHolderCount Graded backed-side holders read as HEDGED across the game's markets.
-	HedgedHolderCount *int `json:"hedged_holder_count,omitempty"`
-
-	// HolderCount Exact S/A sharp-money proof count on the backed side. The current display_holders roster can be longer because it also carries B-grade sharp-money holders.
+	// HolderCount S/A holder count for the public V1 compatibility projection. display_holders can include additional grades.
 	HolderCount *int `json:"holder_count,omitempty"`
 
-	// Holders Bounded S/A compatibility projection of the frozen sharp-money holders on the backed side. Current full payloads expose the complete S/A/B roster in display_holders; historical rows can retain their earlier frozen shape.
+	// Holders Bounded S/A holder display projection. Historical rows retain their recorded display shape.
 	Holders *[]PickHolder `json:"holders,omitempty"`
+
+	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
+	IsFreeSelection *bool `json:"is_free_selection,omitempty"`
 
 	// IsLocked True only before the pick's stored release instant (a pre-release embargo flag); effectively always false on a served, already-published pick. To detect that the backed game has kicked off, use `game_started`.
 	IsLocked *bool `json:"is_locked,omitempty"`
 
-	// MarketPct Market-implied probability of the backed side as a fraction 0..1 (equals backed_price), re-exposed alongside sharp_pct for the WHY breakdown.
+	// MarketPct Recorded market-implied probability as a 0..1 fraction when available.
 	MarketPct *float32 `json:"market_pct,omitempty"`
 
 	// MarketUrl Canonical web market URL.
@@ -10587,12 +10617,6 @@ type PickOfTheDay struct {
 
 	// OddsDisplay Pre-formatted backed_price as cents-on-the-dollar odds, to ONE decimal: "62.0c" / "99.9c". Never rounded to a whole cent -- a 99.9c favorite is not a 100c certainty. Convenience only; backed_price is the source value. Omitted when backed_price is.
 	OddsDisplay *string `json:"odds_display,omitempty"`
-
-	// OneWayGradedUsd The one-way holders' share of the backed-side graded dollars (the confidence's numerator).
-	OneWayGradedUsd *float32 `json:"one_way_graded_usd,omitempty"`
-
-	// OneWayHolderCount Graded backed-side holders read as one-way-committed on this game.
-	OneWayHolderCount *int `json:"one_way_holder_count,omitempty"`
 
 	// Outcome Settlement outcome of the backed side; 'pending' until the market resolves.
 	Outcome *PickOfTheDayOutcome `json:"outcome,omitempty"`
@@ -10609,13 +10633,17 @@ type PickOfTheDay struct {
 	// PickDate The pick's local publication date (YYYY-MM-DD).
 	PickDate *openapi_types.Date `json:"pick_date,omitempty"`
 
+	// PickId Stable pick row identity as decimal text. Never use a quality rank as identity.
+	PickId *string `json:"pick_id,omitempty"`
+
 	// PickOutcomeLabel The backed side phrased as a bet: a team for a moneyline (e.g. "Portugal"), the handicap line for a spread (e.g. "Belgium (-2.5)"), or "{team} to advance" for a knockout advancement market (e.g. "Spain to advance").
 	PickOutcomeLabel *string `json:"pick_outcome_label,omitempty"`
 
-	// PickRank Stable 1-based slot within the product day's ranked picks.
+	// PickRank Deprecated compatibility daily release slot; use pick_id for identity and publication_order for scheduling.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PickRank *int `json:"pick_rank,omitempty"`
 
-	// Picks The complete ranked picks for this product day, ordered by pick_rank. Thin days contain fewer items; the selector never fabricates rows.
+	// Picks Published picks for this product day in the returned display order. Use pick_id for identity.
 	Picks *[]PickOfTheDay `json:"picks,omitempty"`
 
 	// Platform Provider platform. Always polymarket.
@@ -10633,54 +10661,36 @@ type PickOfTheDay struct {
 	// ProofPendingPicks Published same-day picks whose holder proof is not readable yet, ordered by pick_rank. Additive and optional: present only while at least one such pick exists. While present, `picks` carries only the proof-readable picks and `pick_count` counts them. Schedule the next read from the earliest retry_at instead of polling. The route returns 503 read_model_warming only when no published pick has readable proof.
 	ProofPendingPicks *[]ProofPendingPickSlot `json:"proof_pending_picks,omitempty"`
 
-	// QualifyingExpert The qualifying category expert whose sport-specific record and real position earned this pick its top selection tier. The first-party/internal current policy admits S/A/B; public V1 exposes a compatible S/A expert and omits a current-policy B-grade expert: a candidate backed by one outranks every candidate without one. Present only on the full payload. Omitted when no wallet qualified on the backed side, on picks generated before the field existed, and on the first-party web teaser, which withholds all backed-side evidence. Frozen at SELECTION time — the wallet's position can move before the pick renders.
+	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
+	PublicationOrder *int `json:"publication_order,omitempty"`
+
+	// QualifyingExpert Optional recorded specialist facts. These describe the trader and do not disclose selection decisions. Present only on a full response when available.
 	QualifyingExpert *struct {
-		// Address Wallet address of the qualifying expert.
+		// Address Trader wallet address.
 		Address string `json:"address"`
 
 		// CanonicalCategory The canonical sport bucket the win rate was measured over (for example Basketball). Can be BROADER than the pick's display_category, which names an exact league such as NBA — label the rate with this field, never with display_category.
 		CanonicalCategory string `json:"canonical_category"`
 
-		// EdgeLower95 95% lower bound of the wallet's mean calibration edge over the market price in canonical_category, in probability units (0.08 is 8 points). Positive by construction for a v2 expert; present on a v1 expert only when the wallet also holds a live v2 row.
-		EdgeLower95 *float32 `json:"edge_lower_95,omitempty"`
-
-		// EdgeMean Point estimate behind edge_lower_95.
-		EdgeMean *float32 `json:"edge_mean,omitempty"`
-
-		// Grade 0xinsider grade letter. The first-party/internal current Pick of the Day policy counts S, A, and B; public V1 exposes only the compatible S/A expert.
+		// Grade Recorded trader grade. Public V1 preserves its S/A compatibility projection.
 		Grade string `json:"grade"`
 
-		// IndependentEventCount Independent canonical events behind the edge. At least 10 by construction for a v2 expert.
-		IndependentEventCount *int `json:"independent_event_count,omitempty"`
-
-		// Lane Present from expert policy 6. Current expert policy 10 retains the longshot requirement of live v2 only, with a positive lower bound over a large sample, large net backed value and no meaningful opposite value. Historical policy 6: a specialist required large net backed value, no meaningful opposite value, and either a live v2 positive lower bound over a large sample or a high v1 rate over enough resolved markets. Tennis requires v2. The floors are not published.
-		Lane *PickOfTheDayQualifyingExpertLane `json:"lane,omitempty"`
-
-		// LaneProbability Answered, spread-gated, index-scoped backed probability frozen only on a specialist exception.
-		LaneProbability *float32 `json:"lane_probability,omitempty"`
-
-		// LaneProbabilitySource Canonical provider probability pair branch; absent on standard experts.
-		LaneProbabilitySource *PickOfTheDayQualifyingExpertLaneProbabilitySource `json:"lane_probability_source,omitempty"`
-
-		// NResolved Resolved markets in canonical_category behind win_rate. At least 10 by construction for a source=v1 expert; null with win_rate.
+		// NResolved Number of resolved markets behind win_rate; null when not measured.
 		NResolved int `json:"n_resolved"`
 
 		// Name Provider display name, or null for an unnamed wallet.
 		Name string `json:"name"`
 
-		// OppositePositionUsd The same wallet's currentValue on the OTHER outcome of this market, in USD, as of selection. Present from gate policy v5, when the floor moved to net exposure; a wallet long both sides does not qualify. Absent on picks frozen before v5, which never read the leg. 0 is a measured one-way position, not an absence.
+		// OppositePositionUsd Recorded position value on the other outcome of this market, in USD. Omitted when not recorded; zero is a measured value.
 		OppositePositionUsd *float32 `json:"opposite_position_usd,omitempty"`
 
-		// PositionUsd Polymarket's own currentValue for this wallet on the backed outcome, in USD, as of selection. At least 1000 by construction through gate policy v7; the standard floor is 500 from v8. From gate policy v5 the floor is read on the net: position_usd minus opposite_position_usd is at least that floor, and the pick re-verifies that net against the live holder snapshot when it is released.
+		// PositionUsd Recorded Polymarket position value on the backed outcome, in USD. It can change after this snapshot.
 		PositionUsd float32 `json:"position_usd"`
 
-		// Source Current expert policy 10 does not require a category-skill v2 specialist in any sport; in every sport a specialist raises the candidate's rank tier rather than gating it. Standard specialists need a positive edge_lower_95 over enough independent events and enough net backing on the backed side; the floors are not published. Fresh healthy records below the shared model's live sample floor can qualify; stale, unknown and degraded records cannot. Historical records preserve which definition qualified the wallet: v1, the profitability rate (win_rate over n_resolved), or v2, the forward-only category-skill calibration edge (edge_lower_95 over independent_event_count). Absent on picks frozen before the v2 definition existed; read absence as v1. A Tennis pick frozen under gate policy v4 or later carries v2 only: a v1 rate stopped qualifying a tennis expert at v4. A Tennis pick frozen under an earlier policy can still carry v1 with a win rate.
-		Source *PickOfTheDayQualifyingExpertSource `json:"source,omitempty"`
-
-		// StatsComputedAt When the skill read model behind the evidence was last rebuilt: trader_category_stats.computed_at for a source=v1 expert, category_skill_v2_current.as_of for a source=v2 expert.
+		// StatsComputedAt Timestamp of the recorded trader statistics.
 		StatsComputedAt time.Time `json:"stats_computed_at"`
 
-		// WinRate Share of this wallet's resolved markets in canonical_category whose realized P&L came out positive, as a 0..1 fraction. Above 0.60 by construction for a source=v1 expert; null for an expert who qualified on the category-skill v2 definition only. Deliberately NOT phrased as "closed profitable": the metric counts realized P&L above zero, so a resolved winner the wallet never redeemed sits at zero and counts against it.
+		// WinRate Share of the trader’s resolved markets in canonical_category with positive realized P&L, as a 0..1 fraction. Null when not measured. This is a trader statistic, not the pick’s probability of winning.
 		WinRate float32 `json:"win_rate"`
 	} `json:"qualifying_expert,omitempty"`
 
@@ -10696,26 +10706,23 @@ type PickOfTheDay struct {
 	// ScheduledPicks Same-day picks selected but not yet released, ordered by pick_rank. Additive and optional: present only while at least one unreleased slot exists. Each slot exposes only its rank and schedule -- no market identity before release. Schedule the next read from the earliest release_at instead of polling.
 	ScheduledPicks *[]ScheduledPickSlot `json:"scheduled_picks,omitempty"`
 
-	// SelectionLane Frozen admission classification, full payload only. The specialist lane exempts two probability rejects and adds no rank bonus. Historical rows remain standard.
-	SelectionLane *PickOfTheDaySelectionLane `json:"selection_lane,omitempty"`
-
-	// SharpPct First-party/internal backed-side sharp-money dollar consensus as a fraction 0..1: the share of current-policy sharp dollars on the backed side. Omitted on current public V1 rows when the B-inclusive value has no reconstructible S/A equivalent. A conviction signal, NOT a probability or expected-value claim. Frozen at generation.
+	// SharpPct Recorded sharp-money share as a 0..1 fraction when available. This is not a winning probability.
 	SharpPct *float32 `json:"sharp_pct,omitempty"`
 
-	// SharpUsd Recency-weighted graded-flow magnitude in USD; omitted when <= 0. Canonical key since #16308; smart_usd is its deprecated spelling, emitted beside it with the same value.
+	// SharpUsd Recorded sharp-money magnitude in USD when available.
 	SharpUsd *float32 `json:"sharp_usd,omitempty"`
 
-	// SharpWalletCount Public V1 compatibility count of S/A sharp-money wallets on the backed side. The first-party/internal current policy counts S/A/B; historical rows retain their frozen policy's count. Required on every item in `picks`: a current-day published pick whose required holder proof is not safely readable is listed in `proof_pending_picks` instead of being served with a partial success shape or a synthetic zero, and the route returns 503 read_model_warming only when no published pick has readable proof. Canonical key since #16308; smart_wallet_count is its deprecated spelling, emitted beside it with the same value.
+	// SharpWalletCount S/A wallet count on the backed side in the public V1 compatibility projection.
 	SharpWalletCount *int `json:"sharp_wallet_count,omitempty"`
 
 	// SideSummary One-line summary of which side sharp money is backing. Required on every item in `picks`: a current-day published pick whose required holder proof is not safely readable is listed in `proof_pending_picks` instead of being served with a partial success shape or a synthetic zero, and the route returns 503 read_model_warming only when no published pick has readable proof.
 	SideSummary *string `json:"side_summary,omitempty"`
 
-	// SmartUsd Deprecated spelling of sharp_usd, emitted beside it with the same value and never removed. Recency-weighted graded-flow magnitude in USD; omitted when <= 0.
+	// SmartUsd Deprecated spelling of sharp_usd with the same value.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SmartUsd *float32 `json:"smart_usd,omitempty"`
 
-	// SmartWalletCount Deprecated spelling of sharp_wallet_count, emitted beside it with the same value and never removed. Public V1 compatibility count of S/A sharp-money wallets on the backed side. The first-party/internal current policy counts S/A/B; historical rows retain their frozen policy's count. Required on every item in `picks`: a current-day published pick whose required holder proof is not safely readable is listed in `proof_pending_picks` instead of being served with a partial success shape or a synthetic zero, and the route returns 503 read_model_warming only when no published pick has readable proof.
+	// SmartWalletCount Deprecated spelling of sharp_wallet_count with the same value.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SmartWalletCount *int `json:"smart_wallet_count,omitempty"`
 
@@ -10728,23 +10735,20 @@ type PickOfTheDay struct {
 	// State Always 'full' for an authenticated Pro key.
 	State PickOfTheDayState `json:"state"`
 
+	// SupersedesPickId Replacement predecessor stable id; null when no lineage is recorded.
+	SupersedesPickId string `json:"supersedes_pick_id"`
+
 	// Thesis Required truthful thesis. With at least one profitable-wallet holder: Profitable wallets hold {pick_outcome_label}[, led by a grade-{top_grade} trader]. Without holder backing: 0xInsider's Pick of the Day is {pick_outcome_label}. Wallet counts are not appended.
 	Thesis *string `json:"thesis,omitempty"`
 
 	// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for the backed outcome; omitted when unavailable (e.g. unsynced markets).
 	TokenId *string `json:"token_id,omitempty"`
 
-	// TopGrade Best public V1-compatible S/A sharp-money grade on the backed side. The first-party/internal current policy can select B, but a current B-only grade is omitted by the stable V1 adapter. Historical rows retain their frozen policy's grade. A current-day published pick with pending legacy proof, unknown-future proof, or structurally invalid current-policy proof returns 503 before this success schema is served. Resolved legacy proof remains readable on both current-day and archive/history responses.
+	// TopGrade Best recorded S/A grade in the public V1 compatibility projection.
 	TopGrade *string `json:"top_grade,omitempty"`
 
-	// TotalGradedUsd Backed-side graded dollars the confidence is measured against (its denominator).
-	TotalGradedUsd *float32 `json:"total_graded_usd,omitempty"`
-
-	// Traders Public V1 S/A compatibility count on the backed side (equals the adapted sharp_wallet_count). The first-party/internal current policy counts S/A/B. Historical rows retain their frozen policy's count.
+	// Traders Public V1 S/A wallet count on the backed side, equal to sharp_wallet_count.
 	Traders *int `json:"traders,omitempty"`
-
-	// Trust Field-level trust metadata for the full Pick of the Day payload. Present on the full shape only (omitted on the teaser and the no-pick state, because whether a specialist backs the pick is itself backed-side evidence). Unlike TraderTrust it is not gated behind expand=trust: it carries one member on an endpoint that returns a single object per day.
-	Trust *PickTrust `json:"trust,omitempty"`
 
 	// UnitScore Net return for the pick in stake units (return_usd / stake_usd - 1); one unit is one stake_usd stake, and the figure is the same under any stake size. Omitted when the outcome is not valued.
 	UnitScore *float32 `json:"unit_score,omitempty"`
@@ -10758,18 +10762,6 @@ type PickOfTheDayOutcome string
 
 // PickOfTheDayPlatform Provider platform. Always polymarket.
 type PickOfTheDayPlatform string
-
-// PickOfTheDayQualifyingExpertLane Present from expert policy 6. Current expert policy 10 retains the longshot requirement of live v2 only, with a positive lower bound over a large sample, large net backed value and no meaningful opposite value. Historical policy 6: a specialist required large net backed value, no meaningful opposite value, and either a live v2 positive lower bound over a large sample or a high v1 rate over enough resolved markets. Tennis requires v2. The floors are not published.
-type PickOfTheDayQualifyingExpertLane string
-
-// PickOfTheDayQualifyingExpertLaneProbabilitySource Canonical provider probability pair branch; absent on standard experts.
-type PickOfTheDayQualifyingExpertLaneProbabilitySource string
-
-// PickOfTheDayQualifyingExpertSource Current expert policy 10 does not require a category-skill v2 specialist in any sport; in every sport a specialist raises the candidate's rank tier rather than gating it. Standard specialists need a positive edge_lower_95 over enough independent events and enough net backing on the backed side; the floors are not published. Fresh healthy records below the shared model's live sample floor can qualify; stale, unknown and degraded records cannot. Historical records preserve which definition qualified the wallet: v1, the profitability rate (win_rate over n_resolved), or v2, the forward-only category-skill calibration edge (edge_lower_95 over independent_event_count). Absent on picks frozen before the v2 definition existed; read absence as v1. A Tennis pick frozen under gate policy v4 or later carries v2 only: a v1 rate stopped qualifying a tennis expert at v4. A Tennis pick frozen under an earlier policy can still carry v1 with a win rate.
-type PickOfTheDayQualifyingExpertSource string
-
-// PickOfTheDaySelectionLane Frozen admission classification, full payload only. The specialist lane exempts two probability rejects and adds no rank bonus. Historical rows remain standard.
-type PickOfTheDaySelectionLane string
 
 // PickOfTheDayState Always 'full' for an authenticated Pro key.
 type PickOfTheDayState string
@@ -10855,6 +10847,9 @@ type PickOfTheDayArchiveEntry struct {
 	// ImageUrl Provider (Polymarket Gamma) market thumbnail URL (markets.image); omitted (not null) when the market has no image. Public regardless of the backed-side gate, so present for pending rows too.
 	ImageUrl *string `json:"image_url,omitempty"`
 
+	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
+	IsFreeSelection bool `json:"is_free_selection"`
+
 	// Matchup Human-readable matchup (e.g. "Portugal vs. Uzbekistan").
 	Matchup string `json:"matchup"`
 
@@ -10870,11 +10865,18 @@ type PickOfTheDayArchiveEntry struct {
 	// PickDate The pick's local publication date (YYYY-MM-DD).
 	PickDate openapi_types.Date `json:"pick_date"`
 
+	// PickId Stable pick row identity as decimal text. Never use a quality rank as identity.
+	PickId string `json:"pick_id"`
+
 	// PickOutcomeLabel The backed side's outcome label. Omitted for a still-pending pick when the request is not from an authenticated Pro key.
 	PickOutcomeLabel *string `json:"pick_outcome_label,omitempty"`
 
-	// PickRank Stable 1-based slot within the product day's ranked picks.
+	// PickRank Deprecated compatibility daily release slot; use pick_id for identity and publication_order for scheduling.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PickRank *int `json:"pick_rank,omitempty"`
+
+	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
+	PublicationOrder int `json:"publication_order"`
 
 	// PublishedAt When this pick became public (RFC3339 UTC). pick_date above is the America/New_York product day, not an instant, so read this whenever you need a real time: reading the bare date as UTC midnight places it hours before the earliest instant a pick can drop (11:00 UTC on that date). A day's last pick can drop at 23:00 ET, which is the following UTC date. Omitted (not null) when the instant is unknown; additive and optional for mixed-version client compatibility.
 	PublishedAt *time.Time `json:"published_at,omitempty"`
@@ -10890,6 +10892,9 @@ type PickOfTheDayArchiveEntry struct {
 
 	// StakeUsd The flat stake this row was valued at, in USD: 1000 since 2026-09-22 (100 before). Every row of the record is valued at the current stake, including picks published before the change. Present exactly when return_usd is.
 	StakeUsd *float32 `json:"stake_usd,omitempty"`
+
+	// SupersedesPickId Replacement predecessor stable id; null when no lineage is recorded.
+	SupersedesPickId string `json:"supersedes_pick_id"`
 
 	// TopGrade Best public V1-compatible S/A sharp-money grade on the backed side; a current B-only grade is omitted by the stable V1 adapter, while historical rows retain their frozen policy's grade. Omitted when no sharp-money wallet backs the pick, when a pending legacy proof has not yet upgraded, or when the stored holder policy is unknown-future or structurally invalid. Resolved legacy history remains supported.
 	TopGrade *string `json:"top_grade,omitempty"`
@@ -10907,8 +10912,13 @@ type PickOfTheDayArchiveEntryClvApplicability string
 // PickOfTheDayArchiveEntryOutcome Settlement outcome of the backed side; 'pending' until the market resolves.
 type PickOfTheDayArchiveEntryOutcome string
 
-// PickOfTheDayCommitmentPayload The frozen identity of the pick, exactly as the hash was taken over it. Served byte for byte as it was hashed -- keys sorted by UTF-8 byte value, no insignificant whitespace -- so a verifier concatenates and hashes with nothing to reconstruct. Property order below is the wire order. The outcome is deliberately NOT part of it: surviving a corrected outcome unchanged is the case the commitment exists for. Worked example: {"backed_price":"0.545000","condition_id":"0xabc","kickoff":"2026-09-20T23:05:00Z","pick_date":"2026-09-20","pick_outcome_index":1,"pick_outcome_label":"Lakers","pick_rank":1,"platform":"polymarket"} with the nonce 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f hashes to 44d18fa5e2aa3a2bf3c971dcc9317c8ccbdfd5480a4773b6d8ffd5fbeeea84dc.
+// PickOfTheDayCommitmentPayload Select using the entry commitment_version, never implicit payload shape. All historic v1 hashes remain unchanged.
 type PickOfTheDayCommitmentPayload struct {
+	union json.RawMessage
+}
+
+// PickOfTheDayCommitmentPayloadV1 The frozen identity of the pick, exactly as the hash was taken over it. Served byte for byte as it was hashed -- keys sorted by UTF-8 byte value, no insignificant whitespace -- so a verifier concatenates and hashes with nothing to reconstruct. Property order below is the wire order. The outcome is deliberately NOT part of it: surviving a corrected outcome unchanged is the case the commitment exists for. Worked example: {"backed_price":"0.545000","condition_id":"0xabc","kickoff":"2026-09-20T23:05:00Z","pick_date":"2026-09-20","pick_outcome_index":1,"pick_outcome_label":"Lakers","pick_rank":1,"platform":"polymarket"} with the nonce 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f hashes to 44d18fa5e2aa3a2bf3c971dcc9317c8ccbdfd5480a4773b6d8ffd5fbeeea84dc.
+type PickOfTheDayCommitmentPayloadV1 struct {
 	// BackedPrice Frozen pre-game price of the backed side, 0..1, as the plain decimal text of the stored NUMERIC at full stored precision, trailing zeros included. A string, never a number: a float round-trip would change the bytes and break the hash. Deliberately not normalized -- 0.545000 stays "0.545000".
 	BackedPrice string `json:"backed_price"`
 
@@ -10922,7 +10932,7 @@ type PickOfTheDayCommitmentPayload struct {
 	PickDate openapi_types.Date `json:"pick_date"`
 
 	// PickOutcomeIndex Index of the backed outcome within the market.
-	PickOutcomeIndex PickOfTheDayCommitmentPayloadPickOutcomeIndex `json:"pick_outcome_index"`
+	PickOutcomeIndex PickOfTheDayCommitmentPayloadV1PickOutcomeIndex `json:"pick_outcome_index"`
 
 	// PickOutcomeLabel Frozen display label of the backed outcome.
 	PickOutcomeLabel string `json:"pick_outcome_label"`
@@ -10931,14 +10941,51 @@ type PickOfTheDayCommitmentPayload struct {
 	PickRank int `json:"pick_rank"`
 
 	// Platform Provider platform. Always polymarket.
-	Platform PickOfTheDayCommitmentPayloadPlatform `json:"platform"`
+	Platform PickOfTheDayCommitmentPayloadV1Platform `json:"platform"`
 }
 
-// PickOfTheDayCommitmentPayloadPickOutcomeIndex Index of the backed outcome within the market.
-type PickOfTheDayCommitmentPayloadPickOutcomeIndex int
+// PickOfTheDayCommitmentPayloadV1PickOutcomeIndex Index of the backed outcome within the market.
+type PickOfTheDayCommitmentPayloadV1PickOutcomeIndex int
 
-// PickOfTheDayCommitmentPayloadPlatform Provider platform. Always polymarket.
-type PickOfTheDayCommitmentPayloadPlatform string
+// PickOfTheDayCommitmentPayloadV1Platform Provider platform. Always polymarket.
+type PickOfTheDayCommitmentPayloadV1Platform string
+
+// PickOfTheDayCommitmentPayloadV2 Version 2 rank-free canonical payload: sorted nine keys, unchanged string escaping, exact decimal text and whole-second UTC kickoff. pick_id is decimal text; version is JSON integer 2.
+type PickOfTheDayCommitmentPayloadV2 struct {
+	// BackedPrice Frozen pre-game price of the backed side, 0..1, as the plain decimal text of the stored NUMERIC at full stored precision, trailing zeros included. A string, never a number: a float round-trip would change the bytes and break the hash. Deliberately not normalized -- 0.545000 stays "0.545000".
+	BackedPrice string `json:"backed_price"`
+
+	// ConditionId Provider condition id of the backed market.
+	ConditionId string `json:"condition_id"`
+
+	// Kickoff Frozen provider kickoff, whole seconds, UTC, literal Z. Fixed precision, never a shortest-lossless rendering.
+	Kickoff time.Time `json:"kickoff"`
+
+	// PickDate ET product day (YYYY-MM-DD).
+	PickDate openapi_types.Date `json:"pick_date"`
+
+	// PickId Stable pick row identity as decimal text. Never use a quality rank as identity.
+	PickId string `json:"pick_id"`
+
+	// PickOutcomeIndex Index of the backed outcome within the market.
+	PickOutcomeIndex PickOfTheDayCommitmentPayloadV2PickOutcomeIndex `json:"pick_outcome_index"`
+
+	// PickOutcomeLabel Frozen display label of the backed outcome.
+	PickOutcomeLabel string `json:"pick_outcome_label"`
+
+	// Platform Provider platform. Always polymarket.
+	Platform PickOfTheDayCommitmentPayloadV2Platform `json:"platform"`
+	Version  PickOfTheDayCommitmentPayloadV2Version  `json:"version"`
+}
+
+// PickOfTheDayCommitmentPayloadV2PickOutcomeIndex Index of the backed outcome within the market.
+type PickOfTheDayCommitmentPayloadV2PickOutcomeIndex int
+
+// PickOfTheDayCommitmentPayloadV2Platform Provider platform. Always polymarket.
+type PickOfTheDayCommitmentPayloadV2Platform string
+
+// PickOfTheDayCommitmentPayloadV2Version defines model for PickOfTheDayCommitmentPayloadV2.Version.
+type PickOfTheDayCommitmentPayloadV2Version int
 
 // PickOfTheDayHitRate defines model for PickOfTheDayHitRate.
 type PickOfTheDayHitRate struct {
@@ -11091,6 +11138,12 @@ type PickOfTheDayLedgerOpenedEntry struct {
 	// CommitmentNonce The 32-byte nonce the hash was taken over, lowercase hex, no 0x prefix. Secret while the pick is live: a pick payload is low entropy, so a published nonce on a live pick would hand out the backed side.
 	CommitmentNonce string `json:"commitment_nonce"`
 
+	// CommitmentVersion Explicit proof provenance: 1 retains historic eight-field canonical JSON; 2 binds stable pick_id and version without pick_rank.
+	CommitmentVersion PickOfTheDayLedgerOpenedEntryCommitmentVersion `json:"commitment_version"`
+
+	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
+	IsFreeSelection bool `json:"is_free_selection"`
+
 	// Kickoff The frozen provider kickoff in the canonical payload form: whole seconds, UTC, literal Z. This exact string reappears inside payload.kickoff when the pick opens.
 	Kickoff time.Time `json:"kickoff"`
 
@@ -11100,7 +11153,7 @@ type PickOfTheDayLedgerOpenedEntry struct {
 	// Outcome How the pick settled. Never pending: a pending pick is a sealed entry.
 	Outcome PickOfTheDayLedgerOpenedEntryOutcome `json:"outcome"`
 
-	// Payload The frozen identity of the pick, exactly as the hash was taken over it. Served byte for byte as it was hashed -- keys sorted by UTF-8 byte value, no insignificant whitespace -- so a verifier concatenates and hashes with nothing to reconstruct. Property order below is the wire order. The outcome is deliberately NOT part of it: surviving a corrected outcome unchanged is the case the commitment exists for. Worked example: {"backed_price":"0.545000","condition_id":"0xabc","kickoff":"2026-09-20T23:05:00Z","pick_date":"2026-09-20","pick_outcome_index":1,"pick_outcome_label":"Lakers","pick_rank":1,"platform":"polymarket"} with the nonce 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f hashes to 44d18fa5e2aa3a2bf3c971dcc9317c8ccbdfd5480a4773b6d8ffd5fbeeea84dc.
+	// Payload Select using the entry commitment_version, never implicit payload shape. All historic v1 hashes remain unchanged.
 	Payload PickOfTheDayCommitmentPayload `json:"payload"`
 
 	// Permalink The pick's public page.
@@ -11109,8 +11162,15 @@ type PickOfTheDayLedgerOpenedEntry struct {
 	// PickDate ET product day the pick belongs to (YYYY-MM-DD).
 	PickDate openapi_types.Date `json:"pick_date"`
 
-	// PickRank 1-based daily slot within the product day.
+	// PickId Stable pick row identity as decimal text. Never use a quality rank as identity.
+	PickId string `json:"pick_id"`
+
+	// PickRank Deprecated compatibility daily release slot; use pick_id for identity and publication_order for scheduling.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PickRank int `json:"pick_rank"`
+
+	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
+	PublicationOrder int `json:"publication_order"`
 
 	// ResolvedAt When outcome was LAST written to a settled value, or null when that instant is unknown. It moves with a corrected market re-mapping an already-settled pick, while commitment_hash stays untouched -- which is how a mirror that keeps history sees a correction.
 	ResolvedAt *time.Time `json:"resolved_at"`
@@ -11118,10 +11178,16 @@ type PickOfTheDayLedgerOpenedEntry struct {
 	// SealedAt When the hash was frozen. Always strictly before kickoff: a pick that reaches kickoff unsealed stays unsealed forever, because a seal written after the game started would be a backdated proof.
 	SealedAt time.Time                          `json:"sealed_at"`
 	State    PickOfTheDayLedgerOpenedEntryState `json:"state"`
+
+	// SupersedesPickId Replacement predecessor stable id; null when no lineage is recorded.
+	SupersedesPickId string `json:"supersedes_pick_id"`
 }
 
 // PickOfTheDayLedgerOpenedEntryCommitmentAlgo The construction the hash was taken with, stated in the response so a verifier never has to guess the serialization.
 type PickOfTheDayLedgerOpenedEntryCommitmentAlgo string
+
+// PickOfTheDayLedgerOpenedEntryCommitmentVersion Explicit proof provenance: 1 retains historic eight-field canonical JSON; 2 binds stable pick_id and version without pick_rank.
+type PickOfTheDayLedgerOpenedEntryCommitmentVersion int
 
 // PickOfTheDayLedgerOpenedEntryOutcome How the pick settled. Never pending: a pending pick is a sealed entry.
 type PickOfTheDayLedgerOpenedEntryOutcome string
@@ -11137,6 +11203,12 @@ type PickOfTheDayLedgerSealedEntry struct {
 	// CommitmentHash sha256(canonical_json(payload) || nonce), lowercase hex, no 0x prefix. Publishable the moment the pick releases: without the nonce it is not invertible.
 	CommitmentHash string `json:"commitment_hash"`
 
+	// CommitmentVersion Explicit proof provenance: 1 retains historic eight-field canonical JSON; 2 binds stable pick_id and version without pick_rank.
+	CommitmentVersion PickOfTheDayLedgerSealedEntryCommitmentVersion `json:"commitment_version"`
+
+	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
+	IsFreeSelection bool `json:"is_free_selection"`
+
 	// Kickoff The frozen provider kickoff in the canonical payload form: whole seconds, UTC, literal Z. This exact string reappears inside payload.kickoff when the pick opens.
 	Kickoff time.Time `json:"kickoff"`
 
@@ -11146,16 +11218,29 @@ type PickOfTheDayLedgerSealedEntry struct {
 	// PickDate ET product day the pick belongs to (YYYY-MM-DD).
 	PickDate openapi_types.Date `json:"pick_date"`
 
-	// PickRank 1-based daily slot within the product day.
+	// PickId Stable pick row identity as decimal text. Never use a quality rank as identity.
+	PickId string `json:"pick_id"`
+
+	// PickRank Deprecated compatibility daily release slot; use pick_id for identity and publication_order for scheduling.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PickRank int `json:"pick_rank"`
+
+	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
+	PublicationOrder int `json:"publication_order"`
 
 	// SealedAt When the hash was frozen. Always strictly before kickoff: a pick that reaches kickoff unsealed stays unsealed forever, because a seal written after the game started would be a backdated proof.
 	SealedAt time.Time                          `json:"sealed_at"`
 	State    PickOfTheDayLedgerSealedEntryState `json:"state"`
+
+	// SupersedesPickId Replacement predecessor stable id; null when no lineage is recorded.
+	SupersedesPickId string `json:"supersedes_pick_id"`
 }
 
 // PickOfTheDayLedgerSealedEntryCommitmentAlgo The construction the hash was taken with, stated in the response so a verifier never has to guess the serialization.
 type PickOfTheDayLedgerSealedEntryCommitmentAlgo string
+
+// PickOfTheDayLedgerSealedEntryCommitmentVersion Explicit proof provenance: 1 retains historic eight-field canonical JSON; 2 binds stable pick_id and version without pick_rank.
+type PickOfTheDayLedgerSealedEntryCommitmentVersion int
 
 // PickOfTheDayLedgerSealedEntryState defines model for PickOfTheDayLedgerSealedEntry.State.
 type PickOfTheDayLedgerSealedEntryState string
@@ -11164,6 +11249,9 @@ type PickOfTheDayLedgerSealedEntryState string
 type PickOfTheDayLedgerUncommittedEntry struct {
 	// Category Frozen canonical sport bucket used for selection calibration (Basketball, MMA), not the exact public league identity; the archive owns that.
 	Category string `json:"category"`
+
+	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
+	IsFreeSelection bool `json:"is_free_selection"`
 
 	// Matchup Frozen matchup, for a reader.
 	Matchup string `json:"matchup"`
@@ -11180,15 +11268,25 @@ type PickOfTheDayLedgerUncommittedEntry struct {
 	// PickDate ET product day the pick belongs to (YYYY-MM-DD).
 	PickDate openapi_types.Date `json:"pick_date"`
 
-	// PickRank 1-based daily slot within the product day.
+	// PickId Stable pick row identity as decimal text. Never use a quality rank as identity.
+	PickId string `json:"pick_id"`
+
+	// PickRank Deprecated compatibility daily release slot; use pick_id for identity and publication_order for scheduling.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PickRank int `json:"pick_rank"`
 
 	// PreCommitment Always true: this pick has no commitment and never will.
 	PreCommitment PickOfTheDayLedgerUncommittedEntryPreCommitment `json:"pre_commitment"`
 
+	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
+	PublicationOrder int `json:"publication_order"`
+
 	// ResolvedAt When outcome was LAST written to a settled value, or null when that instant is unknown. It moves with a corrected market re-mapping an already-settled pick, while commitment_hash stays untouched -- which is how a mirror that keeps history sees a correction.
 	ResolvedAt *time.Time                              `json:"resolved_at"`
 	State      PickOfTheDayLedgerUncommittedEntryState `json:"state"`
+
+	// SupersedesPickId Replacement predecessor stable id; null when no lineage is recorded.
+	SupersedesPickId string `json:"supersedes_pick_id"`
 }
 
 // PickOfTheDayLedgerUncommittedEntryOutcome How the pick settled, or pending.
@@ -11310,12 +11408,6 @@ type PickSportsTeam struct {
 
 // PickSportsTeamTour Tennis tour this competitor belongs to. Present for every tennis entry whether or not `headshot` resolved, so a consumer can tell a tennis player with no photo from a non-tennis team. Absent for every other sport. Only `atp` and `wta` name a gender; the ITF World Tennis Tour runs men's and women's events and the provider does not say which, so `itf` means tennis with gender unknown.
 type PickSportsTeamTour string
-
-// PickTrust Field-level trust metadata for the full Pick of the Day payload. Present on the full shape only (omitted on the teaser and the no-pick state, because whether a specialist backs the pick is itself backed-side evidence). Unlike TraderTrust it is not gated behind expand=trust: it carries one member on an endpoint that returns a single object per day.
-type PickTrust struct {
-	// QualifyingExpert Provenance of the frozen qualifying category expert. source.kind=database with reconciliation.status=db_mirror means the evidence deserialized, still satisfies every frozen selection gate, and is being served. On that arm freshness.status is always not_live and never fresh, because this evidence is frozen at selection and never refreshed, so on an archived pick the as_of (the expert's own stats_computed_at) can be days or months old by design. source.kind=computed with reconciliation.status=not_applicable means the selector evaluated the backed side and nobody qualified -- a real negative. source.kind=computed with freshness.status=unknown and completeness.status=not_computed means the selector never evaluated this field, as on a pre-feature pick. source.kind=unavailable means the payload is malformed, violates a selection gate, or conflicts with its persisted status, or the public V1 adapter intentionally omitted a current-policy B-grade expert; read the reason before treating it as a negative. Do not read an omitted qualifying_expert as 'no specialist' without checking this field.
-	QualifyingExpert TrustMetadata `json:"qualifying_expert"`
-}
 
 // PlatformCapabilities defines model for PlatformCapabilities.
 type PlatformCapabilities struct {
@@ -11508,7 +11600,7 @@ type PositionTimelineEventAction string
 // PositionTimelineEventOutcomeSide defines model for PositionTimelineEvent.OutcomeSide.
 type PositionTimelineEventOutcomeSide string
 
-// PotdEntryAuthorization Policy-7 issuance binds one condition, selected token, outcome, canonical event and sport. Reuse the same authorization across public/private discovery and retries. Require a new account-size executable book and current market eligibility; this frozen reference does not prove current liquidity or positive expected value. Absence or expiry cannot authorize a new automated entry.
+// PotdEntryAuthorization Returned entry permission bound to the named market, token and outcome. Honor max_entry_price and expires_at, and check a current executable order book for the actual stake. This snapshot does not guarantee current liquidity, execution or positive expected value.
 type PotdEntryAuthorization struct {
 	AuthorizationId openapi_types.UUID `json:"authorization_id"`
 
@@ -11519,11 +11611,11 @@ type PotdEntryAuthorization struct {
 	Category    string `json:"category"`
 	ConditionId string `json:"condition_id"`
 
-	// ExpiresAt Original provider kickoff ceiling. Never extended on retry.
+	// ExpiresAt Authorization expiry. An expired authorization cannot authorize a new automated entry.
 	ExpiresAt time.Time `json:"expires_at"`
 	IssuedAt  time.Time `json:"issued_at"`
 
-	// MaxEntryPrice Immutable decimal limit: first fresh selected-token ask plus 0.02, floored to the provider tick below 1. Fees excluded. Never a calibrated fair probability.
+	// MaxEntryPrice Returned maximum entry price as an exact decimal string. Honor this bound; fees are excluded. This is not a fair probability.
 	MaxEntryPrice     string                              `json:"max_entry_price"`
 	OutcomeIndex      PotdEntryAuthorizationOutcomeIndex  `json:"outcome_index"`
 	PolicyVersion     PotdEntryAuthorizationPolicyVersion `json:"policy_version"`
@@ -11554,7 +11646,7 @@ type PreGameSide struct {
 	// BackedSharpUsd Raw piled-side sharp-money USD.
 	BackedSharpUsd float32 `json:"backed_sharp_usd"`
 
-	// BackingScore Grade-weighted holders times the share of their money on the side: (5*s + 4*a + 3*b) * sharp_pct. Canonical spelling of conviction_score (#16310), same value.
+	// BackingScore Recorded side backing score; higher values indicate stronger backing.
 	BackingScore float32 `json:"backing_score"`
 
 	// Category Canonical sport bucket (e.g. Basketball, Tennis); null when the raw category has no canonical mapping.
@@ -11566,14 +11658,14 @@ type PreGameSide struct {
 	// ConditionId Polymarket condition id.
 	ConditionId string `json:"condition_id"`
 
-	// ConvictionScore Grade-weighted pile score (5*s + 4*a + 3*b) * sharp_pct; the raw conviction input to the ranking (see directional_rank_score). Deprecated (#16310): `backing_score` is the canonical spelling and carries the same value; this key stays on the wire.
+	// ConvictionScore Recorded conviction score; higher values indicate stronger conviction.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	ConvictionScore float32 `json:"conviction_score"`
 
 	// DirectionalConfidence One-way fraction of the piled graded dollars, in [0, 1] -- the metric orthogonal to sharp_pct. Stale, unknown, hedged, and two-sided dollars dilute it toward zero (conservative). Null when the directional read was not computed or classified nobody.
 	DirectionalConfidence float32 `json:"directional_confidence"`
 
-	// DirectionalRankScore The ranking key, descending: conviction_score * (1 + 0.25 * directional_confidence). Equals conviction_score when the directional read is null/zero, so signals without the read rank exactly as before.
+	// DirectionalRankScore Recorded side ordering score; higher values sort first.
 	DirectionalRankScore float32 `json:"directional_rank_score"`
 	EventSlug            string  `json:"event_slug"`
 
@@ -11627,7 +11719,7 @@ type PreGameSide struct {
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SignalCreatedAt time.Time `json:"signal_created_at"`
 
-	// SmartScore Canonical sharp-money score (yes_usd - no_usd)/(yes_usd + no_usd) in [-1, 1] (piled-yes positive, piled-no negative); a lower-order ranking tiebreak (after directional_rank_score and conviction_score). Deprecated (#16310): `side_share` is the canonical spelling and carries the same value; this key stays on the wire.
+	// SmartScore Canonical sharp-money score (yes_usd - no_usd)/(yes_usd + no_usd) in [-1, 1] (piled-yes positive, piled-no negative). Deprecated (#16310): `side_share` is the canonical spelling and carries the same value; this key stays on the wire.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SmartScore float32 `json:"smart_score"`
 	Title      string  `json:"title"`
@@ -11700,7 +11792,7 @@ type PreGameSideObservation struct {
 	// BackedSharpUsd Raw graded-holder USD on the piled outcome.
 	BackedSharpUsd float32 `json:"backed_sharp_usd"`
 
-	// BackingScore Grade-weighted holder-pile score before directional enrichment. Canonical spelling of conviction_score (#16310), same value.
+	// BackingScore Recorded side backing score; higher values indicate stronger backing.
 	BackingScore float32 `json:"backing_score"`
 
 	// Category Canonical sport bucket.
@@ -11712,12 +11804,12 @@ type PreGameSideObservation struct {
 	// ConditionId Raw Polymarket condition id.
 	ConditionId string `json:"condition_id"`
 
-	// ConvictionScore Grade-weighted holder-pile score before directional enrichment. Deprecated (#16310): `backing_score` is the canonical spelling and carries the same value; this key stays on the wire.
+	// ConvictionScore Recorded conviction score; higher values indicate stronger conviction.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	ConvictionScore       float32 `json:"conviction_score"`
 	DirectionalConfidence float32 `json:"directional_confidence"`
 
-	// DirectionalRankScore Default cohort ordering key: conviction_score * (1 + 0.25 * directional_confidence), or conviction_score when confidence is null.
+	// DirectionalRankScore Recorded side ordering score; higher values sort first.
 	DirectionalRankScore float32 `json:"directional_rank_score"`
 
 	// DirectionalStatus Truthful state of the directional read, which classifies each graded holder by its fresh synced legs across the game's markets and, when holder_scan_complete is true, by Polymarket's currentValue on both outcomes of this market. A wider_holder row can remain emitted with unavailable and terminal wider_holder_emitted; in_play fails closed instead and terminates as in_play_directional_unavailable.
@@ -11858,17 +11950,30 @@ type PreGameSideSportFunnelReportSport string
 
 // ProofPendingPickSlot One PUBLISHED same-day pick whose holder proof is not readable yet: its stable slot rank, the release and kickoff instants, and the instant before which a retry cannot succeed. Every item in `picks` carries its full required shape, so a pick that cannot meet it is listed here instead of being served with missing fields or a synthetic zero.
 type ProofPendingPickSlot struct {
+	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
+	IsFreeSelection bool `json:"is_free_selection"`
+
 	// Kickoff The backed game's frozen kickoff instant; absent for a legacy row without one.
 	Kickoff *time.Time `json:"kickoff,omitempty"`
 
-	// PickRank Stable 1-based slot within the product day's ranked picks. The pick keeps this rank once its proof is readable and it moves into `picks`.
+	// PickId Stable pick row identity as decimal text. Never use a quality rank as identity.
+	PickId string `json:"pick_id"`
+
+	// PickRank Deprecated compatibility daily release slot; use pick_id for identity and publication_order for scheduling.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PickRank int `json:"pick_rank"`
+
+	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
+	PublicationOrder int `json:"publication_order"`
 
 	// ReleaseAt The pick's stored release instant.
 	ReleaseAt time.Time `json:"release_at"`
 
 	// RetryAt Recommended next read: 30 seconds ahead while pre-game proof is warming, one hour ahead for a post-kickoff pending legacy row that only settlement can make readable. Schedule against it instead of polling.
 	RetryAt time.Time `json:"retry_at"`
+
+	// SupersedesPickId Replacement predecessor stable id; null when no lineage is recorded.
+	SupersedesPickId string `json:"supersedes_pick_id"`
 }
 
 // ReportPayload defines model for ReportPayload.
@@ -12083,14 +12188,27 @@ type ResponseMetaRankingSource string
 
 // ScheduledPickSlot One same-day pick that is selected but not yet released: its stable slot rank plus the backend-owned release and kickoff instants. Deliberately minimal -- no matchup, category, platform, side, price, or holder fields exist on this shape before release.
 type ScheduledPickSlot struct {
+	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
+	IsFreeSelection bool `json:"is_free_selection"`
+
 	// Kickoff The backed game's current kickoff instant.
 	Kickoff time.Time `json:"kickoff"`
 
-	// PickRank Stable 1-based slot within the product day's ranked picks. The slot keeps this rank when it releases.
+	// PickId Stable pick row identity as decimal text. Never use a quality rank as identity.
+	PickId string `json:"pick_id"`
+
+	// PickRank Deprecated compatibility daily release slot; use pick_id for identity and publication_order for scheduling.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PickRank int `json:"pick_rank"`
+
+	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
+	PublicationOrder int `json:"publication_order"`
 
 	// ReleaseAt The slot's scheduled release instant, normally the current provider kickoff minus one hour. The actual publish can trail it by bounded worker delay.
 	ReleaseAt time.Time `json:"release_at"`
+
+	// SupersedesPickId Replacement predecessor stable id; null when no lineage is recorded.
+	SupersedesPickId string `json:"supersedes_pick_id"`
 }
 
 // ScoreCell One side's score in a single set. The verbatim provider text stays on the team's `score` string; this is the parsed form.
@@ -12262,16 +12380,16 @@ type Trader struct {
 	// CategorySkillModel Model-wide readiness, read in the same database snapshot as category_records. Individual category rows retain their own status.
 	CategorySkillModel *CategorySkillModelReadiness `json:"category_skill_model,omitempty"`
 
-	// CategoryStrengths Per-category performance breakdown (expand=categories or expand[]=categories). Omitted unless expanded. Object keyed by category name; each value is the precomputed trader_rankings.category_ranks payload (rank, total_in_category, total_pnl, scaled_total_pnl, n_markets, wins, losses, win_rate; scaled_total_pnl is a legacy alias that currently equals total_pnl). RANK BASIS: rank and total_in_category use the same hourly breakpoint publication; categories absent from that publication are omitted until a later publication includes them. Current trader performance values update separately, so this is not a frozen historical record. BASIS: the calibration sample, which admits a position only above a 20 USD notional floor and with a chosen-side entry price strictly inside (0,1), because the ranks and the calibration edge derived from it depend on both rules. That is a different sample from GET /api/v1/trader/{address}/categories, which counts every settled market at any size, and the two differ in both directions. Measured on production 2026-09-22 over the 122,497 wallet-category pairs with at least 20 decided markets on both bases: the floored rate was higher in 56.5% of pairs, lower in 34.5% and equal in 9.0%, median +0.6 points, p10 -4.6, p90 +9.8, and 14.0% of pairs differ by 10 points or more. The difference is not only small positions: on a 1-in-250 wallet sample the same day, admitted markets won 56.6% while markets dropped by the notional floor alone won 45.2% and markets dropped by the entry-price rule alone won 48.7%. n_markets counts every admitted market including the ones that resolved at exactly zero P&L, so it is not the denominator of win_rate: it differed from wins + losses in 15.8% of pairs with at least 5 decided markets. The two tables also run on different clocks, this one updated incrementally and that route rebuilt daily, so a same-day read can differ on timing alone. Use this for rank context and that route for the wallet's plain record. Pass-through DB JSON: keys and value shape are DB-owned, so the inner shape is intentionally unconstrained and may carry additional compatibility fields.
+	// CategoryStrengths Per-category rank context when expand=categories is requested. Values include available rank, category totals, performance and record counts; scaled_total_pnl is a legacy alias of total_pnl. Its measurement basis and update timing differ from the plain record returned by GET /api/v1/trader/{address}/categories, so the two need not agree. Use this for rank context and that route for the plain record. The inner key-set is intentionally unconstrained and may contain additional compatibility fields.
 	CategoryStrengths *map[string]interface{} `json:"category_strengths,omitempty"`
 
 	// DataQuality Data age and coverage for this trader body. Always present. Its five groups are sync (traders.last_synced, covering pnl.total, pnl.realized, stats.markets_traded, stats.win_rate, stats.daily_win_rate, last_active, synced_at and sync_status), ranking (trader_rankings.computed_at, covering grade, score, streak_tier, forecast_score and forecast_evidence), leaderboard_rank (leaderboard_rank_refresh_state.completed_at, the completion time of the latest fully completed global rank refresh, covering rank), volume (trader_usd_volume.observed_at, covering stats.total_volume) and positions (trader_position_snapshots.last_refreshed_at with traders.last_synced as fallback, covering pnl.unrealized, the open-position aggregate). The positions clock is the latest successful /positions snapshot when one exists, otherwise the last completed trader sync; it does not date closed or native accounting values. A rank or position value remains unknown or unavailable when its clock or value is absent. For an unknown wallet every group is unavailable. If the open-position read itself fails, positions is unavailable with a reason that says so, pnl.unrealized is absent, and the body is answered fresh (meta.cached false) and is not kept for later callers.
 	DataQuality DataQuality `json:"data_quality"`
 
-	// ForecastEvidence Share of forecast_score supported by the trader's own resolved-market record rather than the cohort prior: n / (n + 30). Omitted when forecast_score is unavailable.
+	// ForecastEvidence Optional measured forecast context. Missing values remain unavailable rather than being inferred.
 	ForecastEvidence *float32 `json:"forecast_evidence,omitempty"`
 
-	// ForecastScore Capital-normalized forecasting score: the cohort percentile (0-100) of the EB-shrunk calibration edge. Omitted when the forecasting signal is unavailable; never replaced with zero.
+	// ForecastScore Optional forecast score on the documented display scale. Null when unavailable.
 	ForecastScore *float32     `json:"forecast_score,omitempty"`
 	Grade         *TraderGrade `json:"grade,omitempty"`
 
@@ -12320,7 +12438,7 @@ type Trader struct {
 		// SharpePercentile Cross-sectional percentile rank of the trader's Sharpe ratio versus all traders, 0-100. null when insufficient history.
 		SharpePercentile float32 `json:"sharpe_percentile"`
 
-		// SmartScore Composite skill score, 0-100. smart_score = clamp(0, 100, 30*sharpe_percentile_fraction + 20*profit_factor_percentile_fraction + 20*edge_consistency_percentile_fraction + 10*min(1, return_on_capital/2) + 10*equity_smoothness + 10*(1 - min(1, asset_concentration))). Higher is better. null when insufficient history.
+		// SmartScore Trader smart score on a 0..100 display scale; higher is stronger. Null when unavailable.
 		SmartScore float32 `json:"smart_score"`
 	} `json:"quant_metrics,omitempty"`
 	Rank  *int     `json:"rank,omitempty"`
@@ -14405,6 +14523,21 @@ type GetPickOfTheDayLedgerParamsXQueryValidation string
 // GetPickOfTheDayLedger200JSONResponseBodyObject defines parameters for GetPickOfTheDayLedger.
 type GetPickOfTheDayLedger200JSONResponseBodyObject string
 
+// GetPickOfTheDayLedgerEntryParams defines parameters for GetPickOfTheDayLedgerEntry.
+type GetPickOfTheDayLedgerEntryParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
+	XQueryValidation *GetPickOfTheDayLedgerEntryParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
+	// IfNoneMatch Conditional GET validator from a previous ETag. Matching values return 304 Not Modified with an empty body.
+	IfNoneMatch *string `json:"If-None-Match,omitempty"`
+}
+
+// GetPickOfTheDayLedgerEntryParamsXQueryValidation defines parameters for GetPickOfTheDayLedgerEntry.
+type GetPickOfTheDayLedgerEntryParamsXQueryValidation string
+
+// GetPickOfTheDayLedgerEntry200JSONResponseBodyObject defines parameters for GetPickOfTheDayLedgerEntry.
+type GetPickOfTheDayLedgerEntry200JSONResponseBodyObject string
+
 // GetPlatformsParams defines parameters for GetPlatforms.
 type GetPlatformsParams struct {
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -15910,6 +16043,68 @@ func (t *McpJsonRpcError_Id) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsPickOfTheDayCommitmentPayloadV1 returns the union data inside the PickOfTheDayCommitmentPayload as a PickOfTheDayCommitmentPayloadV1
+func (t PickOfTheDayCommitmentPayload) AsPickOfTheDayCommitmentPayloadV1() (PickOfTheDayCommitmentPayloadV1, error) {
+	var body PickOfTheDayCommitmentPayloadV1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPickOfTheDayCommitmentPayloadV1 overwrites any union data inside the PickOfTheDayCommitmentPayload as the provided PickOfTheDayCommitmentPayloadV1
+func (t *PickOfTheDayCommitmentPayload) FromPickOfTheDayCommitmentPayloadV1(v PickOfTheDayCommitmentPayloadV1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePickOfTheDayCommitmentPayloadV1 performs a merge with any union data inside the PickOfTheDayCommitmentPayload, using the provided PickOfTheDayCommitmentPayloadV1
+func (t *PickOfTheDayCommitmentPayload) MergePickOfTheDayCommitmentPayloadV1(v PickOfTheDayCommitmentPayloadV1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPickOfTheDayCommitmentPayloadV2 returns the union data inside the PickOfTheDayCommitmentPayload as a PickOfTheDayCommitmentPayloadV2
+func (t PickOfTheDayCommitmentPayload) AsPickOfTheDayCommitmentPayloadV2() (PickOfTheDayCommitmentPayloadV2, error) {
+	var body PickOfTheDayCommitmentPayloadV2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPickOfTheDayCommitmentPayloadV2 overwrites any union data inside the PickOfTheDayCommitmentPayload as the provided PickOfTheDayCommitmentPayloadV2
+func (t *PickOfTheDayCommitmentPayload) FromPickOfTheDayCommitmentPayloadV2(v PickOfTheDayCommitmentPayloadV2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePickOfTheDayCommitmentPayloadV2 performs a merge with any union data inside the PickOfTheDayCommitmentPayload, using the provided PickOfTheDayCommitmentPayloadV2
+func (t *PickOfTheDayCommitmentPayload) MergePickOfTheDayCommitmentPayloadV2(v PickOfTheDayCommitmentPayloadV2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t PickOfTheDayCommitmentPayload) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *PickOfTheDayCommitmentPayload) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsPickOfTheDayLedgerSealedEntry returns the union data inside the PickOfTheDayLedgerEntry as a PickOfTheDayLedgerSealedEntry
 func (t PickOfTheDayLedgerEntry) AsPickOfTheDayLedgerSealedEntry() (PickOfTheDayLedgerSealedEntry, error) {
 	var body PickOfTheDayLedgerSealedEntry
@@ -16569,26 +16764,28 @@ type ClientInterface interface {
 
 	// GetPickOfTheDay Get today's Pick of the Day
 	//
-	// Returns the published picks for the current product day. Pro tier.
+	// Returns published picks for the current product day. Pro tier.
 	//
-	// `picks` holds up to ten ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+	// `picks` holds up to ten selections with the selected side, game context, frozen publication price, modeled stake and return, holder positions and grades, and execution permission when available. `publication_order` describes presentation, and `is_free_selection` describes access; neither is a quality rating.
 	//
-	// `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
+	// New eligible selections use a neutral presentation order. Standing selections retain their identity, slot, and release schedule, and later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
 	//
-	// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason; the code is frozen. The `404` is a schedule, not an outage.
+	// `scheduled_picks` contains selected but unreleased slots with `pick_rank`, `release_at`, and `kickoff`. A prior day's pick never appears here; use the archive for past results.
 	//
-	// Do not poll. Read `Retry-After` or `error.retry_at` and schedule one request for that instant. The `404` response below says how the instant is chosen.
+	// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling.
 	//
 	// Corresponds with GET /api/v1/pick-of-the-day (the `GetPickOfTheDay` operationId).
 	GetPickOfTheDay(ctx context.Context, params *GetPickOfTheDayParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetPickOfTheDayArchive Get the Pick of the Day track record
 	//
-	// Returns every published pick with its outcome, unit score, closing-line value, and the rolling hit rate.
+	// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and the cumulative record.
 	//
-	// Resolved picks are public. A pending pick's backed side appears only for an authenticated Pro key.
+	// Resolved picks are public. A pending pick's selected side appears only for an authenticated Pro key.
 	//
-	// Each row carries a CLV value or the reason it was not measured. Coverage divides measured rows by resolved rows published before kickoff. A post-kickoff publication is `not_applicable`.
+	// Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation, and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
+	//
+	// Each row carries a CLV value or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
 	//
 	// Corresponds with GET /api/v1/pick-of-the-day/archive (the `GetPickOfTheDayArchive` operationId).
 	GetPickOfTheDayArchive(ctx context.Context, params *GetPickOfTheDayArchiveParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16605,6 +16802,13 @@ type ClientInterface interface {
 	//
 	// Corresponds with GET /api/v1/pick-of-the-day/ledger (the `GetPickOfTheDayLedger` operationId).
 	GetPickOfTheDayLedger(ctx context.Context, params *GetPickOfTheDayLedgerParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetPickOfTheDayLedgerEntry Read a pick proof by stable id
+	//
+	// Public read of one published pick by its stable decimal-string pick_id. Same proof gating, canonical bytes, ETag and integrity failures as the ledger. Invalid ids return 400; absent or unpublished picks return 404.
+	//
+	// Corresponds with GET /api/v1/pick-of-the-day/ledger/{pick_id} (the `GetPickOfTheDayLedgerEntry` operationId).
+	GetPickOfTheDayLedgerEntry(ctx context.Context, pickId string, params *GetPickOfTheDayLedgerEntryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetPlatforms Get platform capability matrix
 	//
@@ -16684,7 +16888,7 @@ type ClientInterface interface {
 
 	// GetStream Resumable real-time event stream (SSE)
 	//
-	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
+	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes.
 	//
 	// Corresponds with GET /api/v1/stream (the `GetStream` operationId).
 	GetStream(ctx context.Context, params *GetStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16705,7 +16909,7 @@ type ClientInterface interface {
 
 	// GetTrader Get trader
 	//
-	// Returns a trader's grade (S through F; ranked about 95% by realized profit, with calibration, track record, and consistency as a tie-breaker and proven-trader guardrails), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet returns 200 with sync_status "unknown" instead of 404, so it can be polled. A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address; it is never echoed back as a trader address. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.
+	// Returns a trader's grade (S through F), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet returns 200 with sync_status "unknown" instead of 404, so it can be polled. A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address; it is never echoed back as a trader address. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.
 	//
 	// Corresponds with GET /api/v1/trader/{address} (the `GetTrader` operationId).
 	GetTrader(ctx context.Context, address string, params *GetTraderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16754,7 +16958,7 @@ type ClientInterface interface {
 
 	// DownloadTraderExport Download a finished trader export
 	//
-	// Redirects (302) to a short-lived presigned URL for the finished export file while the job status is 'ready' and expires_at has not passed. The file is gzip-compressed and served with the format's Content-Type (application/json, application/x-ndjson, or text/csv). Returns 400 while the job is queued, running, cancel_requested or reconciling (poll the status route first) and for a failed or cancelled job (submit a new export); returns 410 with error.code not_found and error.reason export_expired once the retention window has passed or the file has been retired, so the redirect never points at a file that is gone.
+	// Redirects (302) to a presigned URL lasting at most one hour and no later than the job's expires_at for the finished export file while the job status is 'ready' and expires_at has not passed. The file is gzip-compressed and served with the format's Content-Type (application/json, application/x-ndjson, or text/csv). Returns 400 while the job is queued, running, cancel_requested or reconciling (poll the status route first) and for a failed or cancelled job (submit a new export); returns 410 with error.code not_found and error.reason export_expired once the retention window has passed, less than one whole second remains when signing, or the file has been retired, so the redirect never points at a file that is gone.
 	//
 	// Corresponds with GET /api/v1/trader/{address}/export/download (the `DownloadTraderExport` operationId).
 	DownloadTraderExport(ctx context.Context, address string, params *DownloadTraderExportParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -17727,15 +17931,15 @@ func (c *Client) RedirectApiOpenapiSpec(ctx context.Context, params *RedirectApi
 
 // GetPickOfTheDay Get today's Pick of the Day
 //
-// Returns the published picks for the current product day. Pro tier.
+// Returns published picks for the current product day. Pro tier.
 //
-// `picks` holds up to ten ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+// `picks` holds up to ten selections with the selected side, game context, frozen publication price, modeled stake and return, holder positions and grades, and execution permission when available. `publication_order` describes presentation, and `is_free_selection` describes access; neither is a quality rating.
 //
-// `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
+// New eligible selections use a neutral presentation order. Standing selections retain their identity, slot, and release schedule, and later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
 //
-// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason; the code is frozen. The `404` is a schedule, not an outage.
+// `scheduled_picks` contains selected but unreleased slots with `pick_rank`, `release_at`, and `kickoff`. A prior day's pick never appears here; use the archive for past results.
 //
-// Do not poll. Read `Retry-After` or `error.retry_at` and schedule one request for that instant. The `404` response below says how the instant is chosen.
+// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling.
 //
 // Corresponds with GET /api/v1/pick-of-the-day (the `GetPickOfTheDay` operationId).
 func (c *Client) GetPickOfTheDay(ctx context.Context, params *GetPickOfTheDayParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -17752,11 +17956,13 @@ func (c *Client) GetPickOfTheDay(ctx context.Context, params *GetPickOfTheDayPar
 
 // GetPickOfTheDayArchive Get the Pick of the Day track record
 //
-// Returns every published pick with its outcome, unit score, closing-line value, and the rolling hit rate.
+// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and the cumulative record.
 //
-// Resolved picks are public. A pending pick's backed side appears only for an authenticated Pro key.
+// Resolved picks are public. A pending pick's selected side appears only for an authenticated Pro key.
 //
-// Each row carries a CLV value or the reason it was not measured. Coverage divides measured rows by resolved rows published before kickoff. A post-kickoff publication is `not_applicable`.
+// Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation, and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
+//
+// Each row carries a CLV value or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
 //
 // Corresponds with GET /api/v1/pick-of-the-day/archive (the `GetPickOfTheDayArchive` operationId).
 func (c *Client) GetPickOfTheDayArchive(ctx context.Context, params *GetPickOfTheDayArchiveParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -17784,6 +17990,23 @@ func (c *Client) GetPickOfTheDayArchive(ctx context.Context, params *GetPickOfTh
 // Corresponds with GET /api/v1/pick-of-the-day/ledger (the `GetPickOfTheDayLedger` operationId).
 func (c *Client) GetPickOfTheDayLedger(ctx context.Context, params *GetPickOfTheDayLedgerParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetPickOfTheDayLedgerRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetPickOfTheDayLedgerEntry Read a pick proof by stable id
+//
+// Public read of one published pick by its stable decimal-string pick_id. Same proof gating, canonical bytes, ETag and integrity failures as the ledger. Invalid ids return 400; absent or unpublished picks return 404.
+//
+// Corresponds with GET /api/v1/pick-of-the-day/ledger/{pick_id} (the `GetPickOfTheDayLedgerEntry` operationId).
+func (c *Client) GetPickOfTheDayLedgerEntry(ctx context.Context, pickId string, params *GetPickOfTheDayLedgerEntryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetPickOfTheDayLedgerEntryRequest(c.Server, pickId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -17969,7 +18192,7 @@ func (c *Client) ListPreGameSides(ctx context.Context, params *ListPreGameSidesP
 
 // GetStream Resumable real-time event stream (SSE)
 //
-// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
+// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes.
 //
 // Corresponds with GET /api/v1/stream (the `GetStream` operationId).
 func (c *Client) GetStream(ctx context.Context, params *GetStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18020,7 +18243,7 @@ func (c *Client) GetSuspiciousTrade(ctx context.Context, id string, params *GetS
 
 // GetTrader Get trader
 //
-// Returns a trader's grade (S through F; ranked about 95% by realized profit, with calibration, track record, and consistency as a tie-breaker and proven-trader guardrails), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet returns 200 with sync_status "unknown" instead of 404, so it can be polled. A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address; it is never echoed back as a trader address. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.
+// Returns a trader's grade (S through F), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet returns 200 with sync_status "unknown" instead of 404, so it can be polled. A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address; it is never echoed back as a trader address. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.
 //
 // Corresponds with GET /api/v1/trader/{address} (the `GetTrader` operationId).
 func (c *Client) GetTrader(ctx context.Context, address string, params *GetTraderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18139,7 +18362,7 @@ func (c *Client) CancelTraderExport(ctx context.Context, address string, params 
 
 // DownloadTraderExport Download a finished trader export
 //
-// Redirects (302) to a short-lived presigned URL for the finished export file while the job status is 'ready' and expires_at has not passed. The file is gzip-compressed and served with the format's Content-Type (application/json, application/x-ndjson, or text/csv). Returns 400 while the job is queued, running, cancel_requested or reconciling (poll the status route first) and for a failed or cancelled job (submit a new export); returns 410 with error.code not_found and error.reason export_expired once the retention window has passed or the file has been retired, so the redirect never points at a file that is gone.
+// Redirects (302) to a presigned URL lasting at most one hour and no later than the job's expires_at for the finished export file while the job status is 'ready' and expires_at has not passed. The file is gzip-compressed and served with the format's Content-Type (application/json, application/x-ndjson, or text/csv). Returns 400 while the job is queued, running, cancel_requested or reconciling (poll the status route first) and for a failed or cancelled job (submit a new export); returns 410 with error.code not_found and error.reason export_expired once the retention window has passed, less than one whole second remains when signing, or the file has been retired, so the redirect never points at a file that is gone.
 //
 // Corresponds with GET /api/v1/trader/{address}/export/download (the `DownloadTraderExport` operationId).
 func (c *Client) DownloadTraderExport(ctx context.Context, address string, params *DownloadTraderExportParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -22142,6 +22365,66 @@ func NewGetPickOfTheDayLedgerRequest(server string, params *GetPickOfTheDayLedge
 	}
 
 	operationPath := fmt.Sprintf("/api/v1/pick-of-the-day/ledger")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetPickOfTheDayLedgerEntryRequest constructs an http.Request for the GetPickOfTheDayLedgerEntry method
+func NewGetPickOfTheDayLedgerEntryRequest(server string, pickId string, params *GetPickOfTheDayLedgerEntryParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "pick_id", pickId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/pick-of-the-day/ledger/%s", pathParam0)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -26475,15 +26758,15 @@ type ClientWithResponsesInterface interface {
 
 	// GetPickOfTheDayWithResponse Get today's Pick of the Day
 	//
-	// Returns the published picks for the current product day. Pro tier.
+	// Returns published picks for the current product day. Pro tier.
 	//
-	// `picks` holds up to ten ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+	// `picks` holds up to ten selections with the selected side, game context, frozen publication price, modeled stake and return, holder positions and grades, and execution permission when available. `publication_order` describes presentation, and `is_free_selection` describes access; neither is a quality rating.
 	//
-	// `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
+	// New eligible selections use a neutral presentation order. Standing selections retain their identity, slot, and release schedule, and later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
 	//
-	// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason; the code is frozen. The `404` is a schedule, not an outage.
+	// `scheduled_picks` contains selected but unreleased slots with `pick_rank`, `release_at`, and `kickoff`. A prior day's pick never appears here; use the archive for past results.
 	//
-	// Do not poll. Read `Retry-After` or `error.retry_at` and schedule one request for that instant. The `404` response below says how the instant is chosen.
+	// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -26492,11 +26775,13 @@ type ClientWithResponsesInterface interface {
 
 	// GetPickOfTheDayArchiveWithResponse Get the Pick of the Day track record
 	//
-	// Returns every published pick with its outcome, unit score, closing-line value, and the rolling hit rate.
+	// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and the cumulative record.
 	//
-	// Resolved picks are public. A pending pick's backed side appears only for an authenticated Pro key.
+	// Resolved picks are public. A pending pick's selected side appears only for an authenticated Pro key.
 	//
-	// Each row carries a CLV value or the reason it was not measured. Coverage divides measured rows by resolved rows published before kickoff. A post-kickoff publication is `not_applicable`.
+	// Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation, and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
+	//
+	// Each row carries a CLV value or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -26517,6 +26802,15 @@ type ClientWithResponsesInterface interface {
 	//
 	// Corresponds with GET /api/v1/pick-of-the-day/ledger (the `GetPickOfTheDayLedger` operationId).
 	GetPickOfTheDayLedgerWithResponse(ctx context.Context, params *GetPickOfTheDayLedgerParams, reqEditors ...RequestEditorFn) (*GetPickOfTheDayLedgerResponse, error)
+
+	// GetPickOfTheDayLedgerEntryWithResponse Read a pick proof by stable id
+	//
+	// Public read of one published pick by its stable decimal-string pick_id. Same proof gating, canonical bytes, ETag and integrity failures as the ledger. Invalid ids return 400; absent or unpublished picks return 404.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/pick-of-the-day/ledger/{pick_id} (the `GetPickOfTheDayLedgerEntry` operationId).
+	GetPickOfTheDayLedgerEntryWithResponse(ctx context.Context, pickId string, params *GetPickOfTheDayLedgerEntryParams, reqEditors ...RequestEditorFn) (*GetPickOfTheDayLedgerEntryResponse, error)
 
 	// GetPlatformsWithResponse Get platform capability matrix
 	//
@@ -26616,7 +26910,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetStreamWithResponse Resumable real-time event stream (SSE)
 	//
-	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
+	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -26643,7 +26937,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetTraderWithResponse Get trader
 	//
-	// Returns a trader's grade (S through F; ranked about 95% by realized profit, with calibration, track record, and consistency as a tie-breaker and proven-trader guardrails), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet returns 200 with sync_status "unknown" instead of 404, so it can be polled. A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address; it is never echoed back as a trader address. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.
+	// Returns a trader's grade (S through F), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet returns 200 with sync_status "unknown" instead of 404, so it can be polled. A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address; it is never echoed back as a trader address. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -26706,7 +27000,7 @@ type ClientWithResponsesInterface interface {
 
 	// DownloadTraderExportWithResponse Download a finished trader export
 	//
-	// Redirects (302) to a short-lived presigned URL for the finished export file while the job status is 'ready' and expires_at has not passed. The file is gzip-compressed and served with the format's Content-Type (application/json, application/x-ndjson, or text/csv). Returns 400 while the job is queued, running, cancel_requested or reconciling (poll the status route first) and for a failed or cancelled job (submit a new export); returns 410 with error.code not_found and error.reason export_expired once the retention window has passed or the file has been retired, so the redirect never points at a file that is gone.
+	// Redirects (302) to a presigned URL lasting at most one hour and no later than the job's expires_at for the finished export file while the job status is 'ready' and expires_at has not passed. The file is gzip-compressed and served with the format's Content-Type (application/json, application/x-ndjson, or text/csv). Returns 400 while the job is queued, running, cancel_requested or reconciling (poll the status route first) and for a failed or cancelled job (submit a new export); returns 410 with error.code not_found and error.reason export_expired once the retention window has passed, less than one whole second remains when signing, or the file has been retired, so the redirect never points at a file that is gone.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -33457,6 +33751,157 @@ func (r GetPickOfTheDayLedgerResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetPickOfTheDayLedgerResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// GetPickOfTheDayLedgerEntryResponse200Headers the declared response headers of an HTTP 200 response for GetPickOfTheDayLedgerEntry
+type GetPickOfTheDayLedgerEntryResponse200Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetPickOfTheDayLedgerEntryResponse304Headers the declared response headers of an HTTP 304 response for GetPickOfTheDayLedgerEntry
+type GetPickOfTheDayLedgerEntryResponse304Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetPickOfTheDayLedgerEntryResponse429Headers the declared response headers of an HTTP 429 response for GetPickOfTheDayLedgerEntry
+type GetPickOfTheDayLedgerEntryResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// GetPickOfTheDayLedgerEntryResponse503Headers the declared response headers of an HTTP 503 response for GetPickOfTheDayLedgerEntry
+type GetPickOfTheDayLedgerEntryResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type GetPickOfTheDayLedgerEntryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// Data One ledger entry. Read `state` to know which shape you have; the three are disjoint.
+		Data   PickOfTheDayLedgerEntry                             `json:"data"`
+		Meta   ResponseMeta                                        `json:"meta"`
+		Object GetPickOfTheDayLedgerEntry200JSONResponseBodyObject `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *GetPickOfTheDayLedgerEntryResponse200Headers
+	// Headers304 the parsed response headers for an HTTP 304 response
+	Headers304 *GetPickOfTheDayLedgerEntryResponse304Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *GetPickOfTheDayLedgerEntryResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *GetPickOfTheDayLedgerEntryResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetPickOfTheDayLedgerEntryResponse) GetJSON200() *struct {
+	// Data One ledger entry. Read `state` to know which shape you have; the three are disjoint.
+	Data   PickOfTheDayLedgerEntry                             `json:"data"`
+	Meta   ResponseMeta                                        `json:"meta"`
+	Object GetPickOfTheDayLedgerEntry200JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r GetPickOfTheDayLedgerEntryResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r GetPickOfTheDayLedgerEntryResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetPickOfTheDayLedgerEntryResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r GetPickOfTheDayLedgerEntryResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetPickOfTheDayLedgerEntryResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r GetPickOfTheDayLedgerEntryResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r GetPickOfTheDayLedgerEntryResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetPickOfTheDayLedgerEntryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetPickOfTheDayLedgerEntryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetPickOfTheDayLedgerEntryResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -41673,15 +42118,15 @@ func (c *ClientWithResponses) RedirectApiOpenapiSpecWithResponse(ctx context.Con
 
 // GetPickOfTheDayWithResponse Get today's Pick of the Day
 //
-// Returns the published picks for the current product day. Pro tier.
+// Returns published picks for the current product day. Pro tier.
 //
-// `picks` holds up to ten ranked picks. Each pick carries the backed side, the pre-game price, the flat stake (`stake_usd`, 1000) and its return (`return_usd`; `return_per_100` keeps the literal $100 basis), the sharp-money holders, the grade, and a thesis. The price is frozen before kickoff. A prior day's pick never appears here; read the archive for it.
+// `picks` holds up to ten selections with the selected side, game context, frozen publication price, modeled stake and return, holder positions and grades, and execution permission when available. `publication_order` describes presentation, and `is_free_selection` describes access; neither is a quality rating.
 //
-// `scheduled_picks` lists same-day slots that are selected but not released yet. Each slot exposes only `pick_rank`, `release_at`, and `kickoff`.
+// New eligible selections use a neutral presentation order. Standing selections retain their identity, slot, and release schedule, and later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
 //
-// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason; the code is frozen. The `404` is a schedule, not an outage.
+// `scheduled_picks` contains selected but unreleased slots with `pick_rank`, `release_at`, and `kickoff`. A prior day's pick never appears here; use the archive for past results.
 //
-// Do not poll. Read `Retry-After` or `error.retry_at` and schedule one request for that instant. The `404` response below says how the instant is chosen.
+// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -41696,11 +42141,13 @@ func (c *ClientWithResponses) GetPickOfTheDayWithResponse(ctx context.Context, p
 
 // GetPickOfTheDayArchiveWithResponse Get the Pick of the Day track record
 //
-// Returns every published pick with its outcome, unit score, closing-line value, and the rolling hit rate.
+// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and the cumulative record.
 //
-// Resolved picks are public. A pending pick's backed side appears only for an authenticated Pro key.
+// Resolved picks are public. A pending pick's selected side appears only for an authenticated Pro key.
 //
-// Each row carries a CLV value or the reason it was not measured. Coverage divides measured rows by resolved rows published before kickoff. A post-kickoff publication is `not_applicable`.
+// Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation, and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
+//
+// Each row carries a CLV value or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -41732,6 +42179,21 @@ func (c *ClientWithResponses) GetPickOfTheDayLedgerWithResponse(ctx context.Cont
 		return nil, err
 	}
 	return ParseGetPickOfTheDayLedgerResponse(rsp)
+}
+
+// GetPickOfTheDayLedgerEntryWithResponse Read a pick proof by stable id
+//
+// Public read of one published pick by its stable decimal-string pick_id. Same proof gating, canonical bytes, ETag and integrity failures as the ledger. Invalid ids return 400; absent or unpublished picks return 404.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/pick-of-the-day/ledger/{pick_id} (the `GetPickOfTheDayLedgerEntry` operationId).
+func (c *ClientWithResponses) GetPickOfTheDayLedgerEntryWithResponse(ctx context.Context, pickId string, params *GetPickOfTheDayLedgerEntryParams, reqEditors ...RequestEditorFn) (*GetPickOfTheDayLedgerEntryResponse, error) {
+	rsp, err := c.GetPickOfTheDayLedgerEntry(ctx, pickId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetPickOfTheDayLedgerEntryResponse(rsp)
 }
 
 // GetPlatformsWithResponse Get platform capability matrix
@@ -41892,7 +42354,7 @@ func (c *ClientWithResponses) ListPreGameSidesWithResponse(ctx context.Context, 
 
 // GetStreamWithResponse Resumable real-time event stream (SSE)
 //
-// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: every 30 seconds the server re-resolves the key the stream was opened with, so a key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream within 40 seconds (30 seconds plus the credential cache's 10-second bound) with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code database_unavailable, after 90 seconds without a confirmed check), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume.
+// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -41937,7 +42399,7 @@ func (c *ClientWithResponses) GetSuspiciousTradeWithResponse(ctx context.Context
 
 // GetTraderWithResponse Get trader
 //
-// Returns a trader's grade (S through F; ranked about 95% by realized profit, with calibration, track record, and consistency as a tie-breaker and proven-trader guardrails), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet returns 200 with sync_status "unknown" instead of 404, so it can be polled. A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address; it is never echoed back as a trader address. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.
+// Returns a trader's grade (S through F), P&L, win rate, and optional strategy/category data. The path accepts either an Ethereum wallet address, a known trader username, or a trd_-prefixed trader ID emitted by this API. A wallet address this API does not track yet returns 200 with sync_status "unknown" instead of 404, so it can be polled. A value that is not a wallet address and matches no username or trader ID this API knows returns 404 not_found with error.param address; it is never echoed back as a trader address. The additive `pnl.exact.realized` and `stats.exact.total_volume` fields carry decimal strings from verified source atoms with unit, scale and basis metadata; parse them with decimal-safe arithmetic and keep the existing numeric twins for display.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -42042,7 +42504,7 @@ func (c *ClientWithResponses) CancelTraderExportWithResponse(ctx context.Context
 
 // DownloadTraderExportWithResponse Download a finished trader export
 //
-// Redirects (302) to a short-lived presigned URL for the finished export file while the job status is 'ready' and expires_at has not passed. The file is gzip-compressed and served with the format's Content-Type (application/json, application/x-ndjson, or text/csv). Returns 400 while the job is queued, running, cancel_requested or reconciling (poll the status route first) and for a failed or cancelled job (submit a new export); returns 410 with error.code not_found and error.reason export_expired once the retention window has passed or the file has been retired, so the redirect never points at a file that is gone.
+// Redirects (302) to a presigned URL lasting at most one hour and no later than the job's expires_at for the finished export file while the job status is 'ready' and expires_at has not passed. The file is gzip-compressed and served with the format's Content-Type (application/json, application/x-ndjson, or text/csv). Returns 400 while the job is queued, running, cancel_requested or reconciling (poll the status route first) and for a failed or cancelled job (submit a new export); returns 410 with error.code not_found and error.reason export_expired once the retention window has passed, less than one whole second remains when signing, or the file has been retired, so the redirect never points at a file that is gone.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -54604,6 +55066,335 @@ func ParseGetPickOfTheDayLedgerResponse(rsp *http.Response) (*GetPickOfTheDayLed
 		response.Headers429 = &headers
 	case rsp.StatusCode == 503:
 		var headers GetPickOfTheDayLedgerResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseGetPickOfTheDayLedgerEntryResponse parses an HTTP response from a GetPickOfTheDayLedgerEntryWithResponse call
+func ParseGetPickOfTheDayLedgerEntryResponse(rsp *http.Response) (*GetPickOfTheDayLedgerEntryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetPickOfTheDayLedgerEntryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			// Data One ledger entry. Read `state` to know which shape you have; the three are disjoint.
+			Data   PickOfTheDayLedgerEntry                             `json:"data"`
+			Meta   ResponseMeta                                        `json:"meta"`
+			Object GetPickOfTheDayLedgerEntry200JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 304:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers GetPickOfTheDayLedgerEntryResponse200Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 304:
+		var headers GetPickOfTheDayLedgerEntryResponse304Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers304 = &headers
+	case rsp.StatusCode == 429:
+		var headers GetPickOfTheDayLedgerEntryResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers GetPickOfTheDayLedgerEntryResponse503Headers
 		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
 			var value int
 			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
