@@ -87,13 +87,13 @@ func (e AccountIdentityDataEntitlementRecoveryAction) Valid() bool {
 
 // Defines values for AccountIdentityObject.
 const (
-	Account AccountIdentityObject = "account"
+	AccountIdentityObjectAccount AccountIdentityObject = "account"
 )
 
 // Valid indicates whether the value is a known member of the AccountIdentityObject enum.
 func (e AccountIdentityObject) Valid() bool {
 	switch e {
-	case Account:
+	case AccountIdentityObjectAccount:
 		return true
 	default:
 		return false
@@ -2431,6 +2431,21 @@ func (e PickHolderCategoryWinRateStatus) Valid() bool {
 	}
 }
 
+// Defines values for PickOfTheDayLockedPicksRequiredTier.
+const (
+	PickOfTheDayLockedPicksRequiredTierMax PickOfTheDayLockedPicksRequiredTier = "max"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayLockedPicksRequiredTier enum.
+func (e PickOfTheDayLockedPicksRequiredTier) Valid() bool {
+	switch e {
+	case PickOfTheDayLockedPicksRequiredTierMax:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for PickOfTheDayOutcome.
 const (
 	PickOfTheDayOutcomeLoss    PickOfTheDayOutcome = "loss"
@@ -2539,6 +2554,27 @@ func (e PickOfTheDayArchiveEntryOutcome) Valid() bool {
 	case PickOfTheDayArchiveEntryOutcomeVoid:
 		return true
 	case PickOfTheDayArchiveEntryOutcomeWin:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayArchiveEntryRequiredTier.
+const (
+	PickOfTheDayArchiveEntryRequiredTierAccount PickOfTheDayArchiveEntryRequiredTier = "account"
+	PickOfTheDayArchiveEntryRequiredTierInsider PickOfTheDayArchiveEntryRequiredTier = "insider"
+	PickOfTheDayArchiveEntryRequiredTierMax     PickOfTheDayArchiveEntryRequiredTier = "max"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayArchiveEntryRequiredTier enum.
+func (e PickOfTheDayArchiveEntryRequiredTier) Valid() bool {
+	switch e {
+	case PickOfTheDayArchiveEntryRequiredTierAccount:
+		return true
+	case PickOfTheDayArchiveEntryRequiredTierInsider:
+		return true
+	case PickOfTheDayArchiveEntryRequiredTierMax:
 		return true
 	default:
 		return false
@@ -2824,6 +2860,66 @@ func (e PickOfTheDayLedgerUncommittedEntryState) Valid() bool {
 	}
 }
 
+// Defines values for PickOfTheDayNoEntitledPicksLockedPicksRequiredTier.
+const (
+	PickOfTheDayNoEntitledPicksLockedPicksRequiredTierMax PickOfTheDayNoEntitledPicksLockedPicksRequiredTier = "max"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayNoEntitledPicksLockedPicksRequiredTier enum.
+func (e PickOfTheDayNoEntitledPicksLockedPicksRequiredTier) Valid() bool {
+	switch e {
+	case PickOfTheDayNoEntitledPicksLockedPicksRequiredTierMax:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayNoEntitledPicksPickCount.
+const (
+	PickOfTheDayNoEntitledPicksPickCountN0 PickOfTheDayNoEntitledPicksPickCount = 0
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayNoEntitledPicksPickCount enum.
+func (e PickOfTheDayNoEntitledPicksPickCount) Valid() bool {
+	switch e {
+	case PickOfTheDayNoEntitledPicksPickCountN0:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayNoEntitledPicksState.
+const (
+	PickOfTheDayNoEntitledPicksStateNone PickOfTheDayNoEntitledPicksState = "none"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayNoEntitledPicksState enum.
+func (e PickOfTheDayNoEntitledPicksState) Valid() bool {
+	switch e {
+	case PickOfTheDayNoEntitledPicksStateNone:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickOfTheDayNoEntitledPicksSupersedesPickId.
+const (
+	PickOfTheDayNoEntitledPicksSupersedesPickIdLessThannil PickOfTheDayNoEntitledPicksSupersedesPickId = "<nil>"
+)
+
+// Valid indicates whether the value is a known member of the PickOfTheDayNoEntitledPicksSupersedesPickId enum.
+func (e PickOfTheDayNoEntitledPicksSupersedesPickId) Valid() bool {
+	switch e {
+	case PickOfTheDayNoEntitledPicksSupersedesPickIdLessThannil:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for PickOfTheDayUncommittedPayloadPickOutcomeIndex.
 const (
 	PickOfTheDayUncommittedPayloadPickOutcomeIndexN0 PickOfTheDayUncommittedPayloadPickOutcomeIndex = 0
@@ -2859,19 +2955,19 @@ func (e PickOfTheDayUncommittedPayloadPlatform) Valid() bool {
 
 // Defines values for PickSportsTeamTour.
 const (
-	Atp PickSportsTeamTour = "atp"
-	Itf PickSportsTeamTour = "itf"
-	Wta PickSportsTeamTour = "wta"
+	PickSportsTeamTourAtp PickSportsTeamTour = "atp"
+	PickSportsTeamTourItf PickSportsTeamTour = "itf"
+	PickSportsTeamTourWta PickSportsTeamTour = "wta"
 )
 
 // Valid indicates whether the value is a known member of the PickSportsTeamTour enum.
 func (e PickSportsTeamTour) Valid() bool {
 	switch e {
-	case Atp:
+	case PickSportsTeamTourAtp:
 		return true
-	case Itf:
+	case PickSportsTeamTourItf:
 		return true
-	case Wta:
+	case PickSportsTeamTourWta:
 		return true
 	default:
 		return false
@@ -3036,13 +3132,16 @@ func (e PotdEntryAuthorizationOutcomeIndex) Valid() bool {
 
 // Defines values for PotdEntryAuthorizationPolicyVersion.
 const (
-	N7 PotdEntryAuthorizationPolicyVersion = 7
+	PotdEntryAuthorizationPolicyVersionN7 PotdEntryAuthorizationPolicyVersion = 7
+	PotdEntryAuthorizationPolicyVersionN8 PotdEntryAuthorizationPolicyVersion = 8
 )
 
 // Valid indicates whether the value is a known member of the PotdEntryAuthorizationPolicyVersion enum.
 func (e PotdEntryAuthorizationPolicyVersion) Valid() bool {
 	switch e {
-	case N7:
+	case PotdEntryAuthorizationPolicyVersionN7:
+		return true
+	case PotdEntryAuthorizationPolicyVersionN8:
 		return true
 	default:
 		return false
@@ -3823,6 +3922,72 @@ func (e SuspiciousTradeSeverity) Valid() bool {
 	}
 }
 
+// Defines values for TennisPointsServingSide.
+const (
+	First  TennisPointsServingSide = "first"
+	Second TennisPointsServingSide = "second"
+)
+
+// Valid indicates whether the value is a known member of the TennisPointsServingSide enum.
+func (e TennisPointsServingSide) Valid() bool {
+	switch e {
+	case First:
+		return true
+	case Second:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TennisPointsSource.
+const (
+	TennisPointsSourceApiTennis TennisPointsSource = "api_tennis"
+)
+
+// Valid indicates whether the value is a known member of the TennisPointsSource enum.
+func (e TennisPointsSource) Valid() bool {
+	switch e {
+	case TennisPointsSourceApiTennis:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TennisRankingSource.
+const (
+	TennisRankingSourceApiTennis TennisRankingSource = "api_tennis"
+)
+
+// Valid indicates whether the value is a known member of the TennisRankingSource enum.
+func (e TennisRankingSource) Valid() bool {
+	switch e {
+	case TennisRankingSourceApiTennis:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TennisRankingTour.
+const (
+	TennisRankingTourAtp TennisRankingTour = "atp"
+	TennisRankingTourWta TennisRankingTour = "wta"
+)
+
+// Valid indicates whether the value is a known member of the TennisRankingTour enum.
+func (e TennisRankingTour) Valid() bool {
+	switch e {
+	case TennisRankingTourAtp:
+		return true
+	case TennisRankingTourWta:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for TraderGrade.
 const (
 	TraderGradeA TraderGrade = "A"
@@ -4402,6 +4567,24 @@ func (e TrustSourceKind) Valid() bool {
 	}
 }
 
+// Defines values for UsageDataMonthlyQuotaUnavailableReason.
+const (
+	UsageDataMonthlyQuotaUnavailableReasonLessThannil                      UsageDataMonthlyQuotaUnavailableReason = "<nil>"
+	UsageDataMonthlyQuotaUnavailableReasonUsagePriceReconciliationRequired UsageDataMonthlyQuotaUnavailableReason = "usage_price_reconciliation_required"
+)
+
+// Valid indicates whether the value is a known member of the UsageDataMonthlyQuotaUnavailableReason enum.
+func (e UsageDataMonthlyQuotaUnavailableReason) Valid() bool {
+	switch e {
+	case UsageDataMonthlyQuotaUnavailableReasonLessThannil:
+		return true
+	case UsageDataMonthlyQuotaUnavailableReasonUsagePriceReconciliationRequired:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for UsageObject.
 const (
 	UsageObjectUsage UsageObject = "usage"
@@ -4648,6 +4831,108 @@ func (e WebhookStatus) Valid() bool {
 	case WebhookStatusDisabled:
 		return true
 	case WebhookStatusPendingVerification:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WebhookVerificationAttemptMaxAttempts.
+const (
+	N4 WebhookVerificationAttemptMaxAttempts = 4
+)
+
+// Valid indicates whether the value is a known member of the WebhookVerificationAttemptMaxAttempts enum.
+func (e WebhookVerificationAttemptMaxAttempts) Valid() bool {
+	switch e {
+	case N4:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WebhookVerificationAttemptObject.
+const (
+	WebhookVerificationAttemptObjectWebhookVerificationAttempt WebhookVerificationAttemptObject = "webhook_verification_attempt"
+)
+
+// Valid indicates whether the value is a known member of the WebhookVerificationAttemptObject enum.
+func (e WebhookVerificationAttemptObject) Valid() bool {
+	switch e {
+	case WebhookVerificationAttemptObjectWebhookVerificationAttempt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WebhookVerificationAttemptOutcome.
+const (
+	WebhookVerificationAttemptOutcomeAttemptsExhausted WebhookVerificationAttemptOutcome = "attempts_exhausted"
+	WebhookVerificationAttemptOutcomeChallengeTimeout  WebhookVerificationAttemptOutcome = "challenge_timeout"
+	WebhookVerificationAttemptOutcomeEndpointChanged   WebhookVerificationAttemptOutcome = "endpoint_changed"
+	WebhookVerificationAttemptOutcomeInternalError     WebhookVerificationAttemptOutcome = "internal_error"
+	WebhookVerificationAttemptOutcomeOwnerRevoked      WebhookVerificationAttemptOutcome = "owner_revoked"
+	WebhookVerificationAttemptOutcomeReceiverRejected  WebhookVerificationAttemptOutcome = "receiver_rejected"
+	WebhookVerificationAttemptOutcomeTargetRejected    WebhookVerificationAttemptOutcome = "target_rejected"
+	WebhookVerificationAttemptOutcomeTokenExpired      WebhookVerificationAttemptOutcome = "token_expired"
+	WebhookVerificationAttemptOutcomeTransportFailed   WebhookVerificationAttemptOutcome = "transport_failed"
+	WebhookVerificationAttemptOutcomeVerified          WebhookVerificationAttemptOutcome = "verified"
+)
+
+// Valid indicates whether the value is a known member of the WebhookVerificationAttemptOutcome enum.
+func (e WebhookVerificationAttemptOutcome) Valid() bool {
+	switch e {
+	case WebhookVerificationAttemptOutcomeAttemptsExhausted:
+		return true
+	case WebhookVerificationAttemptOutcomeChallengeTimeout:
+		return true
+	case WebhookVerificationAttemptOutcomeEndpointChanged:
+		return true
+	case WebhookVerificationAttemptOutcomeInternalError:
+		return true
+	case WebhookVerificationAttemptOutcomeOwnerRevoked:
+		return true
+	case WebhookVerificationAttemptOutcomeReceiverRejected:
+		return true
+	case WebhookVerificationAttemptOutcomeTargetRejected:
+		return true
+	case WebhookVerificationAttemptOutcomeTokenExpired:
+		return true
+	case WebhookVerificationAttemptOutcomeTransportFailed:
+		return true
+	case WebhookVerificationAttemptOutcomeVerified:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WebhookVerificationAttemptState.
+const (
+	WebhookVerificationAttemptStateCancelled WebhookVerificationAttemptState = "cancelled"
+	WebhookVerificationAttemptStateExpired   WebhookVerificationAttemptState = "expired"
+	WebhookVerificationAttemptStateFailed    WebhookVerificationAttemptState = "failed"
+	WebhookVerificationAttemptStateQueued    WebhookVerificationAttemptState = "queued"
+	WebhookVerificationAttemptStateRunning   WebhookVerificationAttemptState = "running"
+	WebhookVerificationAttemptStateVerified  WebhookVerificationAttemptState = "verified"
+)
+
+// Valid indicates whether the value is a known member of the WebhookVerificationAttemptState enum.
+func (e WebhookVerificationAttemptState) Valid() bool {
+	switch e {
+	case WebhookVerificationAttemptStateCancelled:
+		return true
+	case WebhookVerificationAttemptStateExpired:
+		return true
+	case WebhookVerificationAttemptStateFailed:
+		return true
+	case WebhookVerificationAttemptStateQueued:
+		return true
+	case WebhookVerificationAttemptStateRunning:
+		return true
+	case WebhookVerificationAttemptStateVerified:
 		return true
 	default:
 		return false
@@ -5670,16 +5955,22 @@ func (e ListLargeTradeCounterpartyMakers200JSONResponseBodyObject) Valid() bool 
 
 // Defines values for ListLeaderboardParamsStrategy.
 const (
-	Accumulator ListLeaderboardParamsStrategy = "accumulator"
-	AlgoTrader  ListLeaderboardParamsStrategy = "algo_trader"
-	Arbitrageur ListLeaderboardParamsStrategy = "arbitrageur"
-	Directional ListLeaderboardParamsStrategy = "directional"
-	EventDriven ListLeaderboardParamsStrategy = "event_driven"
-	MarketMaker ListLeaderboardParamsStrategy = "market_maker"
-	Momentum    ListLeaderboardParamsStrategy = "momentum"
-	Scalper     ListLeaderboardParamsStrategy = "scalper"
-	Speculator  ListLeaderboardParamsStrategy = "speculator"
-	SwingTrader ListLeaderboardParamsStrategy = "swing_trader"
+	Accumulator     ListLeaderboardParamsStrategy = "accumulator"
+	AlgoTrader      ListLeaderboardParamsStrategy = "algo_trader"
+	Arbitrageur     ListLeaderboardParamsStrategy = "arbitrageur"
+	CategoryFocused ListLeaderboardParamsStrategy = "category_focused"
+	Directional     ListLeaderboardParamsStrategy = "directional"
+	Diversified     ListLeaderboardParamsStrategy = "diversified"
+	EventDriven     ListLeaderboardParamsStrategy = "event_driven"
+	HighActivity    ListLeaderboardParamsStrategy = "high_activity"
+	MarketMaker     ListLeaderboardParamsStrategy = "market_maker"
+	Mixed           ListLeaderboardParamsStrategy = "mixed"
+	Momentum        ListLeaderboardParamsStrategy = "momentum"
+	Scalper         ListLeaderboardParamsStrategy = "scalper"
+	Speculator      ListLeaderboardParamsStrategy = "speculator"
+	SwingTrader     ListLeaderboardParamsStrategy = "swing_trader"
+	TwoSided        ListLeaderboardParamsStrategy = "two_sided"
+	Unclassified    ListLeaderboardParamsStrategy = "unclassified"
 )
 
 // Valid indicates whether the value is a known member of the ListLeaderboardParamsStrategy enum.
@@ -5691,11 +5982,19 @@ func (e ListLeaderboardParamsStrategy) Valid() bool {
 		return true
 	case Arbitrageur:
 		return true
+	case CategoryFocused:
+		return true
 	case Directional:
+		return true
+	case Diversified:
 		return true
 	case EventDriven:
 		return true
+	case HighActivity:
+		return true
 	case MarketMaker:
+		return true
+	case Mixed:
 		return true
 	case Momentum:
 		return true
@@ -5704,6 +6003,10 @@ func (e ListLeaderboardParamsStrategy) Valid() bool {
 	case Speculator:
 		return true
 	case SwingTrader:
+		return true
+	case TwoSided:
+		return true
+	case Unclassified:
 		return true
 	default:
 		return false
@@ -8245,6 +8548,66 @@ func (e RetireWebhookSecret200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for CreateWebhookVerificationAttemptParamsXQueryValidation.
+const (
+	CreateWebhookVerificationAttemptParamsXQueryValidationStrict CreateWebhookVerificationAttemptParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the CreateWebhookVerificationAttemptParamsXQueryValidation enum.
+func (e CreateWebhookVerificationAttemptParamsXQueryValidation) Valid() bool {
+	switch e {
+	case CreateWebhookVerificationAttemptParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CreateWebhookVerificationAttempt202JSONResponseBodyObject.
+const (
+	CreateWebhookVerificationAttempt202JSONResponseBodyObjectWebhookVerificationAttempt CreateWebhookVerificationAttempt202JSONResponseBodyObject = "webhook_verification_attempt"
+)
+
+// Valid indicates whether the value is a known member of the CreateWebhookVerificationAttempt202JSONResponseBodyObject enum.
+func (e CreateWebhookVerificationAttempt202JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case CreateWebhookVerificationAttempt202JSONResponseBodyObjectWebhookVerificationAttempt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetWebhookVerificationAttemptParamsXQueryValidation.
+const (
+	GetWebhookVerificationAttemptParamsXQueryValidationStrict GetWebhookVerificationAttemptParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the GetWebhookVerificationAttemptParamsXQueryValidation enum.
+func (e GetWebhookVerificationAttemptParamsXQueryValidation) Valid() bool {
+	switch e {
+	case GetWebhookVerificationAttemptParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetWebhookVerificationAttempt200JSONResponseBodyObject.
+const (
+	GetWebhookVerificationAttempt200JSONResponseBodyObjectWebhookVerificationAttempt GetWebhookVerificationAttempt200JSONResponseBodyObject = "webhook_verification_attempt"
+)
+
+// Valid indicates whether the value is a known member of the GetWebhookVerificationAttempt200JSONResponseBodyObject enum.
+func (e GetWebhookVerificationAttempt200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case GetWebhookVerificationAttempt200JSONResponseBodyObjectWebhookVerificationAttempt:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VerifyWebhookParamsXQueryValidation.
 const (
 	VerifyWebhookParamsXQueryValidationStrict VerifyWebhookParamsXQueryValidation = "strict"
@@ -8649,7 +9012,7 @@ type ApiErrorBody struct {
 	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is outside the HOT/WARM sync tiers -- stop asking for this wallet. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests Pro includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown.
 	Reason *ApiErrorBodyReason `json:"reason,omitempty"`
 
-	// RetryAt The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited including reason=monthly_quota_exceeded, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 11:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt. Every value is advisory and can change before release. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew.
+	// RetryAt The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited including reason=monthly_quota_exceeded, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released: before the 07:00 UTC operating-window start, before a selected pick's stored release, or after a skipped day, it names the automatic system's next boundary. While no candidate exists in the live window it normally names the persisted next automatic selector attempt. Every value is advisory and can change before release. When the automatic schedule is absent/due or a pick is overdue it degrades to ~60s. Schedule one request and do not poll. Prefer Retry-After for the duration because it is immune to client clock skew.
 	RetryAt *time.Time `json:"retry_at,omitempty"`
 }
 
@@ -8909,6 +9272,12 @@ type CreateWebhookRequest struct {
 
 	// Url Public HTTPS callback URL on the default port 443. Local, private, and internal targets are rejected, as is any explicit port other than 443 and any URL carrying credentials. Each user's URLs are unique after normalizing HTTPS scheme/host case, trailing DNS dots and port 443; path/query case is preserved. Pending verification and PATCH-disabled endpoints still reserve their stored URL. The destination must answer the signed webhook.verification challenge with a 2xx before POST /api/v1/webhooks/{id}/verify can activate the endpoint.
 	Url string `json:"url"`
+}
+
+// CreateWebhookVerificationAttemptRequest defines model for CreateWebhookVerificationAttemptRequest.
+type CreateWebhookVerificationAttemptRequest struct {
+	// VerificationToken The original one-time token returned by webhook creation or a URL change. Sent only in the request body and signed receiver challenge.
+	VerificationToken string `json:"verification_token"`
 }
 
 // DataQuality Compact data age and coverage for a response body, always present on the operations that publish it. Read status and as_of to decide whether to use the body at all, and field_groups to see which part is weak. Everything here comes from stored observation clocks, so a cached body reports the same ages a freshly computed one does: meta.cached and meta.cache_age_s stay the only transport-time facts and neither makes this block newer. The per-field audit object is still available through expand=trust; this is the default summary of the same question.
@@ -10019,9 +10388,11 @@ type LeaderboardEntry struct {
 	Pnl *float32 `json:"pnl,omitempty"`
 
 	// RealizedPnl Native realized P&L plus credited maker and taker rebates in USD, with fees already included. The exact numeric value is truncated toward zero to cents before JSON conversion. Wallets without a native snapshot retain their historical stored realized P&L. Omitted when the native snapshot has no net realized value.
-	RealizedPnl  *float32 `json:"realized_pnl,omitempty"`
-	Score        *float32 `json:"score,omitempty"`
-	StrategyType *string  `json:"strategy_type,omitempty"`
+	RealizedPnl *float32 `json:"realized_pnl,omitempty"`
+	Score       *float32 `json:"score,omitempty"`
+
+	// StrategyType Observed trading style identifier. New rows use two_sided, category_focused, high_activity, diversified, mixed, or unclassified. Historical identifiers remain readable during normal reclassification; style does not predict skill or intent.
+	StrategyType *string `json:"strategy_type,omitempty"`
 
 	// StreakTier Hot-streak tier (trailing-7d cross-sectional percentile); a separate axis from the all-time grade. Omitted when there is no recent activity.
 	StreakTier *LeaderboardEntryStreakTier `json:"streak_tier,omitempty"`
@@ -10363,11 +10734,14 @@ type MarketSnapshot struct {
 		LiveLeagueKey *string `json:"live_league_key,omitempty"`
 		LiveMatchKey  *string `json:"live_match_key,omitempty"`
 
-		// LiveScore Live-score period and elapsed may be omitted when unavailable (older responses use null). A score entry may omit full_name when it equals team; fall back to team. Distinct aliases and score admission markers are preserved.
-		LiveScore *map[string]interface{}    `json:"live_score,omitempty"`
-		Reason    *string                    `json:"reason,omitempty"`
-		Source    string                     `json:"source"`
-		Status    MarketSnapshotSportsStatus `json:"status"`
+		// LiveScore Live-score period and elapsed may be omitted when unavailable (older responses use null). A score entry may omit full_name when it equals team; fall back to team. Distinct aliases and score admission markers are preserved. For live esports, scores[].map_score retains an available pair through an update omitting both sides only within the same live map, series format and series totals. Map changes and final state follow current provider updates; absent detail remains unavailable. Optional tennis_points supplies independently sourced current-game points and serving side; absence means unavailable. Compatible unexpired tennis_points survives temporary supplemental snapshot unavailability or contention; expiry and set/game mismatch still clear it.
+		LiveScore *struct {
+			// TennisPoints Optional current-game tennis facts from API-Tennis, aligned with live_score.scores display order. These facts have their own revision and expiry; Polymarket remains the source of sets, match status, period, and the outer live-score revision. New observations require corroborated identity, current set/games, and live state. Cached responses and replayed frames may still carry expired facts, so clients must enforce expires_at.
+			TennisPoints *TennisPoints `json:"tennis_points,omitempty"`
+		} `json:"live_score,omitempty"`
+		Reason *string                    `json:"reason,omitempty"`
+		Source string                     `json:"source"`
+		Status MarketSnapshotSportsStatus `json:"status"`
 	} `json:"sports"`
 
 	// Trust Price and spread trust metadata. Present only when expand=trust or expand[]=trust is requested.
@@ -10538,12 +10912,57 @@ type PickHolder struct {
 // PickHolderCategoryWinRateStatus Why `category_win_rate` is present or absent on a `display_holders` entry: `measured` (rate present), `not_enough_data` (the wallet is below the resolved-market floor of 5 in the category), or `unavailable` (the annotation read failed; retry later). Absent entirely on `holders` entries, legacy rows, and payloads predating the field -- absence means the roster was never annotated, not a small sample.
 type PickHolderCategoryWinRateStatus string
 
+// PickLeadBacker Recorded lead wallet facts, available only on full newly certified picks. Position and category history are frozen at publication; they are not live balances or pick win probabilities.
+type PickLeadBacker struct {
+	// Address Lead trader wallet address.
+	Address string `json:"address"`
+
+	// Category Canonical sport of the recorded directional history.
+	Category string `json:"category"`
+
+	// DirectionalEventCount Distinct directional events in the recorded category history.
+	DirectionalEventCount int `json:"directional_event_count"`
+
+	// EntryBasisUsd Recorded entry basis of that directional sample, in USD; not a claim of complete trading costs or fees.
+	EntryBasisUsd float32 `json:"entry_basis_usd"`
+
+	// Grade Trader grade recorded at publication.
+	Grade string `json:"grade"`
+
+	// MaxRealizedDrawdownUsd Peak-to-trough realized P&L drawdown after each event result in the recorded sample, in USD. Excludes intragame, unrealized, and account equity drawdown.
+	MaxRealizedDrawdownUsd float32 `json:"max_realized_drawdown_usd"`
+
+	// Name Recorded provider display name.
+	Name string `json:"name"`
+
+	// NetPositionUsd Net value of the lead's position toward the backed outcome at publication, in USD: shares held on the backed outcome minus shares held on the other outcome of the same market, valued at the backed outcome's provider price at publication. Present only when the wallet also held the other outcome; absent for a one-sided position, whose net equals position_usd. It is not a live balance.
+	NetPositionUsd *float32 `json:"net_position_usd,omitempty"`
+
+	// PositionObservedAt Start time of the provider position fetch used at publication. This conservative observation clock precedes completion; the position is not a live balance.
+	PositionObservedAt time.Time `json:"position_observed_at"`
+
+	// PositionUsd Provider-reported position value on the backed outcome at publication, in USD. It is the gross value on that outcome and does not subtract shares the wallet held on the other outcome; see net_position_usd. It is not the entry cost or a live balance.
+	PositionUsd float32 `json:"position_usd"`
+
+	// ProfitableEventCount Events with strictly positive native terminal P&L in the same frozen category sample as directional_event_count, realized_pnl_usd and roi. Multiple market positions in one event contribute one combined event result. Zero-profit events remain in directional_event_count but do not increase this count. This is a recorded wallet result, not a market win rate or the pick's win probability.
+	ProfitableEventCount int `json:"profitable_event_count"`
+
+	// RealizedPnlUsd Realized P&L over the recorded directional category sample, in USD. Excludes open positions and later changes.
+	RealizedPnlUsd float32 `json:"realized_pnl_usd"`
+
+	// RecordedAt Timestamp when the directional history evidence was recorded, separate from the provider position snapshot clock.
+	RecordedAt time.Time `json:"recorded_at"`
+
+	// Roi Realized P&L divided by recorded entry basis, as a fraction: 0.10 means 10%. This is a wallet statistic, not a pick win probability.
+	Roi float32 `json:"roi"`
+}
+
 // PickOfTheDay defines model for PickOfTheDay.
 type PickOfTheDay struct {
 	// BackedPrice Frozen pre-game probability (0..1) for the backed side, written once at publication. It is the Polymarket CLOB order book midpoint at release, not an executed fill: a buyer lifts the ask, so a subscriber's own entry is usually a little worse than this price.
 	BackedPrice *float32 `json:"backed_price,omitempty"`
 
-	// BackedSharpUsd Recorded backed-side sharp-money value in USD when available.
+	// BackedSharpUsd Recorded backed-side position value in USD when available. Newly certified picks sum only publication-certified wallet positions; legacy rows retain their recorded value.
 	BackedSharpUsd *float32 `json:"backed_sharp_usd,omitempty"`
 
 	// Category Recorded canonical sport category. Prefer display_category for the public competition label.
@@ -10570,7 +10989,7 @@ type PickOfTheDay struct {
 	// DisplayCategory Frozen public presentation category: the competition the Polymarket event belongs to. A curated label comes first -- an official league (e.g. "WNBA" or "UFC"), the esports title (e.g. "CS2", "LoL", "Dota 2" or "Valorant"), or a soccer competition (e.g. "LaLiga", "Premier League", "Serie A" or "UEFA Champions League"); any other competition carries the provider's own competition name without its season year (e.g. "UEFA Nations League", "ATP" or "Wimbledon"). It equals category only when the provider names no competition. An esports pick keeps the pooled "Esports" bucket in category, so a per-title label never implies a per-title measured cohort. Additive and optional for mixed-version client compatibility.
 	DisplayCategory *string `json:"display_category,omitempty"`
 
-	// DisplayHolders Optional complete holder display roster. Each entry carries ordinary trader and recorded position facts.
+	// DisplayHolders Optional complete holder display roster. Newly certified picks list the recorded lead first, then any verified supporters, then the other graded wallets that held the backed side at publication, ordered by shares; only the lead and supporters are verified, the other rows are gross holdings that may also hold the other side and are not counted in the wallet counts, holder_count or backed_sharp_usd. Legacy rows retain their recorded display shape.
 	DisplayHolders *[]PickHolder `json:"display_holders,omitempty"`
 
 	// EditorialNote Optional editorial note attached to the pick.
@@ -10597,7 +11016,7 @@ type PickOfTheDay struct {
 	// HolderCount S/A holder count for the public V1 compatibility projection. display_holders can include additional grades.
 	HolderCount *int `json:"holder_count,omitempty"`
 
-	// Holders Bounded S/A holder display projection. Historical rows retain their recorded display shape.
+	// Holders Bounded S/A holder display projection. Newly certified picks include only publication-certified wallets; historical rows retain their recorded display shape.
 	Holders *[]PickHolder `json:"holders,omitempty"`
 
 	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
@@ -10605,6 +11024,15 @@ type PickOfTheDay struct {
 
 	// IsLocked True only before the pick's stored release instant (a pre-release embargo flag); effectively always false on a served, already-published pick. To detect that the backed game has kicked off, use `game_started`.
 	IsLocked *bool `json:"is_locked,omitempty"`
+
+	// LeadBacker Optional full-only lead wallet publication facts. Omitted on legacy picks or when the recorded evidence is unavailable.
+	LeadBacker *PickLeadBacker `json:"lead_backer,omitempty"`
+
+	// LockedPicks Unauthorized unresolved published or scheduled ranks. Contains no game, provider identity, price, or identifying clock. Pro may upgrade to Max to open these ranks.
+	LockedPicks *[]struct {
+		PickRank     int                                 `json:"pick_rank"`
+		RequiredTier PickOfTheDayLockedPicksRequiredTier `json:"required_tier"`
+	} `json:"locked_picks,omitempty"`
 
 	// MarketPct Recorded market-implied probability as a 0..1 fraction when available.
 	MarketPct *float32 `json:"market_pct,omitempty"`
@@ -10614,6 +11042,9 @@ type PickOfTheDay struct {
 
 	// Matchup Human-readable matchup (e.g. "Portugal vs. Uzbekistan").
 	Matchup *string `json:"matchup,omitempty"`
+
+	// Message Actionable status, including Upgrade to Max when only locked ranks are published.
+	Message *string `json:"message,omitempty"`
 
 	// OddsDisplay Pre-formatted backed_price as cents-on-the-dollar odds, to ONE decimal: "62.0c" / "99.9c". Never rounded to a whole cent -- a 99.9c favorite is not a 100c certainty. Convenience only; backed_price is the source value. Omitted when backed_price is.
 	OddsDisplay *string `json:"odds_display,omitempty"`
@@ -10658,13 +11089,13 @@ type PickOfTheDay struct {
 	// ProfitDisplay Pre-formatted PROFIT on the stake -- return_usd minus stake_usd, i.e. the payout net of what you put in -- as a signed USD string: "+$612.90". Distinct from payout_display, which is gross. Omitted when return_usd is.
 	ProfitDisplay *string `json:"profit_display,omitempty"`
 
-	// ProofPendingPicks Published same-day picks whose holder proof is not readable yet, ordered by pick_rank. Additive and optional: present only while at least one such pick exists. While present, `picks` carries only the proof-readable picks and `pick_count` counts them. Schedule the next read from the earliest retry_at instead of polling. The route returns 503 read_model_warming only when no published pick has readable proof.
+	// ProofPendingPicks Entitled published picks whose holder proof is unreadable, ordered by rank. Unauthorized ranks appear only in locked_picks and cannot trigger proof warming. Read retry_at for the next read.
 	ProofPendingPicks *[]ProofPendingPickSlot `json:"proof_pending_picks,omitempty"`
 
 	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
 	PublicationOrder *int `json:"publication_order,omitempty"`
 
-	// QualifyingExpert Optional recorded specialist facts. These describe the trader and do not disclose selection decisions. Present only on a full response when available.
+	// QualifyingExpert Optional legacy recorded specialist facts. These describe the trader and do not disclose selection decisions. Present only on a full response when available; newly certified picks use lead_backer instead.
 	QualifyingExpert *struct {
 		// Address Trader wallet address.
 		Address string `json:"address"`
@@ -10694,7 +11125,7 @@ type PickOfTheDay struct {
 		WinRate float32 `json:"win_rate"`
 	} `json:"qualifying_expert,omitempty"`
 
-	// ReleaseAt The pick's stored release instant. Normally the current provider kickoff minus one hour; an operator may override it. The actual publish instant can trail it because of worker or claim delay.
+	// ReleaseAt The pick's stored release instant. Qualified automatic selections are due immediately; explicitly scheduled selections retain their stored time. Final checks, worker or claim delay can make the actual publication later.
 	ReleaseAt *time.Time `json:"release_at,omitempty"`
 
 	// ReturnPer100 The same return on a literal $100 (100 / backed_price), kept for compatibility: the field predates stake_usd and its name promises the $100 basis, so a client that scales it to its own stake stays right. Present exactly when return_usd is.
@@ -10703,7 +11134,7 @@ type PickOfTheDay struct {
 	// ReturnUsd Gross return of stake_usd at the frozen midpoint price (stake_usd / backed_price). A real fill pays the ask, so an executed stake usually returns a little less. Omitted with backed_price.
 	ReturnUsd *float32 `json:"return_usd,omitempty"`
 
-	// ScheduledPicks Same-day picks selected but not yet released, ordered by pick_rank. Additive and optional: present only while at least one unreleased slot exists. Each slot exposes only its rank and schedule -- no market identity before release. Schedule the next read from the earliest release_at instead of polling.
+	// ScheduledPicks Rank-ordered entitled selections that have not released. Every row retains release_at and kickoff; unauthorized scheduled ranks appear only in identity-free locked_picks.
 	ScheduledPicks *[]ScheduledPickSlot `json:"scheduled_picks,omitempty"`
 
 	// SharpPct Recorded sharp-money share as a 0..1 fraction when available. This is not a winning probability.
@@ -10732,7 +11163,7 @@ type PickOfTheDay struct {
 	// StakeUsd The flat stake the published record puts on every pick, in USD: 1000 since 2026-09-22 (it was 100 before). Present exactly when return_usd is, so a reader never has to know the stake from anywhere else.
 	StakeUsd *float32 `json:"stake_usd,omitempty"`
 
-	// State Always 'full' for an authenticated Pro key.
+	// State Full success containing entitled proof-readable picks.
 	State PickOfTheDayState `json:"state"`
 
 	// SupersedesPickId Replacement predecessor stable id; null when no lineage is recorded.
@@ -10757,13 +11188,16 @@ type PickOfTheDay struct {
 	UnitScoreDisplay *string `json:"unit_score_display,omitempty"`
 }
 
+// PickOfTheDayLockedPicksRequiredTier defines model for PickOfTheDay.LockedPicks.RequiredTier.
+type PickOfTheDayLockedPicksRequiredTier string
+
 // PickOfTheDayOutcome Settlement outcome of the backed side; 'pending' until the market resolves.
 type PickOfTheDayOutcome string
 
 // PickOfTheDayPlatform Provider platform. Always polymarket.
 type PickOfTheDayPlatform string
 
-// PickOfTheDayState Always 'full' for an authenticated Pro key.
+// PickOfTheDayState Full success containing entitled proof-readable picks.
 type PickOfTheDayState string
 
 // PickOfTheDayArchive defines model for PickOfTheDayArchive.
@@ -10814,8 +11248,11 @@ type PickOfTheDayArchiveEntry struct {
 	// BackedPrice Frozen price of the backed side (0..1) that return_usd and return_per_100 were computed from: on a win, stake_usd / backed_price equals return_usd. It is the Polymarket CLOB order book midpoint at release, frozen write-once at publication, not an executed fill: a buyer lifts the ask, so a subscriber's own entry is usually a little worse than this price. Present exactly when return_usd is, so it is omitted for a still-pending pick, an unpriced win, and any pick whose backed side is withheld.
 	BackedPrice *float32 `json:"backed_price,omitempty"`
 
+	// BackedSideLocked True for an unauthorized unresolved row. Game identity, category, image, publication clock and all backed facts are omitted.
+	BackedSideLocked *bool `json:"backed_side_locked,omitempty"`
+
 	// Category Frozen canonical calibration/report bucket (e.g. "Basketball", "MMA", or "Soccer"). Existing semantics are unchanged; presentation consumers should prefer display_category when present.
-	Category string `json:"category"`
+	Category *string `json:"category,omitempty"`
 
 	// ClvApplicability Whether CLV applies. A visible resolved pick published after kickoff is not_applicable.
 	ClvApplicability *PickOfTheDayArchiveEntryClvApplicability `json:"clv_applicability,omitempty"`
@@ -10851,7 +11288,7 @@ type PickOfTheDayArchiveEntry struct {
 	IsFreeSelection bool `json:"is_free_selection"`
 
 	// Matchup Human-readable matchup (e.g. "Portugal vs. Uzbekistan").
-	Matchup string `json:"matchup"`
+	Matchup *string `json:"matchup,omitempty"`
 
 	// Outcome Settlement outcome of the backed side; 'pending' until the market resolves.
 	Outcome PickOfTheDayArchiveEntryOutcome `json:"outcome"`
@@ -10878,8 +11315,11 @@ type PickOfTheDayArchiveEntry struct {
 	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
 	PublicationOrder int `json:"publication_order"`
 
-	// PublishedAt When this pick became public (RFC3339 UTC). pick_date above is the America/New_York product day, not an instant, so read this whenever you need a real time: reading the bare date as UTC midnight places it hours before the earliest instant a pick can drop (11:00 UTC on that date). A day's last pick can drop at 23:00 ET, which is the following UTC date. Omitted (not null) when the instant is unknown; additive and optional for mixed-version client compatibility.
+	// PublishedAt When this selection was published, as RFC3339 UTC. Use this instant for publication feeds and timelines; pick_date is the America/New_York product day, not a publication timestamp. Automatic qualification can begin at ET midnight. Absent only for historical rows whose publication instant is unknown.
 	PublishedAt *time.Time `json:"published_at,omitempty"`
+
+	// RequiredTier The account or paid tier needed to open this unresolved rank.
+	RequiredTier *PickOfTheDayArchiveEntryRequiredTier `json:"required_tier,omitempty"`
 
 	// ResolvedAt When outcome was LAST written to a settled value (RFC3339 UTC), the same instant the commitment ledger publishes. It moves with a corrected market re-mapping an already-settled pick. Omitted (not null) for a pending pick and for a pick that settled before the instant was recorded, so absence means the instant is unknown, never that the pick is unsettled -- outcome answers that. Additive and optional for mixed-version client compatibility.
 	ResolvedAt *time.Time `json:"resolved_at,omitempty"`
@@ -10911,6 +11351,9 @@ type PickOfTheDayArchiveEntryClvApplicability string
 
 // PickOfTheDayArchiveEntryOutcome Settlement outcome of the backed side; 'pending' until the market resolves.
 type PickOfTheDayArchiveEntryOutcome string
+
+// PickOfTheDayArchiveEntryRequiredTier The account or paid tier needed to open this unresolved rank.
+type PickOfTheDayArchiveEntryRequiredTier string
 
 // PickOfTheDayCommitmentPayload Select using the entry commitment_version, never implicit payload shape. All historic v1 hashes remain unchanged.
 type PickOfTheDayCommitmentPayload struct {
@@ -11195,7 +11638,7 @@ type PickOfTheDayLedgerOpenedEntryOutcome string
 // PickOfTheDayLedgerOpenedEntryState defines model for PickOfTheDayLedgerOpenedEntry.State.
 type PickOfTheDayLedgerOpenedEntryState string
 
-// PickOfTheDayLedgerSealedEntry A published pick that has not settled. Carries the commitment and nothing that states a side or a price: no nonce, no payload, no outcome. Publishable the instant the pick releases.
+// PickOfTheDayLedgerSealedEntry An unresolved published pick. Carries only date, rank, hash, algorithm, seal instant and permalink. Kickoff and game identity are withheld; seal time remains public commitment provenance.
 type PickOfTheDayLedgerSealedEntry struct {
 	// CommitmentAlgo The construction the hash was taken with, stated in the response so a verifier never has to guess the serialization.
 	CommitmentAlgo PickOfTheDayLedgerSealedEntryCommitmentAlgo `json:"commitment_algo"`
@@ -11208,9 +11651,6 @@ type PickOfTheDayLedgerSealedEntry struct {
 
 	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
 	IsFreeSelection bool `json:"is_free_selection"`
-
-	// Kickoff The frozen provider kickoff in the canonical payload form: whole seconds, UTC, literal Z. This exact string reappears inside payload.kickoff when the pick opens.
-	Kickoff time.Time `json:"kickoff"`
 
 	// Permalink The pick's public page.
 	Permalink string `json:"permalink"`
@@ -11245,16 +11685,16 @@ type PickOfTheDayLedgerSealedEntryCommitmentVersion int
 // PickOfTheDayLedgerSealedEntryState defines model for PickOfTheDayLedgerSealedEntry.State.
 type PickOfTheDayLedgerSealedEntryState string
 
-// PickOfTheDayLedgerUncommittedEntry A published pick with no commitment: it predates the scheme, or it reached kickoff unsealed. Nothing here is evidence of WHEN the pick was made. It is emitted rather than skipped, because a ledger with holes where the unprovable picks were would silently flatter the record. Once the pick settles, payload names its market, side and price, so the outcome can still be checked against the market's own resolution.
+// PickOfTheDayLedgerUncommittedEntry A pick without a commitment, retained so the record cannot omit unprovable entries. Unresolved entries omit game identity; once resolved, matchup, category and payload become public. Existing opened canonical payload bytes and hashes are unchanged.
 type PickOfTheDayLedgerUncommittedEntry struct {
 	// Category Frozen canonical sport bucket used for selection calibration (Basketball, MMA), not the exact public league identity; the archive owns that.
-	Category string `json:"category"`
+	Category *string `json:"category,omitempty"`
 
 	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
 	IsFreeSelection bool `json:"is_free_selection"`
 
 	// Matchup Frozen matchup, for a reader.
-	Matchup string `json:"matchup"`
+	Matchup *string `json:"matchup,omitempty"`
 
 	// Outcome How the pick settled, or pending.
 	Outcome PickOfTheDayLedgerUncommittedEntryOutcome `json:"outcome"`
@@ -11297,6 +11737,51 @@ type PickOfTheDayLedgerUncommittedEntryPreCommitment bool
 
 // PickOfTheDayLedgerUncommittedEntryState defines model for PickOfTheDayLedgerUncommittedEntry.State.
 type PickOfTheDayLedgerUncommittedEntryState string
+
+// PickOfTheDayNoEntitledPicks A successful current-day entitlement response when only unauthorized ranks have published. It carries an empty pick set, identity-free locked ranks and an upgrade message. Selection IDs, game identity, prices and unauthorized clocks are absent. Any scheduled or proof-pending rows are entitled rows.
+type PickOfTheDayNoEntitledPicks struct {
+	// LockedPicks Unauthorized unresolved published or scheduled ranks. Contains no game, provider identity, price, or identifying clock. Pro may upgrade to Max to open these ranks.
+	LockedPicks []struct {
+		PickRank     int                                                `json:"pick_rank"`
+		RequiredTier PickOfTheDayNoEntitledPicksLockedPicksRequiredTier `json:"required_tier"`
+	} `json:"locked_picks"`
+
+	// Message Actionable status, including Upgrade to Max when only locked ranks are published.
+	Message string `json:"message"`
+
+	// PickCount Zero entitled proof-readable picks.
+	PickCount PickOfTheDayNoEntitledPicksPickCount `json:"pick_count"`
+
+	// PickDate Current product date in America/New_York (YYYY-MM-DD).
+	PickDate openapi_types.Date `json:"pick_date"`
+
+	// Picks Empty: no entitled proof-readable picks are returned.
+	Picks []PickOfTheDay `json:"picks"`
+
+	// ProofPendingPicks Entitled published picks whose holder proof is unreadable, ordered by rank. Unauthorized ranks appear only in locked_picks and cannot trigger proof warming. Read retry_at for the next read.
+	ProofPendingPicks *[]ProofPendingPickSlot `json:"proof_pending_picks,omitempty"`
+
+	// ScheduledPicks Rank-ordered entitled selections that have not released. Every row retains release_at and kickoff; unauthorized scheduled ranks appear only in identity-free locked_picks.
+	ScheduledPicks *[]ScheduledPickSlot `json:"scheduled_picks,omitempty"`
+
+	// State Only locked ranks are published for this account.
+	State PickOfTheDayNoEntitledPicksState `json:"state"`
+
+	// SupersedesPickId Null: the empty entitlement envelope has no selection lineage.
+	SupersedesPickId PickOfTheDayNoEntitledPicksSupersedesPickId `json:"supersedes_pick_id"`
+}
+
+// PickOfTheDayNoEntitledPicksLockedPicksRequiredTier defines model for PickOfTheDayNoEntitledPicks.LockedPicks.RequiredTier.
+type PickOfTheDayNoEntitledPicksLockedPicksRequiredTier string
+
+// PickOfTheDayNoEntitledPicksPickCount Zero entitled proof-readable picks.
+type PickOfTheDayNoEntitledPicksPickCount int
+
+// PickOfTheDayNoEntitledPicksState Only locked ranks are published for this account.
+type PickOfTheDayNoEntitledPicksState string
+
+// PickOfTheDayNoEntitledPicksSupersedesPickId Null: the empty entitlement envelope has no selection lineage.
+type PickOfTheDayNoEntitledPicksSupersedesPickId string
 
 // PickOfTheDayUncommittedPayload A settled uncommitted pick's market, side and price. The same eight fields as PickOfTheDayCommitmentPayload, in the same key order, so a settled pick's side and price sit under payload whatever the entry's state. It is NOT a commitment: no hash was taken over it before the game, and it proves nothing about when the pick was made.
 type PickOfTheDayUncommittedPayload struct {
@@ -11361,7 +11846,7 @@ type PickSportsContext struct {
 	YesTeam PickSportsTeam `json:"yes_team"`
 }
 
-// PickSportsTeam A single sports team or competitor in a Pick of the Day market's sports context. Identity and score fields are provider-owned and nullable. The structured score fields (`sets`, `format`, `sets_won`) and the tennis fields (`headshot`, `tour`) are backend-owned and are OMITTED rather than null when they do not apply, so a consumer must treat an absent key and a null the same way.
+// PickSportsTeam A single sports team or competitor in a Pick of the Day market's sports context. Identity and score fields are provider-owned and nullable. The structured score fields (`sets`, `format`, `sets_won`) and the tennis fields (`headshot`, `headshot_revision`, `tour`) are backend-owned and are OMITTED rather than null when they do not apply, so a consumer must treat an absent key and a null the same way.
 type PickSportsTeam struct {
 	// Color Team brand color as a hex string (provider-owned).
 	Color string `json:"color"`
@@ -11375,17 +11860,23 @@ type PickSportsTeam struct {
 	// Headshot Tennis player headshot URL, served same-origin. Present only for a tennis competitor the headshot resolver matched; absent for team sports and for unmatched players, where `logo` stays the fallback.
 	Headshot *string `json:"headshot,omitempty"`
 
+	// HeadshotRevision Optional monotonic photo revision for this tennis player, independent of the sports score revision. Legacy stored photos start at zero. Successful new or changed image bytes advance it; source checks and attribution changes do not. Compare only for the same tour and provider_id: a higher revision replaces the portrait, an equal revision may fill a missing portrait, and a lower revision must not replace a newer one. Absent when no photo resolved.
+	HeadshotRevision *int64 `json:"headshot_revision,omitempty"`
+
 	// Label Team display label as it appears on the market outcome (e.g. "Portugal").
 	Label string `json:"label"`
 
-	// Logo Team crest or flag URL. Provider-owned for most teams (Polymarket /teams crest for clubs, country flag for national teams and tennis players). A club with a vendored crest carries it instead, served same-origin as a relative path (`/api/sports/team-logos/{league}/{abbr}.svg?v=<content hash>` or `.png`, resolve it against this server): every NFL and WNBA team, whose provider asset is a text tile, and the soccer clubs whose provider asset is an empty object.
+	// Logo Team crest or flag URL. Official NFL (32), WNBA (15), NBA (30), NHL (32), and MLB (30) club crests use same-origin relative paths (`/api/sports/team-logos/{league}/{abbr}.svg?v=<content hash>`); resolve relative URLs against the API origin. Vendored soccer club crests use the same path with `.png`. Other teams use provider artwork, including country flags for national teams and tennis players. Novelty and national-team rows outside the vendored club sets retain provider artwork.
 	Logo string `json:"logo"`
 
-	// LogoMarkDark True when the team mark is dark enough to disappear on a dark background, measured from the artwork by the teams sync. Render a dark mark on a light plate. Always sent; false until the artwork has been measured.
+	// LogoMarkDark True when artwork measurements show that the team mark needs a light plate on a dark background. Vendored crest verdicts are tied to the exact asset bytes; provider artwork is measured by the teams sync. Always sent; false when no current measurement marks the logo dark.
 	LogoMarkDark bool `json:"logo_mark_dark"`
 
 	// ProviderId Provider team identifier (Polymarket /teams id).
 	ProviderId int `json:"provider_id"`
+
+	// Ranking Optional latest retrieved ATP/WTA singles rank for this player. Absent for unranked, ambiguous, doubles, expired, or unavailable identities. This is not rank at match time.
+	Ranking *TennisRanking `json:"ranking,omitempty"`
 
 	// Record Win-loss record as a display string (e.g. "12-4").
 	Record string `json:"record"`
@@ -11600,7 +12091,7 @@ type PositionTimelineEventAction string
 // PositionTimelineEventOutcomeSide defines model for PositionTimelineEvent.OutcomeSide.
 type PositionTimelineEventOutcomeSide string
 
-// PotdEntryAuthorization Returned entry permission bound to the named market, token and outcome. Honor max_entry_price and expires_at, and check a current executable order book for the actual stake. This snapshot does not guarantee current liquidity, execution or positive expected value.
+// PotdEntryAuthorization Returned entry permission bound to the named market, token and outcome. New policy-8 grants allow five cents above the first reference ask, capped at 85 cents and floored to the provider tick; policy-7 grants retain their original two-cent allowance. Honor the immutable max_entry_price and expires_at, and quote a current executable book for the actual stake. The submitted order price must remain within the limit; fills may be lower. Fees are separate, and this grant does not guarantee liquidity, execution or positive expected value.
 type PotdEntryAuthorization struct {
 	AuthorizationId openapi_types.UUID `json:"authorization_id"`
 
@@ -11611,25 +12102,29 @@ type PotdEntryAuthorization struct {
 	Category    string `json:"category"`
 	ConditionId string `json:"condition_id"`
 
-	// ExpiresAt Authorization expiry. An expired authorization cannot authorize a new automated entry.
+	// ExpiresAt Original authorization expiry at the earlier requested or provider kickoff; never extended. An expired authorization cannot authorize a new automated entry.
 	ExpiresAt time.Time `json:"expires_at"`
 	IssuedAt  time.Time `json:"issued_at"`
 
-	// MaxEntryPrice Returned maximum entry price as an exact decimal string. Honor this bound; fees are excluded. This is not a fair probability.
-	MaxEntryPrice     string                              `json:"max_entry_price"`
-	OutcomeIndex      PotdEntryAuthorizationOutcomeIndex  `json:"outcome_index"`
-	PolicyVersion     PotdEntryAuthorizationPolicyVersion `json:"policy_version"`
-	ReferenceBestAsk  string                              `json:"reference_best_ask"`
-	ReferenceBookAt   time.Time                           `json:"reference_book_at"`
-	ReferenceBookHash string                              `json:"reference_book_hash"`
-	TokenId           string                              `json:"token_id"`
-	Version           PotdEntryAuthorizationVersion       `json:"version"`
+	// MaxEntryPrice Maximum authorized order price as an exact decimal string, excluding fees. Quote a current executable book for the actual stake and keep the submitted order price at or below this bound. Actual fills may be lower; this limit does not guarantee a fill or define fair probability.
+	MaxEntryPrice string                             `json:"max_entry_price"`
+	OutcomeIndex  PotdEntryAuthorizationOutcomeIndex `json:"outcome_index"`
+
+	// PolicyVersion Entry allowance policy, independent of selection or feed policy. Policy 8 issues new grants at the first reference ask plus 0.05, capped at 0.85 and floored to the provider tick. Policy 7 retains its original plus-0.02 grant. Existing grants never rise or extend.
+	PolicyVersion PotdEntryAuthorizationPolicyVersion `json:"policy_version"`
+
+	// ReferenceBestAsk Selected-token best ask at first issuance. The entry allowance uses this immutable reference, not the published pick price or a later quote.
+	ReferenceBestAsk  string                        `json:"reference_best_ask"`
+	ReferenceBookAt   time.Time                     `json:"reference_book_at"`
+	ReferenceBookHash string                        `json:"reference_book_hash"`
+	TokenId           string                        `json:"token_id"`
+	Version           PotdEntryAuthorizationVersion `json:"version"`
 }
 
 // PotdEntryAuthorizationOutcomeIndex defines model for PotdEntryAuthorization.OutcomeIndex.
 type PotdEntryAuthorizationOutcomeIndex int
 
-// PotdEntryAuthorizationPolicyVersion defines model for PotdEntryAuthorization.PolicyVersion.
+// PotdEntryAuthorizationPolicyVersion Entry allowance policy, independent of selection or feed policy. Policy 8 issues new grants at the first reference ask plus 0.05, capped at 0.85 and floored to the provider tick. Policy 7 retains its original plus-0.02 grant. Existing grants never rise or extend.
 type PotdEntryAuthorizationPolicyVersion int
 
 // PotdEntryAuthorizationVersion defines model for PotdEntryAuthorization.Version.
@@ -12186,7 +12681,7 @@ type ResponseMetaDirectionalSource string
 // ResponseMetaRankingSource Which ranking-data path produced this response. Only present on endpoints that can degrade a ranking (today: GET /api/v1/sports-edge-signals). "live" is the normal path (the current holder pile from the provider batch); "db_only" is the degraded fallback (a truthful but weaker trader_markets ranking) served when the live sharp-money ranking batch is unavailable (a sharp-money DB read failure, not a Polymarket outage) and cached on a shorter TTL, so a consumer can down-weight or skip it. Omitted on endpoints that never degrade.
 type ResponseMetaRankingSource string
 
-// ScheduledPickSlot One same-day pick that is selected but not yet released: its stable slot rank plus the backend-owned release and kickoff instants. Deliberately minimal -- no matchup, category, platform, side, price, or holder fields exist on this shape before release.
+// ScheduledPickSlot An entitled same-day pick selected but not yet released: stable rank and backend-owned release/kickoff instants. No matchup, category, platform, side, price, or holder fields appear before release. Unauthorized scheduled ranks appear only in locked_picks.
 type ScheduledPickSlot struct {
 	// IsFreeSelection Viewer-independent free selection designation. New rows store it explicitly; historic null storage uses the original free slot.
 	IsFreeSelection bool `json:"is_free_selection"`
@@ -12204,7 +12699,7 @@ type ScheduledPickSlot struct {
 	// PublicationOrder Compatibility release slot. No quality claim; historic scheduling order is retained.
 	PublicationOrder int `json:"publication_order"`
 
-	// ReleaseAt The slot's scheduled release instant, normally the current provider kickoff minus one hour. The actual publish can trail it by bounded worker delay.
+	// ReleaseAt The slot's stored release instant. Qualified automatic selections are due immediately; explicitly scheduled selections retain their stored time. The actual publication can follow final checks and worker delay.
 	ReleaseAt time.Time `json:"release_at"`
 
 	// SupersedesPickId Replacement predecessor stable id; null when no lineage is recorded.
@@ -12370,6 +12865,67 @@ type SuspiciousTrade struct {
 // SuspiciousTradeSeverity The live scorer persists one threshold class.
 type SuspiciousTradeSeverity string
 
+// TennisPoints Optional current-game tennis facts from API-Tennis, aligned with live_score.scores display order. These facts have their own revision and expiry; Polymarket remains the source of sets, match status, period, and the outer live-score revision. New observations require corroborated identity, current set/games, and live state. Cached responses and replayed frames may still carry expired facts, so clients must enforce expires_at.
+type TennisPoints struct {
+	// ExpiresAt Stop displaying the point group at this instant, even if the enclosing score remains fresh. The group expires 30 seconds after observed_at.
+	ExpiresAt time.Time `json:"expires_at"`
+
+	// Games Current-set games in first/second order. Display points only while these match the enclosing scoreboard.
+	Games []int `json:"games"`
+
+	// MatchKey API-Tennis match ID. This is not a Polymarket market or event ID.
+	MatchKey int `json:"match_key"`
+
+	// ObservedAt When 0xinsider observed these API-Tennis facts. This is not a timestamp from the court.
+	ObservedAt time.Time `json:"observed_at"`
+
+	// PlayerKeys API-Tennis player IDs in the same first/second order as live_score.scores. These are not Polymarket team IDs.
+	PlayerKeys []int `json:"player_keys"`
+
+	// Points Current-game point values in first/second order. Read strings, including A for advantage and numeric tiebreak points. Missing points are not zero.
+	Points []string `json:"points"`
+
+	// ServingSide The serving player in live_score.scores display order. Omitted when API-Tennis does not identify the server.
+	ServingSide *TennisPointsServingSide `json:"serving_side,omitempty"`
+
+	// SetNumber Current set number. Display points only while this matches the enclosing scoreboard.
+	SetNumber int                `json:"set_number"`
+	Source    TennisPointsSource `json:"source"`
+
+	// SourceRevision Orders only the tennis_points group for the same match. Never compare this with live_score.source_revision.
+	SourceRevision int `json:"source_revision"`
+}
+
+// TennisPointsServingSide The serving player in live_score.scores display order. Omitted when API-Tennis does not identify the server.
+type TennisPointsServingSide string
+
+// TennisPointsSource defines model for TennisPoints.Source.
+type TennisPointsSource string
+
+// TennisRanking A provider-reported ATP/WTA singles rank with independent retrieval and expiry clocks. API-Tennis provides no ranking publication date. Retrieval time does not establish when the tour published the ranking.
+type TennisRanking struct {
+	// ExpiresAt UTC deadline after which clients must hide this rank, including when an older game or pick response remains cached.
+	ExpiresAt time.Time `json:"expires_at"`
+
+	// ObservedAt Successful snapshot retrieval time in UTC, not ranking publication date.
+	ObservedAt time.Time `json:"observed_at"`
+
+	// Rank Provider-reported singles rank.
+	Rank int `json:"rank"`
+
+	// Source The standings provider.
+	Source TennisRankingSource `json:"source"`
+
+	// Tour The player ranking tour.
+	Tour TennisRankingTour `json:"tour"`
+}
+
+// TennisRankingSource The standings provider.
+type TennisRankingSource string
+
+// TennisRankingTour The player ranking tour.
+type TennisRankingTour string
+
 // Trader defines model for Trader.
 type Trader struct {
 	Address string `json:"address"`
@@ -12455,9 +13011,11 @@ type Trader struct {
 		WinRate     *float32 `json:"win_rate,omitempty"`
 	} `json:"stats"`
 	Strategy *struct {
-		Confidence   *float32 `json:"confidence,omitempty"`
-		Description  *string  `json:"description,omitempty"`
-		StrategyType *string  `json:"strategy_type,omitempty"`
+		Confidence  *float32 `json:"confidence,omitempty"`
+		Description *string  `json:"description,omitempty"`
+
+		// StrategyType Observed trading style identifier. New rows use two_sided, category_focused, high_activity, diversified, mixed, or unclassified. Historical identifiers remain readable during normal reclassification; style does not predict skill or intent.
+		StrategyType *string `json:"strategy_type,omitempty"`
 	} `json:"strategy,omitempty"`
 
 	// StreakTier Hot-streak tier (trailing-7d cross-sectional percentile); a separate axis from the all-time grade. Omitted when there is no recent activity.
@@ -13190,7 +13748,7 @@ type Usage struct {
 			WindowSeconds int  `json:"window_seconds"`
 		} `json:"daily_usage"`
 
-		// MonthlyQuota The monthly request quota (#16111): where the account stands against the requests Pro includes per UTC calendar month. Reading it here spends nothing. null only when the month's count could not be read for this response.
+		// MonthlyQuota The monthly request quota (#16111): where the account stands against the requests the current Pro or Max plan includes per UTC calendar month. Reading it here spends nothing. null only when the month's count could not be read for this response.
 		MonthlyQuota *struct {
 			// Binding Whether requests over this account's ceiling are refused right now: false before enforced_from and for an admin account.
 			Binding bool `json:"binding"`
@@ -13211,6 +13769,9 @@ type Usage struct {
 			// ResetAt Unix seconds: the first instant of the next UTC calendar month.
 			ResetAt int `json:"reset_at"`
 
+			// UnavailableReason A historical usage price has not been reconciled to this plan allowance. Pay as you go remains unavailable until billing reconciliation.
+			UnavailableReason *UsageDataMonthlyQuotaUnavailableReason `json:"unavailable_reason,omitempty"`
+
 			// Used Admitted requests so far this UTC calendar month.
 			Used int `json:"used"`
 		} `json:"monthly_quota"`
@@ -13225,6 +13786,9 @@ type Usage struct {
 	Meta   ResponseMeta `json:"meta"`
 	Object UsageObject  `json:"object"`
 }
+
+// UsageDataMonthlyQuotaUnavailableReason A historical usage price has not been reconciled to this plan allowance. Pay as you go remains unavailable until billing reconciliation.
+type UsageDataMonthlyQuotaUnavailableReason string
 
 // UsageObject defines model for Usage.Object.
 type UsageObject string
@@ -13363,6 +13927,49 @@ type WebhookVerification struct {
 	// Token One-time verification token returned only on create or URL change. Pass it to POST /api/v1/webhooks/{id}/verify, which activates the endpoint only when the destination also answers the signed webhook.verification challenge with a 2xx.
 	Token string `json:"token"`
 }
+
+// WebhookVerificationAttempt defines model for WebhookVerificationAttempt.
+type WebhookVerificationAttempt struct {
+	AttemptCount int       `json:"attempt_count"`
+	CompletedAt  time.Time `json:"completed_at"`
+	CreatedAt    time.Time `json:"created_at"`
+
+	// ExpiresAt Earlier of the verification-token deadline and 15 minutes after admission. Activation is forbidden at or after this instant.
+	ExpiresAt time.Time          `json:"expires_at"`
+	Id        openapi_types.UUID `json:"id"`
+
+	// LastResponseStatus Actual receiver HTTP status, when one arrived. No receiver response body or resolved address is returned.
+	LastResponseStatus int                                   `json:"last_response_status"`
+	MaxAttempts        WebhookVerificationAttemptMaxAttempts `json:"max_attempts"`
+
+	// NextAttemptAt Scheduled retry/admission time while queued; null while running or terminal.
+	NextAttemptAt time.Time                        `json:"next_attempt_at"`
+	Object        WebhookVerificationAttemptObject `json:"object"`
+
+	// Outcome Sanitized last observation. Null before an observation; queued retries may retain their previous failure outcome.
+	Outcome   WebhookVerificationAttemptOutcome `json:"outcome"`
+	StartedAt time.Time                         `json:"started_at"`
+
+	// State queued/running are pending consent. verified means the same endpoint revision answered 2xx and activated atomically. failed/cancelled/expired are terminal and do not restart on polling or replay.
+	State WebhookVerificationAttemptState `json:"state"`
+
+	// StatusUrl Relative authorized API path for this attempt. Uses the same bearer credential as admission.
+	StatusUrl string    `json:"status_url"`
+	UpdatedAt time.Time `json:"updated_at"`
+	WebhookId int64     `json:"webhook_id"`
+}
+
+// WebhookVerificationAttemptMaxAttempts defines model for WebhookVerificationAttempt.MaxAttempts.
+type WebhookVerificationAttemptMaxAttempts int
+
+// WebhookVerificationAttemptObject defines model for WebhookVerificationAttempt.Object.
+type WebhookVerificationAttemptObject string
+
+// WebhookVerificationAttemptOutcome Sanitized last observation. Null before an observation; queued retries may retain their previous failure outcome.
+type WebhookVerificationAttemptOutcome string
+
+// WebhookVerificationAttemptState queued/running are pending consent. verified means the same endpoint revision answered 2xx and activated atomically. failed/cancelled/expired are terminal and do not restart on polling or replay.
+type WebhookVerificationAttemptState string
 
 // WhaleDatasetArtifactManifest defines model for WhaleDatasetArtifactManifest.
 type WhaleDatasetArtifactManifest struct {
@@ -13984,7 +14591,7 @@ type ListLeaderboardParams struct {
 	// Category Filter by category. Values are matched to canonical category buckets: political variants (Elections, Global Politics, U.S. Politics, ...) fold into Politics, Geopolitics stays distinct, Culture/Entertainment map to Pop Culture, Science maps to Science & Tech, and Finance/Business map to Stocks. Mapped buckets are case-insensitive; passthrough categories (Crypto, NBA, and the sports leagues) match case-sensitively against the provider-native bucket key, so use exact casing (e.g. Crypto, NBA).
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Strategy Filter by ML-detected strategy type. Values come from backend/crates/analytics/src/trader_analysis/classification/decision_tree.rs and are matched exactly against ml_trader_category.primary_type. Values outside the declared enum return HTTP 400.
+	// Strategy Filter by observed trading style. Current styles: two_sided, category_focused, high_activity, diversified, mixed, unclassified. The original ten archetype identifiers remain accepted for historical rows until normal reclassification. Style describes recorded behavior; grade measures performance.
 	Strategy *ListLeaderboardParamsStrategy `form:"strategy,omitempty" json:"strategy,omitempty"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -14095,7 +14702,7 @@ type GetMarketHoldersParams struct {
 	// Limit Maximum holders per page. Out-of-range values are clamped to 1..100.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// Cursor Opaque pagination cursor from the previous response's next_cursor. It encodes a page of one shared roster, so it stays valid across the roster's refresh, but a page read after a refresh can repeat or skip a holder.
+	// Cursor Opaque pagination cursor from the previous response's next_cursor. New cursors carry an absolute next offset bound to normalized condition_id, outcome and effective min_grade, so limit can change without skipping or repeating rows on the same roster. Different market/filter bindings return 400 bad_request with param=cursor; omitted filters match all/B and mkt_-prefixed IDs match their raw condition_id. Legacy page-only cursors remain accepted without scheduled retirement and require their original limit; their next response emits the new format. A cursor remains valid across roster refreshes, which can still repeat or skip holders as the live roster changes.
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -14489,6 +15096,11 @@ type GetPickOfTheDayParams struct {
 
 // GetPickOfTheDayParamsXQueryValidation defines parameters for GetPickOfTheDay.
 type GetPickOfTheDayParamsXQueryValidation string
+
+// GetPickOfTheDay200JSONResponseBody_Data defines parameters for GetPickOfTheDay.
+type GetPickOfTheDay200JSONResponseBody_Data struct {
+	union json.RawMessage
+}
 
 // GetPickOfTheDay200JSONResponseBodyObject defines parameters for GetPickOfTheDay.
 type GetPickOfTheDay200JSONResponseBodyObject string
@@ -15297,6 +15909,33 @@ type RetireWebhookSecretParams struct {
 // RetireWebhookSecret200JSONResponseBodyObject defines parameters for RetireWebhookSecret.
 type RetireWebhookSecret200JSONResponseBodyObject string
 
+// CreateWebhookVerificationAttemptParams defines parameters for CreateWebhookVerificationAttempt.
+type CreateWebhookVerificationAttemptParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
+	XQueryValidation *CreateWebhookVerificationAttemptParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
+	// IdempotencyKey Optional safe-retry key. Reuse the same value only when retrying the exact same mutation request body; a different body returns 422 and an in-flight matching request returns 409.
+	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
+}
+
+// CreateWebhookVerificationAttemptParamsXQueryValidation defines parameters for CreateWebhookVerificationAttempt.
+type CreateWebhookVerificationAttemptParamsXQueryValidation string
+
+// CreateWebhookVerificationAttempt202JSONResponseBodyObject defines parameters for CreateWebhookVerificationAttempt.
+type CreateWebhookVerificationAttempt202JSONResponseBodyObject string
+
+// GetWebhookVerificationAttemptParams defines parameters for GetWebhookVerificationAttempt.
+type GetWebhookVerificationAttemptParams struct {
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
+	XQueryValidation *GetWebhookVerificationAttemptParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+}
+
+// GetWebhookVerificationAttemptParamsXQueryValidation defines parameters for GetWebhookVerificationAttempt.
+type GetWebhookVerificationAttemptParamsXQueryValidation string
+
+// GetWebhookVerificationAttempt200JSONResponseBodyObject defines parameters for GetWebhookVerificationAttempt.
+type GetWebhookVerificationAttempt200JSONResponseBodyObject string
+
 // VerifyWebhookParams defines parameters for VerifyWebhook.
 type VerifyWebhookParams struct {
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -15481,6 +16120,9 @@ type CreateWebhookJSONRequestBody = CreateWebhookRequest
 
 // UpdateWebhookJSONRequestBody defines body for UpdateWebhook for application/json ContentType.
 type UpdateWebhookJSONRequestBody = UpdateWebhookRequest
+
+// CreateWebhookVerificationAttemptJSONRequestBody defines body for CreateWebhookVerificationAttempt for application/json ContentType.
+type CreateWebhookVerificationAttemptJSONRequestBody = CreateWebhookVerificationAttemptRequest
 
 // VerifyWebhookJSONRequestBody defines body for VerifyWebhook for application/json ContentType.
 type VerifyWebhookJSONRequestBody = VerifyWebhookRequest
@@ -16366,6 +17008,68 @@ func (t *CreateMcpJsonRpcResponse200JSONResponseBody_Id) UnmarshalJSON(b []byte)
 	return err
 }
 
+// AsPickOfTheDay returns the union data inside the GetPickOfTheDay200JSONResponseBody_Data as a PickOfTheDay
+func (t GetPickOfTheDay200JSONResponseBody_Data) AsPickOfTheDay() (PickOfTheDay, error) {
+	var body PickOfTheDay
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPickOfTheDay overwrites any union data inside the GetPickOfTheDay200JSONResponseBody_Data as the provided PickOfTheDay
+func (t *GetPickOfTheDay200JSONResponseBody_Data) FromPickOfTheDay(v PickOfTheDay) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePickOfTheDay performs a merge with any union data inside the GetPickOfTheDay200JSONResponseBody_Data, using the provided PickOfTheDay
+func (t *GetPickOfTheDay200JSONResponseBody_Data) MergePickOfTheDay(v PickOfTheDay) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPickOfTheDayNoEntitledPicks returns the union data inside the GetPickOfTheDay200JSONResponseBody_Data as a PickOfTheDayNoEntitledPicks
+func (t GetPickOfTheDay200JSONResponseBody_Data) AsPickOfTheDayNoEntitledPicks() (PickOfTheDayNoEntitledPicks, error) {
+	var body PickOfTheDayNoEntitledPicks
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPickOfTheDayNoEntitledPicks overwrites any union data inside the GetPickOfTheDay200JSONResponseBody_Data as the provided PickOfTheDayNoEntitledPicks
+func (t *GetPickOfTheDay200JSONResponseBody_Data) FromPickOfTheDayNoEntitledPicks(v PickOfTheDayNoEntitledPicks) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePickOfTheDayNoEntitledPicks performs a merge with any union data inside the GetPickOfTheDay200JSONResponseBody_Data, using the provided PickOfTheDayNoEntitledPicks
+func (t *GetPickOfTheDay200JSONResponseBody_Data) MergePickOfTheDayNoEntitledPicks(v PickOfTheDayNoEntitledPicks) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t GetPickOfTheDay200JSONResponseBody_Data) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *GetPickOfTheDay200JSONResponseBody_Data) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // RequestEditorFn is the function signature for the RequestEditor callback function
 type RequestEditorFn func(ctx context.Context, req *http.Request) error
 
@@ -16764,28 +17468,28 @@ type ClientInterface interface {
 
 	// GetPickOfTheDay Get today's Pick of the Day
 	//
-	// Returns published picks for the current product day. Pro tier.
+	// Returns entitled published picks for the current product day. Pro includes five selections in total: the designated free selection and the first four non-free selections in publication order. Max opens every available selection, up to fifteen. A day may contain up to two verified compatible selections per game: a team's full-game moneyline and handicap. Each selection retains its individual requirements. Same-game picks share exposure and need not be independent; retain each `pick_id` instead of deduplicating by game. Both read resolved picks. Publication prices and backing are frozen; a prior day never appears here, so use the archive.
 	//
-	// `picks` holds up to ten selections with the selected side, game context, frozen publication price, modeled stake and return, holder positions and grades, and execution permission when available. `publication_order` describes presentation, and `is_free_selection` describes access; neither is a quality rating.
+	// Stable `pick_id` values identify selections. `publication_order` describes presentation and `is_free_selection` describes access; neither is a quality rating. Standing selections retain their identity, slot, and release schedule. Later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
 	//
-	// New eligible selections use a neutral presentation order. Standing selections retain their identity, slot, and release schedule, and later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
+	// Unauthorized unresolved selections appear only as identity-free `locked_picks` containing `pick_rank` and `required_tier`. When only locked selections are published, HTTP 200 carries `state=none`, `picks=[]`, `pick_count=0`, and an Upgrade to Max message. Proof warming applies only to entitled picks.
 	//
-	// `scheduled_picks` contains selected but unreleased slots with `pick_rank`, `release_at`, and `kickoff`. A prior day's pick never appears here; use the archive for past results.
+	// `scheduled_picks` contains only entitled slots and retains required `release_at` and `kickoff`. Unauthorized scheduled selections expose no game identity or release time.
 	//
-	// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling.
+	// When no pick is published, HTTP 404 carries `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling. This advisory retry does not reveal an unauthorized game's release time.
+	//
+	// Final sporting scores are retained for resolved picks after the event is confirmed ended and both sides have verified scores. A result without a verified final stays unavailable; a win/loss outcome alone does not establish a sporting score. Existing sports_context fields and return calculations are unchanged.
 	//
 	// Corresponds with GET /api/v1/pick-of-the-day (the `GetPickOfTheDay` operationId).
 	GetPickOfTheDay(ctx context.Context, params *GetPickOfTheDayParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetPickOfTheDayArchive Get the Pick of the Day track record
 	//
-	// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and the cumulative record.
+	// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and cumulative record. Resolved game details and results are public. For unauthorized unresolved selections, game identity, category, image, publication time, and backed facts are omitted; `required_tier` and `backed_side_locked` provide an upgrade action. Pro includes the designated free selection and the first four non-free selections in publication order, five in total. Max opens every available selection, up to fifteen.
 	//
-	// Resolved picks are public. A pending pick's selected side appears only for an authenticated Pro key.
+	// Stable `pick_id` values identify selections. Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
 	//
-	// Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation, and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
-	//
-	// Each row carries a CLV value or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
+	// Each row carries measured CLV or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
 	//
 	// Corresponds with GET /api/v1/pick-of-the-day/archive (the `GetPickOfTheDayArchive` operationId).
 	GetPickOfTheDayArchive(ctx context.Context, params *GetPickOfTheDayArchiveParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16794,11 +17498,11 @@ type ClientInterface interface {
 	//
 	// Returns the pre-game commitment for every published pick, so the public track record can be checked by someone who was not watching when the pick dropped.
 	//
-	// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant and the kickoff, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
+	// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
 	//
 	// To verify an opened entry: serialize nothing. Take the bytes of the `payload` object exactly as received, append the `commitment_nonce` decoded from hex, and sha256 the result; it equals `commitment_hash`. The payload is canonical JSON -- keys sorted by UTF-8 byte value, no insignificant whitespace, decimals as strings at full stored precision, timestamps whole-second UTC with a literal Z -- and it is served byte for byte as it was hashed.
 	//
-	// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
+	// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. Unresolved ledger entries omit game identity and kickoff; sealed_at remains public commitment provenance. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
 	//
 	// Corresponds with GET /api/v1/pick-of-the-day/ledger (the `GetPickOfTheDayLedger` operationId).
 	GetPickOfTheDayLedger(ctx context.Context, params *GetPickOfTheDayLedgerParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16888,7 +17592,7 @@ type ClientInterface interface {
 
 	// GetStream Resumable real-time event stream (SSE)
 	//
-	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes.
+	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. LiveScoreChanged frames may include optional live_score.tennis_points from API-Tennis in scoreboard order. This group has independent source_revision, observed_at, expires_at, set_number, and games; serving_side is omitted when unknown. Discard the group at expiry or set/game mismatch, and never compare its revision with the enclosing Polymarket score revision. Use event=LiveScoreChanged without market, wallet, grade, or size filters to receive these frames, which carry event_slug rather than condition_id. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes. Compatible unexpired tennis_points survives temporary supplemental snapshot unavailability or contention; expiry and set/game mismatch still clear it.
 	//
 	// Corresponds with GET /api/v1/stream (the `GetStream` operationId).
 	GetStream(ctx context.Context, params *GetStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16965,7 +17669,7 @@ type ClientInterface interface {
 
 	// GetTraderExportStatus Poll a trader export job
 	//
-	// Returns the job resource for a submitted export: status (queued | running | cancel_requested | reconcile_required | ready | failed | expired | cancelled), terminal, next_action and poll_after_s, the lifecycle timestamps, the retention window (expires_at) and, once the file is written, data_as_of and the artifact identity. A ready job past expires_at reads expired; a queued or reconciling job past expires_at reads failed. A running job its owner cancelled reads cancel_requested until the worker stops, then cancelled. failed, cancelled and expired jobs stay readable for 48 hours, then 404.
+	// Returns the job resource for a submitted export: status (queued | running | cancel_requested | reconcile_required | ready | failed | expired | cancelled), terminal, next_action and poll_after_s, the lifecycle timestamps, the retention window (expires_at) and, once the file is written, data_as_of and the artifact identity. A ready job past expires_at reads expired; a queued, running or reconciling job past expires_at reads failed. Work stops at retention safe points; completion and reconciliation cannot publish ready after expiry. The failure event carries failure_reason expired_before_completion and next_action resubmit; delivery never extends retention. A running job its owner cancelled reads cancel_requested until the worker stops, then cancelled. failed, cancelled and expired jobs stay readable for 48 hours, then 404.
 	//
 	// Corresponds with GET /api/v1/trader/{address}/export/status (the `GetTraderExportStatus` operationId).
 	GetTraderExportStatus(ctx context.Context, address string, params *GetTraderExportStatusParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -17018,7 +17722,7 @@ type ClientInterface interface {
 
 	// GetUsage Inspect current API usage without spending primary request quota
 	//
-	// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
+	// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error. Late accounting records retain their original UTC day when closed-period usage is read or the monthly budget is rebuilt. Current periods reflect persisted records and remain provisional; quota limits, prices and response fields are unchanged.
 	//
 	// Corresponds with GET /api/v1/usage (the `GetUsage` operationId).
 	GetUsage(ctx context.Context, params *GetUsageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -17128,6 +17832,31 @@ type ClientInterface interface {
 	//
 	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/retire (the `RetireWebhookSecret` operationId).
 	RetireWebhookSecret(ctx context.Context, id int64, params *RetireWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWebhookVerificationAttemptWithBody Admit asynchronous webhook verification
+	//
+	// Additive asynchronous consent flow; the legacy POST /verify keeps its synchronous 200/422 behavior and retry policy. Commits one durable attempt and returns 202 without awaiting DNS or the receiver. Send the original verification_token. Optional Idempotency-Key replays the original admission response for the same endpoint/token identity; a changed request returns 422 and an in-flight matching key returns 409. Different keys for the same token revision recover the same attempt, including terminal attempts, without new receiver work. Poll status_url for current state; 202 is admission, not activation. A supervised worker sends the existing signed webhook.verification body with an additional verification_attempt_id and x-0xinsider-verification-attempt header, stable across at-least-once retries. Verify the timestamp/raw-body HMAC and answer 2xx. DNS is public-address-pinned; redirects and proxies are refused and response bodies are not read. Timeout/transport/429/5xx failures retry at most 4 attempts, with 5/15/45-second waits, until the earlier token deadline or 15-minute horizon. Other receiver statuses and URL/security refusals are terminal. Activation requires current owner eligibility, endpoint/token/URL/signing identity, unexpired attempt/token and valid lease. Configuration changes or disable/delete cancel obsolete work. Terminal ciphertext is erased; status exposes no token, signing secret, address or receiver body. History is available for 7 days.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/verification-attempts (the `CreateWebhookVerificationAttempt` operationId).
+	CreateWebhookVerificationAttemptWithBody(ctx context.Context, id int64, params *CreateWebhookVerificationAttemptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWebhookVerificationAttempt Admit asynchronous webhook verification
+	//
+	// Additive asynchronous consent flow; the legacy POST /verify keeps its synchronous 200/422 behavior and retry policy. Commits one durable attempt and returns 202 without awaiting DNS or the receiver. Send the original verification_token. Optional Idempotency-Key replays the original admission response for the same endpoint/token identity; a changed request returns 422 and an in-flight matching key returns 409. Different keys for the same token revision recover the same attempt, including terminal attempts, without new receiver work. Poll status_url for current state; 202 is admission, not activation. A supervised worker sends the existing signed webhook.verification body with an additional verification_attempt_id and x-0xinsider-verification-attempt header, stable across at-least-once retries. Verify the timestamp/raw-body HMAC and answer 2xx. DNS is public-address-pinned; redirects and proxies are refused and response bodies are not read. Timeout/transport/429/5xx failures retry at most 4 attempts, with 5/15/45-second waits, until the earlier token deadline or 15-minute horizon. Other receiver statuses and URL/security refusals are terminal. Activation requires current owner eligibility, endpoint/token/URL/signing identity, unexpired attempt/token and valid lease. Configuration changes or disable/delete cancel obsolete work. Terminal ciphertext is erased; status exposes no token, signing secret, address or receiver body. History is available for 7 days.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/verification-attempts (the `CreateWebhookVerificationAttempt` operationId).
+	CreateWebhookVerificationAttempt(ctx context.Context, id int64, params *CreateWebhookVerificationAttemptParams, body CreateWebhookVerificationAttemptJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWebhookVerificationAttempt Read webhook verification attempt status
+	//
+	// Fresh primary-database status for one attempt owned by the authenticated account and webhook. queued/running means consent is pending; only verified activates the unchanged endpoint after receiver 2xx. failed/cancelled/expired are terminal. Polling never issues a challenge or restarts work. At expiry the read reports expired immediately, even before the worker persists expiry. A missing, deleted or cross-owner endpoint/attempt returns 404. Outcomes and actual HTTP status are sanitized; no token, ciphertext, signing secret, destination address or receiver response body is returned. Terminal history is retained for 7 days.
+	//
+	// Corresponds with GET /api/v1/webhooks/{id}/verification-attempts/{attempt_id} (the `GetWebhookVerificationAttempt` operationId).
+	GetWebhookVerificationAttempt(ctx context.Context, id int64, attemptId openapi_types.UUID, params *GetWebhookVerificationAttemptParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// VerifyWebhookWithBody Verify a builder webhook destination
 	//
@@ -17931,15 +18660,17 @@ func (c *Client) RedirectApiOpenapiSpec(ctx context.Context, params *RedirectApi
 
 // GetPickOfTheDay Get today's Pick of the Day
 //
-// Returns published picks for the current product day. Pro tier.
+// Returns entitled published picks for the current product day. Pro includes five selections in total: the designated free selection and the first four non-free selections in publication order. Max opens every available selection, up to fifteen. A day may contain up to two verified compatible selections per game: a team's full-game moneyline and handicap. Each selection retains its individual requirements. Same-game picks share exposure and need not be independent; retain each `pick_id` instead of deduplicating by game. Both read resolved picks. Publication prices and backing are frozen; a prior day never appears here, so use the archive.
 //
-// `picks` holds up to ten selections with the selected side, game context, frozen publication price, modeled stake and return, holder positions and grades, and execution permission when available. `publication_order` describes presentation, and `is_free_selection` describes access; neither is a quality rating.
+// Stable `pick_id` values identify selections. `publication_order` describes presentation and `is_free_selection` describes access; neither is a quality rating. Standing selections retain their identity, slot, and release schedule. Later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
 //
-// New eligible selections use a neutral presentation order. Standing selections retain their identity, slot, and release schedule, and later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
+// Unauthorized unresolved selections appear only as identity-free `locked_picks` containing `pick_rank` and `required_tier`. When only locked selections are published, HTTP 200 carries `state=none`, `picks=[]`, `pick_count=0`, and an Upgrade to Max message. Proof warming applies only to entitled picks.
 //
-// `scheduled_picks` contains selected but unreleased slots with `pick_rank`, `release_at`, and `kickoff`. A prior day's pick never appears here; use the archive for past results.
+// `scheduled_picks` contains only entitled slots and retains required `release_at` and `kickoff`. Unauthorized scheduled selections expose no game identity or release time.
 //
-// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling.
+// When no pick is published, HTTP 404 carries `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling. This advisory retry does not reveal an unauthorized game's release time.
+//
+// Final sporting scores are retained for resolved picks after the event is confirmed ended and both sides have verified scores. A result without a verified final stays unavailable; a win/loss outcome alone does not establish a sporting score. Existing sports_context fields and return calculations are unchanged.
 //
 // Corresponds with GET /api/v1/pick-of-the-day (the `GetPickOfTheDay` operationId).
 func (c *Client) GetPickOfTheDay(ctx context.Context, params *GetPickOfTheDayParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -17956,13 +18687,11 @@ func (c *Client) GetPickOfTheDay(ctx context.Context, params *GetPickOfTheDayPar
 
 // GetPickOfTheDayArchive Get the Pick of the Day track record
 //
-// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and the cumulative record.
+// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and cumulative record. Resolved game details and results are public. For unauthorized unresolved selections, game identity, category, image, publication time, and backed facts are omitted; `required_tier` and `backed_side_locked` provide an upgrade action. Pro includes the designated free selection and the first four non-free selections in publication order, five in total. Max opens every available selection, up to fifteen.
 //
-// Resolved picks are public. A pending pick's selected side appears only for an authenticated Pro key.
+// Stable `pick_id` values identify selections. Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
 //
-// Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation, and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
-//
-// Each row carries a CLV value or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
+// Each row carries measured CLV or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
 //
 // Corresponds with GET /api/v1/pick-of-the-day/archive (the `GetPickOfTheDayArchive` operationId).
 func (c *Client) GetPickOfTheDayArchive(ctx context.Context, params *GetPickOfTheDayArchiveParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -17981,11 +18710,11 @@ func (c *Client) GetPickOfTheDayArchive(ctx context.Context, params *GetPickOfTh
 //
 // Returns the pre-game commitment for every published pick, so the public track record can be checked by someone who was not watching when the pick dropped.
 //
-// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant and the kickoff, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
+// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
 //
 // To verify an opened entry: serialize nothing. Take the bytes of the `payload` object exactly as received, append the `commitment_nonce` decoded from hex, and sha256 the result; it equals `commitment_hash`. The payload is canonical JSON -- keys sorted by UTF-8 byte value, no insignificant whitespace, decimals as strings at full stored precision, timestamps whole-second UTC with a literal Z -- and it is served byte for byte as it was hashed.
 //
-// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
+// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. Unresolved ledger entries omit game identity and kickoff; sealed_at remains public commitment provenance. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
 //
 // Corresponds with GET /api/v1/pick-of-the-day/ledger (the `GetPickOfTheDayLedger` operationId).
 func (c *Client) GetPickOfTheDayLedger(ctx context.Context, params *GetPickOfTheDayLedgerParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18192,7 +18921,7 @@ func (c *Client) ListPreGameSides(ctx context.Context, params *ListPreGameSidesP
 
 // GetStream Resumable real-time event stream (SSE)
 //
-// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes.
+// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. LiveScoreChanged frames may include optional live_score.tennis_points from API-Tennis in scoreboard order. This group has independent source_revision, observed_at, expires_at, set_number, and games; serving_side is omitted when unknown. Discard the group at expiry or set/game mismatch, and never compare its revision with the enclosing Polymarket score revision. Use event=LiveScoreChanged without market, wallet, grade, or size filters to receive these frames, which carry event_slug rather than condition_id. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes. Compatible unexpired tennis_points survives temporary supplemental snapshot unavailability or contention; expiry and set/game mismatch still clear it.
 //
 // Corresponds with GET /api/v1/stream (the `GetStream` operationId).
 func (c *Client) GetStream(ctx context.Context, params *GetStreamParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18379,7 +19108,7 @@ func (c *Client) DownloadTraderExport(ctx context.Context, address string, param
 
 // GetTraderExportStatus Poll a trader export job
 //
-// Returns the job resource for a submitted export: status (queued | running | cancel_requested | reconcile_required | ready | failed | expired | cancelled), terminal, next_action and poll_after_s, the lifecycle timestamps, the retention window (expires_at) and, once the file is written, data_as_of and the artifact identity. A ready job past expires_at reads expired; a queued or reconciling job past expires_at reads failed. A running job its owner cancelled reads cancel_requested until the worker stops, then cancelled. failed, cancelled and expired jobs stay readable for 48 hours, then 404.
+// Returns the job resource for a submitted export: status (queued | running | cancel_requested | reconcile_required | ready | failed | expired | cancelled), terminal, next_action and poll_after_s, the lifecycle timestamps, the retention window (expires_at) and, once the file is written, data_as_of and the artifact identity. A ready job past expires_at reads expired; a queued, running or reconciling job past expires_at reads failed. Work stops at retention safe points; completion and reconciliation cannot publish ready after expiry. The failure event carries failure_reason expired_before_completion and next_action resubmit; delivery never extends retention. A running job its owner cancelled reads cancel_requested until the worker stops, then cancelled. failed, cancelled and expired jobs stay readable for 48 hours, then 404.
 //
 // Corresponds with GET /api/v1/trader/{address}/export/status (the `GetTraderExportStatus` operationId).
 func (c *Client) GetTraderExportStatus(ctx context.Context, address string, params *GetTraderExportStatusParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18502,7 +19231,7 @@ func (c *Client) GetPositionTimelineById(ctx context.Context, trader string, par
 
 // GetUsage Inspect current API usage without spending primary request quota
 //
-// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
+// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error. Late accounting records retain their original UTC day when closed-period usage is read or the monthly budget is rebuilt. Current periods reflect persisted records and remain provisional; quota limits, prices and response fields are unchanged.
 //
 // Corresponds with GET /api/v1/usage (the `GetUsage` operationId).
 func (c *Client) GetUsage(ctx context.Context, params *GetUsageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -18753,6 +19482,61 @@ func (c *Client) PrepareWebhookSecret(ctx context.Context, id int64, params *Pre
 // Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/retire (the `RetireWebhookSecret` operationId).
 func (c *Client) RetireWebhookSecret(ctx context.Context, id int64, params *RetireWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRetireWebhookSecretRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateWebhookVerificationAttemptWithBody Admit asynchronous webhook verification
+//
+// Additive asynchronous consent flow; the legacy POST /verify keeps its synchronous 200/422 behavior and retry policy. Commits one durable attempt and returns 202 without awaiting DNS or the receiver. Send the original verification_token. Optional Idempotency-Key replays the original admission response for the same endpoint/token identity; a changed request returns 422 and an in-flight matching key returns 409. Different keys for the same token revision recover the same attempt, including terminal attempts, without new receiver work. Poll status_url for current state; 202 is admission, not activation. A supervised worker sends the existing signed webhook.verification body with an additional verification_attempt_id and x-0xinsider-verification-attempt header, stable across at-least-once retries. Verify the timestamp/raw-body HMAC and answer 2xx. DNS is public-address-pinned; redirects and proxies are refused and response bodies are not read. Timeout/transport/429/5xx failures retry at most 4 attempts, with 5/15/45-second waits, until the earlier token deadline or 15-minute horizon. Other receiver statuses and URL/security refusals are terminal. Activation requires current owner eligibility, endpoint/token/URL/signing identity, unexpired attempt/token and valid lease. Configuration changes or disable/delete cancel obsolete work. Terminal ciphertext is erased; status exposes no token, signing secret, address or receiver body. History is available for 7 days.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /api/v1/webhooks/{id}/verification-attempts (the `CreateWebhookVerificationAttempt` operationId).
+func (c *Client) CreateWebhookVerificationAttemptWithBody(ctx context.Context, id int64, params *CreateWebhookVerificationAttemptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWebhookVerificationAttemptRequestWithBody(c.Server, id, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateWebhookVerificationAttempt Admit asynchronous webhook verification
+//
+// Additive asynchronous consent flow; the legacy POST /verify keeps its synchronous 200/422 behavior and retry policy. Commits one durable attempt and returns 202 without awaiting DNS or the receiver. Send the original verification_token. Optional Idempotency-Key replays the original admission response for the same endpoint/token identity; a changed request returns 422 and an in-flight matching key returns 409. Different keys for the same token revision recover the same attempt, including terminal attempts, without new receiver work. Poll status_url for current state; 202 is admission, not activation. A supervised worker sends the existing signed webhook.verification body with an additional verification_attempt_id and x-0xinsider-verification-attempt header, stable across at-least-once retries. Verify the timestamp/raw-body HMAC and answer 2xx. DNS is public-address-pinned; redirects and proxies are refused and response bodies are not read. Timeout/transport/429/5xx failures retry at most 4 attempts, with 5/15/45-second waits, until the earlier token deadline or 15-minute horizon. Other receiver statuses and URL/security refusals are terminal. Activation requires current owner eligibility, endpoint/token/URL/signing identity, unexpired attempt/token and valid lease. Configuration changes or disable/delete cancel obsolete work. Terminal ciphertext is erased; status exposes no token, signing secret, address or receiver body. History is available for 7 days.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /api/v1/webhooks/{id}/verification-attempts (the `CreateWebhookVerificationAttempt` operationId).
+func (c *Client) CreateWebhookVerificationAttempt(ctx context.Context, id int64, params *CreateWebhookVerificationAttemptParams, body CreateWebhookVerificationAttemptJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWebhookVerificationAttemptRequest(c.Server, id, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetWebhookVerificationAttempt Read webhook verification attempt status
+//
+// Fresh primary-database status for one attempt owned by the authenticated account and webhook. queued/running means consent is pending; only verified activates the unchanged endpoint after receiver 2xx. failed/cancelled/expired are terminal. Polling never issues a challenge or restarts work. At expiry the read reports expired immediately, even before the worker persists expiry. A missing, deleted or cross-owner endpoint/attempt returns 404. Outcomes and actual HTTP status are sanitized; no token, ciphertext, signing secret, destination address or receiver response body is returned. Terminal history is retained for 7 days.
+//
+// Corresponds with GET /api/v1/webhooks/{id}/verification-attempts/{attempt_id} (the `GetWebhookVerificationAttempt` operationId).
+func (c *Client) GetWebhookVerificationAttempt(ctx context.Context, id int64, attemptId openapi_types.UUID, params *GetWebhookVerificationAttemptParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWebhookVerificationAttemptRequest(c.Server, id, attemptId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -25638,6 +26422,135 @@ func NewRetireWebhookSecretRequest(server string, id int64, params *RetireWebhoo
 	return req, nil
 }
 
+// NewCreateWebhookVerificationAttemptRequest calls the generic CreateWebhookVerificationAttempt builder with application/json body
+func NewCreateWebhookVerificationAttemptRequest(server string, id int64, params *CreateWebhookVerificationAttemptParams, body CreateWebhookVerificationAttemptJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWebhookVerificationAttemptRequestWithBody(server, id, params, "application/json", bodyReader)
+}
+
+// NewCreateWebhookVerificationAttemptRequestWithBody constructs an http.Request for the CreateWebhookVerificationAttempt method, with any body, and a specified content type
+func NewCreateWebhookVerificationAttemptRequestWithBody(server string, id int64, params *CreateWebhookVerificationAttemptParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/webhooks/%s/verification-attempts", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWebhookVerificationAttemptRequest constructs an http.Request for the GetWebhookVerificationAttempt method
+func NewGetWebhookVerificationAttemptRequest(server string, id int64, attemptId openapi_types.UUID, params *GetWebhookVerificationAttemptParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: "int64"})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "attempt_id", attemptId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: "uuid"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/webhooks/%s/verification-attempts/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewVerifyWebhookRequest calls the generic VerifyWebhook builder with application/json body
 func NewVerifyWebhookRequest(server string, id int64, params *VerifyWebhookParams, body VerifyWebhookJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -26758,15 +27671,17 @@ type ClientWithResponsesInterface interface {
 
 	// GetPickOfTheDayWithResponse Get today's Pick of the Day
 	//
-	// Returns published picks for the current product day. Pro tier.
+	// Returns entitled published picks for the current product day. Pro includes five selections in total: the designated free selection and the first four non-free selections in publication order. Max opens every available selection, up to fifteen. A day may contain up to two verified compatible selections per game: a team's full-game moneyline and handicap. Each selection retains its individual requirements. Same-game picks share exposure and need not be independent; retain each `pick_id` instead of deduplicating by game. Both read resolved picks. Publication prices and backing are frozen; a prior day never appears here, so use the archive.
 	//
-	// `picks` holds up to ten selections with the selected side, game context, frozen publication price, modeled stake and return, holder positions and grades, and execution permission when available. `publication_order` describes presentation, and `is_free_selection` describes access; neither is a quality rating.
+	// Stable `pick_id` values identify selections. `publication_order` describes presentation and `is_free_selection` describes access; neither is a quality rating. Standing selections retain their identity, slot, and release schedule. Later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
 	//
-	// New eligible selections use a neutral presentation order. Standing selections retain their identity, slot, and release schedule, and later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
+	// Unauthorized unresolved selections appear only as identity-free `locked_picks` containing `pick_rank` and `required_tier`. When only locked selections are published, HTTP 200 carries `state=none`, `picks=[]`, `pick_count=0`, and an Upgrade to Max message. Proof warming applies only to entitled picks.
 	//
-	// `scheduled_picks` contains selected but unreleased slots with `pick_rank`, `release_at`, and `kickoff`. A prior day's pick never appears here; use the archive for past results.
+	// `scheduled_picks` contains only entitled slots and retains required `release_at` and `kickoff`. Unauthorized scheduled selections expose no game identity or release time.
 	//
-	// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling.
+	// When no pick is published, HTTP 404 carries `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling. This advisory retry does not reveal an unauthorized game's release time.
+	//
+	// Final sporting scores are retained for resolved picks after the event is confirmed ended and both sides have verified scores. A result without a verified final stays unavailable; a win/loss outcome alone does not establish a sporting score. Existing sports_context fields and return calculations are unchanged.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -26775,13 +27690,11 @@ type ClientWithResponsesInterface interface {
 
 	// GetPickOfTheDayArchiveWithResponse Get the Pick of the Day track record
 	//
-	// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and the cumulative record.
+	// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and cumulative record. Resolved game details and results are public. For unauthorized unresolved selections, game identity, category, image, publication time, and backed facts are omitted; `required_tier` and `backed_side_locked` provide an upgrade action. Pro includes the designated free selection and the first four non-free selections in publication order, five in total. Max opens every available selection, up to fifteen.
 	//
-	// Resolved picks are public. A pending pick's selected side appears only for an authenticated Pro key.
+	// Stable `pick_id` values identify selections. Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
 	//
-	// Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation, and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
-	//
-	// Each row carries a CLV value or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
+	// Each row carries measured CLV or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -26792,11 +27705,11 @@ type ClientWithResponsesInterface interface {
 	//
 	// Returns the pre-game commitment for every published pick, so the public track record can be checked by someone who was not watching when the pick dropped.
 	//
-	// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant and the kickoff, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
+	// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
 	//
 	// To verify an opened entry: serialize nothing. Take the bytes of the `payload` object exactly as received, append the `commitment_nonce` decoded from hex, and sha256 the result; it equals `commitment_hash`. The payload is canonical JSON -- keys sorted by UTF-8 byte value, no insignificant whitespace, decimals as strings at full stored precision, timestamps whole-second UTC with a literal Z -- and it is served byte for byte as it was hashed.
 	//
-	// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
+	// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. Unresolved ledger entries omit game identity and kickoff; sealed_at remains public commitment provenance. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -26910,7 +27823,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetStreamWithResponse Resumable real-time event stream (SSE)
 	//
-	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes.
+	// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. LiveScoreChanged frames may include optional live_score.tennis_points from API-Tennis in scoreboard order. This group has independent source_revision, observed_at, expires_at, set_number, and games; serving_side is omitted when unknown. Discard the group at expiry or set/game mismatch, and never compare its revision with the enclosing Polymarket score revision. Use event=LiveScoreChanged without market, wallet, grade, or size filters to receive these frames, which carry event_slug rather than condition_id. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes. Compatible unexpired tennis_points survives temporary supplemental snapshot unavailability or contention; expiry and set/game mismatch still clear it.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -27009,7 +27922,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetTraderExportStatusWithResponse Poll a trader export job
 	//
-	// Returns the job resource for a submitted export: status (queued | running | cancel_requested | reconcile_required | ready | failed | expired | cancelled), terminal, next_action and poll_after_s, the lifecycle timestamps, the retention window (expires_at) and, once the file is written, data_as_of and the artifact identity. A ready job past expires_at reads expired; a queued or reconciling job past expires_at reads failed. A running job its owner cancelled reads cancel_requested until the worker stops, then cancelled. failed, cancelled and expired jobs stay readable for 48 hours, then 404.
+	// Returns the job resource for a submitted export: status (queued | running | cancel_requested | reconcile_required | ready | failed | expired | cancelled), terminal, next_action and poll_after_s, the lifecycle timestamps, the retention window (expires_at) and, once the file is written, data_as_of and the artifact identity. A ready job past expires_at reads expired; a queued, running or reconciling job past expires_at reads failed. Work stops at retention safe points; completion and reconciliation cannot publish ready after expiry. The failure event carries failure_reason expired_before_completion and next_action resubmit; delivery never extends retention. A running job its owner cancelled reads cancel_requested until the worker stops, then cancelled. failed, cancelled and expired jobs stay readable for 48 hours, then 404.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -27072,7 +27985,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetUsageWithResponse Inspect current API usage without spending primary request quota
 	//
-	// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
+	// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error. Late accounting records retain their original UTC day when closed-period usage is read or the monthly budget is rebuilt. Current periods reflect persisted records and remain provisional; quota limits, prices and response fields are unchanged.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -27204,6 +28117,33 @@ type ClientWithResponsesInterface interface {
 	//
 	// Corresponds with POST /api/v1/webhooks/{id}/rotate-secret/retire (the `RetireWebhookSecret` operationId).
 	RetireWebhookSecretWithResponse(ctx context.Context, id int64, params *RetireWebhookSecretParams, reqEditors ...RequestEditorFn) (*RetireWebhookSecretResponse, error)
+
+	// CreateWebhookVerificationAttemptWithBodyWithResponse Admit asynchronous webhook verification
+	//
+	// Additive asynchronous consent flow; the legacy POST /verify keeps its synchronous 200/422 behavior and retry policy. Commits one durable attempt and returns 202 without awaiting DNS or the receiver. Send the original verification_token. Optional Idempotency-Key replays the original admission response for the same endpoint/token identity; a changed request returns 422 and an in-flight matching key returns 409. Different keys for the same token revision recover the same attempt, including terminal attempts, without new receiver work. Poll status_url for current state; 202 is admission, not activation. A supervised worker sends the existing signed webhook.verification body with an additional verification_attempt_id and x-0xinsider-verification-attempt header, stable across at-least-once retries. Verify the timestamp/raw-body HMAC and answer 2xx. DNS is public-address-pinned; redirects and proxies are refused and response bodies are not read. Timeout/transport/429/5xx failures retry at most 4 attempts, with 5/15/45-second waits, until the earlier token deadline or 15-minute horizon. Other receiver statuses and URL/security refusals are terminal. Activation requires current owner eligibility, endpoint/token/URL/signing identity, unexpired attempt/token and valid lease. Configuration changes or disable/delete cancel obsolete work. Terminal ciphertext is erased; status exposes no token, signing secret, address or receiver body. History is available for 7 days.
+	//
+	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/verification-attempts (the `CreateWebhookVerificationAttempt` operationId).
+	CreateWebhookVerificationAttemptWithBodyWithResponse(ctx context.Context, id int64, params *CreateWebhookVerificationAttemptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWebhookVerificationAttemptResponse, error)
+
+	// CreateWebhookVerificationAttemptWithResponse Admit asynchronous webhook verification
+	//
+	// Additive asynchronous consent flow; the legacy POST /verify keeps its synchronous 200/422 behavior and retry policy. Commits one durable attempt and returns 202 without awaiting DNS or the receiver. Send the original verification_token. Optional Idempotency-Key replays the original admission response for the same endpoint/token identity; a changed request returns 422 and an in-flight matching key returns 409. Different keys for the same token revision recover the same attempt, including terminal attempts, without new receiver work. Poll status_url for current state; 202 is admission, not activation. A supervised worker sends the existing signed webhook.verification body with an additional verification_attempt_id and x-0xinsider-verification-attempt header, stable across at-least-once retries. Verify the timestamp/raw-body HMAC and answer 2xx. DNS is public-address-pinned; redirects and proxies are refused and response bodies are not read. Timeout/transport/429/5xx failures retry at most 4 attempts, with 5/15/45-second waits, until the earlier token deadline or 15-minute horizon. Other receiver statuses and URL/security refusals are terminal. Activation requires current owner eligibility, endpoint/token/URL/signing identity, unexpired attempt/token and valid lease. Configuration changes or disable/delete cancel obsolete work. Terminal ciphertext is erased; status exposes no token, signing secret, address or receiver body. History is available for 7 days.
+	//
+	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /api/v1/webhooks/{id}/verification-attempts (the `CreateWebhookVerificationAttempt` operationId).
+	CreateWebhookVerificationAttemptWithResponse(ctx context.Context, id int64, params *CreateWebhookVerificationAttemptParams, body CreateWebhookVerificationAttemptJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWebhookVerificationAttemptResponse, error)
+
+	// GetWebhookVerificationAttemptWithResponse Read webhook verification attempt status
+	//
+	// Fresh primary-database status for one attempt owned by the authenticated account and webhook. queued/running means consent is pending; only verified activates the unchanged endpoint after receiver 2xx. failed/cancelled/expired are terminal. Polling never issues a challenge or restarts work. At expiry the read reports expired immediately, even before the worker persists expiry. A missing, deleted or cross-owner endpoint/attempt returns 404. Outcomes and actual HTTP status are sanitized; no token, ciphertext, signing secret, destination address or receiver response body is returned. Terminal history is retained for 7 days.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/webhooks/{id}/verification-attempts/{attempt_id} (the `GetWebhookVerificationAttempt` operationId).
+	GetWebhookVerificationAttemptWithResponse(ctx context.Context, id int64, attemptId openapi_types.UUID, params *GetWebhookVerificationAttemptParams, reqEditors ...RequestEditorFn) (*GetWebhookVerificationAttemptResponse, error)
 
 	// VerifyWebhookWithBodyWithResponse Verify a builder webhook destination
 	//
@@ -33340,7 +34280,7 @@ type GetPickOfTheDayResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *struct {
-		Data   PickOfTheDay                             `json:"data"`
+		Data   GetPickOfTheDay200JSONResponseBody_Data  `json:"data"`
 		Meta   ResponseMeta                             `json:"meta"`
 		Object GetPickOfTheDay200JSONResponseBodyObject `json:"object"`
 	}
@@ -33376,7 +34316,7 @@ type GetPickOfTheDayResponse struct {
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
 func (r GetPickOfTheDayResponse) GetJSON200() *struct {
-	Data   PickOfTheDay                             `json:"data"`
+	Data   GetPickOfTheDay200JSONResponseBody_Data  `json:"data"`
 	Meta   ResponseMeta                             `json:"meta"`
 	Object GetPickOfTheDay200JSONResponseBodyObject `json:"object"`
 } {
@@ -40427,6 +41367,364 @@ func (r RetireWebhookSecretResponse) ContentType() string {
 	return ""
 }
 
+// CreateWebhookVerificationAttemptResponse202Headers the declared response headers of an HTTP 202 response for CreateWebhookVerificationAttempt
+type CreateWebhookVerificationAttemptResponse202Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// CreateWebhookVerificationAttemptResponse429Headers the declared response headers of an HTTP 429 response for CreateWebhookVerificationAttempt
+type CreateWebhookVerificationAttemptResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// CreateWebhookVerificationAttemptResponse503Headers the declared response headers of an HTTP 503 response for CreateWebhookVerificationAttempt
+type CreateWebhookVerificationAttemptResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type CreateWebhookVerificationAttemptResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON202 the response for an HTTP 202 `application/json` response
+	JSON202 *struct {
+		Data   WebhookVerificationAttempt                                `json:"data"`
+		Meta   ResponseMeta                                              `json:"meta"`
+		Object CreateWebhookVerificationAttempt202JSONResponseBodyObject `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON409 the response for an HTTP 409 `application/json` response
+	JSON409 *ApiError
+	// JSON413 the response for an HTTP 413 `application/json` response
+	JSON413 *ApiError
+	// JSON415 the response for an HTTP 415 `application/json` response
+	JSON415 *ApiError
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers202 the parsed response headers for an HTTP 202 response
+	Headers202 *CreateWebhookVerificationAttemptResponse202Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *CreateWebhookVerificationAttemptResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *CreateWebhookVerificationAttemptResponse503Headers
+}
+
+// GetJSON202 returns the response for an HTTP 202 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON202() *struct {
+	Data   WebhookVerificationAttempt                                `json:"data"`
+	Meta   ResponseMeta                                              `json:"meta"`
+	Object CreateWebhookVerificationAttempt202JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON202
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON409 returns the response for an HTTP 409 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON409() *ApiError {
+	return r.JSON409
+}
+
+// GetJSON413 returns the response for an HTTP 413 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON413() *ApiError {
+	return r.JSON413
+}
+
+// GetJSON415 returns the response for an HTTP 415 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON415() *ApiError {
+	return r.JSON415
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON422() *ApiError {
+	return r.JSON422
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r CreateWebhookVerificationAttemptResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r CreateWebhookVerificationAttemptResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWebhookVerificationAttemptResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWebhookVerificationAttemptResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWebhookVerificationAttemptResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// GetWebhookVerificationAttemptResponse200Headers the declared response headers of an HTTP 200 response for GetWebhookVerificationAttempt
+type GetWebhookVerificationAttemptResponse200Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// GetWebhookVerificationAttemptResponse429Headers the declared response headers of an HTTP 429 response for GetWebhookVerificationAttempt
+type GetWebhookVerificationAttemptResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+// GetWebhookVerificationAttemptResponse503Headers the declared response headers of an HTTP 503 response for GetWebhookVerificationAttempt
+type GetWebhookVerificationAttemptResponse503Headers struct {
+	RetryAfter *int
+	XRequestId *string
+}
+
+type GetWebhookVerificationAttemptResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		Data   WebhookVerificationAttempt                             `json:"data"`
+		Meta   ResponseMeta                                           `json:"meta"`
+		Object GetWebhookVerificationAttempt200JSONResponseBodyObject `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON413 the response for an HTTP 413 `application/json` response
+	JSON413 *ApiError
+	// JSON415 the response for an HTTP 415 `application/json` response
+	JSON415 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *GetWebhookVerificationAttemptResponse200Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *GetWebhookVerificationAttemptResponse429Headers
+	// Headers503 the parsed response headers for an HTTP 503 response
+	Headers503 *GetWebhookVerificationAttemptResponse503Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON200() *struct {
+	Data   WebhookVerificationAttempt                             `json:"data"`
+	Meta   ResponseMeta                                           `json:"meta"`
+	Object GetWebhookVerificationAttempt200JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON413 returns the response for an HTTP 413 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON413() *ApiError {
+	return r.JSON413
+}
+
+// GetJSON415 returns the response for an HTTP 415 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON415() *ApiError {
+	return r.JSON415
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r GetWebhookVerificationAttemptResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r GetWebhookVerificationAttemptResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWebhookVerificationAttemptResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWebhookVerificationAttemptResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWebhookVerificationAttemptResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // VerifyWebhookResponse200Headers the declared response headers of an HTTP 200 response for VerifyWebhook
 type VerifyWebhookResponse200Headers struct {
 	RateLimitLimit      *int
@@ -42118,15 +43416,17 @@ func (c *ClientWithResponses) RedirectApiOpenapiSpecWithResponse(ctx context.Con
 
 // GetPickOfTheDayWithResponse Get today's Pick of the Day
 //
-// Returns published picks for the current product day. Pro tier.
+// Returns entitled published picks for the current product day. Pro includes five selections in total: the designated free selection and the first four non-free selections in publication order. Max opens every available selection, up to fifteen. A day may contain up to two verified compatible selections per game: a team's full-game moneyline and handicap. Each selection retains its individual requirements. Same-game picks share exposure and need not be independent; retain each `pick_id` instead of deduplicating by game. Both read resolved picks. Publication prices and backing are frozen; a prior day never appears here, so use the archive.
 //
-// `picks` holds up to ten selections with the selected side, game context, frozen publication price, modeled stake and return, holder positions and grades, and execution permission when available. `publication_order` describes presentation, and `is_free_selection` describes access; neither is a quality rating.
+// Stable `pick_id` values identify selections. `publication_order` describes presentation and `is_free_selection` describes access; neither is a quality rating. Standing selections retain their identity, slot, and release schedule. Later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
 //
-// New eligible selections use a neutral presentation order. Standing selections retain their identity, slot, and release schedule, and later additions fill available slots. Historical IDs, order, and proof bytes remain unchanged.
+// Unauthorized unresolved selections appear only as identity-free `locked_picks` containing `pick_rank` and `required_tier`. When only locked selections are published, HTTP 200 carries `state=none`, `picks=[]`, `pick_count=0`, and an Upgrade to Max message. Proof warming applies only to entitled picks.
 //
-// `scheduled_picks` contains selected but unreleased slots with `pick_rank`, `release_at`, and `kickoff`. A prior day's pick never appears here; use the archive for past results.
+// `scheduled_picks` contains only entitled slots and retains required `release_at` and `kickoff`. Unauthorized scheduled selections expose no game identity or release time.
 //
-// When no pick is published for the current product day, the endpoint returns `404` with `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling.
+// When no pick is published, HTTP 404 carries `error.code="not_found"` and `error.reason="pick_not_released"`. Branch on the reason and schedule one request using `Retry-After` or `error.retry_at` instead of polling. This advisory retry does not reveal an unauthorized game's release time.
+//
+// Final sporting scores are retained for resolved picks after the event is confirmed ended and both sides have verified scores. A result without a verified final stays unavailable; a win/loss outcome alone does not establish a sporting score. Existing sports_context fields and return calculations are unchanged.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -42141,13 +43441,11 @@ func (c *ClientWithResponses) GetPickOfTheDayWithResponse(ctx context.Context, p
 
 // GetPickOfTheDayArchiveWithResponse Get the Pick of the Day track record
 //
-// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and the cumulative record.
+// Returns every published pick with its outcome, modeled return, unit score, closing-line value, and cumulative record. Resolved game details and results are public. For unauthorized unresolved selections, game identity, category, image, publication time, and backed facts are omitted; `required_tier` and `backed_side_locked` provide an upgrade action. Pro includes the designated free selection and the first four non-free selections in publication order, five in total. Max opens every available selection, up to fifteen.
 //
-// Resolved picks are public. A pending pick's selected side appears only for an authenticated Pro key.
+// Stable `pick_id` values identify selections. Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
 //
-// Historical picks retain their original IDs, order, and proof bytes. `publication_order` describes presentation, and `is_free_selection` records access designation; neither is a quality rating. New selections use a neutral presentation order, while standing selections retain their identity, slot, and release schedule.
-//
-// Each row carries a CLV value or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
+// Each row carries measured CLV or the reason it was not measured. Coverage is the share of resolved picks published before kickoff that have measured CLV. A post-kickoff publication is `not_applicable`.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -42164,11 +43462,11 @@ func (c *ClientWithResponses) GetPickOfTheDayArchiveWithResponse(ctx context.Con
 //
 // Returns the pre-game commitment for every published pick, so the public track record can be checked by someone who was not watching when the pick dropped.
 //
-// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant and the kickoff, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
+// One entry per (pick_date, pick_rank), ascending by pick_date then pick_rank, in one of three states. `sealed` is a live pick: the hash, the algorithm, the seal instant, and nothing that states a side or a price. `opened` is a settled pick: the nonce and the exact canonical payload the hash was taken over. `uncommitted` is a pick with no commitment -- published before the scheme existed, or one that reached kickoff unsealed -- named rather than omitted.
 //
 // To verify an opened entry: serialize nothing. Take the bytes of the `payload` object exactly as received, append the `commitment_nonce` decoded from hex, and sha256 the result; it equals `commitment_hash`. The payload is canonical JSON -- keys sorted by UTF-8 byte value, no insignificant whitespace, decimals as strings at full stored precision, timestamps whole-second UTC with a literal Z -- and it is served byte for byte as it was hashed.
 //
-// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
+// This is a proof contract, not the archive's display contract: nothing here is formatted for rendering, so an entry changes only when the pick does. Unresolved ledger entries omit game identity and kickoff; sealed_at remains public commitment provenance. A commitment is never written after kickoff and never rewritten by an outcome correction; `resolved_at` moving under an unchanged `commitment_hash` is a corrected market re-mapping an already-settled pick.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -42354,7 +43652,7 @@ func (c *ClientWithResponses) ListPreGameSidesWithResponse(ctx context.Context, 
 
 // GetStreamWithResponse Resumable real-time event stream (SSE)
 //
-// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes.
+// Server-Sent Events stream of the live feed envelopes the platform already broadcasts (whale-trade pulses and other public/Pro feed events). Forwards the same backend-owned envelope shape as the internal feed; no provider data is recomputed. LiveScoreChanged frames may include optional live_score.tennis_points from API-Tennis in scoreboard order. This group has independent source_revision, observed_at, expires_at, set_number, and games; serving_side is omitted when unknown. Discard the group at expiry or set/game mismatch, and never compare its revision with the enclosing Polymarket score revision. Use event=LiveScoreChanged without market, wallet, grade, or size filters to receive these frames, which carry event_slug rather than condition_id. Authenticated via the oxi_sk Bearer key like every other /api/v1 endpoint, and limited to a small number of concurrent connections per API key and a cluster-wide ceiling across all keys (HTTP 429 with Retry-After when either cap is exceeded; HTTP 503 with Retry-After if a required Redis service is briefly unavailable). Each delivered frame carries an SSE id from one cluster-shared sequence that remains valid across backend replicas and process restarts. Reconnect with the Last-Event-ID header (or the last_event_id / seq query fallback) to replay the missed window before resuming live. When the requested resume point is older than the retained window, ahead of the current sequence, separated from live delivery by an uncovered gap, or the server's sequence counter restarts mid-stream (a completeness.status of truncated, lagged, or reset), the stream emits a resync marker event (event: resync) instead of silently skipping frames. Idle connections receive periodic ': keep-alive' comment lines. This is a long-lived response: keep the connection open and read frames as they arrive. Authorization is re-checked for as long as the stream is open: checks become due every 30 seconds and the credential cache has a 10-second TTL. Body polling and lookup I/O can delay terminal delivery. A key that is revoked, expired or rotated, or an account that is deleted, locked or no longer subscribed, ends the stream with one terminal 'event: error' frame and then closes the connection. The frame's JSON is { type: 'error', error: <the same error object a reconnect is answered with: code, message, doc_url, reason, retry_at>, retry: <boolean> }; retry is false for every credential and account refusal (a reconnect is refused with the same 401, 402, 403 or 423), and true only when the credential store stopped answering (code rate_limit_unavailable with reason database_unavailable when protected-delivery grace expires 90 seconds after the last confirmed check; terminal arrival depends on body polling), in which case reconnect after the error's retry_at with Last-Event-ID set to the frame's id to resume. Replay uses the same ongoing authorization as live delivery. When a paused response resumes, due authorization and terminal controls run before another protected replay frame is emitted; bytes already handed to HTTP cannot be recalled. A healthy response paused beyond the grace period must complete one fresh check before protected delivery resumes. Compatible unexpired tennis_points survives temporary supplemental snapshot unavailability or contention; expiry and set/game mismatch still clear it.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -42519,7 +43817,7 @@ func (c *ClientWithResponses) DownloadTraderExportWithResponse(ctx context.Conte
 
 // GetTraderExportStatusWithResponse Poll a trader export job
 //
-// Returns the job resource for a submitted export: status (queued | running | cancel_requested | reconcile_required | ready | failed | expired | cancelled), terminal, next_action and poll_after_s, the lifecycle timestamps, the retention window (expires_at) and, once the file is written, data_as_of and the artifact identity. A ready job past expires_at reads expired; a queued or reconciling job past expires_at reads failed. A running job its owner cancelled reads cancel_requested until the worker stops, then cancelled. failed, cancelled and expired jobs stay readable for 48 hours, then 404.
+// Returns the job resource for a submitted export: status (queued | running | cancel_requested | reconcile_required | ready | failed | expired | cancelled), terminal, next_action and poll_after_s, the lifecycle timestamps, the retention window (expires_at) and, once the file is written, data_as_of and the artifact identity. A ready job past expires_at reads expired; a queued, running or reconciling job past expires_at reads failed. Work stops at retention safe points; completion and reconciliation cannot publish ready after expiry. The failure event carries failure_reason expired_before_completion and next_action resubmit; delivery never extends retention. A running job its owner cancelled reads cancel_requested until the worker stops, then cancelled. failed, cancelled and expired jobs stay readable for 48 hours, then 404.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -42624,7 +43922,7 @@ func (c *ClientWithResponses) GetPositionTimelineByIdWithResponse(ctx context.Co
 
 // GetUsageWithResponse Inspect current API usage without spending primary request quota
 //
-// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error.
+// Returns the authenticated caller sliding-window request budget, UTC-day usage and monthly quota. This control-plane endpoint remains available for a valid credential after paid data access lapses and does not increment the primary Redis rate-limit counter, monthly quota or API usage table; it shares a separate 100 reads/minute per-user inspection bucket with GET /api/v1/me. UTC-day totals use finalized quarter-hour rollups plus the disjoint raw interval through request time; unavailable rollup progress returns an error. Late accounting records retain their original UTC day when closed-period usage is read or the monthly budget is rebuilt. Current periods reflect persisted records and remain provisional; quota limits, prices and response fields are unchanged.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -42845,6 +44143,51 @@ func (c *ClientWithResponses) RetireWebhookSecretWithResponse(ctx context.Contex
 		return nil, err
 	}
 	return ParseRetireWebhookSecretResponse(rsp)
+}
+
+// CreateWebhookVerificationAttemptWithBodyWithResponse Admit asynchronous webhook verification
+//
+// Additive asynchronous consent flow; the legacy POST /verify keeps its synchronous 200/422 behavior and retry policy. Commits one durable attempt and returns 202 without awaiting DNS or the receiver. Send the original verification_token. Optional Idempotency-Key replays the original admission response for the same endpoint/token identity; a changed request returns 422 and an in-flight matching key returns 409. Different keys for the same token revision recover the same attempt, including terminal attempts, without new receiver work. Poll status_url for current state; 202 is admission, not activation. A supervised worker sends the existing signed webhook.verification body with an additional verification_attempt_id and x-0xinsider-verification-attempt header, stable across at-least-once retries. Verify the timestamp/raw-body HMAC and answer 2xx. DNS is public-address-pinned; redirects and proxies are refused and response bodies are not read. Timeout/transport/429/5xx failures retry at most 4 attempts, with 5/15/45-second waits, until the earlier token deadline or 15-minute horizon. Other receiver statuses and URL/security refusals are terminal. Activation requires current owner eligibility, endpoint/token/URL/signing identity, unexpired attempt/token and valid lease. Configuration changes or disable/delete cancel obsolete work. Terminal ciphertext is erased; status exposes no token, signing secret, address or receiver body. History is available for 7 days.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/webhooks/{id}/verification-attempts (the `CreateWebhookVerificationAttempt` operationId).
+func (c *ClientWithResponses) CreateWebhookVerificationAttemptWithBodyWithResponse(ctx context.Context, id int64, params *CreateWebhookVerificationAttemptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWebhookVerificationAttemptResponse, error) {
+	rsp, err := c.CreateWebhookVerificationAttemptWithBody(ctx, id, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWebhookVerificationAttemptResponse(rsp)
+}
+
+// CreateWebhookVerificationAttemptWithResponse Admit asynchronous webhook verification
+//
+// Additive asynchronous consent flow; the legacy POST /verify keeps its synchronous 200/422 behavior and retry policy. Commits one durable attempt and returns 202 without awaiting DNS or the receiver. Send the original verification_token. Optional Idempotency-Key replays the original admission response for the same endpoint/token identity; a changed request returns 422 and an in-flight matching key returns 409. Different keys for the same token revision recover the same attempt, including terminal attempts, without new receiver work. Poll status_url for current state; 202 is admission, not activation. A supervised worker sends the existing signed webhook.verification body with an additional verification_attempt_id and x-0xinsider-verification-attempt header, stable across at-least-once retries. Verify the timestamp/raw-body HMAC and answer 2xx. DNS is public-address-pinned; redirects and proxies are refused and response bodies are not read. Timeout/transport/429/5xx failures retry at most 4 attempts, with 5/15/45-second waits, until the earlier token deadline or 15-minute horizon. Other receiver statuses and URL/security refusals are terminal. Activation requires current owner eligibility, endpoint/token/URL/signing identity, unexpired attempt/token and valid lease. Configuration changes or disable/delete cancel obsolete work. Terminal ciphertext is erased; status exposes no token, signing secret, address or receiver body. History is available for 7 days.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /api/v1/webhooks/{id}/verification-attempts (the `CreateWebhookVerificationAttempt` operationId).
+func (c *ClientWithResponses) CreateWebhookVerificationAttemptWithResponse(ctx context.Context, id int64, params *CreateWebhookVerificationAttemptParams, body CreateWebhookVerificationAttemptJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWebhookVerificationAttemptResponse, error) {
+	rsp, err := c.CreateWebhookVerificationAttempt(ctx, id, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWebhookVerificationAttemptResponse(rsp)
+}
+
+// GetWebhookVerificationAttemptWithResponse Read webhook verification attempt status
+//
+// Fresh primary-database status for one attempt owned by the authenticated account and webhook. queued/running means consent is pending; only verified activates the unchanged endpoint after receiver 2xx. failed/cancelled/expired are terminal. Polling never issues a challenge or restarts work. At expiry the read reports expired immediately, even before the worker persists expiry. A missing, deleted or cross-owner endpoint/attempt returns 404. Outcomes and actual HTTP status are sanitized; no token, ciphertext, signing secret, destination address or receiver response body is returned. Terminal history is retained for 7 days.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/webhooks/{id}/verification-attempts/{attempt_id} (the `GetWebhookVerificationAttempt` operationId).
+func (c *ClientWithResponses) GetWebhookVerificationAttemptWithResponse(ctx context.Context, id int64, attemptId openapi_types.UUID, params *GetWebhookVerificationAttemptParams, reqEditors ...RequestEditorFn) (*GetWebhookVerificationAttemptResponse, error) {
+	rsp, err := c.GetWebhookVerificationAttempt(ctx, id, attemptId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWebhookVerificationAttemptResponse(rsp)
 }
 
 // VerifyWebhookWithBodyWithResponse Verify a builder webhook destination
@@ -54086,7 +55429,7 @@ func ParseGetPickOfTheDayResponse(rsp *http.Response) (*GetPickOfTheDayResponse,
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Data   PickOfTheDay                             `json:"data"`
+			Data   GetPickOfTheDay200JSONResponseBody_Data  `json:"data"`
 			Meta   ResponseMeta                             `json:"meta"`
 			Object GetPickOfTheDay200JSONResponseBodyObject `json:"object"`
 		}
@@ -66755,6 +68098,566 @@ func ParseRetireWebhookSecretResponse(rsp *http.Response) (*RetireWebhookSecretR
 		}
 		response.JSON503 = &dest
 
+	}
+
+	return response, nil
+}
+
+// ParseCreateWebhookVerificationAttemptResponse parses an HTTP response from a CreateWebhookVerificationAttemptWithResponse call
+func ParseCreateWebhookVerificationAttemptResponse(rsp *http.Response) (*CreateWebhookVerificationAttemptResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWebhookVerificationAttemptResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest struct {
+			Data   WebhookVerificationAttempt                                `json:"data"`
+			Meta   ResponseMeta                                              `json:"meta"`
+			Object CreateWebhookVerificationAttempt202JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 415:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON415 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 202:
+		var headers CreateWebhookVerificationAttemptResponse202Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers202 = &headers
+	case rsp.StatusCode == 429:
+		var headers CreateWebhookVerificationAttemptResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers CreateWebhookVerificationAttemptResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseGetWebhookVerificationAttemptResponse parses an HTTP response from a GetWebhookVerificationAttemptWithResponse call
+func ParseGetWebhookVerificationAttemptResponse(rsp *http.Response) (*GetWebhookVerificationAttemptResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWebhookVerificationAttemptResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			Data   WebhookVerificationAttempt                             `json:"data"`
+			Meta   ResponseMeta                                           `json:"meta"`
+			Object GetWebhookVerificationAttempt200JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 415:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON415 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers GetWebhookVerificationAttemptResponse200Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 429:
+		var headers GetWebhookVerificationAttemptResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	case rsp.StatusCode == 503:
+		var headers GetWebhookVerificationAttemptResponse503Headers
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers503 = &headers
 	}
 
 	return response, nil
