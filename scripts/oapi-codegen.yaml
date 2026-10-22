@@ -2,4 +2,12 @@ package: oxinsider
 generate:
   models: true
   client: true
+# The document's top-level `webhooks` (OpenAPI 3.1) reference component
+# schemas and parameters that no path references. oapi-codegen v2.8.0 emits
+# the webhook body and parameter types but its pruner walks paths only, so it
+# deletes ExportJobCancelledData, WebhookSignatureHeader and 17 more types the
+# emitted code names, and go build fails (0xinsider/0xinsider#27804). Keep
+# every component.
+output-options:
+  skip-prune: true
 output: oxinsider.gen.go
