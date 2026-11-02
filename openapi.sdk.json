@@ -644,7 +644,7 @@
             "name": "max_age_s",
             "in": "query",
             "required": false,
-            "description": "Opt into a whole-response freshness ceiling in seconds. The server returns 200 only when data_quality.status is fresh and data_quality.as_of is no older than this value; otherwise it returns 409 with error.reason=freshness_ceiling_unsatisfied. No refresh or alternate read is attempted.",
+            "description": "Opt into a whole-response freshness ceiling in seconds. The server returns 200 only when data_quality.status is fresh or stale and data_quality.as_of is no older than this value; otherwise it returns 409 with error.reason=freshness_ceiling_unsatisfied. No refresh or alternate read is attempted.",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -740,7 +740,8 @@
                               "group": "sync",
                               "owner": "traders.last_synced",
                               "status": "fresh",
-                              "as_of": "2026-09-10T02:04:30.398422Z"
+                              "as_of": "2026-09-10T02:04:30.398422Z",
+                              "max_age_s": 604800
                             },
                             {
                               "group": "sports_record",
@@ -752,7 +753,8 @@
                               "group": "ranking",
                               "owner": "trader_rankings.computed_at",
                               "status": "fresh",
-                              "as_of": "2026-09-10T06:12:44.120031Z"
+                              "as_of": "2026-09-10T06:12:44.120031Z",
+                              "max_age_s": 604800
                             },
                             {
                               "group": "leaderboard_rank",
@@ -764,7 +766,8 @@
                               "group": "volume",
                               "owner": "traders.last_synced",
                               "status": "fresh",
-                              "as_of": "2026-09-10T02:04:30.398422Z"
+                              "as_of": "2026-09-10T02:04:30.398422Z",
+                              "max_age_s": 604800
                             },
                             {
                               "group": "positions",
@@ -1767,7 +1770,8 @@
                                 "group": "sync",
                                 "owner": "traders.last_synced",
                                 "status": "fresh",
-                                "as_of": "2026-09-10T02:04:30.398422Z"
+                                "as_of": "2026-09-10T02:04:30.398422Z",
+                                "max_age_s": 604800
                               },
                               {
                                 "group": "sports_record",
@@ -1779,7 +1783,8 @@
                                 "group": "ranking",
                                 "owner": "trader_rankings.computed_at",
                                 "status": "fresh",
-                                "as_of": "2026-09-10T06:12:44.120031Z"
+                                "as_of": "2026-09-10T06:12:44.120031Z",
+                                "max_age_s": 604800
                               },
                               {
                                 "group": "leaderboard_rank",
@@ -1791,7 +1796,8 @@
                                 "group": "volume",
                                 "owner": "traders.last_synced",
                                 "status": "fresh",
-                                "as_of": "2026-09-10T02:04:30.398422Z"
+                                "as_of": "2026-09-10T02:04:30.398422Z",
+                                "max_age_s": 604800
                               },
                               {
                                 "group": "positions",
@@ -2300,7 +2306,8 @@
                                   "group": "sync",
                                   "owner": "traders.last_synced",
                                   "status": "fresh",
-                                  "as_of": "2026-09-10T02:04:30.398422Z"
+                                  "as_of": "2026-09-10T02:04:30.398422Z",
+                                  "max_age_s": 604800
                                 },
                                 {
                                   "group": "sports_record",
@@ -2312,7 +2319,8 @@
                                   "group": "ranking",
                                   "owner": "trader_rankings.computed_at",
                                   "status": "fresh",
-                                  "as_of": "2026-09-10T06:12:44.120031Z"
+                                  "as_of": "2026-09-10T06:12:44.120031Z",
+                                  "max_age_s": 604800
                                 },
                                 {
                                   "group": "leaderboard_rank",
@@ -2324,7 +2332,8 @@
                                   "group": "volume",
                                   "owner": "traders.last_synced",
                                   "status": "fresh",
-                                  "as_of": "2026-09-10T02:04:30.398422Z"
+                                  "as_of": "2026-09-10T02:04:30.398422Z",
+                                  "max_age_s": 604800
                                 },
                                 {
                                   "group": "positions",
@@ -17587,7 +17596,7 @@
       "get": {
         "operationId": "getMarketTopHolders",
         "summary": "List a market's top holders, every grade",
-        "description": "The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions can be up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.",
+        "description": "The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions are usually up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. Past the 30 s window a read gets the last sample with `data.source_stale` true while a new one builds, as long as its board is at most 300 s old; read again a few seconds later for the new sample. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.",
         "tags": [
           "Markets"
         ],
@@ -46003,12 +46012,13 @@
             "type": "string",
             "enum": [
               "fresh",
+              "stale",
               "partial",
               "unknown",
               "untracked",
               "unavailable"
             ],
-            "description": "fresh: served, and as_of carries this group's real observation or computation clock. partial: some of the group's fields are served and some are missing. unknown: served, and this read has no clock for it, so no age may be inferred. untracked: 0xinsider does not track this group for this subject, by design. unavailable: the group could not be served. New values may be added; treat one you do not recognize as unknown. fresh means the group is tracked and clocked, not that it is inside any particular tolerance: compare as_of against your own."
+            "description": "fresh: served, as_of carries this group's real observation or computation clock, and that clock is no older than max_age_s when the group carries one. stale: served and clocked, but as_of is older than max_age_s, so the writer has missed a refresh its schedule promises. partial: some of the group's fields are served and some are missing. unknown: served, and this read has no clock for it, so no age may be inferred. untracked: 0xinsider does not track this group for this subject, by design. unavailable: the group could not be served. New values may be added; treat one you do not recognize as unknown. Neither fresh nor stale is a tolerance for your use: compare as_of against your own."
           },
           "as_of": {
             "type": "string",
@@ -46018,12 +46028,17 @@
           "reason": {
             "type": "string",
             "description": "Why the status is not fresh. Omitted when it is."
+          },
+          "max_age_s": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The longest gap in seconds this group's writer leaves between refreshes on its schedule: the age past which the group reads stale instead of fresh. Omitted when the writer keeps no schedule its clock could fall behind (a clock stamped once, only on a change, or when a reader asks), and such a group is never stale. It is the writer's promise, not a tolerance for your use."
           }
         }
       },
       "DataQuality": {
         "type": "object",
-        "description": "Compact data age and coverage for a response body, always present on the operations that publish it. Read status and as_of to decide whether to use the body at all, and field_groups to see which part is weak. Everything here comes from stored observation clocks, so a cached body reports the same ages a freshly computed one does: meta.cached and meta.cache_age_s stay the only transport-time facts and neither makes this block newer. The per-field audit object is still available through expand=trust; this is the default summary of the same question.",
+        "description": "Compact data age and coverage for a response body, always present on the operations that publish it. Read status and as_of to decide whether to use the body at all, and field_groups to see which part is weak. Everything here comes from stored observation clocks, and each clocked group is judged against its writer's budget when the body is served, so a cached body reports the same ages and verdicts a freshly computed one does: meta.cached and meta.cache_age_s stay the only transport-time facts and neither makes this block newer. The per-field audit object is still available through expand=trust; this is the default summary of the same question.",
         "required": [
           "status",
           "field_groups"
@@ -46033,12 +46048,13 @@
             "type": "string",
             "enum": [
               "fresh",
+              "stale",
               "partial",
               "unknown",
               "untracked",
               "unavailable"
             ],
-            "description": "fresh when every group is fresh, unavailable when every group is unavailable, and partial in every other case."
+            "description": "fresh when every group is fresh, unavailable when every group is unavailable, stale when every group is fresh or stale and at least one is stale, and partial in every other case."
           },
           "as_of": {
             "type": "string",
@@ -46584,7 +46600,7 @@
               },
               "unrealized": {
                 "type": "number",
-                "description": "Unrealized P&L in USD of the wallet's open positions on its synced sports and esports markets, from the open-position aggregate (dated by the positions data_quality group). Each open position's market is judged when the aggregate is read (#32119), so a stored position on a market of another category (one that moved out of sports and esports, or one stored before its category was known) is left out. Before 2026-10-27 (#29366) it covered every Polymarket market."
+                "description": "Unrealized (mark-to-market) P&L in USD of the wallet's open positions on its synced sports and esports markets: Polymarket's cashPnl, current value minus cost, summed over the positions still held, from the open-position aggregate (dated by the positions data_quality group). It is the same figure as position_summary.unrealized_mtm on GET /api/v1/trader/{address}/context. It leaves out the realized P&L of partial sells on those markets, which pnl.in_scope.realized_pnl already counts; until 2026-11-02 (#32459) it added it, so pnl.in_scope.realized_pnl plus pnl.unrealized counted those sells twice. Each open position's market is judged when the aggregate is read (#32119), so a stored position on a market of another category (one that moved out of sports and esports, or one stored before its category was known) is left out. Before 2026-10-27 (#29366) it covered every Polymarket market."
               },
               "exact": {
                 "$ref": "#/components/schemas/TraderPnlExact",
@@ -46846,7 +46862,7 @@
               },
               "unrealized_mtm": {
                 "type": "number",
-                "description": "Mark-to-market unrealized P&L (USD) on open positions in synced sports and esports markets (#32119)."
+                "description": "Mark-to-market unrealized P&L (USD) on open positions in synced sports and esports markets (#32119): Polymarket's cashPnl summed over the positions still held, without the realized P&L of partial sells. The same figure as trader.pnl.unrealized, in this body and on GET /api/v1/trader/{address}, since 2026-11-02 (#32459)."
               },
               "cost_basis_locked": {
                 "type": "number",
@@ -50687,7 +50703,8 @@
           "yes",
           "no",
           "totals",
-          "profiles_status"
+          "profiles_status",
+          "source_stale"
         ],
         "properties": {
           "market": {
@@ -50732,6 +50749,10 @@
             "type": "string",
             "format": "date-time",
             "description": "When Polymarket's holder board behind this sample was fetched: up to 120 s before `computed_at` on an open market. Absent on a resolved market, whose sample reads no live board, and when the fetch stamp could not be read."
+          },
+          "source_stale": {
+            "type": "boolean",
+            "description": "`true` when this is the market's last sample, served after its 30 s window while a refresh runs; `positions_as_of` is then at most 300 s old. Read again in a few seconds for the refreshed sample. Always `false` on a resolved market."
           }
         }
       },
@@ -51838,12 +51859,13 @@
             "type": "string",
             "enum": [
               "fresh",
+              "stale",
               "partial",
               "unknown",
               "untracked",
               "unavailable"
             ],
-            "description": "The trader body's whole-response data-quality status. Only fresh can satisfy max_age_s."
+            "description": "The trader body's whole-response data-quality status. Only fresh or stale can satisfy max_age_s: the ceiling replaces each writer's own budget, so a stale body inside it is answered."
           }
         }
       },

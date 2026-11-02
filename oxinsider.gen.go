@@ -1088,6 +1088,7 @@ func (e CounterpartyParticipantIdentityStatus) Valid() bool {
 const (
 	DataQualityStatusFresh       DataQualityStatus = "fresh"
 	DataQualityStatusPartial     DataQualityStatus = "partial"
+	DataQualityStatusStale       DataQualityStatus = "stale"
 	DataQualityStatusUnavailable DataQualityStatus = "unavailable"
 	DataQualityStatusUnknown     DataQualityStatus = "unknown"
 	DataQualityStatusUntracked   DataQualityStatus = "untracked"
@@ -1099,6 +1100,8 @@ func (e DataQualityStatus) Valid() bool {
 	case DataQualityStatusFresh:
 		return true
 	case DataQualityStatusPartial:
+		return true
+	case DataQualityStatusStale:
 		return true
 	case DataQualityStatusUnavailable:
 		return true
@@ -1115,6 +1118,7 @@ func (e DataQualityStatus) Valid() bool {
 const (
 	DataQualityGroupStatusFresh       DataQualityGroupStatus = "fresh"
 	DataQualityGroupStatusPartial     DataQualityGroupStatus = "partial"
+	DataQualityGroupStatusStale       DataQualityGroupStatus = "stale"
 	DataQualityGroupStatusUnavailable DataQualityGroupStatus = "unavailable"
 	DataQualityGroupStatusUnknown     DataQualityGroupStatus = "unknown"
 	DataQualityGroupStatusUntracked   DataQualityGroupStatus = "untracked"
@@ -1126,6 +1130,8 @@ func (e DataQualityGroupStatus) Valid() bool {
 	case DataQualityGroupStatusFresh:
 		return true
 	case DataQualityGroupStatusPartial:
+		return true
+	case DataQualityGroupStatusStale:
 		return true
 	case DataQualityGroupStatusUnavailable:
 		return true
@@ -2720,6 +2726,7 @@ func (e ExportSourceRangePnlSeriesStatus) Valid() bool {
 const (
 	FreshnessFailureDataQualityStatusFresh       FreshnessFailureDataQualityStatus = "fresh"
 	FreshnessFailureDataQualityStatusPartial     FreshnessFailureDataQualityStatus = "partial"
+	FreshnessFailureDataQualityStatusStale       FreshnessFailureDataQualityStatus = "stale"
 	FreshnessFailureDataQualityStatusUnavailable FreshnessFailureDataQualityStatus = "unavailable"
 	FreshnessFailureDataQualityStatusUnknown     FreshnessFailureDataQualityStatus = "unknown"
 	FreshnessFailureDataQualityStatusUntracked   FreshnessFailureDataQualityStatus = "untracked"
@@ -2731,6 +2738,8 @@ func (e FreshnessFailureDataQualityStatus) Valid() bool {
 	case FreshnessFailureDataQualityStatusFresh:
 		return true
 	case FreshnessFailureDataQualityStatusPartial:
+		return true
+	case FreshnessFailureDataQualityStatusStale:
 		return true
 	case FreshnessFailureDataQualityStatusUnavailable:
 		return true
@@ -13111,7 +13120,7 @@ type CreateWebhookVerificationAttemptRequest struct {
 	VerificationToken string `json:"verification_token"`
 }
 
-// DataQuality Compact data age and coverage for a response body, always present on the operations that publish it. Read status and as_of to decide whether to use the body at all, and field_groups to see which part is weak. Everything here comes from stored observation clocks, so a cached body reports the same ages a freshly computed one does: meta.cached and meta.cache_age_s stay the only transport-time facts and neither makes this block newer. The per-field audit object is still available through expand=trust; this is the default summary of the same question.
+// DataQuality Compact data age and coverage for a response body, always present on the operations that publish it. Read status and as_of to decide whether to use the body at all, and field_groups to see which part is weak. Everything here comes from stored observation clocks, and each clocked group is judged against its writer's budget when the body is served, so a cached body reports the same ages and verdicts a freshly computed one does: meta.cached and meta.cache_age_s stay the only transport-time facts and neither makes this block newer. The per-field audit object is still available through expand=trust; this is the default summary of the same question.
 type DataQuality struct {
 	// AsOf The oldest as_of among the groups that carry one: the age of the weakest clock this body rests on. Omitted when no group carries a clock.
 	AsOf *time.Time `json:"as_of,omitempty"`
@@ -13119,11 +13128,11 @@ type DataQuality struct {
 	// FieldGroups One entry per field group. Entries may be added in later releases, so match on group rather than on position or length.
 	FieldGroups []DataQualityGroup `json:"field_groups"`
 
-	// Status fresh when every group is fresh, unavailable when every group is unavailable, and partial in every other case.
+	// Status fresh when every group is fresh, unavailable when every group is unavailable, stale when every group is fresh or stale and at least one is stale, and partial in every other case.
 	Status DataQualityStatus `json:"status"`
 }
 
-// DataQualityStatus fresh when every group is fresh, unavailable when every group is unavailable, and partial in every other case.
+// DataQualityStatus fresh when every group is fresh, unavailable when every group is unavailable, stale when every group is fresh or stale and at least one is stale, and partial in every other case.
 type DataQualityStatus string
 
 // DataQualityGroup One group of response fields that share a writer and therefore share a clock.
@@ -13134,17 +13143,20 @@ type DataQualityGroup struct {
 	// Group Stable snake_case group name. Names are additive across releases, so match on the ones you know and ignore the rest.
 	Group string `json:"group"`
 
+	// MaxAgeS The longest gap in seconds this group's writer leaves between refreshes on its schedule: the age past which the group reads stale instead of fresh. Omitted when the writer keeps no schedule its clock could fall behind (a clock stamped once, only on a change, or when a reader asks), and such a group is never stale. It is the writer's promise, not a tolerance for your use.
+	MaxAgeS *int `json:"max_age_s,omitempty"`
+
 	// Owner The table and column that write this group, named so the verdict can be audited (for example trader_rankings.computed_at).
 	Owner string `json:"owner"`
 
 	// Reason Why the status is not fresh. Omitted when it is.
 	Reason *string `json:"reason,omitempty"`
 
-	// Status fresh: served, and as_of carries this group's real observation or computation clock. partial: some of the group's fields are served and some are missing. unknown: served, and this read has no clock for it, so no age may be inferred. untracked: 0xinsider does not track this group for this subject, by design. unavailable: the group could not be served. New values may be added; treat one you do not recognize as unknown. fresh means the group is tracked and clocked, not that it is inside any particular tolerance: compare as_of against your own.
+	// Status fresh: served, as_of carries this group's real observation or computation clock, and that clock is no older than max_age_s when the group carries one. stale: served and clocked, but as_of is older than max_age_s, so the writer has missed a refresh its schedule promises. partial: some of the group's fields are served and some are missing. unknown: served, and this read has no clock for it, so no age may be inferred. untracked: 0xinsider does not track this group for this subject, by design. unavailable: the group could not be served. New values may be added; treat one you do not recognize as unknown. Neither fresh nor stale is a tolerance for your use: compare as_of against your own.
 	Status DataQualityGroupStatus `json:"status"`
 }
 
-// DataQualityGroupStatus fresh: served, and as_of carries this group's real observation or computation clock. partial: some of the group's fields are served and some are missing. unknown: served, and this read has no clock for it, so no age may be inferred. untracked: 0xinsider does not track this group for this subject, by design. unavailable: the group could not be served. New values may be added; treat one you do not recognize as unknown. fresh means the group is tracked and clocked, not that it is inside any particular tolerance: compare as_of against your own.
+// DataQualityGroupStatus fresh: served, as_of carries this group's real observation or computation clock, and that clock is no older than max_age_s when the group carries one. stale: served and clocked, but as_of is older than max_age_s, so the writer has missed a refresh its schedule promises. partial: some of the group's fields are served and some are missing. unknown: served, and this read has no clock for it, so no age may be inferred. untracked: 0xinsider does not track this group for this subject, by design. unavailable: the group could not be served. New values may be added; treat one you do not recognize as unknown. Neither fresh nor stale is a tolerance for your use: compare as_of against your own.
 type DataQualityGroupStatus string
 
 // EdgeHunterBoard The full Max-only Edge Hunter board. Defaults cover all sports and esports with B grade floor, 48-hour horizon and at most 30 rows; common selections, legacy category, min_grade and limit narrow that projection. No pagination or ETag. Rows add frozen market_context discovery metadata.
@@ -14311,14 +14323,14 @@ type FreshnessFailure struct {
 	// AsOf The oldest stored data-quality clock used to calculate actual_age_s, when one is available.
 	AsOf *time.Time `json:"as_of,omitempty"`
 
-	// DataQualityStatus The trader body's whole-response data-quality status. Only fresh can satisfy max_age_s.
+	// DataQualityStatus The trader body's whole-response data-quality status. Only fresh or stale can satisfy max_age_s: the ceiling replaces each writer's own budget, so a stale body inside it is answered.
 	DataQualityStatus FreshnessFailureDataQualityStatus `json:"data_quality_status"`
 
 	// MaxAgeS The caller's requested whole-response freshness ceiling in seconds.
 	MaxAgeS int64 `json:"max_age_s"`
 }
 
-// FreshnessFailureDataQualityStatus The trader body's whole-response data-quality status. Only fresh can satisfy max_age_s.
+// FreshnessFailureDataQualityStatus The trader body's whole-response data-quality status. Only fresh or stale can satisfy max_age_s: the ceiling replaces each writer's own budget, so a stale body inside it is answered.
 type FreshnessFailureDataQualityStatus string
 
 // Game One sports or esports game: both sides, its schedule, provider status, its winner markets (the moneyline, or the soccer 1X2 legs) with their available provider moneyline price states and liquidity, and the game's traded volume. The event's other markets are on GET /api/v1/games/{event_slug}/markets. Assembled from the same provider-first live and upcoming projections the site's boards use, with no request-time provider fan-out.
@@ -16030,7 +16042,10 @@ type MarketTopHolders struct {
 
 	// ProfilesStatus `unavailable` when the wallet record read failed: `in_scope_realized_pnl`, `in_scope_volume` and `strategy_type` are then null for every row because they were not read, not because they are unknown.
 	ProfilesStatus MarketTopHoldersProfilesStatus `json:"profiles_status"`
-	Totals         MarketTopHoldersTotals         `json:"totals"`
+
+	// SourceStale `true` when this is the market's last sample, served after its 30 s window while a refresh runs; `positions_as_of` is then at most 300 s old. Read again in a few seconds for the refreshed sample. Always `false` on a resolved market.
+	SourceStale bool                   `json:"source_stale"`
+	Totals      MarketTopHoldersTotals `json:"totals"`
 
 	// Yes The largest YES holders, by shares, up to `limit`.
 	Yes []MarketTopHolder `json:"yes"`
@@ -18706,7 +18721,7 @@ type Trader struct {
 		// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 		Total *float32 `json:"total,omitempty"`
 
-		// Unrealized Unrealized P&L in USD of the wallet's open positions on its synced sports and esports markets, from the open-position aggregate (dated by the positions data_quality group). Each open position's market is judged when the aggregate is read (#32119), so a stored position on a market of another category (one that moved out of sports and esports, or one stored before its category was known) is left out. Before 2026-10-27 (#29366) it covered every Polymarket market.
+		// Unrealized Unrealized (mark-to-market) P&L in USD of the wallet's open positions on its synced sports and esports markets: Polymarket's cashPnl, current value minus cost, summed over the positions still held, from the open-position aggregate (dated by the positions data_quality group). It is the same figure as position_summary.unrealized_mtm on GET /api/v1/trader/{address}/context. It leaves out the realized P&L of partial sells on those markets, which pnl.in_scope.realized_pnl already counts; until 2026-11-02 (#32459) it added it, so pnl.in_scope.realized_pnl plus pnl.unrealized counted those sells twice. Each open position's market is judged when the aggregate is read (#32119), so a stored position on a market of another category (one that moved out of sports and esports, or one stored before its category was known) is left out. Before 2026-10-27 (#29366) it covered every Polymarket market.
 		Unrealized *float32 `json:"unrealized,omitempty"`
 	} `json:"pnl"`
 
@@ -18892,7 +18907,7 @@ type TraderContext struct {
 		// TotalRealizedPnl Native net realized P&L (USD) over every Polymarket market of the wallet, including credited rebates, read directly from the accounting snapshot. For the sports and esports figure read trader.pnl.in_scope.realized_pnl. Position sync_coverage is separate from this accounting basis.
 		TotalRealizedPnl float32 `json:"total_realized_pnl"`
 
-		// UnrealizedMtm Mark-to-market unrealized P&L (USD) on open positions in synced sports and esports markets (#32119).
+		// UnrealizedMtm Mark-to-market unrealized P&L (USD) on open positions in synced sports and esports markets (#32119): Polymarket's cashPnl summed over the positions still held, without the realized P&L of partial sells. The same figure as trader.pnl.unrealized, in this body and on GET /api/v1/trader/{address}, since 2026-11-02 (#32459).
 		UnrealizedMtm float32 `json:"unrealized_mtm"`
 	} `json:"position_summary,omitempty"`
 	Trader Trader `json:"trader"`
@@ -21894,7 +21909,7 @@ type GetTraderParams struct {
 	// Expand Include heavy fields and trust metadata. Repeatable: strategy, categories, trust. quant_metrics is accepted and returns nothing since 2026-10-27.
 	Expand *[]GetTraderParamsExpand `form:"expand,omitempty" json:"expand,omitempty"`
 
-	// MaxAgeS Opt into a whole-response freshness ceiling in seconds. The server returns 200 only when data_quality.status is fresh and data_quality.as_of is no older than this value; otherwise it returns 409 with error.reason=freshness_ceiling_unsatisfied. No refresh or alternate read is attempted.
+	// MaxAgeS Opt into a whole-response freshness ceiling in seconds. The server returns 200 only when data_quality.status is fresh or stale and data_quality.as_of is no older than this value; otherwise it returns 409 with error.reason=freshness_ceiling_unsatisfied. No refresh or alternate read is attempted.
 	MaxAgeS *int64 `form:"max_age_s,omitempty" json:"max_age_s,omitempty"`
 
 	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
@@ -24767,7 +24782,7 @@ type ClientInterface interface {
 
 	// GetMarketTopHolders List a market's top holders, every grade
 	//
-	// The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions can be up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.
+	// The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions are usually up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. Past the 30 s window a read gets the last sample with `data.source_stale` true while a new one builds, as long as its board is at most 300 s old; read again a few seconds later for the new sample. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.
 	//
 	// Corresponds with GET /api/v1/market/{condition_id}/top-holders (the `GetMarketTopHolders` operationId).
 	GetMarketTopHolders(ctx context.Context, conditionId string, params *GetMarketTopHoldersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -26084,7 +26099,7 @@ func (c *Client) GetMarketSnapshot(ctx context.Context, conditionId string, para
 
 // GetMarketTopHolders List a market's top holders, every grade
 //
-// The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions can be up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.
+// The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions are usually up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. Past the 30 s window a read gets the last sample with `data.source_stale` true while a new one builds, as long as its board is at most 300 s old; read again a few seconds later for the new sample. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.
 //
 // Corresponds with GET /api/v1/market/{condition_id}/top-holders (the `GetMarketTopHolders` operationId).
 func (c *Client) GetMarketTopHolders(ctx context.Context, conditionId string, params *GetMarketTopHoldersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -36812,7 +36827,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetMarketTopHoldersWithResponse List a market's top holders, every grade
 	//
-	// The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions can be up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.
+	// The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions are usually up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. Past the 30 s window a read gets the last sample with `data.source_stale` true while a new one builds, as long as its board is at most 300 s old; read again a few seconds later for the new sample. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -55315,7 +55330,7 @@ func (c *ClientWithResponses) GetMarketSnapshotWithResponse(ctx context.Context,
 
 // GetMarketTopHoldersWithResponse List a market's top holders, every grade
 //
-// The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions can be up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.
+// The largest holders of one market on each outcome, every grade from S to F and ungraded wallets included: the table the market's event page shows under Top holders. Each outcome lists up to 100 wallets, largest `shares` first, from Polymarket's holder board, with the provider's current value, average entry price and position P&L for the leg, the wallet's grade, its sports and esports realized P&L and volume, its win record in the market's category, and its badges. A wallet holding both outcomes appears on each side it holds, with `other_outcome_shares` set. This is a bounded sample, not a census: `totals.yes_count` equal to `totals.sample_cap` means that many or more. For the complete S, A and B roster from a full holder scan, with exact counts and USD per grade, use GET /api/v1/market/{condition_id}/holders. The sample is the same one the event page reads and is shared by every caller. On an open market it is rebuilt at most every 30 s from Polymarket's holder board, which is itself re-read at most every 120 s, so positions are usually up to about 150 s old: `data.positions_as_of` says when that board was fetched, `data.computed_at` when the sample was built and `meta.cache_age_s` the response's age. Past the 30 s window a read gets the last sample with `data.source_stale` true while a new one builds, as long as its board is at most 300 s old; read again a few seconds later for the new sample. A resolved market's sample is at most 300 s old and has no `positions_as_of`. Busy or unavailable holder data is a 503 with Retry-After, never an empty list. Current state only; there is no as-of parameter.
 //
 // Returns a wrapper object for the known response body format(s).
 //
