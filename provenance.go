@@ -9,9 +9,9 @@ package oxinsider
 // document to see whether a release is behind the API.
 const (
 	OpenAPISource  = "https://0xinsider.com/api/v1/openapi.json"
-	OpenAPISHA256  = "19b0c562e3d3b2523ccc0d5a5cc389d2eef0ec02dc1cdb61b23f37d8bc68ab51"
+	OpenAPISHA256  = "329bad84fb772eddb0bf5d2546c088ed7b7643dbdbb6b580413cafe6ac7bbfc4"
 	OpenAPIVersion = "1.0.0"
-	OperationCount = 94
+	OperationCount = 106
 	AppRepository  = "0xinsider/0xinsider"
 	AppSpecPath    = "web/public/api/v1/openapi.json"
 	AppCommit      = ""
