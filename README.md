@@ -71,7 +71,7 @@ if !verdict.OK {
 }
 ```
 
-A group passes only when its `status` is `fresh`, it carries `as_of`, and that clock is within `MaxAge`. `fresh` means tracked and clocked, not current enough for you. `unknown` fails: the read cannot date that group, and missing is never recent. `untracked` groups are listed in `verdict.Untracked` and left out of the verdict. Set `Groups: []string{"ranking", "volume"}` to judge only the groups you read; a named group the body does not carry fails as `missing`. The TypeScript (`assessDataQuality`) and Python (`assess_data_quality`) SDKs apply the same rule.
+A group passes only when its `status` is `fresh` or `stale`, it carries `as_of`, and that clock is within `MaxAge`. Both mean tracked and clocked; `stale` adds that `as_of` is older than the writer's own refresh budget (the group's `max_age_s`), and your `MaxAge` takes that budget's place. Neither means current enough for you. Releases before v0.5.1 fail `stale`. `unknown` fails: the read cannot date that group, and missing is never recent. `untracked` groups are listed in `verdict.Untracked` and left out of the verdict. Set `Groups: []string{"ranking", "volume"}` to judge only the groups you read; a named group the body does not carry fails as `missing`. The TypeScript (`assessDataQuality`) and Python (`assess_data_quality`) SDKs apply the same rule.
 
 ## Timeouts
 

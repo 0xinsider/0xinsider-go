@@ -8,12 +8,18 @@ package oxinsider
 // AssessDataQuality applies one. It reads the raw response bytes a
 // ...WithResponse method keeps in Body, so it needs no generated type and
 // makes no request. The TypeScript SDK (assessDataQuality) and the Python SDK
-// (assess_data_quality) carry the same rule under the same name.
+// (assess_data_quality) carry the same rule under the same name. A release
+// that predates "stale" (v0.5.0 and earlier) fails it as a status it does not
+// recognize, which errs toward refusing a body.
 //
 // The rule:
-//   - A group passes only when its status is "fresh", it carries as_of, and
-//     that clock is within MaxAge of Now. "fresh" alone means tracked and
-//     clocked, not current enough for you.
+//   - A group passes only when its status is "fresh" or "stale", it carries
+//     as_of, and that clock is within MaxAge of Now. Both statuses mean
+//     tracked and clocked; "stale" adds that as_of is older than the
+//     writer's own refresh budget (the group's max_age_s), and your MaxAge
+//     takes that budget's place here, as the API's own max_age_s ceiling
+//     does (0xinsider/0xinsider#32458). "fresh" alone is not current enough
+//     for you.
 //   - "untracked" groups are left out of the verdict: 0xinsider does not
 //     track them for this subject by design. They are listed in Untracked so
 //     a caller that needs one can refuse the body.
@@ -61,7 +67,8 @@ type DataQualityFailure struct {
 // DataQualityAssessment is AssessDataQuality's verdict.
 type DataQualityAssessment struct {
 	// OK is true when at least one group was judged and every judged group
-	// is fresh and within MaxAge.
+	// is fresh or stale and within MaxAge. A body with nothing to judge (every
+	// group untracked) is not OK: nothing in it could be dated.
 	OK bool
 	// Failing lists every judged group that did not pass, in response order.
 	Failing []DataQualityFailure
@@ -183,13 +190,13 @@ func AssessDataQuality(body []byte, opts DataQualityOptions) (DataQualityAssessm
 			}
 		}
 		switch {
-		case group.Status != "fresh":
+		case group.Status != "fresh" && group.Status != "stale":
 			failure.Reason = "status is " + group.Status
 			if group.Reason != nil && *group.Reason != "" {
 				failure.Reason = *group.Reason
 			}
 		case !hasClock:
-			failure.Reason = "fresh but carries no as_of, so no age can be measured"
+			failure.Reason = group.Status + " but carries no as_of, so no age can be measured"
 		case now.Sub(clock) > opts.MaxAge:
 			failure.Reason = fmt.Sprintf("older than MaxAge (%s)", opts.MaxAge)
 		default:
