@@ -1,5 +1,5 @@
 // Command discovery prints the live 0xinsider API index and health, which
-// need no credential. Set OXI_API_KEY to also read the leaderboard.
+// need no credential. Set OXINSIDER_API_KEY to also read the leaderboard.
 package main
 
 import (
@@ -17,7 +17,7 @@ func main() {
 	defer cancel()
 
 	opts := []oxinsider.ClientOption{}
-	key := os.Getenv("OXI_API_KEY")
+	key := os.Getenv("OXINSIDER_API_KEY")
 	if key != "" {
 		opts = append(opts, oxinsider.WithBearerToken(key))
 	}
