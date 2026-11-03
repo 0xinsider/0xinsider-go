@@ -8,7 +8,7 @@
 // https://0xinsider.com/developers or an OAuth 2.1 access token; see
 // https://0xinsider.com/auth.md.
 //
-//	client, err := oxinsider.New(oxinsider.WithBearerToken(os.Getenv("OXI_API_KEY")))
+//	client, err := oxinsider.New(oxinsider.WithBearerToken(os.Getenv("OXINSIDER_API_KEY")))
 //	board, err := client.ListLeaderboardWithResponse(ctx, &oxinsider.ListLeaderboardParams{})
 //
 // Every ordinary request from such a client is finitely bounded, in total and

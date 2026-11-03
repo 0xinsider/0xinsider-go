@@ -624,7 +624,7 @@
             "name": "expand",
             "in": "query",
             "required": false,
-            "description": "Include heavy fields and trust metadata. Repeatable: strategy, categories, trust. quant_metrics is accepted and returns nothing since 2026-10-27.",
+            "description": "Include heavy fields and trust metadata. Repeatable: strategy, categories, trust, breakdowns. breakdowns adds the profile's strategy measures (Trader.breakdowns), computed on the read, and is served on this route only. quant_metrics is accepted and returns nothing since 2026-10-27.",
             "schema": {
               "type": "array",
               "items": {
@@ -633,7 +633,8 @@
                   "strategy",
                   "categories",
                   "quant_metrics",
-                  "trust"
+                  "trust",
+                  "breakdowns"
                 ]
               }
             },
@@ -900,7 +901,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1154,7 +1155,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1498,7 +1499,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1948,7 +1949,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2142,7 +2143,7 @@
                         "trust"
                       ]
                     },
-                    "description": "Shared expand flags applied to every trader item."
+                    "description": "Shared expand flags applied to every trader item. breakdowns is refused with 400 (param expand): it computes on the read per wallet, so GET /api/v1/trader/{address} serves it one wallet at a time."
                   }
                 }
               },
@@ -2440,7 +2441,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2832,7 +2833,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3202,7 +3203,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3639,7 +3640,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4010,7 +4011,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4509,7 +4510,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4939,7 +4940,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5403,7 +5404,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5957,7 +5958,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6554,7 +6555,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -7178,7 +7179,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -7548,7 +7549,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -7916,7 +7917,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8262,7 +8263,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8573,7 +8574,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8878,7 +8879,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -9186,7 +9187,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -9589,7 +9590,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -10034,7 +10035,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -10556,7 +10557,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -11308,7 +11309,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -12000,7 +12001,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -12318,7 +12319,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -12722,7 +12723,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -13094,7 +13095,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -13510,7 +13511,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -13842,7 +13843,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -14149,7 +14150,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -14891,7 +14892,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -15373,7 +15374,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -15839,7 +15840,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -16033,7 +16034,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -16212,7 +16213,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -16391,7 +16392,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -16570,7 +16571,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -17465,7 +17466,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -17772,7 +17773,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -18170,7 +18171,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -18604,7 +18605,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -19005,7 +19006,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -19490,7 +19491,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -19932,7 +19933,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -20322,7 +20323,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -20693,7 +20694,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -21079,7 +21080,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -21435,7 +21436,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -21594,7 +21595,7 @@
       "get": {
         "operationId": "listGames",
         "summary": "List covered games",
-        "description": "One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.",
+        "description": "One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. A tennis game also carries its tournament (tier, city and country, venue time zone, official dates) from the reviewed registry its page reads, omitted when the registry holds no single edition for it. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.",
         "tags": [
           "Games"
         ],
@@ -22030,7 +22031,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -22143,7 +22144,7 @@
       "get": {
         "operationId": "getGame",
         "summary": "Get one game",
-        "description": "The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume or liquidity. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.",
+        "description": "The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume, liquidity or tournament. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.",
         "tags": [
           "Games"
         ],
@@ -22406,7 +22407,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -23025,7 +23026,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -23367,7 +23368,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -23723,7 +23724,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -24141,7 +24142,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -24531,7 +24532,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -24904,7 +24905,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -25245,7 +25246,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -25618,7 +25619,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -25924,7 +25925,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -26244,7 +26245,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -26642,7 +26643,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -26965,7 +26966,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -27283,7 +27284,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -27710,7 +27711,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -28064,7 +28065,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -28487,7 +28488,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -28887,7 +28888,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -29865,7 +29866,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -30839,7 +30840,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -31373,7 +31374,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -31770,7 +31771,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -32186,7 +32187,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -32582,7 +32583,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -32991,7 +32992,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -33319,7 +33320,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -33722,7 +33723,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -34092,7 +34093,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -34506,7 +34507,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -34764,7 +34765,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -35320,7 +35321,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -35759,7 +35760,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -36005,7 +36006,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -36205,7 +36206,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -36437,7 +36438,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -36984,7 +36985,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -37345,7 +37346,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -37930,7 +37931,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -38223,7 +38224,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -38573,7 +38574,7 @@
             }
           },
           "402": {
-            "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
             "content": {
               "application/json": {
                 "schema": {
@@ -38804,11 +38805,12 @@
             "name": "admission",
             "in": "query",
             "required": false,
-            "description": "Opt-in admission rule for view=observations with cohort=wider_holder; rejected for every other view and cohort. most_held_48h returns the most-held selection instead of the default one: per sport, up to 8 wider_holder markets kicking off within 48 hours, most graded holders first, then most volume, then soonest kickoff, at most 4 per event. It is recomputed every refresh and keeps no place, so a more-held market displaces a less-held one; markets view=signals lists stay excluded. Every row carries admitted_by most_held_48h, including a market the default selection also evaluates, and the response echoes admission. funnel, coverage, degraded and degradation_reasons describe this selection: a wider_holder candidate it did not take counts as capacity_limited. Its markets that no default place covers are read after every default market, at most once per 10 minutes, so a row can rest on a holder page up to 15 minutes old (holder_snapshot_at). Omit for the default selection. Cursors and ETags bind it.",
+            "description": "Opt-in admission rule for view=observations with cohort=wider_holder; rejected for every other view and cohort. most_held_48h returns the most-held selection instead of the default one: per sport, up to 8 wider_holder markets kicking off within 48 hours, most graded holders first, then most volume, then soonest kickoff, at most 4 per event. It is recomputed every refresh and keeps no place, so a more-held market displaces a less-held one; markets view=signals lists stay excluded. Every row carries admitted_by most_held_48h, including a market the default selection also evaluates, and the response echoes admission. funnel, coverage, degraded and degradation_reasons describe this selection: a wider_holder candidate it did not take counts as capacity_limited. Its markets that no default place covers are read after every default market, at most once per 10 minutes, so a row can rest on a holder page up to 15 minutes old (holder_snapshot_at). most_held_48h_by_type requires market_types and runs the same rule within each named type: per sport and market_context.market_type, up to 8 markets (4 per event), most graded holders first, then volume, then soonest kickoff, so a type whose markets hold fewer wallets than team-win markets still gets its own places. Its rows carry admitted_by most_held_48h_by_type and it has no departures. Its markets no other selection read are read after every default and most_held_48h market, at most once per 10 minutes. A market type not asked for in the last 30 minutes answers 503 read_model_warming with Retry-After 45 s while the next refresh computes it. Omit for the default selection. Cursors and ETags bind it.",
             "schema": {
               "type": "string",
               "enum": [
-                "most_held_48h"
+                "most_held_48h",
+                "most_held_48h_by_type"
               ]
             }
           },
@@ -43710,6 +43712,106 @@
           "volume": {
             "$ref": "#/components/schemas/GameVolume",
             "description": "The game's traded volume, the figure the sports board carries for it, with its source, basis, unit and observation clock. A client can rank or filter games by volume.value. Omitted when the board carries no volume for the game, and on a finished game read from its stored record (freshness.source stored); never 0 in place of a missing figure."
+          },
+          "tournament": {
+            "$ref": "#/components/schemas/GameTournament",
+            "description": "A tennis game's tournament edition: its tier, city and country, venue time zone and official dates, from 0xinsider's reviewed registry, the same facts the game's page states. Omitted outside tennis, on a finished game read from its stored record (freshness.source stored), and when the registry holds no single edition for the game's competition label, players' tour and kickoff; never a guessed value."
+          }
+        }
+      },
+      "GameTournament": {
+        "type": "object",
+        "description": "The tennis tournament edition a game belongs to, curated from official ATP, WTA and ITF pages (source_urls), never from Polymarket, which supplies the competition label and tour only. Selected by the game's provider competition label, the one tour both players carry, and the kickoff's day at the venue. A fact no official page states is omitted.",
+        "required": [
+          "label",
+          "tour",
+          "edition_year",
+          "starts_on",
+          "ends_on",
+          "source_urls",
+          "checked_on"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "The provider competition label that selected this edition, verbatim, for example \"Erste Bank Open, Qualification\"."
+          },
+          "tour": {
+            "type": "string",
+            "enum": [
+              "atp",
+              "wta",
+              "itf"
+            ],
+            "description": "The edition's tour."
+          },
+          "draw": {
+            "type": "string",
+            "enum": [
+              "main",
+              "qualification"
+            ],
+            "description": "The match's draw. qualification when the provider competition label carries Polymarket's qualifying mark (\", Qualification\", which 0xinsider also applies when Polymarket flags an ATP Challenger qualifying fixture); main for an unmarked ATP or WTA label. Omitted for an unmarked ITF label: Polymarket gives an ITF qualifying match the main draw's label."
+          },
+          "tier": {
+            "type": "string",
+            "description": "The edition's verified category, for example \"ATP Masters 1000\", \"ATP Challenger 50\", \"WTA 1000\" or \"ITF M25\". Omitted when no official page states it."
+          },
+          "location": {
+            "$ref": "#/components/schemas/GameTournamentLocation",
+            "description": "The verified venue city and country. Omitted when no official page states it."
+          },
+          "timezone": {
+            "type": "string",
+            "description": "The venue's IANA time zone, for example \"Europe/Rome\". Format the venue's local time with it; it carries the daylight-saving rules. Omitted when the venue is unverified."
+          },
+          "edition_year": {
+            "type": "integer",
+            "description": "The year of the edition."
+          },
+          "starts_on": {
+            "type": "string",
+            "format": "date",
+            "description": "The edition's first official day, inclusive (YYYY-MM-DD). A qualifying match can be played up to two days before it."
+          },
+          "ends_on": {
+            "type": "string",
+            "format": "date",
+            "description": "The edition's last official day, inclusive (YYYY-MM-DD)."
+          },
+          "source_urls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "The official tournament, tour, federation or time-zone pages the facts were taken from."
+          },
+          "checked_on": {
+            "type": "string",
+            "format": "date",
+            "description": "When those pages were checked: a catalogue verification date, not a score or price clock."
+          }
+        }
+      },
+      "GameTournamentLocation": {
+        "type": "object",
+        "description": "A verified tournament venue.",
+        "required": [
+          "city",
+          "country",
+          "country_code"
+        ],
+        "properties": {
+          "city": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "country_code": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2, for example \"IT\"."
           }
         }
       },
@@ -46779,6 +46881,466 @@
           },
           "category_skill_model": {
             "$ref": "#/components/schemas/CategorySkillModelReadiness"
+          },
+          "price_edge": {
+            "$ref": "#/components/schemas/TraderPriceEdge",
+            "description": "Edge over the price paid: the profile's Edge badge and the leaderboard's Edge measure (#32622). Present on every read of a wallet with at least one settled sports or esports market of $20 or more at a known entry price; omitted for a wallet with none, where there is nothing to measure."
+          },
+          "breakdowns": {
+            "$ref": "#/components/schemas/TraderBreakdowns",
+            "description": "The profile's strategy measures over the wallet's sports and esports markets: P&L and win rate by UTC hour, hold-time and first-trade-hour bands, position sizes with category concentration, and entry-price buckets (#32622). Present only when expand=breakdowns or expand[]=breakdowns is requested, on GET /api/v1/trader/{address} only: POST /api/v1/traders/batch refuses the expand. Computed on the read from the wallet's whole sports and esports history, so a large wallet can take seconds; a read that cannot finish answers 503 with Retry-After."
+          }
+        }
+      },
+      "TraderPriceEdge": {
+        "type": "object",
+        "description": "Edge over the price paid (#32270, #32622): how often the side a wallet bought won, minus the average price it paid, over its settled sports and esports markets of $20 or more at a known entry price. Probabilities throughout: edge 0.012 is 1.2 percentage points. The same figures as LeaderboardPriceEdge, plus the shrunk edge the profile badge and the leaderboard show. No hold: a hold is a fact of a leaderboard row, not of the wallet.",
+        "required": [
+          "markets",
+          "hit_rate",
+          "avg_price",
+          "edge",
+          "status"
+        ],
+        "properties": {
+          "markets": {
+            "type": "integer",
+            "description": "Settled sports and esports markets of $20 or more at a known entry price that the edge is measured over."
+          },
+          "hit_rate": {
+            "type": "number",
+            "description": "Share of those markets whose bought side won, 0-1."
+          },
+          "avg_price": {
+            "type": "number",
+            "description": "Mean entry price paid, 0-1."
+          },
+          "edge": {
+            "type": "number",
+            "description": "hit_rate minus avg_price, full precision, before any shrink."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ranked",
+              "too_few_markets",
+              "sample_mismatch"
+            ],
+            "description": "Whether the edge ranks. ranked: at least 30 such markets, and the share of the decided ones that made money at settlement within 10 points of the win rate over the same markets. too_few_markets: fewer than 30. sample_mismatch: that share is more than 10 points away, so these markets do not describe the wallet's record."
+          },
+          "shrunk_edge": {
+            "type": "number",
+            "description": "The edge the profile badge shows and the leaderboard ranks: edge pulled toward field_average by how short the record is. A short record moves most of the way to the average; a long one keeps nearly all of its own edge. Present only when status is ranked."
+          },
+          "field_average": {
+            "type": "number",
+            "description": "The mean edge of every ranked wallet that traded in the last 180 days, the value shrunk_edge is pulled toward. Present only with shrunk_edge."
+          }
+        }
+      },
+      "TraderBreakdowns": {
+        "type": "object",
+        "description": "The profile's strategy measures (expand=breakdowns, #32622), the same figures as the wallet profile's Insights and Performance breakdown cards. Every figure counts the wallet's sports and esports markets only, from the same read the profile makes.",
+        "required": [
+          "hourly_performance",
+          "time_breakdowns",
+          "risk_metrics",
+          "entry_price_analysis"
+        ],
+        "properties": {
+          "hourly_performance": {
+            "$ref": "#/components/schemas/TraderHourlyPerformance"
+          },
+          "time_breakdowns": {
+            "$ref": "#/components/schemas/TraderTimeBreakdowns"
+          },
+          "risk_metrics": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TraderRiskMetrics"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Position sizes and category concentration. null when the wallet has no sports or esports position with trades, or its stored markets carry no freshness clock yet."
+          },
+          "entry_price_analysis": {
+            "$ref": "#/components/schemas/TraderEntryPriceAnalysis"
+          }
+        }
+      },
+      "TraderHourlyPerformance": {
+        "type": "object",
+        "description": "P&L and win rate by the UTC hour of the wallet's first trade in each settled sports or esports market.",
+        "required": [
+          "entries",
+          "best_hour",
+          "best_win_rate",
+          "worst_hour",
+          "worst_win_rate",
+          "spread_pp",
+          "is_approximate"
+        ],
+        "properties": {
+          "entries": {
+            "type": "array",
+            "description": "One entry per UTC hour that has a settled market; an hour with none is absent.",
+            "items": {
+              "type": "object",
+              "required": [
+                "hour",
+                "markets",
+                "wins",
+                "win_rate",
+                "total_pnl",
+                "avg_pnl"
+              ],
+              "properties": {
+                "hour": {
+                  "type": "integer",
+                  "description": "UTC hour of the first trade, 0-23."
+                },
+                "markets": {
+                  "type": "integer",
+                  "description": "Settled markets first traded in this hour."
+                },
+                "wins": {
+                  "type": "integer",
+                  "description": "Of those, the markets that made money at settlement."
+                },
+                "win_rate": {
+                  "type": "number",
+                  "description": "wins over the decided markets (settled with a nonzero P&L), as a percentage 0-100. 0 when no market of the hour is decided: read it with wins and markets."
+                },
+                "total_pnl": {
+                  "type": "number",
+                  "description": "Realized P&L of those markets, USD."
+                },
+                "avg_pnl": {
+                  "type": "number",
+                  "description": "total_pnl over markets, USD."
+                }
+              }
+            }
+          },
+          "best_hour": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The hour with the highest win_rate. null when no entry exists."
+          },
+          "best_win_rate": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "best_hour's win_rate, percentage 0-100. null exactly when best_hour is."
+          },
+          "worst_hour": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The hour with the lowest win_rate. null when no entry exists."
+          },
+          "worst_win_rate": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "worst_hour's win_rate, percentage 0-100. null exactly when worst_hour is."
+          },
+          "spread_pp": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "best_win_rate minus worst_win_rate, percentage points. null when either is null."
+          },
+          "is_approximate": {
+            "type": "boolean",
+            "description": "true when at least 12 hours have markets and every one of them has the same P&L sign, so the hour-to-hour spread says little about timing."
+          }
+        }
+      },
+      "TraderTimeBreakdowns": {
+        "type": "object",
+        "description": "The hold-time and first-trade-hour bands of the profile's Performance breakdown card, over the wallet's sports and esports markets with a realized P&L.",
+        "required": [
+          "by_duration",
+          "by_hour_bucket",
+          "insights"
+        ],
+        "properties": {
+          "by_duration": {
+            "type": "array",
+            "description": "One row per band of time from the wallet's first to its last trade in a market: < 1h, 1h – 1d, 1 – 3d, 3 – 7d, 1 – 4w, > 4w. A band with no market is absent.",
+            "items": {
+              "$ref": "#/components/schemas/TraderTimeBreakdownBand"
+            }
+          },
+          "by_hour_bucket": {
+            "type": "array",
+            "description": "One row per four-hour UTC band of the wallet's first trade in a market: 00-03, 04-07, 08-11, 12-15, 16-19, 20-23. A band with no market is absent.",
+            "items": {
+              "$ref": "#/components/schemas/TraderTimeBreakdownBand"
+            }
+          },
+          "insights": {
+            "type": "object",
+            "description": "One-line summaries keyed by breakdown (by_duration, by_hour_bucket), from bands of at least 5 markets with a known P&L. A key is present only when there is a summary.",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "TraderTimeBreakdownBand": {
+        "type": "object",
+        "description": "One band of a time breakdown.",
+        "required": [
+          "category_value",
+          "n_markets",
+          "win_rate",
+          "expectancy",
+          "profit_factor",
+          "total_pnl"
+        ],
+        "properties": {
+          "category_value": {
+            "type": "string",
+            "description": "The band's label."
+          },
+          "n_markets": {
+            "type": "integer",
+            "description": "Markets with a realized P&L in the band."
+          },
+          "win_rate": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Resolved markets that made money over resolved markets with a nonzero P&L, 0-1. null when none is decided."
+          },
+          "expectancy": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "total_pnl over n_markets, USD."
+          },
+          "profit_factor": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Gross profit over gross loss. null when the band has no loss."
+          },
+          "total_pnl": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Realized P&L of the band's markets, USD."
+          }
+        }
+      },
+      "TraderRiskMetrics": {
+        "type": "object",
+        "description": "Position sizes over the wallet's sports and esports positions with trades, and how concentrated its volume is across categories. Each measure is an analytic value: read state before value. The four size measures are not_computed while any position's cost is unknown; the counts are always measured.",
+        "required": [
+          "avg_position_size",
+          "median_position_size",
+          "max_position_size",
+          "position_size_stddev",
+          "total_positions",
+          "large_position_count",
+          "concentration"
+        ],
+        "properties": {
+          "avg_position_size": {
+            "$ref": "#/components/schemas/AnalyticNumber",
+            "description": "Mean cost basis of a position, USD."
+          },
+          "median_position_size": {
+            "$ref": "#/components/schemas/AnalyticNumber",
+            "description": "Median cost basis of a position, USD."
+          },
+          "max_position_size": {
+            "$ref": "#/components/schemas/AnalyticNumber",
+            "description": "Largest cost basis of a position, USD."
+          },
+          "position_size_stddev": {
+            "$ref": "#/components/schemas/AnalyticNumber",
+            "description": "Population standard deviation of the cost basis, USD."
+          },
+          "total_positions": {
+            "type": "integer",
+            "description": "Sports and esports positions with trades."
+          },
+          "large_position_count": {
+            "type": "integer",
+            "description": "Positions whose cost is more than twice the mean."
+          },
+          "concentration": {
+            "$ref": "#/components/schemas/AnalyticNumber",
+            "description": "Herfindahl index of the wallet's volume across sports and esports categories: each category's share of the volume, squared and summed. 1.0 is a single category; lower is more spread. not_computed while any category's cost is unknown, and no value without volume."
+          }
+        }
+      },
+      "TraderEntryPriceAnalysis": {
+        "type": "object",
+        "description": "Results by the entry price the wallet paid for the side it held, over its sports and esports markets with a known held entry price.",
+        "required": [
+          "buckets",
+          "best_bucket",
+          "worst_bucket"
+        ],
+        "properties": {
+          "buckets": {
+            "type": "array",
+            "description": "One bucket per price band that has a market, in bucket_order.",
+            "items": {
+              "$ref": "#/components/schemas/TraderEntryPriceBucket"
+            }
+          },
+          "best_bucket": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The bucket with the highest win rate among buckets of at least 3 markets. null when no bucket has 3."
+          },
+          "worst_bucket": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The bucket with the lowest win rate among buckets of at least 3 markets. null when no bucket has 3."
+          }
+        }
+      },
+      "TraderEntryPriceBucket": {
+        "type": "object",
+        "description": "One entry-price band. Each measure is an analytic value: read state before value.",
+        "required": [
+          "bucket",
+          "bucket_order",
+          "markets",
+          "wins",
+          "win_rate",
+          "total_pnl",
+          "avg_pnl"
+        ],
+        "properties": {
+          "bucket": {
+            "type": "string",
+            "description": "The band: $0.01-$0.19, $0.20-$0.39, $0.40-$0.59, $0.60-$0.79 or $0.80-$0.99. The last also holds any price below $0.01."
+          },
+          "bucket_order": {
+            "type": "integer",
+            "description": "Display position, 0 first, from the lowest price up."
+          },
+          "markets": {
+            "$ref": "#/components/schemas/AnalyticInteger",
+            "description": "Markets in the band."
+          },
+          "wins": {
+            "$ref": "#/components/schemas/AnalyticInteger",
+            "description": "Of those, the markets that made money."
+          },
+          "win_rate": {
+            "$ref": "#/components/schemas/AnalyticNumber",
+            "description": "wins over decided markets (a nonzero P&L), as a percentage 0-100."
+          },
+          "total_pnl": {
+            "$ref": "#/components/schemas/AnalyticNumber",
+            "description": "Realized P&L of the band's markets, USD."
+          },
+          "avg_pnl": {
+            "$ref": "#/components/schemas/AnalyticNumber",
+            "description": "Mean realized P&L of a market in the band, USD."
+          }
+        }
+      },
+      "AnalyticNumber": {
+        "type": "object",
+        "description": "A computed number with its truth state. value is present when state is computed or known_zero and may be present when stale; any other state says why there is no number, never a stand-in zero.",
+        "required": [
+          "state",
+          "source"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "computed",
+              "known_zero",
+              "not_computed",
+              "not_applicable",
+              "stale",
+              "unavailable",
+              "insufficient_data"
+            ],
+            "description": "computed: a measured value. known_zero: a measured zero. stale: a value past its freshness window. not_computed: an input is unknown. not_applicable: the measure does not apply. unavailable: the source could not be read. insufficient_data: too few observations."
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "provider",
+              "insert_time",
+              "cache",
+              "computed"
+            ],
+            "description": "Where the value came from, for diagnostics: cache is a stored aggregate, computed a request-time aggregate. Decide on state, not source."
+          },
+          "value": {
+            "type": "number"
+          },
+          "freshness_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the stored inputs behind the value were written or last confirmed (cache), or the request time (computed)."
+          }
+        }
+      },
+      "AnalyticInteger": {
+        "type": "object",
+        "description": "A computed count with its truth state; the same envelope as AnalyticNumber.",
+        "required": [
+          "state",
+          "source"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "computed",
+              "known_zero",
+              "not_computed",
+              "not_applicable",
+              "stale",
+              "unavailable",
+              "insufficient_data"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "provider",
+              "insert_time",
+              "cache",
+              "computed"
+            ]
+          },
+          "value": {
+            "type": "integer"
+          },
+          "freshness_at": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -51793,6 +52355,11 @@
           "freshness": {
             "$ref": "#/components/schemas/FreshnessFailure"
           },
+          "billing_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Where a person clears this 402 (#32592): pays the overdue invoice (reason payment_overdue) or reactivates the plan (reason subscription_inactive). Present on every 402 subscription_required, omitted on every other error. The message names the same URL; link this field instead of parsing the message."
+          },
           "reason": {
             "type": "string",
             "enum": [
@@ -51811,6 +52378,7 @@
               "sandbox_api_key",
               "api_key_in_query",
               "subscription_inactive",
+              "payment_overdue",
               "monthly_quota_exceeded",
               "invalid_query",
               "unknown_query_parameter",
@@ -51827,7 +52395,7 @@
               "max_plan_required",
               "endpoint_retired"
             ],
-            "description": "ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed."
+            "description": "ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. payment_overdue (402 subscription_required, #32592): the key is valid and the account still has its plan, but its latest subscription invoice is unpaid (Stripe past_due or unpaid), so paid access is paused; permanent until a person pays at billing_url (https://0xinsider.com/billing) -- stop retrying on a schedule and surface the link. The key works again the moment the invoice is paid. GET /api/v1/me and GET /api/v1/usage keep answering. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed."
           }
         }
       },
@@ -52125,6 +52693,11 @@
               "freshness": {
                 "$ref": "#/components/schemas/FreshnessFailure"
               },
+              "billing_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Where a person clears this 402 (#32592): pays the overdue invoice (reason payment_overdue) or reactivates the plan (reason subscription_inactive). Present on every 402 subscription_required, omitted on every other error. The message names the same URL; link this field instead of parsing the message."
+              },
               "reason": {
                 "type": "string",
                 "enum": [
@@ -52143,6 +52716,7 @@
                   "sandbox_api_key",
                   "api_key_in_query",
                   "subscription_inactive",
+                  "payment_overdue",
                   "monthly_quota_exceeded",
                   "invalid_query",
                   "unknown_query_parameter",
@@ -52159,7 +52733,7 @@
                   "max_plan_required",
                   "endpoint_retired"
                 ],
-                "description": "ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed."
+                "description": "ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. payment_overdue (402 subscription_required, #32592): the key is valid and the account still has its plan, but its latest subscription invoice is unpaid (Stripe past_due or unpaid), so paid access is paused; permanent until a person pays at billing_url (https://0xinsider.com/billing) -- stop retrying on a schedule and surface the link. The key works again the moment the invoice is paid. GET /api/v1/me and GET /api/v1/usage keep answering. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed."
               }
             }
           },
@@ -58466,7 +59040,8 @@
             "enum": [
               "most_held",
               "soonest_kickoff",
-              "most_held_48h"
+              "most_held_48h",
+              "most_held_48h_by_type"
             ],
             "description": "Which evaluation place in its sport the row took this refresh. most_held: a wider_holder place for up to 8 markets per sport kicking off within 24 hours, most graded holders first, kept until kickoff while the holder page still shows a card or could not be read; also every in_play row, whose places go most graded holders first. soonest_kickoff: a wider_holder place among the sport's 8 soonest kickoffs, which is not kept. emerging_pile rows carry their source wider_holder row's value. Filter on most_held to keep the most-held selection. most_held_48h: every row of an admission=most_held_48h response, which is that opt-in selection (up to 8 markets per sport within 48 hours, most graded holders first, recomputed every refresh), including a market a default place also evaluates; it never appears on a default response."
           },
@@ -59026,7 +59601,8 @@
           "admission": {
             "type": "string",
             "enum": [
-              "most_held_48h"
+              "most_held_48h",
+              "most_held_48h_by_type"
             ],
             "x-narrowed": true,
             "description": "Echoes the opt-in admission rule a request named; omitted on a default read. When present, data, funnel, coverage, degraded and degradation_reasons describe that selection, not the default one."
@@ -59099,7 +59675,8 @@
             "enum": [
               "most_held",
               "soonest_kickoff",
-              "most_held_48h"
+              "most_held_48h",
+              "most_held_48h_by_type"
             ],
             "description": "The departed card's admitted_by: most_held_48h on an admission=most_held_48h response."
           },
@@ -59326,7 +59903,7 @@
         }
       },
       "SubscriptionRequired": {
-        "description": "Active Pro subscription required. The key is valid but the account has no active Pro subscription; error.reason is subscription_inactive and error.message names the reactivation URL (https://0xinsider.com/billing). Permanent until a person reactivates: no Retry-After, never retry on a schedule.",
+        "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
         "content": {
           "application/json": {
             "schema": {

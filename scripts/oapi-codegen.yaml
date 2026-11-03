@@ -10,4 +10,15 @@ generate:
 # every component.
 output-options:
   skip-prune: true
+  # A bare OpenAPI `number` (no `format`) is float32 by oapi-codegen's default.
+  # The document declares money and prices that way (`LargeTrade.size_usd` is
+  # `{"type": "number"}`), and a JSON number is an IEEE double on the wire, so
+  # float32's 24-bit significand dropped cents above $262,144: 351389.57
+  # decoded to 351389.5625 (0xinsider/0xinsider#32698). Map every unformatted
+  # number to float64. `format: float` keeps its float32 meaning; the
+  # document declares none today.
+  type-mapping:
+    number:
+      default:
+        type: float64
 output: oxinsider.gen.go

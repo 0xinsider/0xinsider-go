@@ -1,6 +1,6 @@
 // Command stream follows the live event stream and prints each frame with
 // its sequence, resuming from the last delivered sequence after a clean
-// close. Needs OXI_API_KEY. Stop it with Ctrl-C.
+// close. Needs OXINSIDER_API_KEY. Stop it with Ctrl-C.
 package main
 
 import (
@@ -20,7 +20,7 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 
-	client, err := oxinsider.New(oxinsider.WithBearerToken(os.Getenv("OXI_API_KEY")))
+	client, err := oxinsider.New(oxinsider.WithBearerToken(os.Getenv("OXINSIDER_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}

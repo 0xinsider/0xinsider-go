@@ -1,4 +1,4 @@
-// Command leaderboard prints the first ten graded wallets. Needs OXI_API_KEY.
+// Command leaderboard prints the first ten graded wallets. Needs OXINSIDER_API_KEY.
 package main
 
 import (
@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	client, err := oxinsider.New(oxinsider.WithBearerToken(os.Getenv("OXI_API_KEY")))
+	client, err := oxinsider.New(oxinsider.WithBearerToken(os.Getenv("OXINSIDER_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}

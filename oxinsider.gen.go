@@ -136,6 +136,120 @@ func (e AgentRegistrationLivemode) Valid() bool {
 	}
 }
 
+// Defines values for AnalyticIntegerSource.
+const (
+	AnalyticIntegerSourceCache      AnalyticIntegerSource = "cache"
+	AnalyticIntegerSourceComputed   AnalyticIntegerSource = "computed"
+	AnalyticIntegerSourceInsertTime AnalyticIntegerSource = "insert_time"
+	AnalyticIntegerSourceProvider   AnalyticIntegerSource = "provider"
+)
+
+// Valid indicates whether the value is a known member of the AnalyticIntegerSource enum.
+func (e AnalyticIntegerSource) Valid() bool {
+	switch e {
+	case AnalyticIntegerSourceCache:
+		return true
+	case AnalyticIntegerSourceComputed:
+		return true
+	case AnalyticIntegerSourceInsertTime:
+		return true
+	case AnalyticIntegerSourceProvider:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AnalyticIntegerState.
+const (
+	AnalyticIntegerStateComputed         AnalyticIntegerState = "computed"
+	AnalyticIntegerStateInsufficientData AnalyticIntegerState = "insufficient_data"
+	AnalyticIntegerStateKnownZero        AnalyticIntegerState = "known_zero"
+	AnalyticIntegerStateNotApplicable    AnalyticIntegerState = "not_applicable"
+	AnalyticIntegerStateNotComputed      AnalyticIntegerState = "not_computed"
+	AnalyticIntegerStateStale            AnalyticIntegerState = "stale"
+	AnalyticIntegerStateUnavailable      AnalyticIntegerState = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the AnalyticIntegerState enum.
+func (e AnalyticIntegerState) Valid() bool {
+	switch e {
+	case AnalyticIntegerStateComputed:
+		return true
+	case AnalyticIntegerStateInsufficientData:
+		return true
+	case AnalyticIntegerStateKnownZero:
+		return true
+	case AnalyticIntegerStateNotApplicable:
+		return true
+	case AnalyticIntegerStateNotComputed:
+		return true
+	case AnalyticIntegerStateStale:
+		return true
+	case AnalyticIntegerStateUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AnalyticNumberSource.
+const (
+	AnalyticNumberSourceCache      AnalyticNumberSource = "cache"
+	AnalyticNumberSourceComputed   AnalyticNumberSource = "computed"
+	AnalyticNumberSourceInsertTime AnalyticNumberSource = "insert_time"
+	AnalyticNumberSourceProvider   AnalyticNumberSource = "provider"
+)
+
+// Valid indicates whether the value is a known member of the AnalyticNumberSource enum.
+func (e AnalyticNumberSource) Valid() bool {
+	switch e {
+	case AnalyticNumberSourceCache:
+		return true
+	case AnalyticNumberSourceComputed:
+		return true
+	case AnalyticNumberSourceInsertTime:
+		return true
+	case AnalyticNumberSourceProvider:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AnalyticNumberState.
+const (
+	AnalyticNumberStateComputed         AnalyticNumberState = "computed"
+	AnalyticNumberStateInsufficientData AnalyticNumberState = "insufficient_data"
+	AnalyticNumberStateKnownZero        AnalyticNumberState = "known_zero"
+	AnalyticNumberStateNotApplicable    AnalyticNumberState = "not_applicable"
+	AnalyticNumberStateNotComputed      AnalyticNumberState = "not_computed"
+	AnalyticNumberStateStale            AnalyticNumberState = "stale"
+	AnalyticNumberStateUnavailable      AnalyticNumberState = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the AnalyticNumberState enum.
+func (e AnalyticNumberState) Valid() bool {
+	switch e {
+	case AnalyticNumberStateComputed:
+		return true
+	case AnalyticNumberStateInsufficientData:
+		return true
+	case AnalyticNumberStateKnownZero:
+		return true
+	case AnalyticNumberStateNotApplicable:
+		return true
+	case AnalyticNumberStateNotComputed:
+		return true
+	case AnalyticNumberStateStale:
+		return true
+	case AnalyticNumberStateUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ApiDiscoveryAuthentication.
 const (
 	BearerAPIKeyRequiredForDataEndpointsDiscoveryapiv1HealthCoverageapiv1coverageAndItsDeprecatedAliasapiv1platformsThePickOfTheDayCommitmentLedgerapiv1pickOfTheDayledgerAndTheMCPHandshakeInitializePingToolslistOnapiv1mcpArePublicA401CarriesWWWAuthenticateWithTheResourceMetadataURL ApiDiscoveryAuthentication = "Bearer API key required for data endpoints; discovery (/api/v1), health, coverage (/api/v1/coverage, and its deprecated alias /api/v1/platforms), the Pick of the Day commitment ledger (/api/v1/pick-of-the-day/ledger), and the MCP handshake (initialize, ping, tools/list on /api/v1/mcp) are public. A 401 carries WWW-Authenticate with the resource_metadata URL."
@@ -219,6 +333,7 @@ const (
 	ApiErrorErrorReasonMethodNotAllowed                   ApiErrorErrorReason = "method_not_allowed"
 	ApiErrorErrorReasonMonthlyQuotaExceeded               ApiErrorErrorReason = "monthly_quota_exceeded"
 	ApiErrorErrorReasonPayloadTooLarge                    ApiErrorErrorReason = "payload_too_large"
+	ApiErrorErrorReasonPaymentOverdue                     ApiErrorErrorReason = "payment_overdue"
 	ApiErrorErrorReasonPickNotReleased                    ApiErrorErrorReason = "pick_not_released"
 	ApiErrorErrorReasonReadModelWarming                   ApiErrorErrorReason = "read_model_warming"
 	ApiErrorErrorReasonRequestAccountingUnavailable       ApiErrorErrorReason = "request_accounting_unavailable"
@@ -271,6 +386,8 @@ func (e ApiErrorErrorReason) Valid() bool {
 	case ApiErrorErrorReasonMonthlyQuotaExceeded:
 		return true
 	case ApiErrorErrorReasonPayloadTooLarge:
+		return true
+	case ApiErrorErrorReasonPaymentOverdue:
 		return true
 	case ApiErrorErrorReasonPickNotReleased:
 		return true
@@ -384,6 +501,7 @@ const (
 	ApiErrorBodyReasonMethodNotAllowed                   ApiErrorBodyReason = "method_not_allowed"
 	ApiErrorBodyReasonMonthlyQuotaExceeded               ApiErrorBodyReason = "monthly_quota_exceeded"
 	ApiErrorBodyReasonPayloadTooLarge                    ApiErrorBodyReason = "payload_too_large"
+	ApiErrorBodyReasonPaymentOverdue                     ApiErrorBodyReason = "payment_overdue"
 	ApiErrorBodyReasonPickNotReleased                    ApiErrorBodyReason = "pick_not_released"
 	ApiErrorBodyReasonReadModelWarming                   ApiErrorBodyReason = "read_model_warming"
 	ApiErrorBodyReasonRequestAccountingUnavailable       ApiErrorBodyReason = "request_accounting_unavailable"
@@ -436,6 +554,8 @@ func (e ApiErrorBodyReason) Valid() bool {
 	case ApiErrorBodyReasonMonthlyQuotaExceeded:
 		return true
 	case ApiErrorBodyReasonPayloadTooLarge:
+		return true
+	case ApiErrorBodyReasonPaymentOverdue:
 		return true
 	case ApiErrorBodyReasonPickNotReleased:
 		return true
@@ -1308,9 +1428,10 @@ func (e EdgeHunterCategorySkillStatus) Valid() bool {
 
 // Defines values for EdgeHunterObservationAdmittedBy.
 const (
-	EdgeHunterObservationAdmittedByMostHeld       EdgeHunterObservationAdmittedBy = "most_held"
-	EdgeHunterObservationAdmittedByMostHeld48h    EdgeHunterObservationAdmittedBy = "most_held_48h"
-	EdgeHunterObservationAdmittedBySoonestKickoff EdgeHunterObservationAdmittedBy = "soonest_kickoff"
+	EdgeHunterObservationAdmittedByMostHeld          EdgeHunterObservationAdmittedBy = "most_held"
+	EdgeHunterObservationAdmittedByMostHeld48h       EdgeHunterObservationAdmittedBy = "most_held_48h"
+	EdgeHunterObservationAdmittedByMostHeld48hByType EdgeHunterObservationAdmittedBy = "most_held_48h_by_type"
+	EdgeHunterObservationAdmittedBySoonestKickoff    EdgeHunterObservationAdmittedBy = "soonest_kickoff"
 )
 
 // Valid indicates whether the value is a known member of the EdgeHunterObservationAdmittedBy enum.
@@ -1319,6 +1440,8 @@ func (e EdgeHunterObservationAdmittedBy) Valid() bool {
 	case EdgeHunterObservationAdmittedByMostHeld:
 		return true
 	case EdgeHunterObservationAdmittedByMostHeld48h:
+		return true
+	case EdgeHunterObservationAdmittedByMostHeld48hByType:
 		return true
 	case EdgeHunterObservationAdmittedBySoonestKickoff:
 		return true
@@ -1560,9 +1683,10 @@ func (e EdgeHunterObservationDegradationReasonReason) Valid() bool {
 
 // Defines values for EdgeHunterObservationDepartureAdmittedBy.
 const (
-	EdgeHunterObservationDepartureAdmittedByMostHeld       EdgeHunterObservationDepartureAdmittedBy = "most_held"
-	EdgeHunterObservationDepartureAdmittedByMostHeld48h    EdgeHunterObservationDepartureAdmittedBy = "most_held_48h"
-	EdgeHunterObservationDepartureAdmittedBySoonestKickoff EdgeHunterObservationDepartureAdmittedBy = "soonest_kickoff"
+	EdgeHunterObservationDepartureAdmittedByMostHeld          EdgeHunterObservationDepartureAdmittedBy = "most_held"
+	EdgeHunterObservationDepartureAdmittedByMostHeld48h       EdgeHunterObservationDepartureAdmittedBy = "most_held_48h"
+	EdgeHunterObservationDepartureAdmittedByMostHeld48hByType EdgeHunterObservationDepartureAdmittedBy = "most_held_48h_by_type"
+	EdgeHunterObservationDepartureAdmittedBySoonestKickoff    EdgeHunterObservationDepartureAdmittedBy = "soonest_kickoff"
 )
 
 // Valid indicates whether the value is a known member of the EdgeHunterObservationDepartureAdmittedBy enum.
@@ -1571,6 +1695,8 @@ func (e EdgeHunterObservationDepartureAdmittedBy) Valid() bool {
 	case EdgeHunterObservationDepartureAdmittedByMostHeld:
 		return true
 	case EdgeHunterObservationDepartureAdmittedByMostHeld48h:
+		return true
+	case EdgeHunterObservationDepartureAdmittedByMostHeld48hByType:
 		return true
 	case EdgeHunterObservationDepartureAdmittedBySoonestKickoff:
 		return true
@@ -1722,13 +1848,16 @@ func (e EdgeHunterObservationTerminalReason) Valid() bool {
 
 // Defines values for EdgeHunterObservationsResponseAdmission.
 const (
-	EdgeHunterObservationsResponseAdmissionMostHeld48h EdgeHunterObservationsResponseAdmission = "most_held_48h"
+	EdgeHunterObservationsResponseAdmissionMostHeld48h       EdgeHunterObservationsResponseAdmission = "most_held_48h"
+	EdgeHunterObservationsResponseAdmissionMostHeld48hByType EdgeHunterObservationsResponseAdmission = "most_held_48h_by_type"
 )
 
 // Valid indicates whether the value is a known member of the EdgeHunterObservationsResponseAdmission enum.
 func (e EdgeHunterObservationsResponseAdmission) Valid() bool {
 	switch e {
 	case EdgeHunterObservationsResponseAdmissionMostHeld48h:
+		return true
+	case EdgeHunterObservationsResponseAdmissionMostHeld48hByType:
 		return true
 	default:
 		return false
@@ -3424,6 +3553,45 @@ func (e GameStatusState) Valid() bool {
 	case GameStatusStateSuspended:
 		return true
 	case GameStatusStateUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GameTournamentDraw.
+const (
+	Main          GameTournamentDraw = "main"
+	Qualification GameTournamentDraw = "qualification"
+)
+
+// Valid indicates whether the value is a known member of the GameTournamentDraw enum.
+func (e GameTournamentDraw) Valid() bool {
+	switch e {
+	case Main:
+		return true
+	case Qualification:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GameTournamentTour.
+const (
+	GameTournamentTourAtp GameTournamentTour = "atp"
+	GameTournamentTourItf GameTournamentTour = "itf"
+	GameTournamentTourWta GameTournamentTour = "wta"
+)
+
+// Valid indicates whether the value is a known member of the GameTournamentTour enum.
+func (e GameTournamentTour) Valid() bool {
+	switch e {
+	case GameTournamentTourAtp:
+		return true
+	case GameTournamentTourItf:
+		return true
+	case GameTournamentTourWta:
 		return true
 	default:
 		return false
@@ -6922,6 +7090,27 @@ func (e TraderPnlViewSections) Valid() bool {
 	}
 }
 
+// Defines values for TraderPriceEdgeStatus.
+const (
+	TraderPriceEdgeStatusRanked         TraderPriceEdgeStatus = "ranked"
+	TraderPriceEdgeStatusSampleMismatch TraderPriceEdgeStatus = "sample_mismatch"
+	TraderPriceEdgeStatusTooFewMarkets  TraderPriceEdgeStatus = "too_few_markets"
+)
+
+// Valid indicates whether the value is a known member of the TraderPriceEdgeStatus enum.
+func (e TraderPriceEdgeStatus) Valid() bool {
+	switch e {
+	case TraderPriceEdgeStatusRanked:
+		return true
+	case TraderPriceEdgeStatusSampleMismatch:
+		return true
+	case TraderPriceEdgeStatusTooFewMarkets:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for TrendingWalletDailyPnlSeriesStatus.
 const (
 	TrendingWalletDailyPnlSeriesStatusPending TrendingWalletDailyPnlSeriesStatus = "pending"
@@ -8166,13 +8355,16 @@ func (e GetEdgeHunterParamsCohort) Valid() bool {
 
 // Defines values for GetEdgeHunterParamsAdmission.
 const (
-	GetEdgeHunterParamsAdmissionMostHeld48h GetEdgeHunterParamsAdmission = "most_held_48h"
+	GetEdgeHunterParamsAdmissionMostHeld48h       GetEdgeHunterParamsAdmission = "most_held_48h"
+	GetEdgeHunterParamsAdmissionMostHeld48hByType GetEdgeHunterParamsAdmission = "most_held_48h_by_type"
 )
 
 // Valid indicates whether the value is a known member of the GetEdgeHunterParamsAdmission enum.
 func (e GetEdgeHunterParamsAdmission) Valid() bool {
 	switch e {
 	case GetEdgeHunterParamsAdmissionMostHeld48h:
+		return true
+	case GetEdgeHunterParamsAdmissionMostHeld48hByType:
 		return true
 	default:
 		return false
@@ -11037,6 +11229,7 @@ func (e GetSuspiciousTrade200JSONResponseBodyObject) Valid() bool {
 
 // Defines values for GetTraderParamsExpand.
 const (
+	GetTraderParamsExpandBreakdowns   GetTraderParamsExpand = "breakdowns"
 	GetTraderParamsExpandCategories   GetTraderParamsExpand = "categories"
 	GetTraderParamsExpandQuantMetrics GetTraderParamsExpand = "quant_metrics"
 	GetTraderParamsExpandStrategy     GetTraderParamsExpand = "strategy"
@@ -11046,6 +11239,8 @@ const (
 // Valid indicates whether the value is a known member of the GetTraderParamsExpand enum.
 func (e GetTraderParamsExpand) Valid() bool {
 	switch e {
+	case GetTraderParamsExpandBreakdowns:
+		return true
 	case GetTraderParamsExpandCategories:
 		return true
 	case GetTraderParamsExpandQuantMetrics:
@@ -12446,6 +12641,39 @@ type AgentRegistrationEnvironment string
 // AgentRegistrationLivemode Always false: this key never reaches live data.
 type AgentRegistrationLivemode bool
 
+// AnalyticInteger A computed count with its truth state; the same envelope as AnalyticNumber.
+type AnalyticInteger struct {
+	FreshnessAt *time.Time            `json:"freshness_at,omitempty"`
+	Source      AnalyticIntegerSource `json:"source"`
+	State       AnalyticIntegerState  `json:"state"`
+	Value       *int                  `json:"value,omitempty"`
+}
+
+// AnalyticIntegerSource defines model for AnalyticInteger.Source.
+type AnalyticIntegerSource string
+
+// AnalyticIntegerState defines model for AnalyticInteger.State.
+type AnalyticIntegerState string
+
+// AnalyticNumber A computed number with its truth state. value is present when state is computed or known_zero and may be present when stale; any other state says why there is no number, never a stand-in zero.
+type AnalyticNumber struct {
+	// FreshnessAt When the stored inputs behind the value were written or last confirmed (cache), or the request time (computed).
+	FreshnessAt *time.Time `json:"freshness_at,omitempty"`
+
+	// Source Where the value came from, for diagnostics: cache is a stored aggregate, computed a request-time aggregate. Decide on state, not source.
+	Source AnalyticNumberSource `json:"source"`
+
+	// State computed: a measured value. known_zero: a measured zero. stale: a value past its freshness window. not_computed: an input is unknown. not_applicable: the measure does not apply. unavailable: the source could not be read. insufficient_data: too few observations.
+	State AnalyticNumberState `json:"state"`
+	Value *float64            `json:"value,omitempty"`
+}
+
+// AnalyticNumberSource Where the value came from, for diagnostics: cache is a stored aggregate, computed a request-time aggregate. Decide on state, not source.
+type AnalyticNumberSource string
+
+// AnalyticNumberState computed: a measured value. known_zero: a measured zero. stale: a value past its freshness window. not_computed: an input is unknown. not_applicable: the measure does not apply. unavailable: the source could not be read. insufficient_data: too few observations.
+type AnalyticNumberState string
+
 // ApiDiscovery defines model for ApiDiscovery.
 type ApiDiscovery struct {
 	// ApiBaseUrl Canonical API origin for public V1 requests.
@@ -12474,6 +12702,9 @@ type ApiDiscoveryAuthentication string
 // ApiError defines model for ApiError.
 type ApiError struct {
 	Error struct {
+		// BillingUrl Where a person clears this 402 (#32592): pays the overdue invoice (reason payment_overdue) or reactivates the plan (reason subscription_inactive). Present on every 402 subscription_required, omitted on every other error. The message names the same URL; link this field instead of parsing the message.
+		BillingUrl *string `json:"billing_url,omitempty"`
+
 		// Code FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 		Code      ApiErrorErrorCode `json:"code"`
 		DocUrl    *string           `json:"doc_url,omitempty"`
@@ -12481,7 +12712,7 @@ type ApiError struct {
 		Message   string            `json:"message"`
 		Param     *string           `json:"param,omitempty"`
 
-		// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed.
+		// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. payment_overdue (402 subscription_required, #32592): the key is valid and the account still has its plan, but its latest subscription invoice is unpaid (Stripe past_due or unpaid), so paid access is paused; permanent until a person pays at billing_url (https://0xinsider.com/billing) -- stop retrying on a schedule and surface the link. The key works again the moment the invoice is paid. GET /api/v1/me and GET /api/v1/usage keep answering. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed.
 		Reason *ApiErrorErrorReason `json:"reason,omitempty"`
 
 		// RetryAt The recommended next request instant (RFC3339), always in the future. Present on every retryable error: `pick_not_released`, `rate_limited`, `rate_limit_unavailable`, and `read_model_warming`. Omitted otherwise. The absolute twin of `Retry-After`; prefer the header for the sleep duration. For `pick_not_released`, the earliest of the next scheduled release, the next automatic selector attempt, the operating-window start, or about 60 seconds. See that response.
@@ -12494,7 +12725,7 @@ type ApiError struct {
 // ApiErrorErrorCode FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 type ApiErrorErrorCode string
 
-// ApiErrorErrorReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed.
+// ApiErrorErrorReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. payment_overdue (402 subscription_required, #32592): the key is valid and the account still has its plan, but its latest subscription invoice is unpaid (Stripe past_due or unpaid), so paid access is paused; permanent until a person pays at billing_url (https://0xinsider.com/billing) -- stop retrying on a schedule and surface the link. The key works again the moment the invoice is paid. GET /api/v1/me and GET /api/v1/usage keep answering. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed.
 type ApiErrorErrorReason string
 
 // ApiErrorObject defines model for ApiError.Object.
@@ -12502,6 +12733,9 @@ type ApiErrorObject string
 
 // ApiErrorBody defines model for ApiErrorBody.
 type ApiErrorBody struct {
+	// BillingUrl Where a person clears this 402 (#32592): pays the overdue invoice (reason payment_overdue) or reactivates the plan (reason subscription_inactive). Present on every 402 subscription_required, omitted on every other error. The message names the same URL; link this field instead of parsing the message.
+	BillingUrl *string `json:"billing_url,omitempty"`
+
 	// Code FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 	Code      ApiErrorBodyCode  `json:"code"`
 	DocUrl    *string           `json:"doc_url,omitempty"`
@@ -12509,7 +12743,7 @@ type ApiErrorBody struct {
 	Message   string            `json:"message"`
 	Param     *string           `json:"param,omitempty"`
 
-	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed.
+	// Reason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. payment_overdue (402 subscription_required, #32592): the key is valid and the account still has its plan, but its latest subscription invoice is unpaid (Stripe past_due or unpaid), so paid access is paused; permanent until a person pays at billing_url (https://0xinsider.com/billing) -- stop retrying on a schedule and surface the link. The key works again the moment the invoice is paid. GET /api/v1/me and GET /api/v1/usage keep answering. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed.
 	Reason *ApiErrorBodyReason `json:"reason,omitempty"`
 
 	// RetryAt The recommended next retry instant (RFC3339). Present on every retryable error (reason=pick_not_released, code=rate_limited including reason=monthly_quota_exceeded, code=rate_limit_unavailable, reason=read_model_warming) and omitted otherwise. Always in the future. For pick_not_released, the recommendation is advisory and can change before a pick becomes available. Schedule the next request from the returned value instead of inferring a release schedule or polling. Prefer Retry-After for the duration because it is immune to client clock skew.
@@ -12519,7 +12753,7 @@ type ApiErrorBody struct {
 // ApiErrorBodyCode FROZEN: an existing value never changes meaning. request_timeout (408, #16146) was added the way insufficient_scope was: the handler did not answer inside the server's 30-second timeout. Retry-After and retry_at ride on it only for a safe method (GET, HEAD); a timed-out mutation may have completed, so check its state and reuse its Idempotency-Key.
 type ApiErrorBodyCode string
 
-// ApiErrorBodyReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed.
+// ApiErrorBodyReason ADDITIVE (#7209). The specific, actionable cause behind `code`, when there is one more specific than the code itself. `code` keeps its published values, so existing clients are unaffected; new clients branch on `reason`. Omitted when the code already says everything we know. pick_not_released: no Pick of the Day is published for the current product day; schedule one request against retry_at instead of polling. unknown_endpoint: the PATH is not a route on this API -- read GET /api/v1, do not retry. trader_not_tracked: the wallet is real and the URL is right, but the trader is not on the warm sync tier (the wallets we sync most often) -- stop asking for this wallet. market_out_of_scope (404 not_found, #27303): the market or event is real and the URL is right, but 0xinsider serves sports and esports markets only -- stop asking for this market; neither a retry nor another URL for it can succeed. cursor_expired: pagination went stale mid-walk -- re-request the first page and continue. read_model_warming: the requested endpoint cannot serve its read model yet; exact causes are endpoint-specific and can include a cold or contended refresh or a dependency that prevented refresh. database_unavailable: the API's database or its connection pool is temporarily unreachable (a connection-class failure, not a query fault); code stays rate_limit_unavailable, nothing is rate-limited, retry after Retry-After / retry_at. idempotency_in_progress: retain the exact Idempotency-Key and request body, then retry shortly. webhook_delivery_in_progress: retry the URL or signing-secret configuration change after the destination's active request completes. request_accounting_unavailable: accounting capacity is unavailable before the handler executes; retry after Retry-After / retry_at. sandbox_api_key: the credential is a sandbox key (oxi_sk_test_) from POST /api/v1/agents/register, which only the sandbox server accepts -- call the sandbox base URL with it, or get a live key or OAuth access token; do not retry it here. api_key_in_query: the key was sent as a ?token= query parameter, which no route reads because URLs land in logs and history; the key itself was not checked -- resend it as Authorization: Bearer. subscription_inactive: the key is valid but the account's Pro subscription has lapsed (402 subscription_required); permanent until a person reactivates at https://0xinsider.com/billing, which the message names -- stop retrying on a schedule and surface the link. The key owner is emailed once per lapse. payment_overdue (402 subscription_required, #32592): the key is valid and the account still has its plan, but its latest subscription invoice is unpaid (Stripe past_due or unpaid), so paid access is paused; permanent until a person pays at billing_url (https://0xinsider.com/billing) -- stop retrying on a schedule and surface the link. The key works again the moment the invoice is paid. GET /api/v1/me and GET /api/v1/usage keep answering. monthly_quota_exceeded: the account has used the requests its plan includes for the UTC calendar month (429 rate_limited); retry_at and Retry-After name the first of next month, the only retry that can succeed, and the message names https://0xinsider.com/developers, where pay as you go for requests over the quota is turned on. The X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining and X-Monthly-Quota-Reset headers on every authenticated response say how close the account is. invalid_query, invalid_path, invalid_body (400 bad_request, #16146): a query parameter, a path segment or the JSON body did not parse or does not fit the route's schema, so no handler ran; param names the field when the parser named one (a query key, a path segment, a JSON path such as traders[0], or body); fix the request, never retry it as sent. unsupported_media_type (415 bad_request, param content-type): send the body with Content-Type: application/json. payload_too_large (413 bad_request, param body): the body is over 1048576 bytes. method_not_allowed (405 bad_request): the path is a route but not with this method; the Allow header names the methods it serves. ip_rate_limited (429 rate_limited, #16380): the per-address budget every caller behind one IP shares, counted before authentication, is spent; not the key's own window, and the RateLimit-* headers describe that bucket. ip_throttled (429 rate_limited): the address is in a cooldown after sustained over-limit traffic; Retry-After is minutes to days, and a request before it does not shorten the cooldown. cold_read_limited (429 rate_limited, #28752): the account has used its share of cold reads on GET /api/v1/market/{condition_id}/holders, requests for a market whose roster is not cached, each of which walks Polymarket (6 a minute, in bursts of up to 400); not the per-minute window, so a cached market still answers, and the next cold read is admitted at Retry-After. max_plan_required (403 forbidden, #23085): the key is valid and its account is on Pro, but the route is part of Max (GET /api/v1/edge-hunter); every Pro route keeps working with the same key, so do not disable it. The message names https://0xinsider.com/pricing, where the account upgrades; a retry never clears it. endpoint_retired (410): this legacy sports endpoint no longer serves data. Migrate to GET /api/v1/edge-hunter; retrying the retired path cannot succeed.
 type ApiErrorBodyReason string
 
 // BatchGameHoldersItem defines model for BatchGameHoldersItem.
@@ -12598,16 +12832,16 @@ type BatchTraderItemStatus string
 // Candle One bucketed OHLC price candle. Prices are in provider [0, 1] units, truncated to 4 decimals at the rendering edge.
 type Candle struct {
 	// C Close price in provider [0, 1] units (last observed point in the bucket).
-	C float32 `json:"c"`
+	C float64 `json:"c"`
 
 	// H High price in provider [0, 1] units (max observed in the bucket).
-	H float32 `json:"h"`
+	H float64 `json:"h"`
 
 	// L Low price in provider [0, 1] units (min observed in the bucket).
-	L float32 `json:"l"`
+	L float64 `json:"l"`
 
 	// O Open price in provider [0, 1] units (first observed point in the bucket).
-	O float32 `json:"o"`
+	O float64 `json:"o"`
 
 	// T Bucket-start unix epoch (seconds): UTC midnight for 1d, the ISO-week Monday's UTC midnight for 1w.
 	T int64 `json:"t"`
@@ -12618,17 +12852,17 @@ type CategoryLeader struct {
 	Address           string                 `json:"address"`
 	AsOf              time.Time              `json:"as_of"`
 	Category          string                 `json:"category"`
-	EdgeLowerBound    *float32               `json:"edge_lower_bound"`
+	EdgeLowerBound    *float64               `json:"edge_lower_bound"`
 	Grade             *CategoryLeaderGrade   `json:"grade"`
 	Id                string                 `json:"id"`
 	IndependentEvents int                    `json:"independent_events"`
 	NResolved         *int                   `json:"n_resolved"`
 	Platform          CategoryLeaderPlatform `json:"platform"`
-	Pnl               *float32               `json:"pnl"`
+	Pnl               *float64               `json:"pnl"`
 	Rank              int                    `json:"rank"`
 	UnresolvedEvents  int                    `json:"unresolved_events"`
 	Username          *string                `json:"username"`
-	WinRate           *float32               `json:"win_rate"`
+	WinRate           *float64               `json:"win_rate"`
 }
 
 // CategoryLeaderGrade defines model for CategoryLeader.Grade.
@@ -12653,12 +12887,12 @@ type CategorySkillModelReadinessStatus string
 // CategorySkillV2 Forward-only category evidence from observed Polymarket taker fills. Status is category eligibility, not a global letter grade or a guarantee of positive edge. Scores are probability differences. Unknown and degraded rows withhold scores. Coverage is partial; observation counts are not lifetime market counts.
 type CategorySkillV2 struct {
 	AsOf                       time.Time                     `json:"as_of"`
-	BrierEventAvg              *float32                      `json:"brier_event_avg"`
+	BrierEventAvg              *float64                      `json:"brier_event_avg"`
 	CanonicalCategory          string                        `json:"canonical_category"`
-	EdgeLower95                *float32                      `json:"edge_lower_95"`
-	EdgeMean                   *float32                      `json:"edge_mean"`
-	EdgeSd                     *float32                      `json:"edge_sd"`
-	EdgeSe                     *float32                      `json:"edge_se"`
+	EdgeLower95                *float64                      `json:"edge_lower_95"`
+	EdgeMean                   *float64                      `json:"edge_mean"`
+	EdgeSd                     *float64                      `json:"edge_sd"`
+	EdgeSe                     *float64                      `json:"edge_se"`
 	IndependentEventCount      int                           `json:"independent_event_count"`
 	LatestObservationAt        *time.Time                    `json:"latest_observation_at"`
 	ModelVersion               string                        `json:"model_version"`
@@ -12870,7 +13104,7 @@ type ComboLegMarket struct {
 	PickPriceAsOf *time.Time `json:"pick_price_as_of"`
 
 	// PickPriceDaily Stored daily price for this leg outcome token; not a live quote.
-	PickPriceDaily *float32 `json:"pick_price_daily"`
+	PickPriceDaily *float64 `json:"pick_price_daily"`
 
 	// PolymarketUrl Provider-resolved URL including the referral tag.
 	PolymarketUrl *string `json:"polymarket_url,omitempty"`
@@ -13213,25 +13447,25 @@ type EdgeHunterBoardResponseObject string
 // EdgeHunterCategorySkill Category evidence over the full uncapped piled-side S/A/B holder allocation. It never changes signal membership, ordering, routing, or sizing.
 type EdgeHunterCategorySkill struct {
 	AsOf                      time.Time                             `json:"as_of"`
-	BackedSharpUsd            *float32                              `json:"backed_sharp_usd"`
+	BackedSharpUsd            *float64                              `json:"backed_sharp_usd"`
 	CanonicalCategory         *string                               `json:"canonical_category"`
-	CoveragePct               *float32                              `json:"coverage_pct"`
-	CoveredBackedUsd          *float32                              `json:"covered_backed_usd"`
+	CoveragePct               *float64                              `json:"coverage_pct"`
+	CoveredBackedUsd          *float64                              `json:"covered_backed_usd"`
 	CoveredHolders            int                                   `json:"covered_holders"`
 	EligibleHolders           int                                   `json:"eligible_holders"`
-	LargestHolderBackedUsdPct *float32                              `json:"largest_holder_backed_usd_pct"`
+	LargestHolderBackedUsdPct *float64                              `json:"largest_holder_backed_usd_pct"`
 	MinimumHolderEventCount   *int                                  `json:"minimum_holder_event_count"`
 	ModelVersion              string                                `json:"model_version"`
 	ObservationStartedAt      time.Time                             `json:"observation_started_at"`
 	Platform                  EdgeHunterCategorySkillPlatform       `json:"platform"`
 	Scope                     EdgeHunterCategorySkillScope          `json:"scope"`
 	SourceCoverage            EdgeHunterCategorySkillSourceCoverage `json:"source_coverage"`
-	SpecialistBackedUsd       *float32                              `json:"specialist_backed_usd"`
-	SpecialistBackedUsdPct    *float32                              `json:"specialist_backed_usd_pct"`
+	SpecialistBackedUsd       *float64                              `json:"specialist_backed_usd"`
+	SpecialistBackedUsdPct    *float64                              `json:"specialist_backed_usd_pct"`
 	Status                    EdgeHunterCategorySkillStatus         `json:"status"`
 	TaxonomyVersion           *string                               `json:"taxonomy_version"`
-	WeightedEdgeMean          *float32                              `json:"weighted_edge_mean"`
-	WeightedHolderLowerMean   *float32                              `json:"weighted_holder_lower_mean"`
+	WeightedEdgeMean          *float64                              `json:"weighted_edge_mean"`
+	WeightedHolderLowerMean   *float64                              `json:"weighted_holder_lower_mean"`
 }
 
 // EdgeHunterCategorySkillPlatform defines model for EdgeHunterCategorySkill.Platform.
@@ -13275,13 +13509,13 @@ type EdgeHunterObservation struct {
 	BCount     int                             `json:"b_count"`
 
 	// BackedPrice Aggregate piled-side market midpoint recorded at observed_at. This is an observation price mark, not a wallet entry cost.
-	BackedPrice float32 `json:"backed_price"`
+	BackedPrice float64 `json:"backed_price"`
 
 	// BackedSharpUsd Raw graded-holder USD on the piled outcome.
-	BackedSharpUsd float32 `json:"backed_sharp_usd"`
+	BackedSharpUsd float64 `json:"backed_sharp_usd"`
 
 	// BackingScore Recorded side backing score; higher values indicate stronger backing.
-	BackingScore float32 `json:"backing_score"`
+	BackingScore float64 `json:"backing_score"`
 
 	// Category Canonical sport bucket.
 	Category EdgeHunterObservationCategory `json:"category"`
@@ -13294,11 +13528,11 @@ type EdgeHunterObservation struct {
 
 	// ConvictionScore Recorded conviction score; higher values indicate stronger conviction.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	ConvictionScore       float32  `json:"conviction_score"`
-	DirectionalConfidence *float32 `json:"directional_confidence"`
+	ConvictionScore       float64  `json:"conviction_score"`
+	DirectionalConfidence *float64 `json:"directional_confidence"`
 
 	// DirectionalRankScore Recorded side ordering score; higher values sort first.
-	DirectionalRankScore float32 `json:"directional_rank_score"`
+	DirectionalRankScore float64 `json:"directional_rank_score"`
 
 	// DirectionalStatus Truthful state of the directional read, which classifies each graded holder by its fresh synced legs across the game's markets and, when holder_scan_complete is true, by Polymarket's currentValue on both outcomes of this market. A wider_holder row can remain emitted with unavailable and terminal wider_holder_emitted; in_play fails closed instead and terminates as in_play_directional_unavailable.
 	DirectionalStatus EdgeHunterObservationDirectionalStatus `json:"directional_status"`
@@ -13328,7 +13562,7 @@ type EdgeHunterObservation struct {
 
 	// ObservedAt UTC instant when this row finished provider/holder evaluation.
 	ObservedAt        time.Time `json:"observed_at"`
-	OneWayGradedUsd   *float32  `json:"one_way_graded_usd"`
+	OneWayGradedUsd   *float64  `json:"one_way_graded_usd"`
 	OneWayHolderCount *int      `json:"one_way_holder_count"`
 
 	// ParentEventId Provider parent-event id used as the first event-cap identity when available.
@@ -13352,17 +13586,17 @@ type EdgeHunterObservation struct {
 	SCount      int     `json:"s_count"`
 
 	// SharpPct Piled-side graded-holder dollar concentration.
-	SharpPct float32 `json:"sharp_pct"`
+	SharpPct float64 `json:"sharp_pct"`
 
 	// Side The side profitable wallets hold, as a provider-backed display label. Canonical spelling of piled_side (#16310), same value: when provider group context is unavailable it may remain a bare Yes/No/Over/Under, so do not use it alone as participant identity.
 	Side *string `json:"side"`
 
 	// SideShare Signed share of graded money on the side, in [-1, 1]. Canonical spelling of smart_score (#16309, #16310), same value.
-	SideShare float32 `json:"side_share"`
+	SideShare float64 `json:"side_share"`
 
 	// SmartScore Canonical signed holder-pile score. Deprecated (#16310): `side_share` is the canonical spelling and carries the same value; this key stays on the wire.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	SmartScore float32 `json:"smart_score"`
+	SmartScore float64 `json:"smart_score"`
 
 	// Title Provider-backed market title.
 	Title string `json:"title"`
@@ -13372,7 +13606,7 @@ type EdgeHunterObservation struct {
 	TopGrade EdgeHunterObservationTopGrade `json:"top_grade"`
 
 	// Volume Cumulative provider taker volume in shares, not cash or dollars.
-	Volume float32 `json:"volume"`
+	Volume float64 `json:"volume"`
 }
 
 // EdgeHunterObservationAdmittedBy Which evaluation place in its sport the row took this refresh. most_held: a wider_holder place for up to 8 markets per sport kicking off within 24 hours, most graded holders first, kept until kickoff while the holder page still shows a card or could not be read; also every in_play row, whose places go most graded holders first. soonest_kickoff: a wider_holder place among the sport's 8 soonest kickoffs, which is not kept. emerging_pile rows carry their source wider_holder row's value. Filter on most_held to keep the most-held selection. most_held_48h: every row of an admission=most_held_48h response, which is that opt-in selection (up to 8 markets per sport within 48 hours, most graded holders first, recomputed every refresh), including a market a default place also evaluates; it never appears on a default response.
@@ -13567,10 +13801,10 @@ type EdgeHunterRankedSignal struct {
 	BCount int `json:"b_count"`
 
 	// BackedSharpUsd Raw piled-side sharp-money USD.
-	BackedSharpUsd float32 `json:"backed_sharp_usd"`
+	BackedSharpUsd float64 `json:"backed_sharp_usd"`
 
 	// BackingScore Recorded side backing score; higher values indicate stronger backing.
-	BackingScore float32 `json:"backing_score"`
+	BackingScore float64 `json:"backing_score"`
 
 	// Category Canonical sport bucket (e.g. Basketball, Tennis); null when the raw category has no canonical mapping.
 	Category *EdgeHunterRankedSignalCategory `json:"category"`
@@ -13583,13 +13817,13 @@ type EdgeHunterRankedSignal struct {
 
 	// ConvictionScore Recorded conviction score; higher values indicate stronger conviction.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	ConvictionScore float32 `json:"conviction_score"`
+	ConvictionScore float64 `json:"conviction_score"`
 
 	// DirectionalConfidence One-way fraction of the piled graded dollars, in [0, 1] -- the metric orthogonal to sharp_pct. Stale, unknown, hedged, and two-sided dollars dilute it toward zero (conservative). Null when the directional read was not computed or classified nobody.
-	DirectionalConfidence *float32 `json:"directional_confidence"`
+	DirectionalConfidence *float64 `json:"directional_confidence"`
 
 	// DirectionalRankScore Recorded side ordering score; higher values sort first.
-	DirectionalRankScore float32 `json:"directional_rank_score"`
+	DirectionalRankScore float64 `json:"directional_rank_score"`
 	EventSlug            *string `json:"event_slug"`
 
 	// GameStartTime Kickoff (UTC). In the future at SNAPSHOT time and within the requested horizon; because the response is served from a shared snapshot cached up to the ~180s TTL, a served kickoff can be up to ~180s in the past relative to the response time. Not a live guarantee that the game has not yet started.
@@ -13608,7 +13842,7 @@ type EdgeHunterRankedSignal struct {
 	NetSide *EdgeHunterRankedSignalNetSide `json:"net_side"`
 
 	// OneWayGradedUsd Piled-side graded USD held by one-way wallets (share-weighted allocation of backed_sharp_usd). Null when the directional read was not computed or classified nobody.
-	OneWayGradedUsd *float32 `json:"one_way_graded_usd"`
+	OneWayGradedUsd *float64 `json:"one_way_graded_usd"`
 
 	// OneWayHolderCount Piled-side graded holders read one-way: their fresh open legs across the signal game's markets (cross-market within the one game; moneyline+spread family only) all back the same team, or, when the market's holder scan was complete, Polymarket's currentValue shows no opposite leg on this market worth 10% of the backed leg and no fresh leg opposes it. Null when the directional read was not computed (no groupable game, no holder-level data on this ranking path, or the enrichment read failed) or classified nobody.
 	OneWayHolderCount *int `json:"one_way_holder_count"`
@@ -13633,13 +13867,13 @@ type EdgeHunterRankedSignal struct {
 	SCount int `json:"s_count"`
 
 	// SharpPct Piled-side dollar concentration backed_usd / (yes_usd + no_usd), in (0.5, 1] for a real pile; null when there is no sharp USD.
-	SharpPct *float32 `json:"sharp_pct"`
+	SharpPct *float64 `json:"sharp_pct"`
 
 	// Side The side profitable wallets hold, as a provider-backed display label. Canonical spelling of piled_side (#16310), same value: when provider group context is unavailable it may remain a bare Yes/No/Over/Under, so do not use it alone as participant identity.
 	Side *string `json:"side"`
 
 	// SideShare Signed share of graded money on the side, (yes_usd - no_usd)/(yes_usd + no_usd) in [-1, 1] (side-yes positive, side-no negative). Canonical spelling of smart_score (#16309, #16310), same value.
-	SideShare *float32 `json:"side_share"`
+	SideShare *float64 `json:"side_share"`
 
 	// SignalCreatedAt UTC time at which the immutable signal snapshot was computed. Every row from one snapshot shares this value; it is not provider market creation time and is not rewritten at request time. Deprecated (#16310): `ranked_at` is the canonical spelling and carries the same value; this key stays on the wire.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
@@ -13647,7 +13881,7 @@ type EdgeHunterRankedSignal struct {
 
 	// SmartScore Canonical sharp-money score (yes_usd - no_usd)/(yes_usd + no_usd) in [-1, 1] (piled-yes positive, piled-no negative). Deprecated (#16310): `side_share` is the canonical spelling and carries the same value; this key stays on the wire.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	SmartScore *float32 `json:"smart_score"`
+	SmartScore *float64 `json:"smart_score"`
 	Title      *string  `json:"title"`
 
 	// TokenId Polymarket CLOB token id (ERC1155 asset id, decimal string) for the PILED outcome; null when unavailable.
@@ -13657,7 +13891,7 @@ type EdgeHunterRankedSignal struct {
 	TopGrade *EdgeHunterRankedSignalTopGrade `json:"top_grade"`
 
 	// Volume Cumulative provider taker volume in shares, not cash or dollars.
-	Volume *float32 `json:"volume"`
+	Volume *float64 `json:"volume"`
 }
 
 // EdgeHunterRankedSignalCategory Canonical sport bucket (e.g. Basketball, Tennis); null when the raw category has no canonical mapping.
@@ -13689,7 +13923,7 @@ type EdgeHunterRow struct {
 	Title         *string                  `json:"title"`
 
 	// Volume Cumulative provider taker volume in shares, not cash in USD. Null when unavailable.
-	Volume *float32 `json:"volume"`
+	Volume *float64 `json:"volume"`
 }
 
 // EdgeHunterRowCategory defines model for EdgeHunterRow.Category.
@@ -13733,18 +13967,18 @@ type EdgeHunterSelectionKind string
 type EdgeHunterSignal struct {
 	ACount         int     `json:"a_count"`
 	BCount         int     `json:"b_count"`
-	BackedSharpUsd float32 `json:"backed_sharp_usd"`
+	BackedSharpUsd float64 `json:"backed_sharp_usd"`
 
 	// CategorySkill Existing aggregate category evidence copied from the same ranked snapshot. Read its status, coverage and own clocks; it never changes admission or ordering and is not a predicted return.
 	CategorySkill         EdgeHunterCategorySkill           `json:"category_skill"`
-	ConvictionScore       float32                           `json:"conviction_score"`
+	ConvictionScore       float64                           `json:"conviction_score"`
 	CurrentPrice          *EdgeHunterPrice                  `json:"current_price"`
-	DirectionalConfidence *float32                          `json:"directional_confidence"`
-	DirectionalRankScore  float32                           `json:"directional_rank_score"`
+	DirectionalConfidence *float64                          `json:"directional_confidence"`
+	DirectionalRankScore  float64                           `json:"directional_rank_score"`
 	GradedHolders         int                               `json:"graded_holders"`
 	HedgedHolderCount     *int                              `json:"hedged_holder_count"`
 	NetSide               *string                           `json:"net_side"`
-	OneWayGradedUsd       *float32                          `json:"one_way_graded_usd"`
+	OneWayGradedUsd       *float64                          `json:"one_way_graded_usd"`
 	OneWayHolderCount     *int                              `json:"one_way_holder_count"`
 	PiledOutcomeIndex     EdgeHunterSignalPiledOutcomeIndex `json:"piled_outcome_index"`
 	PiledSide             *string                           `json:"piled_side"`
@@ -13754,8 +13988,8 @@ type EdgeHunterSignal struct {
 	SCount   int       `json:"s_count"`
 
 	// SharpPct Fraction of graded money on the backed side, not a percentage from 0 to 100.
-	SharpPct   *float32 `json:"sharp_pct"`
-	SmartScore *float32 `json:"smart_score"`
+	SharpPct   *float64 `json:"sharp_pct"`
+	SmartScore *float64 `json:"smart_score"`
 
 	// TokenId Frozen provider CLOB token ID for the backed outcome. Null when unavailable; matches outcomes[piled_outcome_index].token_id when the shared provider context is available.
 	TokenId  *string                   `json:"token_id"`
@@ -13908,7 +14142,7 @@ type EventReplayMeta struct {
 			// ConditionId The raw provider condition id after mkt_ is stripped.
 			ConditionId *string                               `json:"condition_id,omitempty"`
 			MinGrade    *EventReplayMetaReplayFiltersMinGrade `json:"min_grade,omitempty"`
-			MinSize     *float32                              `json:"min_size,omitempty"`
+			MinSize     *float64                              `json:"min_size,omitempty"`
 
 			// Trader The trader parameter as given.
 			Trader *string `json:"trader,omitempty"`
@@ -14030,7 +14264,7 @@ type ExploreGroup struct {
 	RepLargeTrades *int `json:"rep_large_trades"`
 
 	// RepVolume The volume of the group's highest-volume market, which is markets[0]: the same figure as that market's volume, Polymarket's cumulative taker volume in shares rather than cash. Null when unavailable.
-	RepVolume *float32 `json:"rep_volume"`
+	RepVolume *float64 `json:"rep_volume"`
 
 	// RepWhales Deprecated spelling of rep_large_trades, emitted beside it with the same value. Sunset 2027-02-01 (#29352): removed from V1 on that date; read rep_large_trades.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
@@ -14047,12 +14281,12 @@ type ExploreGroupType string
 // ExploreMarket defines model for ExploreMarket.
 type ExploreMarket struct {
 	Category     *string    `json:"category"`
-	ChangePct24h *float32   `json:"change_pct_24h"`
+	ChangePct24h *float64   `json:"change_pct_24h"`
 	ConditionId  string     `json:"condition_id"`
 	CreatedAt    *time.Time `json:"created_at"`
 
 	// DiscoverScore Backend-owned deterministic market discovery score used by the hot sort.
-	DiscoverScore *float32   `json:"discover_score"`
+	DiscoverScore *float64   `json:"discover_score"`
 	EndDate       *time.Time `json:"end_date"`
 	EventSlug     *string    `json:"event_slug"`
 	Freshness     struct {
@@ -14073,14 +14307,14 @@ type ExploreMarket struct {
 	LargeTradeLastAt *time.Time `json:"large_trade_last_at"`
 
 	// LargeTradeTotalUsd Canonical key since #16304; whale_total_usd is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
-	LargeTradeTotalUsd *float32     `json:"large_trade_total_usd"`
-	LastPrice          *float32     `json:"last_price"`
-	Liquidity          *float32     `json:"liquidity"`
-	NoChangePct24h     *float32     `json:"no_change_pct_24h"`
-	NoLastPrice        *float32     `json:"no_last_price"`
-	NoPricePoints      *[][]float32 `json:"no_price_points"`
-	OiChangePct        *float32     `json:"oi_change_pct"`
-	OpenInterest       *float32     `json:"open_interest"`
+	LargeTradeTotalUsd *float64     `json:"large_trade_total_usd"`
+	LastPrice          *float64     `json:"last_price"`
+	Liquidity          *float64     `json:"liquidity"`
+	NoChangePct24h     *float64     `json:"no_change_pct_24h"`
+	NoLastPrice        *float64     `json:"no_last_price"`
+	NoPricePoints      *[][]float64 `json:"no_price_points"`
+	OiChangePct        *float64     `json:"oi_change_pct"`
+	OpenInterest       *float64     `json:"open_interest"`
 	OutcomeNo          *string      `json:"outcome_no"`
 
 	// OutcomeNoLabel Display label for the NO/outcome_index=1 side, enriched from provider outcome metadata when available.
@@ -14098,26 +14332,26 @@ type ExploreMarket struct {
 
 	// Platform Provider platform. Always polymarket, or null when the row carries no stored value.
 	Platform        *ExploreMarketPlatform `json:"platform"`
-	PricePoints     *[][]float32           `json:"price_points"`
+	PricePoints     *[][]float64           `json:"price_points"`
 	ScoreComponents struct {
 		// LargeTradeSignal Canonical key since #16304; whale_signal is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
-		LargeTradeSignal    *float32 `json:"large_trade_signal"`
-		LiquiditySignal     *float32 `json:"liquidity_signal"`
-		MissingPricePenalty float32  `json:"missing_price_penalty"`
-		PriceMoveSignal     *float32 `json:"price_move_signal"`
-		RecencySignal       *float32 `json:"recency_signal"`
+		LargeTradeSignal    *float64 `json:"large_trade_signal"`
+		LiquiditySignal     *float64 `json:"liquidity_signal"`
+		MissingPricePenalty float64  `json:"missing_price_penalty"`
+		PriceMoveSignal     *float64 `json:"price_move_signal"`
+		RecencySignal       *float64 `json:"recency_signal"`
 
 		// SharpMoneySignal Canonical key since #16308; smart_money_signal is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
-		SharpMoneySignal *float32 `json:"sharp_money_signal"`
+		SharpMoneySignal *float64 `json:"sharp_money_signal"`
 
 		// SmartMoneySignal Deprecated spelling of sharp_money_signal; emitted beside it with the same value. Sunset 2027-02-01 (#29352): removed from V1 on that date; read sharp_money_signal.
 		// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-		SmartMoneySignal *float32 `json:"smart_money_signal"`
-		VolumeSignal     *float32 `json:"volume_signal"`
+		SmartMoneySignal *float64 `json:"smart_money_signal"`
+		VolumeSignal     *float64 `json:"volume_signal"`
 
 		// WhaleSignal Deprecated spelling of large_trade_signal, emitted beside it with the same value. Sunset 2027-02-01 (#29352): removed from V1 on that date; read large_trade_signal.
 		// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-		WhaleSignal *float32 `json:"whale_signal"`
+		WhaleSignal *float64 `json:"whale_signal"`
 	} `json:"score_components"`
 
 	// SharpMoneyAsOf When the oldest stored smart-money wallet behind this split (smart_score, smart_count and smart_label) last finished syncing. Graded wallets sync on different schedules, so this is often hours or days ago. Some holdings in the split can come from a Polymarket holder read cached for up to 3 minutes, which this time does not describe. Null when there is no split or a wallet's sync time is unknown.
@@ -14129,7 +14363,7 @@ type ExploreMarket struct {
 
 	// SmartLabel The outcome graded money leans toward RELATIVE TO THE PRICE: named only when the graded money's share of a side diverges from that side's price-implied share by at least 10 points, with at least $500 on the leaning side and outside the crowded-side guard. Null when the money sits with the price (no lean), when there is no graded money, or when the price is unavailable. The same rule as the market page.
 	SmartLabel *string  `json:"smart_label"`
-	SmartScore *float32 `json:"smart_score"`
+	SmartScore *float64 `json:"smart_score"`
 
 	// Status closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot.
 	Status ExploreMarketStatus `json:"status"`
@@ -14147,7 +14381,7 @@ type ExploreMarket struct {
 	UrlSlug *string `json:"url_slug"`
 
 	// Volume Polymarket's traded-volume figure for the market, as last stored: cumulative taker volume in shares, each counted at its $1 settlement value, not the cash that changed hands (100 shares bought at $0.40 add 100, not 40). It can lag Polymarket's current figure. sort=volume orders by it. Null when unavailable.
-	Volume *float32 `json:"volume"`
+	Volume *float64 `json:"volume"`
 
 	// WhaleDistinctWallets Deprecated spelling of large_trade_distinct_wallets, emitted beside it with the same value. Sunset 2027-02-01 (#29352): removed from V1 on that date; read large_trade_distinct_wallets.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
@@ -14159,7 +14393,7 @@ type ExploreMarket struct {
 
 	// WhaleTotalUsd Deprecated spelling of large_trade_total_usd, emitted beside it with the same value. Sunset 2027-02-01 (#29352): removed from V1 on that date; read large_trade_total_usd.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	WhaleTotalUsd *float32 `json:"whale_total_usd"`
+	WhaleTotalUsd *float64 `json:"whale_total_usd"`
 
 	// WhaleTradeCount Deprecated spelling of large_trade_count, emitted beside it with the same value. Sunset 2027-02-01 (#29352): removed from V1 on that date; read large_trade_count.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
@@ -14191,7 +14425,7 @@ type ExploreStandaloneType string
 type ExportCompleteness struct {
 	Reason       string                   `json:"reason"`
 	Status       ExportCompletenessStatus `json:"status"`
-	SyncCoverage float32                  `json:"sync_coverage"`
+	SyncCoverage float64                  `json:"sync_coverage"`
 }
 
 // ExportCompletenessStatus defines model for ExportCompleteness.Status.
@@ -14200,7 +14434,7 @@ type ExportCompletenessStatus string
 // ExportCounts defines model for ExportCounts.
 type ExportCounts struct {
 	// EstimatedSizeMb Estimated file size from estimated_trade_rows and exported_markets.
-	EstimatedSizeMb float32 `json:"estimated_size_mb"`
+	EstimatedSizeMb float64 `json:"estimated_size_mb"`
 
 	// EstimatedTradeRows Estimated trades in the wallet's sports and esports markets: the summed trade counts of those markets. The file counts its own rows in generation.source_watermarks.trades.rows.
 	EstimatedTradeRows int `json:"estimated_trade_rows"`
@@ -14299,20 +14533,20 @@ type ExportSourceRangePnlSeriesStatus string
 // ExportVolumeReconciliation defines model for ExportVolumeReconciliation.
 type ExportVolumeReconciliation struct {
 	// ActivityVolumeCoverage Always null, for the same reason as provider_activity_volume_gap.
-	ActivityVolumeCoverage *float32 `json:"activity_volume_coverage"`
+	ActivityVolumeCoverage *float64 `json:"activity_volume_coverage"`
 
 	// ExportedActivityVolume Volume in USD, buys and sells, in sports and esports markets, each fill's size times its price with fees excluded, summed over the wallet's stored daily volume rows (from the fills 0xinsider stores for the wallet): the export file's summary.volume_reconciliation.exported_activity_volume, not the sum of its pnl[].total_volume, which is null on a day the trade rollups do not cover. Never Polymarket's share count. Null when any of those rows has no volume: a sum over the other days would be a partial subtotal.
-	ExportedActivityVolume *float32 `json:"exported_activity_volume"`
+	ExportedActivityVolume *float64 `json:"exported_activity_volume"`
 
 	// ExportedMarketCostBasis Cost basis in USD summed over the wallet's sports and esports markets, the markets section of the export.
-	ExportedMarketCostBasis float32 `json:"exported_market_cost_basis"`
+	ExportedMarketCostBasis float64 `json:"exported_market_cost_basis"`
 
 	// ProviderActivityVolumeGap Always null. provider_lifetime_volume covered every market and exported_activity_volume sports and esports markets only, so their difference measured nothing; the field stays so existing clients keep parsing the object.
-	ProviderActivityVolumeGap *float32 `json:"provider_activity_volume_gap"`
+	ProviderActivityVolumeGap *float64 `json:"provider_activity_volume_gap"`
 
 	// ProviderLifetimeVolume Deprecated (#30499): always null since 2026-10-29. It held Polymarket's volume across every market of the wallet, which reconciles nothing against the sports and esports exported_activity_volume; the key stays so existing V1 clients keep parsing. Read exported_activity_volume for the wallet's sports and esports volume.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	ProviderLifetimeVolume *float32 `json:"provider_lifetime_volume"`
+	ProviderLifetimeVolume *float64 `json:"provider_lifetime_volume"`
 }
 
 // FreshnessFailure defines model for FreshnessFailure.
@@ -14377,6 +14611,9 @@ type Game struct {
 
 	// Title The provider's event title. Omitted when the provider sent none.
 	Title *string `json:"title,omitempty"`
+
+	// Tournament A tennis game's tournament edition: its tier, city and country, venue time zone and official dates, from 0xinsider's reviewed registry, the same facts the game's page states. Omitted outside tennis, on a finished game read from its stored record (freshness.source stored), and when the registry holds no single edition for the game's competition label, players' tour and kickoff; never a guessed value.
+	Tournament *GameTournament `json:"tournament,omitempty"`
 
 	// Url The game's page on 0xinsider.
 	Url string `json:"url"`
@@ -14543,7 +14780,7 @@ type GameMarketLiquidity struct {
 	Source GameMarketLiquiditySource `json:"source"`
 
 	// Value The provider's figure at full precision.
-	Value float32 `json:"value"`
+	Value float64 `json:"value"`
 }
 
 // GameMarketLiquiditySource Always gamma: the Polymarket Gamma API.
@@ -14558,7 +14795,7 @@ type GameMarketPriceCompetitor struct {
 	Label string `json:"label"`
 
 	// Price Unrounded provider price in [0, 1].
-	Price float32 `json:"price"`
+	Price float64 `json:"price"`
 
 	// PriceProvenance Which provider price observation supplies this leg.
 	PriceProvenance GameMarketPriceCompetitorPriceProvenance `json:"price_provenance"`
@@ -14667,7 +14904,7 @@ type GameSharpMoney struct {
 		Label    string                     `json:"label"`
 		Pct      int                        `json:"pct"`
 		Side     GameSharpMoneyOutcomesSide `json:"side"`
-		Usd      float32                    `json:"usd"`
+		Usd      float64                    `json:"usd"`
 		Wallets  struct {
 			A int `json:"a"`
 			B int `json:"b"`
@@ -14675,9 +14912,9 @@ type GameSharpMoney struct {
 		} `json:"wallets"`
 	} `json:"outcomes"`
 	Status         GameSharpMoneyStatus `json:"status"`
-	TotalUsd       *float32             `json:"total_usd"`
+	TotalUsd       *float64             `json:"total_usd"`
 	TraderCount    *int                 `json:"trader_count"`
-	UnallocatedUsd *float32             `json:"unallocated_usd"`
+	UnallocatedUsd *float64             `json:"unallocated_usd"`
 	Verdict        *struct {
 		union json.RawMessage
 	} `json:"verdict"`
@@ -14794,6 +15031,57 @@ type GameStatusMatchStatus string
 // GameStatusState scheduled: kickoff is ahead, or the provider still lists the game open and neither in play nor ended. With no live-score frame a game stays scheduled past its kickoff until the provider says otherwise. live: the provider reports it in play. paused: halftime or a provider-reported break. ended: the provider reported a final, an award or a forfeit. postponed, cancelled, suspended, delayed: the provider's own verdict, kept distinct. A tennis match that the provider still lists in play, with no live score feed and no change of period or score for 3 hours, also reads suspended. unknown: no provider state reached this read. A kickoff in the past is never read as live on its own.
 type GameStatusState string
 
+// GameTournament The tennis tournament edition a game belongs to, curated from official ATP, WTA and ITF pages (source_urls), never from Polymarket, which supplies the competition label and tour only. Selected by the game's provider competition label, the one tour both players carry, and the kickoff's day at the venue. A fact no official page states is omitted.
+type GameTournament struct {
+	// CheckedOn When those pages were checked: a catalogue verification date, not a score or price clock.
+	CheckedOn openapi_types.Date `json:"checked_on"`
+
+	// Draw The match's draw. qualification when the provider competition label carries Polymarket's qualifying mark (", Qualification", which 0xinsider also applies when Polymarket flags an ATP Challenger qualifying fixture); main for an unmarked ATP or WTA label. Omitted for an unmarked ITF label: Polymarket gives an ITF qualifying match the main draw's label.
+	Draw *GameTournamentDraw `json:"draw,omitempty"`
+
+	// EditionYear The year of the edition.
+	EditionYear int `json:"edition_year"`
+
+	// EndsOn The edition's last official day, inclusive (YYYY-MM-DD).
+	EndsOn openapi_types.Date `json:"ends_on"`
+
+	// Label The provider competition label that selected this edition, verbatim, for example "Erste Bank Open, Qualification".
+	Label string `json:"label"`
+
+	// Location The verified venue city and country. Omitted when no official page states it.
+	Location *GameTournamentLocation `json:"location,omitempty"`
+
+	// SourceUrls The official tournament, tour, federation or time-zone pages the facts were taken from.
+	SourceUrls []string `json:"source_urls"`
+
+	// StartsOn The edition's first official day, inclusive (YYYY-MM-DD). A qualifying match can be played up to two days before it.
+	StartsOn openapi_types.Date `json:"starts_on"`
+
+	// Tier The edition's verified category, for example "ATP Masters 1000", "ATP Challenger 50", "WTA 1000" or "ITF M25". Omitted when no official page states it.
+	Tier *string `json:"tier,omitempty"`
+
+	// Timezone The venue's IANA time zone, for example "Europe/Rome". Format the venue's local time with it; it carries the daylight-saving rules. Omitted when the venue is unverified.
+	Timezone *string `json:"timezone,omitempty"`
+
+	// Tour The edition's tour.
+	Tour GameTournamentTour `json:"tour"`
+}
+
+// GameTournamentDraw The match's draw. qualification when the provider competition label carries Polymarket's qualifying mark (", Qualification", which 0xinsider also applies when Polymarket flags an ATP Challenger qualifying fixture); main for an unmarked ATP or WTA label. Omitted for an unmarked ITF label: Polymarket gives an ITF qualifying match the main draw's label.
+type GameTournamentDraw string
+
+// GameTournamentTour The edition's tour.
+type GameTournamentTour string
+
+// GameTournamentLocation A verified tournament venue.
+type GameTournamentLocation struct {
+	City    string `json:"city"`
+	Country string `json:"country"`
+
+	// CountryCode ISO 3166-1 alpha-2, for example "IT".
+	CountryCode string `json:"country_code"`
+}
+
 // GameTrade One fill in a game, as the game page's activity list shows it.
 type GameTrade struct {
 	// Id Stable fill identity: {transaction_hash}:{token_id}:{wallet}:{shares}. Deduplicate on it across polls.
@@ -14822,19 +15110,19 @@ type GameTrade struct {
 	OutcomeIndex *int `json:"outcome_index"`
 
 	// Point The signed handicap the fill's side carries on a spread line, for example -1.5 or 1.5; null off spreads.
-	Point *float32 `json:"point"`
+	Point *float64 `json:"point"`
 
 	// Price Fill price, 0 to 1.
-	Price float32 `json:"price"`
+	Price float64 `json:"price"`
 
 	// Shares Shares filled.
-	Shares float32 `json:"shares"`
+	Shares float64 `json:"shares"`
 
 	// Side The provider's side of the fill.
 	Side GameTradeSide `json:"side"`
 
 	// SizeUsd USDC notional of the fill.
-	SizeUsd float32 `json:"size_usd"`
+	SizeUsd float64 `json:"size_usd"`
 
 	// TradedAt When the fill happened, to the second.
 	TradedAt time.Time `json:"traded_at"`
@@ -14874,7 +15162,7 @@ type GameVolume struct {
 	Unit *GameVolumeUnit `json:"unit,omitempty"`
 
 	// Value The volume at full precision, in unit.
-	Value float32 `json:"value"`
+	Value float64 `json:"value"`
 }
 
 // GameVolumeBasis game_lines: the game volume Polymarket's game page states, summed over the game's own lines. event_total: the whole event's volume, stated when no game volume was readable. The two can differ in either direction. Omitted when the basis is unknown.
@@ -14966,31 +15254,31 @@ type LargeExportPolicyV1AsyncStatusValues string
 // LargePosition defines model for LargePosition.
 type LargePosition struct {
 	// AvgEntryPrice Volume-weighted entry price.
-	AvgEntryPrice *float32 `json:"avg_entry_price,omitempty"`
+	AvgEntryPrice *float64 `json:"avg_entry_price,omitempty"`
 
 	// CombinedUnrealizedPnl The wallet's unrealized P&L across every outcome it holds in this market. Equals position_unrealized_pnl unless is_two_sided is true.
-	CombinedUnrealizedPnl *float32 `json:"combined_unrealized_pnl,omitempty"`
+	CombinedUnrealizedPnl *float64 `json:"combined_unrealized_pnl,omitempty"`
 
 	// CombinedValueUsd The wallet's currentValue across every outcome it holds in this market. Equals total_size_usd unless is_two_sided is true, and is the value the feed ranked this row by.
-	CombinedValueUsd *float32 `json:"combined_value_usd,omitempty"`
+	CombinedValueUsd *float64 `json:"combined_value_usd,omitempty"`
 
 	// CurrentPrice Latest provider mark price for the position's token.
-	CurrentPrice *float32 `json:"current_price,omitempty"`
+	CurrentPrice *float64 `json:"current_price,omitempty"`
 
 	// EventLegCount Legs collapsed into this representative row for one (wallet, event, outcome side) group. 1 means standalone.
 	EventLegCount int `json:"event_leg_count"`
 
 	// EventTotalValueUsd Sum of the collapsed sibling legs' own holding values for this (wallet, event) group; equals total_size_usd when event_leg_count = 1, and omitted when any member's value is unknown.
-	EventTotalValueUsd *float32  `json:"event_total_value_usd,omitempty"`
+	EventTotalValueUsd *float64  `json:"event_total_value_usd,omitempty"`
 	FirstSeenAt        time.Time `json:"first_seen_at"`
 
 	// Holdings Every outcome the wallet holds, primary first. holdings[0] restates the top-level per-outcome fields; a further entry is a leg those fields do not describe. No amount here is a share-proportional slice of a both-sides total.
 	Holdings []struct {
 		// AvgEntryPrice Provider average entry price for this outcome.
-		AvgEntryPrice *float32 `json:"avg_entry_price,omitempty"`
+		AvgEntryPrice *float64 `json:"avg_entry_price,omitempty"`
 
 		// CurrentPrice Provider mark price for this outcome.
-		CurrentPrice *float32 `json:"current_price,omitempty"`
+		CurrentPrice *float64 `json:"current_price,omitempty"`
 
 		// OutcomeIndex 0 = Yes, 1 = No.
 		OutcomeIndex int `json:"outcome_index"`
@@ -14999,16 +15287,16 @@ type LargePosition struct {
 		OutcomeLabel *string `json:"outcome_label,omitempty"`
 
 		// ShareCount Shares held on this outcome.
-		ShareCount float32 `json:"share_count"`
+		ShareCount float64 `json:"share_count"`
 
 		// TokenId Polymarket CLOB token id for this outcome; null for an unsynced market.
 		TokenId *string `json:"token_id"`
 
 		// UnrealizedPnl Provider unrealized P&L for this outcome. An absent key means unavailable, not break-even.
-		UnrealizedPnl *float32 `json:"unrealized_pnl,omitempty"`
+		UnrealizedPnl *float64 `json:"unrealized_pnl,omitempty"`
 
 		// ValueUsd Provider currentValue for this outcome. An absent key means unavailable, not zero.
-		ValueUsd *float32 `json:"value_usd,omitempty"`
+		ValueUsd *float64 `json:"value_usd,omitempty"`
 	} `json:"holdings"`
 
 	// Id Composite prefixed ID `pos_<wallet>:<condition_id>:<outcome_index>`.
@@ -15035,16 +15323,16 @@ type LargePosition struct {
 	Platform LargePositionPlatform `json:"platform"`
 
 	// PositionUnrealizedPnl Provider unrealized mark-to-market P&L (Polymarket cashPnl) for that same one outcome. An absent key means unavailable, not break-even.
-	PositionUnrealizedPnl *float32 `json:"position_unrealized_pnl,omitempty"`
+	PositionUnrealizedPnl *float64 `json:"position_unrealized_pnl,omitempty"`
 
 	// ShareCount Live share count for this position.
-	ShareCount float32 `json:"share_count"`
+	ShareCount float64 `json:"share_count"`
 
 	// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for this outcome; null when unavailable (e.g. unsynced markets).
 	TokenId *string `json:"token_id"`
 
 	// TotalSizeUsd Provider currentValue in USD for the outcome named by outcome_label / token_id, and for that outcome only. An absent key means the provider supplied no value for this leg, not a zero position. combined_value_usd carries the wallet's whole-market total.
-	TotalSizeUsd *float32 `json:"total_size_usd,omitempty"`
+	TotalSizeUsd *float64 `json:"total_size_usd,omitempty"`
 	Trader       struct {
 		Address string                    `json:"address"`
 		Grade   *LargePositionTraderGrade `json:"grade,omitempty"`
@@ -15053,18 +15341,18 @@ type LargePosition struct {
 		Id string `json:"id"`
 
 		// InScopeRealizedPnl The wallet's realized P&L in USD on sports and esports markets, the figure the 0xinsider profile shows: the record behind pnl.in_scope.realized_pnl on GET /api/v1/trader/{address}, to cents. Distinct from this position's position_unrealized_pnl. For a graded wallet it is read from the latest grading pass, so it can trail that figure until the next pass. Omitted until 0xinsider has computed the wallet's record (#29953).
-		InScopeRealizedPnl *float32 `json:"in_scope_realized_pnl,omitempty"`
+		InScopeRealizedPnl *float64 `json:"in_scope_realized_pnl,omitempty"`
 
 		// MarketsTraded Sports and esports markets on the wallet's record, pnl.in_scope.markets on GET /api/v1/trader/{address}. Since 2026-10-27 it no longer counts other markets (#29953). Absent when the wallet has no record.
 		MarketsTraded *int `json:"markets_traded,omitempty"`
 
 		// Pnl Deprecated since 2026-10-27 and never sent. It was Polymarket's net total P&L over every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29953). Read trader.in_scope_realized_pnl.
 		// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-		Pnl      *float32 `json:"pnl,omitempty"`
+		Pnl      *float64 `json:"pnl,omitempty"`
 		Username *string  `json:"username,omitempty"`
 
 		// WinRate Sports and esports win rate as a ratio from 0 to 1 (0.62 means 62%): wins over the decided sports and esports markets on the wallet's record, the same figure as pnl.in_scope.win_rate on GET /api/v1/trader/{address}. Since 2026-10-27 it no longer counts other markets (#29953). Absent when the wallet has no record or no decided market.
-		WinRate *float32 `json:"win_rate,omitempty"`
+		WinRate *float64 `json:"win_rate,omitempty"`
 	} `json:"trader"`
 }
 
@@ -15094,27 +15382,27 @@ type LargeTrade struct {
 	} `json:"market"`
 
 	// MarketVolumeShare This fill's size relative to its market: its share count (size_usd / price) divided by the shares the market has traded, Polymarket's recorded volume, which counts shares rather than dollars, as observed at or after the trade, so the value always falls between 0 and 1 inclusive. A 20,000-share fill is 0.00005 of a market that has traded 400M shares and 0.125 of one that has traded 160,000, which size_usd alone cannot distinguish. Absent when no volume figure recorded at or after the trade is available, or when that figure is smaller than the fill; never 0 as a stand-in and never capped at 1, because a denominator we cannot trust publishes nothing rather than a trimmed number. A market's volume keeps growing, so the same trade reports a smaller share as the market trades on.
-	MarketVolumeShare *float32 `json:"market_volume_share,omitempty"`
+	MarketVolumeShare *float64 `json:"market_volume_share,omitempty"`
 
 	// Outcome Traded outcome label (e.g. "Yes"/"No"/team name), resolved provider-first from the trade's outcome_index against market_canonical (index 0 -> yes, 1 -> no). Distinct axis from side (BUY/SELL): side is the trade direction, outcome is which leg was traded. null for multi-outcome (outcome_index >= 2) or unsynced markets, and for a Polymarket trade recorded before 2026-04-02T00:00:00Z unless its stored outcome_index was verified against the fill's own trade records (before that date the stored index was wrong for a large share of trades; an unverified side is unknown, not defaulted).
 	Outcome *string `json:"outcome"`
-	Price   float32 `json:"price"`
+	Price   float64 `json:"price"`
 
 	// RecordedReviewScore 0.0–1.0 review score written once when the trade row is inserted, from the trader's statistics at that moment. Populated from 2026-08-03T11:59Z; older rows return null and are never backfilled, because a backfill could only read today's statistics. If a trade is added later, its time-sensitive recorded score reflects that delay. Canonical since #16311; recorded_signal_score carries the same value.
-	RecordedReviewScore *float32 `json:"recorded_review_score"`
+	RecordedReviewScore *float64 `json:"recorded_review_score"`
 
 	// RecordedSignalScore 0.0–1.0 review score written once when the trade row is inserted; null before 2026-08-03T11:59Z. Deprecated (#16311): `recorded_review_score` is the canonical spelling and carries the same value; this key stays on the wire until its sunset on 2027-02-01 (#29352), when it is removed.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	RecordedSignalScore *float32 `json:"recorded_signal_score"`
+	RecordedSignalScore *float64 `json:"recorded_signal_score"`
 
 	// ReviewScore Current trade review score on a 0..1 scale; higher values indicate a stronger review signal. This is the current response value and can differ from the recorded score. Missing measurements remain unavailable.
-	ReviewScore float32        `json:"review_score"`
+	ReviewScore float64        `json:"review_score"`
 	Side        LargeTradeSide `json:"side"`
 
 	// SignalScore Deprecated alias of review_score with the same current value and 0..1 scale. Sunset 2027-02-01 (#29352): removed from V1 on that date; read review_score.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	SignalScore float32 `json:"signal_score"`
-	SizeUsd     float32 `json:"size_usd"`
+	SignalScore float64 `json:"signal_score"`
+	SizeUsd     float64 `json:"size_usd"`
 
 	// SuspicionScore Persisted live suspicion score from the scorer. Null when the row has no persisted score.
 	SuspicionScore *int `json:"suspicion_score"`
@@ -15172,27 +15460,27 @@ type LargeTradeDetail struct {
 	} `json:"market"`
 
 	// MarketVolumeShare This fill's size relative to its market: its share count (size_usd / price) divided by the shares the market has traded, Polymarket's recorded volume, which counts shares rather than dollars, as observed at or after the trade, so the value always falls between 0 and 1 inclusive. A 20,000-share fill is 0.00005 of a market that has traded 400M shares and 0.125 of one that has traded 160,000, which size_usd alone cannot distinguish. Absent when no volume figure recorded at or after the trade is available, or when that figure is smaller than the fill; never 0 as a stand-in and never capped at 1, because a denominator we cannot trust publishes nothing rather than a trimmed number. A market's volume keeps growing, so the same trade reports a smaller share as the market trades on.
-	MarketVolumeShare *float32 `json:"market_volume_share,omitempty"`
+	MarketVolumeShare *float64 `json:"market_volume_share,omitempty"`
 
 	// Outcome Traded outcome label (e.g. "Yes"/"No"/team name), resolved provider-first from the trade's outcome_index against market_canonical (index 0 -> yes, 1 -> no). Distinct axis from side (BUY/SELL): side is the trade direction, outcome is which leg was traded. null for multi-outcome (outcome_index >= 2) or unsynced markets, and for a Polymarket trade recorded before 2026-04-02T00:00:00Z unless its stored outcome_index was verified against the fill's own trade records (before that date the stored index was wrong for a large share of trades; an unverified side is unknown, not defaulted).
 	Outcome *string `json:"outcome"`
-	Price   float32 `json:"price"`
+	Price   float64 `json:"price"`
 
 	// RecordedReviewScore 0.0–1.0 review score written once when the trade row is inserted, from the trader's statistics at that moment. Populated from 2026-08-03T11:59Z; older rows return null and are never backfilled, because a backfill could only read today's statistics. If a trade is added later, its time-sensitive recorded score reflects that delay. Canonical since #16311; recorded_signal_score carries the same value.
-	RecordedReviewScore *float32 `json:"recorded_review_score"`
+	RecordedReviewScore *float64 `json:"recorded_review_score"`
 
 	// RecordedSignalScore 0.0–1.0 review score written once when the trade row is inserted; null before 2026-08-03T11:59Z. Deprecated (#16311): `recorded_review_score` is the canonical spelling and carries the same value; this key stays on the wire until its sunset on 2027-02-01 (#29352), when it is removed.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	RecordedSignalScore *float32 `json:"recorded_signal_score"`
+	RecordedSignalScore *float64 `json:"recorded_signal_score"`
 
 	// ReviewScore Current trade review score on a 0..1 scale; higher values indicate a stronger review signal. This is the current response value and can differ from the recorded score. Missing measurements remain unavailable.
-	ReviewScore float32              `json:"review_score"`
+	ReviewScore float64              `json:"review_score"`
 	Side        LargeTradeDetailSide `json:"side"`
 
 	// SignalScore Deprecated alias of review_score with the same current value and 0..1 scale. Sunset 2027-02-01 (#29352): removed from V1 on that date; read review_score.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	SignalScore float32 `json:"signal_score"`
-	SizeUsd     float32 `json:"size_usd"`
+	SignalScore float64 `json:"signal_score"`
+	SizeUsd     float64 `json:"size_usd"`
 
 	// SuspicionScore Persisted live suspicion score from the scorer. Null when the row has no persisted score.
 	SuspicionScore *int `json:"suspicion_score"`
@@ -15357,7 +15645,7 @@ type LeaderboardEntry struct {
 
 	// Pnl Deprecated since 2026-10-27 and never sent. It was Polymarket's all-time leaderboard P&L, which covered every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29971). Read in_scope.realized_pnl.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	Pnl *float32 `json:"pnl,omitempty"`
+	Pnl *float64 `json:"pnl,omitempty"`
 
 	// PnlCorrection Deprecated since 2026-10-27 and never sent. It was the neg-risk conversion correction to the wallet-wide realized_pnl (#29971). Its sports and esports part is inside in_scope.realized_pnl.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
@@ -15368,8 +15656,8 @@ type LeaderboardEntry struct {
 
 	// RealizedPnl Deprecated since 2026-10-27 and never sent. It was native Polymarket realized P&L over every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29971). Read in_scope.realized_pnl.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	RealizedPnl *float32 `json:"realized_pnl,omitempty"`
-	Score       *float32 `json:"score,omitempty"`
+	RealizedPnl *float64 `json:"realized_pnl,omitempty"`
+	Score       *float64 `json:"score,omitempty"`
 
 	// StrategyType Observed trading style identifier. New rows use two_sided, category_focused, high_activity, diversified, mixed, or unclassified, counted over the wallet's sports and esports markets only. Historical identifiers remain readable during normal reclassification; style does not predict skill or intent.
 	StrategyType *string `json:"strategy_type,omitempty"`
@@ -15380,10 +15668,10 @@ type LeaderboardEntry struct {
 
 	// Volume Deprecated since 2026-10-27 and never sent. It was full-history USD cash volume over every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29971).
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	Volume *float32 `json:"volume,omitempty"`
+	Volume *float64 `json:"volume,omitempty"`
 
 	// WinRate The wallet's sports and esports win rate, in_scope.win_rate rounded to four places. Since 2026-10-27 (#29971); before, it covered every Polymarket market. ?category= decides WHICH wallets are listed (the wallet must be ranked in that category); it does not rescope this field. For a per-category record use GET /api/v1/trader/{address}/categories. Omitted when in_scope is omitted or has no win rate.
-	WinRate *float32 `json:"win_rate,omitempty"`
+	WinRate *float64 `json:"win_rate,omitempty"`
 }
 
 // LeaderboardEntryGrade defines model for LeaderboardEntry.Grade.
@@ -15413,13 +15701,13 @@ type LeaderboardLeagues struct {
 // LeaderboardPriceEdge Edge over the price paid (#32270): how often the side a wallet bought won, minus the average price it paid, over its settled sports and esports markets of $20 or more at a known entry price. Probabilities throughout: edge 0.12 is 12 percentage points. A wallet buying at 99 cents that wins every market has an edge of about 0.01. A market bought on both sides counts by its shares: the winning side's share of the shares bought is its hit, the cost over those shares its price.
 type LeaderboardPriceEdge struct {
 	// AvgPrice Mean entry price paid, 0-1.
-	AvgPrice float32 `json:"avg_price"`
+	AvgPrice float64 `json:"avg_price"`
 
 	// Edge hit_rate minus avg_price, full precision. The value sort=edge orders by.
-	Edge float32 `json:"edge"`
+	Edge float64 `json:"edge"`
 
 	// HitRate Share of those markets whose bought side won, 0-1.
-	HitRate float32 `json:"hit_rate"`
+	HitRate float64 `json:"hit_rate"`
 
 	// Hold Why the leaderboard does not rank a ranked edge. record_incomplete: the wallet's stored sports and esports record shows more profit than Polymarket reports for it, so some losing markets are likely missing. Omitted when nothing holds the edge, and always omitted unless status is ranked.
 	Hold *LeaderboardPriceEdgeHold `json:"hold,omitempty"`
@@ -15530,16 +15818,16 @@ type MarketFlow struct {
 
 	// SharpMoney Outcome-aware flow from all tracked whale trades in the window, without a grade filter. BUY YES and SELL NO add net exposure; BUY NO and SELL YES subtract it. Gross buy/sell volumes count both outcomes. Top positions are separately graded. Direction uses unrounded net: negative is NO, otherwise YES; the zero tie-break is not conviction. Canonical; smart_money is a deprecated byte-identical alias.
 	SharpMoney struct {
-		BuyVolumeUsd float32                       `json:"buy_volume_usd"`
+		BuyVolumeUsd float64                       `json:"buy_volume_usd"`
 		Direction    MarketFlowSharpMoneyDirection `json:"direction"`
 
 		// LargeTradeCount Canonical key since #16304 (Polymarket's noun is large trade); whale_trade_count is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
 		LargeTradeCount int     `json:"large_trade_count"`
-		NetFlowUsd      float32 `json:"net_flow_usd"`
+		NetFlowUsd      float64 `json:"net_flow_usd"`
 
 		// OldestSnapshotAsOf Age of the oldest stored position snapshot behind top_positions: the minimum wallet sync clock over the positions this body publishes. The roster is a stored read rather than a live one, and graded wallets sit on different sync tiers, so this names how current the whole roster is; the response is no fresher than this timestamp. Null when the roster is empty or no published position carries a sync clock. It does not date net_flow_usd, the volumes or the trade counts, which come from large-trade event times.
 		OldestSnapshotAsOf *time.Time `json:"oldest_snapshot_as_of"`
-		SellVolumeUsd      float32    `json:"sell_volume_usd"`
+		SellVolumeUsd      float64    `json:"sell_volume_usd"`
 
 		// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for the net-flow direction outcome; null when unavailable (e.g. unsynced markets).
 		TokenId      *string `json:"token_id"`
@@ -15548,7 +15836,7 @@ type MarketFlow struct {
 			Grade   *MarketFlowSharpMoneyTopPositionsGrade `json:"grade"`
 			Id      string                                 `json:"id"`
 			Side    MarketFlowSharpMoneyTopPositionsSide   `json:"side"`
-			SizeUsd float32                                `json:"size_usd"`
+			SizeUsd float64                                `json:"size_usd"`
 
 			// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for this outcome; null when unavailable (e.g. unsynced markets).
 			TokenId  *string `json:"token_id"`
@@ -15563,16 +15851,16 @@ type MarketFlow struct {
 	// SmartMoney Deprecated alias of sharp_money; byte-identical. Sunset 2027-02-01 (#29352): removed from V1 on that date; read sharp_money.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SmartMoney struct {
-		BuyVolumeUsd float32                       `json:"buy_volume_usd"`
+		BuyVolumeUsd float64                       `json:"buy_volume_usd"`
 		Direction    MarketFlowSmartMoneyDirection `json:"direction"`
 
 		// LargeTradeCount Canonical key since #16304 (Polymarket's noun is large trade); whale_trade_count is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
 		LargeTradeCount int     `json:"large_trade_count"`
-		NetFlowUsd      float32 `json:"net_flow_usd"`
+		NetFlowUsd      float64 `json:"net_flow_usd"`
 
 		// OldestSnapshotAsOf Age of the oldest stored position snapshot behind top_positions: the minimum wallet sync clock over the positions this body publishes. The roster is a stored read rather than a live one, and graded wallets sit on different sync tiers, so this names how current the whole roster is; the response is no fresher than this timestamp. Null when the roster is empty or no published position carries a sync clock. It does not date net_flow_usd, the volumes or the trade counts, which come from large-trade event times.
 		OldestSnapshotAsOf *time.Time `json:"oldest_snapshot_as_of"`
-		SellVolumeUsd      float32    `json:"sell_volume_usd"`
+		SellVolumeUsd      float64    `json:"sell_volume_usd"`
 
 		// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for the net-flow direction outcome; null when unavailable (e.g. unsynced markets).
 		TokenId      *string `json:"token_id"`
@@ -15581,7 +15869,7 @@ type MarketFlow struct {
 			Grade   *MarketFlowSmartMoneyTopPositionsGrade `json:"grade"`
 			Id      string                                 `json:"id"`
 			Side    MarketFlowSmartMoneyTopPositionsSide   `json:"side"`
-			SizeUsd float32                                `json:"size_usd"`
+			SizeUsd float64                                `json:"size_usd"`
 
 			// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for this outcome; null when unavailable (e.g. unsynced markets).
 			TokenId  *string `json:"token_id"`
@@ -15622,13 +15910,13 @@ type MarketHolder struct {
 	Address string `json:"address"`
 
 	// CategoryAvgPrice The wallet's average entry price in the market's canonical category, as a 0..1 fraction of $1 (0.98 is 98 cents). Its sample is the wallet's markets in that category that resolved to a winning side, of $20 or more where it bought one side at a known price, so it can differ from the `category_win_record` sample. A wallet that buys near-certain outcomes wins almost every time, so read the win rate beside this price. Present only with `category_win_rate_status` = `measured`, and only when that sample has at least 5 markets. When `category_win_rate_game` is present the price is still the whole `category` bucket's: this field has no per-game or per-league price. Absent otherwise and on payloads predating the field.
-	CategoryAvgPrice *float32 `json:"category_avg_price,omitempty"`
+	CategoryAvgPrice *float64 `json:"category_avg_price,omitempty"`
 
 	// CategoryEvidence Current category evidence, independent of the global grade. Pick of the Day stamps only the served display roster; frozen entry snapshots remain unchanged.
 	CategoryEvidence *HolderCategoryEvidence `json:"category_evidence,omitempty"`
 
 	// CategoryWinRate This wallet's win rate in the market's canonical category (`market.category`): the share of its settled markets in that category (it closed its position by selling out, or the market resolved) whose realized P&L closed positive, as a 0..1 fraction. Present only with `category_win_rate_status` = `measured`. The same read `GET /api/v1/trader/{address}/categories` serves per wallet.
-	CategoryWinRate *float32 `json:"category_win_rate,omitempty"`
+	CategoryWinRate *float64 `json:"category_win_rate,omitempty"`
 
 	// CategoryWinRateGame Where `category_win_rate` and `category_win_record` were measured: for an esports market the game (`LoL`, `CS2`, `Dota 2`, `Valorant`, `Call of Duty`, `Honor of Kings`, `Mobile Legends: Bang Bang`, `Overwatch`, `Rainbow Six Siege`, `Rocket League` or `StarCraft II`), and for a market in a registered league that league, by the name Pick of the Day uses for it (`NBA`, `NFL`, `NHL`, `MLB`, `UFC`, `ATP`, `WTA`, `LaLiga`, `Premier League`, `Serie A`, `UEFA Champions League`, `MLS` and the other registered leagues). Present only when the wallet's record there clears the 5-settled-market floor, in which case the rate and record are the game's or league's rather than the whole `category` bucket's. Absent when the rate is the bucket's (the wallet's history there is under the floor, or the competition is not a registered league), on every other market, and beside every non-measured status. Label the rate with this when present and with the market's `category` otherwise.
 	CategoryWinRateGame *string `json:"category_win_rate_game,omitempty"`
@@ -15646,7 +15934,7 @@ type MarketHolder struct {
 	} `json:"category_win_record,omitempty"`
 
 	// CurrentValueUsd Polymarket's own currentValue for this leg, in USD. Null when the snapshot predates the value map.
-	CurrentValueUsd *float32 `json:"current_value_usd"`
+	CurrentValueUsd *float64 `json:"current_value_usd"`
 
 	// Grade All-time trader grade. This route lists the S/A/B cohort only, the same cohort a Pick of the Day roster lists.
 	Grade *MarketHolderGrade `json:"grade"`
@@ -15670,10 +15958,10 @@ type MarketHolder struct {
 	Name *string `json:"name"`
 
 	// OtherOutcomeShares Shares on the other outcome when the wallet holds both. Absent when the wallet is one-sided.
-	OtherOutcomeShares *float32 `json:"other_outcome_shares,omitempty"`
+	OtherOutcomeShares *float64 `json:"other_outcome_shares,omitempty"`
 
 	// Shares Shares held on `side`, from the complete provider scan.
-	Shares float32 `json:"shares"`
+	Shares float64 `json:"shares"`
 
 	// Side The outcome this wallet nets to. A wallet holding both outcomes is listed once, on its net side; see `other_outcome_shares`.
 	Side MarketHolderSide `json:"side"`
@@ -15685,7 +15973,7 @@ type MarketHolder struct {
 	TraderId string `json:"trader_id"`
 
 	// WalletAgeDays Whole days since this wallet's first trade, rounded down (3.6 days reads 3), so it changes once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge.
-	WalletAgeDays *float32 `json:"wallet_age_days,omitempty"`
+	WalletAgeDays *float64 `json:"wallet_age_days,omitempty"`
 
 	// XUsername The wallet's X handle without the @, when linked.
 	XUsername *string `json:"x_username,omitempty"`
@@ -15745,13 +16033,13 @@ type MarketHoldersScanSource string
 // MarketHoldersSideGradeUsd Polymarket currentValue in USD per grade on one side, over the same wallets as that side's usd total. Each value is rounded to the cent after summing, so s + a + b can differ from the side total by up to 2 cents.
 type MarketHoldersSideGradeUsd struct {
 	// A USD held by A-grade wallets netting this side.
-	A float32 `json:"a"`
+	A float64 `json:"a"`
 
 	// B USD held by B-grade wallets netting this side.
-	B float32 `json:"b"`
+	B float64 `json:"b"`
 
 	// S USD held by S-grade wallets netting this side.
-	S float32 `json:"s"`
+	S float64 `json:"s"`
 }
 
 // MarketHoldersSideGrades defines model for MarketHoldersSideGrades.
@@ -15770,19 +16058,19 @@ type MarketHoldersTotals struct {
 	// NoGradeUsd no_usd split by grade: where the S, A and B money on NO sits.
 	NoGradeUsd MarketHoldersSideGradeUsd `json:"no_grade_usd"`
 	NoGrades   MarketHoldersSideGrades   `json:"no_grades"`
-	NoShares   float32                   `json:"no_shares"`
+	NoShares   float64                   `json:"no_shares"`
 
 	// NoUsd Polymarket currentValue summed over the graded wallets netting NO.
-	NoUsd    float32 `json:"no_usd"`
+	NoUsd    float64 `json:"no_usd"`
 	YesCount int     `json:"yes_count"`
 
 	// YesGradeUsd yes_usd split by grade: where the S, A and B money on YES sits.
 	YesGradeUsd MarketHoldersSideGradeUsd `json:"yes_grade_usd"`
 	YesGrades   MarketHoldersSideGrades   `json:"yes_grades"`
-	YesShares   float32                   `json:"yes_shares"`
+	YesShares   float64                   `json:"yes_shares"`
 
 	// YesUsd Polymarket currentValue summed over the graded wallets netting YES.
-	YesUsd float32 `json:"yes_usd"`
+	YesUsd float64 `json:"yes_usd"`
 }
 
 // MarketSearchResult defines model for MarketSearchResult.
@@ -15817,18 +16105,18 @@ type MarketSnapshot struct {
 	} `json:"freshness"`
 	Liquidity struct {
 		// LastPrice Always null. Polymarket snapshot prices come from outcome top-of-book midpoints.
-		LastPrice    *float32 `json:"last_price"`
-		LiquidityUsd *float32 `json:"liquidity_usd"`
+		LastPrice    *float64 `json:"last_price"`
+		LiquidityUsd *float64 `json:"liquidity_usd"`
 		Source       string   `json:"source"`
 
 		// Volume24hAsOf When 0xinsider read volume_24h_usd from Polymarket; the figure covers the 24 hours before this time. Null exactly when volume_24h_usd is null.
 		Volume24hAsOf *time.Time `json:"volume_24h_as_of"`
 
 		// Volume24hUsd Polymarket's taker volume over the 24 hours before volume_24h_as_of, in shares, each counted at its $1 settlement value, not the cash that changed hands (100 shares bought at $0.40 add 100, not 40). The name ends in _usd because Polymarket prints volume with a dollar sign; it is a share count. Null when Polymarket does not report one: it omits the figure on closed markets and on open markets with no trades in the last 24 hours.
-		Volume24hUsd *float32 `json:"volume_24h_usd"`
+		Volume24hUsd *float64 `json:"volume_24h_usd"`
 
 		// VolumeUsd Polymarket's traded-volume figure for the market, as last stored: cumulative taker volume in shares, each counted at its $1 settlement value, not the cash that changed hands (100 shares bought at $0.40 add 100, not 40). It can lag Polymarket's current figure. The name ends in _usd because Polymarket prints this figure with a dollar sign; it is a share count. Null when unavailable.
-		VolumeUsd *float32 `json:"volume_usd"`
+		VolumeUsd *float64 `json:"volume_usd"`
 	} `json:"liquidity"`
 	Market struct {
 		Category    *string    `json:"category"`
@@ -15861,7 +16149,7 @@ type MarketSnapshot struct {
 	} `json:"market"`
 	Outcomes []struct {
 		// CurrentPrice The outcome's display price, the probability Polymarket shows for it: the midpoint of the cached top of book when the spread is at most 0.10, otherwise the token's last trade price. Omitted when neither is known, including a book wider than 0.10 with no last trade on record; top_of_book still carries that book's best_bid and best_ask. expand=trust explains a missing value in trust.current_price.
-		CurrentPrice *float32                   `json:"current_price,omitempty"`
+		CurrentPrice *float64                   `json:"current_price,omitempty"`
 		Label        string                     `json:"label"`
 		Side         MarketSnapshotOutcomesSide `json:"side"`
 		TokenId      *string                    `json:"token_id,omitempty"`
@@ -15910,10 +16198,10 @@ type MarketSnapshotFreshnessStatus string
 
 // MarketSnapshotTopOfBook defines model for MarketSnapshotTopOfBook.
 type MarketSnapshotTopOfBook struct {
-	AskDepthUsdc *float32                      `json:"ask_depth_usdc,omitempty"`
-	BestAsk      *float32                      `json:"best_ask,omitempty"`
-	BestBid      *float32                      `json:"best_bid,omitempty"`
-	BidDepthUsdc *float32                      `json:"bid_depth_usdc,omitempty"`
+	AskDepthUsdc *float64                      `json:"ask_depth_usdc,omitempty"`
+	BestAsk      *float64                      `json:"best_ask,omitempty"`
+	BestBid      *float64                      `json:"best_bid,omitempty"`
+	BidDepthUsdc *float64                      `json:"bid_depth_usdc,omitempty"`
 	Reason       *string                       `json:"reason,omitempty"`
 	Source       string                        `json:"source"`
 	SpreadBps    *int                          `json:"spread_bps,omitempty"`
@@ -15938,13 +16226,13 @@ type MarketTopHolder struct {
 	Address string `json:"address"`
 
 	// AvgEntryPrice Average price paid for the shares still held, as a 0..1 fraction of $1. Null when the provider served none.
-	AvgEntryPrice *float32 `json:"avg_entry_price"`
+	AvgEntryPrice *float64 `json:"avg_entry_price"`
 
 	// CategoryAvgPrice The wallet's average entry price in the market's canonical category, as a 0..1 fraction of $1 (0.98 is 98 cents). Its sample is the wallet's markets in that category that resolved to a winning side, of $20 or more where it bought one side at a known price, so it can differ from the `category_win_record` sample. A wallet that buys near-certain outcomes wins almost every time, so read the win rate beside this price. Present only with `category_win_rate_status` = `measured`, and only when that sample has at least 5 markets. When `category_win_rate_game` is present the price is still the whole `category` bucket's: this field has no per-game or per-league price. Absent otherwise and on payloads predating the field.
-	CategoryAvgPrice *float32 `json:"category_avg_price,omitempty"`
+	CategoryAvgPrice *float64 `json:"category_avg_price,omitempty"`
 
 	// CategoryWinRate This wallet's win rate in the market's canonical category (`market.category`): the share of its settled markets in that category (it closed its position by selling out, or the market resolved) whose realized P&L closed positive, as a 0..1 fraction. Present only with `category_win_rate_status` = `measured`. The same read `GET /api/v1/trader/{address}/categories` serves per wallet.
-	CategoryWinRate *float32 `json:"category_win_rate,omitempty"`
+	CategoryWinRate *float64 `json:"category_win_rate,omitempty"`
 
 	// CategoryWinRateGame Where `category_win_rate` and `category_win_record` were measured: for an esports market the game (`LoL`, `CS2`, `Dota 2`, `Valorant`, `Call of Duty`, `Honor of Kings`, `Mobile Legends: Bang Bang`, `Overwatch`, `Rainbow Six Siege`, `Rocket League` or `StarCraft II`), and for a market in a registered league that league, by the name Pick of the Day uses for it (`NBA`, `NFL`, `NHL`, `MLB`, `UFC`, `ATP`, `WTA`, `LaLiga`, `Premier League`, `Serie A`, `UEFA Champions League`, `MLS` and the other registered leagues). Present only when the wallet's record there clears the 5-settled-market floor, in which case the rate and record are the game's or league's rather than the whole `category` bucket's. Absent when the rate is the bucket's (the wallet's history there is under the floor, or the competition is not a registered league), on every other market, and beside every non-measured status. Label the rate with this when present and with the market's `category` otherwise.
 	CategoryWinRateGame *string `json:"category_win_rate_game,omitempty"`
@@ -15962,16 +16250,16 @@ type MarketTopHolder struct {
 	} `json:"category_win_record,omitempty"`
 
 	// CurrentValueUsd Polymarket's current value of this position, in USD. Null when the provider served none.
-	CurrentValueUsd *float32 `json:"current_value_usd"`
+	CurrentValueUsd *float64 `json:"current_value_usd"`
 
 	// Grade All-time trader grade, S to F. Null for a wallet 0xinsider has not graded: this route lists every holder whatever its grade.
 	Grade *MarketTopHolderGrade `json:"grade"`
 
 	// InScopeRealizedPnl The wallet's realized P&L on sports and esports markets, in USD, the figure on its 0xinsider profile. Null until 0xinsider has computed the record, never 0 in its place, and null for every row when `profiles_status` is `unavailable`.
-	InScopeRealizedPnl *float32 `json:"in_scope_realized_pnl"`
+	InScopeRealizedPnl *float64 `json:"in_scope_realized_pnl"`
 
 	// InScopeVolume The wallet's volume traded on sports and esports markets, in USD. Null under the same rule as `in_scope_realized_pnl`.
-	InScopeVolume *float32 `json:"in_scope_volume"`
+	InScopeVolume *float64 `json:"in_scope_volume"`
 
 	// IsBot True when the wallet is flagged as automated.
 	IsBot *bool `json:"is_bot,omitempty"`
@@ -15989,22 +16277,22 @@ type MarketTopHolder struct {
 	Name *string `json:"name"`
 
 	// OtherOutcomeShares Shares on the other outcome when the wallet holds both; the wallet is then listed on both sides. Absent when it is one-sided.
-	OtherOutcomeShares *float32 `json:"other_outcome_shares,omitempty"`
+	OtherOutcomeShares *float64 `json:"other_outcome_shares,omitempty"`
 
 	// PositionRealizedPnl Polymarket's realized P&L of this position (sells and redemptions), in USD. Null when the provider served no economics for the row.
-	PositionRealizedPnl *float32 `json:"position_realized_pnl"`
+	PositionRealizedPnl *float64 `json:"position_realized_pnl"`
 
 	// PositionTotalPnl `position_realized_pnl` plus `position_unrealized_pnl`, in USD.
-	PositionTotalPnl *float32 `json:"position_total_pnl"`
+	PositionTotalPnl *float64 `json:"position_total_pnl"`
 
 	// PositionUnrealizedPnl Polymarket's mark-to-market P&L of the shares still held, in USD. On a resolved market the mark is the settlement price.
-	PositionUnrealizedPnl *float32 `json:"position_unrealized_pnl"`
+	PositionUnrealizedPnl *float64 `json:"position_unrealized_pnl"`
 
 	// Rank 1-based position on this outcome, by shares.
 	Rank int `json:"rank"`
 
 	// Shares Shares held on this outcome.
-	Shares float32 `json:"shares"`
+	Shares float64 `json:"shares"`
 
 	// StrategyType The wallet's stored trading-style label (see Wallet trading styles); null when it has none.
 	StrategyType *string `json:"strategy_type"`
@@ -16013,7 +16301,7 @@ type MarketTopHolder struct {
 	TraderId string `json:"trader_id"`
 
 	// WalletAgeDays Whole days since this wallet's first trade, rounded down (3.6 days reads 3), so it changes once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge.
-	WalletAgeDays *float32 `json:"wallet_age_days,omitempty"`
+	WalletAgeDays *float64 `json:"wallet_age_days,omitempty"`
 
 	// XUsername The wallet's X handle without the @, when linked.
 	XUsername *string `json:"x_username,omitempty"`
@@ -16060,7 +16348,7 @@ type MarketTopHoldersTotals struct {
 	NoCount int `json:"no_count"`
 
 	// NoShares Shares summed over the NO sample.
-	NoShares float32 `json:"no_shares"`
+	NoShares float64 `json:"no_shares"`
 
 	// SampleCap The most holders the sample keeps per outcome (100).
 	SampleCap int `json:"sample_cap"`
@@ -16069,7 +16357,7 @@ type MarketTopHoldersTotals struct {
 	YesCount int `json:"yes_count"`
 
 	// YesShares Shares summed over the YES sample.
-	YesShares float32 `json:"yes_shares"`
+	YesShares float64 `json:"yes_shares"`
 }
 
 // MarketWalletsInOut One market's net buyers and net sellers over a 24h or 7d window, as the market page's wallets in/out panel shows a Pro viewer.
@@ -16092,7 +16380,7 @@ type MarketWalletsInOut struct {
 		LastTradedAt *time.Time `json:"last_traded_at"`
 
 		// NetUsd Buys minus sells in the window, both outcomes, in USD: the matched notional, fees excluded.
-		NetUsd float32 `json:"net_usd"`
+		NetUsd float64 `json:"net_usd"`
 
 		// Trades Fills in the window.
 		Trades int `json:"trades"`
@@ -16113,7 +16401,7 @@ type MarketWalletsInOut struct {
 		LastTradedAt *time.Time `json:"last_traded_at"`
 
 		// NetUsd Buys minus sells in the window, both outcomes, in USD: the matched notional, fees excluded.
-		NetUsd float32 `json:"net_usd"`
+		NetUsd float64 `json:"net_usd"`
 
 		// Trades Fills in the window.
 		Trades int `json:"trades"`
@@ -16122,7 +16410,7 @@ type MarketWalletsInOut struct {
 	// Summary Totals over every wallet that traded the market in the window, not only the listed 50.
 	Summary struct {
 		// NetUsd The sum of every wallet's net, in USD. A fully rotated wallet nets zero and is on neither side.
-		NetUsd float32 `json:"net_usd"`
+		NetUsd float64 `json:"net_usd"`
 
 		// WalletsIn Wallets with a positive net in the window.
 		WalletsIn int `json:"wallets_in"`
@@ -16172,7 +16460,7 @@ type McpJsonRpcErrorErrorData1 = []interface{}
 type McpJsonRpcErrorErrorData2 = string
 
 // McpJsonRpcErrorErrorData3 defines model for McpJsonRpcError.Error.Data.3.
-type McpJsonRpcErrorErrorData3 = float32
+type McpJsonRpcErrorErrorData3 = float64
 
 // McpJsonRpcErrorErrorData4 defines model for McpJsonRpcError.Error.Data.4.
 type McpJsonRpcErrorErrorData4 = bool
@@ -16186,7 +16474,7 @@ type McpJsonRpcError_Error_Data struct {
 type McpJsonRpcErrorId0 = string
 
 // McpJsonRpcErrorId1 defines model for McpJsonRpcError.Id.1.
-type McpJsonRpcErrorId1 = float32
+type McpJsonRpcErrorId1 = float64
 
 // McpJsonRpcError_Id The request's id, or null when the request could not be parsed. Omitted on the answer to an unsolicited response message.
 type McpJsonRpcError_Id struct {
@@ -16216,10 +16504,10 @@ type PickHolder struct {
 	Address string `json:"address"`
 
 	// CategoryAvgPrice The wallet's average entry price in the pick's canonical category, as a 0..1 fraction of $1 (0.98 is 98 cents). Its sample is the wallet's markets in that category that resolved to a winning side, of $20 or more where it bought one side at a known price, so it can differ from the `category_win_record` sample. A wallet that buys near-certain outcomes wins almost every time, so read the win rate beside this price. Present only with `category_win_rate_status` = `measured`, and only when that sample has at least 5 markets. When `category_win_rate_game` is present the price is still the whole `category` bucket's: this field has no per-game or per-league price. Absent otherwise and on payloads predating the field.
-	CategoryAvgPrice *float32 `json:"category_avg_price,omitempty"`
+	CategoryAvgPrice *float64 `json:"category_avg_price,omitempty"`
 
 	// CategoryWinRate This wallet's win rate in the pick's canonical category bucket (the pick's `category` field, e.g. Basketball -- label the rate with it, never with the narrower `display_category` league, except when `category_win_rate_game` is present, in which case the rate is that game's or league's and is labelled with it): the share of the wallet's settled markets in that category (it closed its position by selling out, or the market resolved) whose realized P&L closed positive, as a 0..1 fraction. Present only with `category_win_rate_status` = `measured`, on `display_holders` entries, and only when the wallet clears the settled-market floor; recomputed at serve time from the current category read model, not frozen with the pick. Absent on `holders` entries, legacy rows, and payloads predating the field.
-	CategoryWinRate *float32 `json:"category_win_rate,omitempty"`
+	CategoryWinRate *float64 `json:"category_win_rate,omitempty"`
 
 	// CategoryWinRateGame Where `category_win_rate` and `category_win_record` were measured, by the same name the pick's `display_category` uses for it: for an esports pick the game (`LoL`, `CS2`, `Dota 2`, `Valorant`, `Call of Duty`, `Honor of Kings`, `Mobile Legends: Bang Bang`, `Overwatch`, `Rainbow Six Siege`, `Rocket League` or `StarCraft II`), and for a pick in a registered league that league (`NBA`, `NFL`, `NHL`, `MLB`, `UFC`, `ATP`, `WTA`, `LaLiga`, `Premier League`, `Serie A`, `UEFA Champions League`, `MLS` and the other registered leagues). Present only when the wallet's record there clears the 5-settled-market floor, in which case the rate and record are the game's or league's rather than the whole `category` bucket's. Absent when the rate is the bucket's (the wallet's history there is under the floor, or the competition is not a registered league), on every other pick, beside every non-measured status, and on payloads predating the field. Label the rate with this when present and with `category` otherwise.
 	CategoryWinRateGame *string `json:"category_win_rate_game,omitempty"`
@@ -16237,7 +16525,7 @@ type PickHolder struct {
 	} `json:"category_win_record,omitempty"`
 
 	// EntryValueUsd USD entry value of this wallet's position: `shares` times the pick's frozen `backed_price`. An entry valuation, never a live balance or the provider's current value. Omitted when the holder snapshot has no valid price.
-	EntryValueUsd *float32 `json:"entry_value_usd,omitempty"`
+	EntryValueUsd *float64 `json:"entry_value_usd,omitempty"`
 
 	// Grade All-time trader grade (S, A, B, C, D, F).
 	Grade *string `json:"grade"`
@@ -16257,10 +16545,10 @@ type PickHolder struct {
 
 	// ProfileSegment 0xinsider profile path segment this wallet links to: `@<username>` when that username resolves to this wallet alone, otherwise the lowercase wallet. Percent-encode the part after `@` and append to `https://0xinsider.com/profile/`. Stamped at serve time; absent on a body cached before the field shipped.
 	ProfileSegment *string `json:"profile_segment,omitempty"`
-	Shares         float32 `json:"shares"`
+	Shares         float64 `json:"shares"`
 
 	// WalletAgeDays Whole days since this wallet's first trade, rounded down (3.6 days reads 3), so it changes once a day, not on every request, and the pick's ETag holds between requests. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
-	WalletAgeDays *float32 `json:"wallet_age_days,omitempty"`
+	WalletAgeDays *float64 `json:"wallet_age_days,omitempty"`
 
 	// XUsername The wallet's X handle from its Polymarket profile, normalized to 1-15 characters of [A-Za-z0-9_] with no `@`. Link it as `https://x.com/<handle>`. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
 	XUsername *string `json:"x_username,omitempty"`
@@ -16281,46 +16569,46 @@ type PickLeadBacker struct {
 	DirectionalEventCount int `json:"directional_event_count"`
 
 	// EntryBasisUsd Recorded entry basis of that directional sample, in USD; not a claim of complete trading costs or fees.
-	EntryBasisUsd float32 `json:"entry_basis_usd"`
+	EntryBasisUsd float64 `json:"entry_basis_usd"`
 
 	// Grade Trader grade recorded at publication.
 	Grade string `json:"grade"`
 
 	// MaxRealizedDrawdownUsd Peak-to-trough realized P&L drawdown after each event result in the recorded sample, in USD. Excludes intragame, unrealized, and account equity drawdown.
-	MaxRealizedDrawdownUsd float32 `json:"max_realized_drawdown_usd"`
+	MaxRealizedDrawdownUsd float64 `json:"max_realized_drawdown_usd"`
 
 	// Name Recorded provider display name.
 	Name *string `json:"name"`
 
 	// NetPositionUsd Net value of the lead's position toward the backed outcome at publication, in USD: shares held on the backed outcome minus shares held on the other outcome of the same market, valued at the backed outcome's provider price at publication. Present only when the wallet also held the other outcome; absent for a one-sided position, whose net equals position_usd. It is not a live balance.
-	NetPositionUsd *float32 `json:"net_position_usd,omitempty"`
+	NetPositionUsd *float64 `json:"net_position_usd,omitempty"`
 
 	// PositionObservedAt Start time of the provider position fetch used at publication. This conservative observation clock precedes completion; the position is not a live balance.
 	PositionObservedAt time.Time `json:"position_observed_at"`
 
 	// PositionUsd Provider-reported position value on the backed outcome at publication, in USD. It is the gross value on that outcome and does not subtract shares the wallet held on the other outcome; see net_position_usd. It is not the entry cost or a live balance.
-	PositionUsd float32 `json:"position_usd"`
+	PositionUsd float64 `json:"position_usd"`
 
 	// ProfitableEventCount Events with strictly positive native terminal P&L in the same frozen category sample as directional_event_count, realized_pnl_usd and roi. Multiple market positions in one event contribute one combined event result. Zero-profit events remain in directional_event_count but do not increase this count. This is a recorded wallet result, not a market win rate or the pick's win probability.
 	ProfitableEventCount int `json:"profitable_event_count"`
 
 	// RealizedPnlUsd Realized P&L over the recorded directional category sample, in USD. Excludes open positions and later changes.
-	RealizedPnlUsd float32 `json:"realized_pnl_usd"`
+	RealizedPnlUsd float64 `json:"realized_pnl_usd"`
 
 	// RecordedAt Timestamp when the directional history evidence was recorded, separate from the provider position snapshot clock.
 	RecordedAt time.Time `json:"recorded_at"`
 
 	// Roi Realized P&L divided by recorded entry basis, as a fraction: 0.10 means 10%. This is a wallet statistic, not a pick win probability.
-	Roi float32 `json:"roi"`
+	Roi float64 `json:"roi"`
 }
 
 // PickOfTheDay defines model for PickOfTheDay.
 type PickOfTheDay struct {
 	// BackedPrice Frozen pre-game probability (0..1) for the backed side, written once at publication. It is the Polymarket CLOB order book midpoint at release, not an executed fill: a buyer lifts the ask, so a subscriber's own entry is usually a little worse than this price.
-	BackedPrice *float32 `json:"backed_price,omitempty"`
+	BackedPrice *float64 `json:"backed_price,omitempty"`
 
 	// BackedSharpUsd Recorded aggregate backed-side position value in USD when available, not a live balance or entry cost. The display_holders roster can include additional wallets; use the returned aggregate rather than summing that roster.
-	BackedSharpUsd *float32 `json:"backed_sharp_usd,omitempty"`
+	BackedSharpUsd *float64 `json:"backed_sharp_usd,omitempty"`
 
 	// Category Recorded canonical sport category. Prefer display_category for the public competition label.
 	Category *string `json:"category,omitempty"`
@@ -16335,7 +16623,7 @@ type PickOfTheDay struct {
 	ClvExplanation *string `json:"clv_explanation,omitempty"`
 
 	// ClvPct Closing-line value toward the backed side, computed as (close / entry - 1) * 100. The basis-specific provider p entry must match the stored display; historical_provider_price_match also requires source provenance to remain null and its latest entry to be within the one-hour window at or before publication. Every basis requires a later quality-checked p close from the same series in the bounded post-entry, pre-kickoff window. Omitted when not measured.
-	ClvPct *float32 `json:"clv_pct,omitempty"`
+	ClvPct *float64 `json:"clv_pct,omitempty"`
 
 	// ClvStatus Backend-owned CLV capture disposition. "pending" means no capture decision exists yet; terminal provider or quality statuses remain distinguishable. The raw close price and timestamp are never serialized.
 	ClvStatus *string `json:"clv_status,omitempty"`
@@ -16389,7 +16677,7 @@ type PickOfTheDay struct {
 	} `json:"locked_picks,omitempty"`
 
 	// MarketPct Recorded market-implied probability as a 0..1 fraction when available.
-	MarketPct *float32 `json:"market_pct,omitempty"`
+	MarketPct *float64 `json:"market_pct,omitempty"`
 
 	// MarketUrl Canonical web market URL.
 	MarketUrl *string `json:"market_url,omitempty"`
@@ -16467,35 +16755,35 @@ type PickOfTheDay struct {
 		Name *string `json:"name"`
 
 		// OppositePositionUsd Recorded position value on the other outcome of this market, in USD. Omitted when not recorded; zero is a measured value.
-		OppositePositionUsd *float32 `json:"opposite_position_usd,omitempty"`
+		OppositePositionUsd *float64 `json:"opposite_position_usd,omitempty"`
 
 		// PositionUsd Recorded Polymarket position value on the backed outcome, in USD. It can change after this snapshot.
-		PositionUsd float32 `json:"position_usd"`
+		PositionUsd float64 `json:"position_usd"`
 
 		// StatsComputedAt Timestamp of the recorded trader statistics.
 		StatsComputedAt time.Time `json:"stats_computed_at"`
 
 		// WinRate Share of the trader’s settled markets in canonical_category (closed by selling out, or resolved) with positive realized P&L, as a 0..1 fraction. Null when not measured. This is a trader statistic, not the pick’s probability of winning.
-		WinRate *float32 `json:"win_rate"`
+		WinRate *float64 `json:"win_rate"`
 	} `json:"qualifying_expert,omitempty"`
 
 	// ReleaseAt The pick's stored release instant. Use the returned timestamp; published_at records when publication occurred.
 	ReleaseAt *time.Time `json:"release_at,omitempty"`
 
 	// ReturnPer100 The same return on a literal $100 (100 / backed_price), kept for compatibility: the field predates stake_usd and its name promises the $100 basis, so a client that scales it to its own stake stays right. Present exactly when return_usd is.
-	ReturnPer100 *float32 `json:"return_per_100,omitempty"`
+	ReturnPer100 *float64 `json:"return_per_100,omitempty"`
 
 	// ReturnUsd Gross return of stake_usd at the frozen midpoint price (stake_usd / backed_price). A real fill pays the ask, so an executed stake usually returns a little less. Omitted with backed_price.
-	ReturnUsd *float32 `json:"return_usd,omitempty"`
+	ReturnUsd *float64 `json:"return_usd,omitempty"`
 
 	// ScheduledPicks Rank-ordered entitled selections that have not released. Every row retains release_at and kickoff; unauthorized scheduled ranks appear only in identity-free locked_picks.
 	ScheduledPicks *[]ScheduledPickSlot `json:"scheduled_picks,omitempty"`
 
 	// SharpPct Recorded sharp-money share as a 0..1 fraction when available. This is not a winning probability.
-	SharpPct *float32 `json:"sharp_pct,omitempty"`
+	SharpPct *float64 `json:"sharp_pct,omitempty"`
 
 	// SharpUsd Recorded sharp-money magnitude in USD when available.
-	SharpUsd *float32 `json:"sharp_usd,omitempty"`
+	SharpUsd *float64 `json:"sharp_usd,omitempty"`
 
 	// SharpWalletCount S/A wallet count on the backed side in the public V1 compatibility projection.
 	SharpWalletCount *int `json:"sharp_wallet_count,omitempty"`
@@ -16505,7 +16793,7 @@ type PickOfTheDay struct {
 
 	// SmartUsd Deprecated spelling of sharp_usd with the same value.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	SmartUsd *float32 `json:"smart_usd,omitempty"`
+	SmartUsd *float64 `json:"smart_usd,omitempty"`
 
 	// SmartWalletCount Deprecated spelling of sharp_wallet_count with the same value.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
@@ -16515,7 +16803,7 @@ type PickOfTheDay struct {
 	SportsContext *PickSportsContext `json:"sports_context,omitempty"`
 
 	// StakeUsd The flat stake the published record puts on every pick, in USD: 1000 since 2026-09-22 (it was 100 before). Present exactly when return_usd is, so a reader never has to know the stake from anywhere else.
-	StakeUsd *float32 `json:"stake_usd,omitempty"`
+	StakeUsd *float64 `json:"stake_usd,omitempty"`
 
 	// State Full success containing entitled proof-readable picks.
 	State PickOfTheDayState `json:"state"`
@@ -16537,7 +16825,7 @@ type PickOfTheDay struct {
 	Traders *int `json:"traders,omitempty"`
 
 	// UnitScore Net return for the pick in stake units (return_usd / stake_usd - 1); one unit is one stake_usd stake, and the figure is the same under any stake size. Omitted when the outcome is not valued.
-	UnitScore *float32 `json:"unit_score,omitempty"`
+	UnitScore *float64 `json:"unit_score,omitempty"`
 
 	// UnitScoreDisplay Backend-formatted signed unit score, present exactly when unit_score is present.
 	UnitScoreDisplay *string `json:"unit_score_display,omitempty"`
@@ -16601,7 +16889,7 @@ type PickOfTheDayArchiveDaySweep string
 // PickOfTheDayArchiveEntry defines model for PickOfTheDayArchiveEntry.
 type PickOfTheDayArchiveEntry struct {
 	// BackedPrice Frozen price of the backed side (0..1) that return_usd and return_per_100 were computed from: on a win, stake_usd / backed_price equals return_usd. It is the Polymarket CLOB order book midpoint at release, frozen write-once at publication, not an executed fill: a buyer lifts the ask, so a subscriber's own entry is usually a little worse than this price. Present exactly when return_usd is, and on a void, which carries no return: so it is omitted for a still-pending pick, an unpriced win, and any pick whose backed side is withheld.
-	BackedPrice *float32 `json:"backed_price,omitempty"`
+	BackedPrice *float64 `json:"backed_price,omitempty"`
 
 	// BackedSideLocked True for an unauthorized unresolved row. Game identity, category, image, publication clock and all backed facts are omitted.
 	BackedSideLocked *bool `json:"backed_side_locked,omitempty"`
@@ -16616,19 +16904,19 @@ type PickOfTheDayArchiveEntry struct {
 	ClvBasis *string `json:"clv_basis,omitempty"`
 
 	// ClvClosePrice Close operand of clv_pct: the last valid Polymarket probability before the close bound (kickoff, or the first instant the live feed reported the game in progress when that came earlier). Present exactly when clv_pct is; the close timestamp stays private.
-	ClvClosePrice *float32 `json:"clv_close_price,omitempty"`
+	ClvClosePrice *float64 `json:"clv_close_price,omitempty"`
 
 	// ClvDisplay Backend-formatted signed CLV percentage, present exactly when clv_pct is present.
 	ClvDisplay *string `json:"clv_display,omitempty"`
 
 	// ClvEntryPrice Entry operand of clv_pct: the frozen pick probability the close is compared against. It equals backed_price, which CLV eligibility requires. Present exactly when clv_pct is.
-	ClvEntryPrice *float32 `json:"clv_entry_price,omitempty"`
+	ClvEntryPrice *float64 `json:"clv_entry_price,omitempty"`
 
 	// ClvExplanation Backend-owned CLV text. A measured row names the entry, then the close, then the formula (close / entry - 1) x 100 and its rounded result; otherwise it gives the reason CLV does not apply or is unavailable.
 	ClvExplanation *string `json:"clv_explanation,omitempty"`
 
 	// ClvPct Closing-line value toward the backed side, computed as (close / entry - 1) * 100. Omitted when the row is gated, ineligible, or not measured.
-	ClvPct *float32 `json:"clv_pct,omitempty"`
+	ClvPct *float64 `json:"clv_pct,omitempty"`
 
 	// ClvStatus Exact backend CLV capture disposition for this visible row. Pending and terminal provider or quality statuses are distinguishable; capture timestamps are never serialized, while a measured row's entry and close prices are published as clv_entry_price and clv_close_price.
 	ClvStatus *string `json:"clv_status,omitempty"`
@@ -16680,13 +16968,13 @@ type PickOfTheDayArchiveEntry struct {
 	ResolvedAt *time.Time `json:"resolved_at,omitempty"`
 
 	// ReturnPer100 The same return on a literal $100 (a win returns 100 / backed_price, a loss 0), kept for compatibility: the field predates stake_usd and its name promises the $100 basis. Present exactly when return_usd is.
-	ReturnPer100 *float32 `json:"return_per_100,omitempty"`
+	ReturnPer100 *float64 `json:"return_per_100,omitempty"`
 
 	// ReturnUsd Gross return of stake_usd on this resolved pick: a win returns stake_usd / backed_price and a loss returns 0. A loss always returns 0 (the whole stake is lost regardless of price). The operand is published beside it as backed_price on every row that carries a return, so the entry never has to be recovered by inverting this number. Omitted (not null) for a still-pending pick, for a void (the market settled with no winner, or the game was suspended or postponed and not completed within 72 hours of kickoff, so the pick is not staked) and for a resolved WIN with no frozen price (a win's payout needs the price); mirrors the backend skip-when-absent behavior and the route-client optional (non-nullable) schema.
-	ReturnUsd *float32 `json:"return_usd,omitempty"`
+	ReturnUsd *float64 `json:"return_usd,omitempty"`
 
 	// StakeUsd The flat stake this row was valued at, in USD: 1000 since 2026-09-22 (100 before). Every row of the record is valued at the current stake, including picks published before the change. Present exactly when return_usd is.
-	StakeUsd *float32 `json:"stake_usd,omitempty"`
+	StakeUsd *float64 `json:"stake_usd,omitempty"`
 
 	// SupersedesPickId Deprecated (#24157): always null. No replacement lineage was ever recorded in this field; the key stays so existing V1 clients keep parsing. Identify a pick by pick_id.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
@@ -16696,7 +16984,7 @@ type PickOfTheDayArchiveEntry struct {
 	TopGrade *string `json:"top_grade,omitempty"`
 
 	// UnitScore Net return for this pick in stake units (return_usd / stake_usd - 1), where one unit is one stake_usd stake; the same figure under any stake size. Omitted when the backed side is withheld or the pick is not valued.
-	UnitScore *float32 `json:"unit_score,omitempty"`
+	UnitScore *float64 `json:"unit_score,omitempty"`
 
 	// UnitScoreDisplay Backend-formatted signed unit score, present exactly when unit_score is present.
 	UnitScoreDisplay *string `json:"unit_score_display,omitempty"`
@@ -16795,10 +17083,10 @@ type PickOfTheDayHitRate struct {
 	ClvAvgDisplay *string `json:"clv_avg_display,omitempty"`
 
 	// ClvAvgPct Arithmetic mean of per-pick ratio CLV, (close / entry - 1) * 100. A cheap entry weighs more here than a favorite, so the headline average is clv_avg_pp; this field is kept for continuity. Suppressed until at least five measured rows exist.
-	ClvAvgPct *float32 `json:"clv_avg_pct,omitempty"`
+	ClvAvgPct *float64 `json:"clv_avg_pct,omitempty"`
 
 	// ClvAvgPp Arithmetic mean of the measured closing-line move in percentage points, (close - entry) * 100, so every pick counts on the same scale. The headline CLV average. Covers the same measured rows as clv_avg_pct and is suppressed under the same five-row floor.
-	ClvAvgPp *float32 `json:"clv_avg_pp,omitempty"`
+	ClvAvgPp *float64 `json:"clv_avg_pp,omitempty"`
 
 	// ClvAvgPpDisplay Backend-formatted signed average in percentage points, for example "+0.4 pp"; a value that rounds to zero reads "0.0 pp". Present when clv_avg_pp is present.
 	ClvAvgPpDisplay *string `json:"clv_avg_pp_display,omitempty"`
@@ -16813,7 +17101,7 @@ type PickOfTheDayHitRate struct {
 	ClvCoverageExplanation *string `json:"clv_coverage_explanation,omitempty"`
 
 	// ClvCoveragePct Measured divided by clv_applicable as a percentage. Omitted when clv_applicable is zero.
-	ClvCoveragePct *float32 `json:"clv_coverage_pct,omitempty"`
+	ClvCoveragePct *float64 `json:"clv_coverage_pct,omitempty"`
 
 	// ClvEligible Visible resolved archive rows with valid basis-specific CLV entry evidence. Known-source bases require CLOB provenance; historical_provider_price_match instead requires source provenance to remain null and the latest provider p entry in the one-hour window at or before publication to match the stored display.
 	ClvEligible int `json:"clv_eligible"`
@@ -16849,10 +17137,10 @@ type PickOfTheDayHitRate struct {
 	NetProfitDisplay string `json:"net_profit_display"`
 
 	// NetProfitUsd Cumulative profit (USD) of a stake_usd-per-pick strategy over visible valued settled picks: a priced win pays stake_usd/backed_price - stake_usd, every visible loss pays -stake_usd independent of price. A void is not staked and adds nothing. An unpriced visible win and a current non-Insider row whose price is gated remain in wins/losses but are excluded from price-derived totals.
-	NetProfitUsd float32 `json:"net_profit_usd"`
+	NetProfitUsd float64 `json:"net_profit_usd"`
 
 	// Pct Rolling hit rate as a percentage (wins / decided * 100, to 1 decimal); 0 when none are decided.
-	Pct float32 `json:"pct"`
+	Pct float64 `json:"pct"`
 
 	// Pending Number of picks still pending resolution (excluded from the hit rate).
 	Pending int `json:"pending"`
@@ -16861,7 +17149,7 @@ type PickOfTheDayHitRate struct {
 	RoiDisplay string `json:"roi_display"`
 
 	// RoiPct Return on the staked amount as a percentage (net_profit_usd / staked_usd * 100, to 1 decimal); 0 when nothing is staked.
-	RoiPct float32 `json:"roi_pct"`
+	RoiPct float64 `json:"roi_pct"`
 
 	// Series Cumulative track-record series, one point per decided (win/loss) pick in ascending pick_date order (pending and void picks add no point). A non-valued decided row carries cumulative profit forward while advancing hit rate. The last point's net_profit_usd and hit_rate_pct equal the headline net_profit_usd and pct by construction. Empty when nothing is decided.
 	Series []struct {
@@ -16869,20 +17157,20 @@ type PickOfTheDayHitRate struct {
 		Date openapi_types.Date `json:"date"`
 
 		// HitRatePct Running rolling hit rate (wins / decided * 100, to 1 decimal) through this pick.
-		HitRatePct float32 `json:"hit_rate_pct"`
+		HitRatePct float64 `json:"hit_rate_pct"`
 
 		// NetProfitUsd Running cumulative stake_usd-per-pick profit (USD) through this pick; valued losses and priced wins are booked, while a non-valued decided row carries profit forward unchanged.
-		NetProfitUsd float32 `json:"net_profit_usd"`
+		NetProfitUsd float64 `json:"net_profit_usd"`
 	} `json:"series"`
 
 	// StakeUsd The flat stake every money figure here assumes, in USD: 1000 since 2026-09-22 (100 before). Always present.
-	StakeUsd float32 `json:"stake_usd"`
+	StakeUsd float64 `json:"stake_usd"`
 
 	// StakedUsd Total staked (USD) = stake_usd * count of visible valued settled picks: every visible loss and every priced win. Voids, unpriced wins and current non-Insider rows whose price is gated are excluded.
-	StakedUsd float32 `json:"staked_usd"`
+	StakedUsd float64 `json:"staked_usd"`
 
 	// UnitScore Cumulative net return in stake units over the same valued win/loss population as net_profit_usd.
-	UnitScore *float32 `json:"unit_score,omitempty"`
+	UnitScore *float64 `json:"unit_score,omitempty"`
 
 	// UnitScoreDisplay Backend-formatted signed cumulative unit score, for example "+1.25u". Omitted when no valued settled pick contributes to the aggregate.
 	UnitScoreDisplay *string `json:"unit_score_display,omitempty"`
@@ -17154,43 +17442,43 @@ type PickOfTheDayStats struct {
 	Categories []struct {
 		CanonicalCategory *string  `json:"canonical_category,omitempty"`
 		ClvAvgDisplay     *string  `json:"clv_avg_display,omitempty"`
-		ClvAvgPct         *float32 `json:"clv_avg_pct,omitempty"`
-		ClvAvgPp          *float32 `json:"clv_avg_pp,omitempty"`
+		ClvAvgPct         *float64 `json:"clv_avg_pct,omitempty"`
+		ClvAvgPp          *float64 `json:"clv_avg_pp,omitempty"`
 		ClvAvgPpDisplay   *string  `json:"clv_avg_pp_display,omitempty"`
 		ClvMeasured       int      `json:"clv_measured"`
 		EdgeDisplay       *string  `json:"edge_display,omitempty"`
-		EdgePp            *float32 `json:"edge_pp,omitempty"`
+		EdgePp            *float64 `json:"edge_pp,omitempty"`
 		Key               string   `json:"key"`
 		Label             string   `json:"label"`
 		Losses            int      `json:"losses"`
 		NetProfitDisplay  *string  `json:"net_profit_display,omitempty"`
-		NetProfitUsd      *float32 `json:"net_profit_usd,omitempty"`
+		NetProfitUsd      *float64 `json:"net_profit_usd,omitempty"`
 		Pending           int      `json:"pending"`
 		Picks             int      `json:"picks"`
 		PricedDecided     int      `json:"priced_decided"`
 		PricedInDisplay   *string  `json:"priced_in_display,omitempty"`
-		PricedInPct       *float32 `json:"priced_in_pct,omitempty"`
+		PricedInPct       *float64 `json:"priced_in_pct,omitempty"`
 		RoiDisplay        *string  `json:"roi_display,omitempty"`
-		RoiPct            *float32 `json:"roi_pct,omitempty"`
+		RoiPct            *float64 `json:"roi_pct,omitempty"`
 		Settled           int      `json:"settled"`
 		SmallSample       bool     `json:"small_sample"`
-		StakedUsd         float32  `json:"staked_usd"`
-		UnitScore         *float32 `json:"unit_score,omitempty"`
+		StakedUsd         float64  `json:"staked_usd"`
+		UnitScore         *float64 `json:"unit_score,omitempty"`
 		UnitScoreDisplay  *string  `json:"unit_score_display,omitempty"`
 		Void              int      `json:"void"`
 		WinRateDisplay    *string  `json:"win_rate_display,omitempty"`
-		WinRatePct        *float32 `json:"win_rate_pct,omitempty"`
+		WinRatePct        *float64 `json:"win_rate_pct,omitempty"`
 		Wins              int      `json:"wins"`
 	} `json:"categories"`
 	Days []struct {
 		Date             openapi_types.Date          `json:"date"`
 		Losses           int                         `json:"losses"`
 		NetProfitDisplay *string                     `json:"net_profit_display,omitempty"`
-		NetProfitUsd     *float32                    `json:"net_profit_usd,omitempty"`
+		NetProfitUsd     *float64                    `json:"net_profit_usd,omitempty"`
 		Pending          int                         `json:"pending"`
 		Picks            int                         `json:"picks"`
 		Sweep            *PickOfTheDayStatsDaysSweep `json:"sweep,omitempty"`
-		UnitScore        *float32                    `json:"unit_score,omitempty"`
+		UnitScore        *float64                    `json:"unit_score,omitempty"`
 		UnitScoreDisplay *string                     `json:"unit_score_display,omitempty"`
 		Void             int                         `json:"void"`
 		Wins             int                         `json:"wins"`
@@ -17202,12 +17490,12 @@ type PickOfTheDayStats struct {
 		Timezone   string             `json:"timezone"`
 		Windows    []struct {
 			ClvAvgDisplay       *string             `json:"clv_avg_display"`
-			ClvAvgPct           *float32            `json:"clv_avg_pct"`
-			ClvAvgPp            *float32            `json:"clv_avg_pp"`
+			ClvAvgPct           *float64            `json:"clv_avg_pct"`
+			ClvAvgPp            *float64            `json:"clv_avg_pp"`
 			ClvAvgPpDisplay     *string             `json:"clv_avg_pp_display"`
 			ClvMeasured         int                 `json:"clv_measured"`
 			ClvMissing          int                 `json:"clv_missing"`
-			ExpectedWins        *float32            `json:"expected_wins"`
+			ExpectedWins        *float64            `json:"expected_wins"`
 			ExpectedWinsDisplay *string             `json:"expected_wins_display"`
 			FromDate            *openapi_types.Date `json:"from_date"`
 			Key                 string              `json:"key"`
@@ -17215,76 +17503,76 @@ type PickOfTheDayStats struct {
 			NumericUnavailable  bool                `json:"numeric_unavailable"`
 			PricedDecided       int                 `json:"priced_decided"`
 			ThroughDate         openapi_types.Date  `json:"through_date"`
-			Units               *float32            `json:"units"`
+			Units               *float64            `json:"units"`
 			UnitsDisplay        *string             `json:"units_display"`
-			UnitsZ              *float32            `json:"units_z"`
+			UnitsZ              *float64            `json:"units_z"`
 			UnitsZDisplay       *string             `json:"units_z_display"`
 			UnpricedDecided     int                 `json:"unpriced_decided"`
 			Wins                int                 `json:"wins"`
-			WinsZ               *float32            `json:"wins_z"`
+			WinsZ               *float64            `json:"wins_z"`
 			WinsZDisplay        *string             `json:"wins_z_display"`
 		} `json:"windows"`
 	} `json:"market_expectations"`
 	MarketTypes []struct {
 		CanonicalCategory *string  `json:"canonical_category,omitempty"`
 		ClvAvgDisplay     *string  `json:"clv_avg_display,omitempty"`
-		ClvAvgPct         *float32 `json:"clv_avg_pct,omitempty"`
-		ClvAvgPp          *float32 `json:"clv_avg_pp,omitempty"`
+		ClvAvgPct         *float64 `json:"clv_avg_pct,omitempty"`
+		ClvAvgPp          *float64 `json:"clv_avg_pp,omitempty"`
 		ClvAvgPpDisplay   *string  `json:"clv_avg_pp_display,omitempty"`
 		ClvMeasured       int      `json:"clv_measured"`
 		EdgeDisplay       *string  `json:"edge_display,omitempty"`
-		EdgePp            *float32 `json:"edge_pp,omitempty"`
+		EdgePp            *float64 `json:"edge_pp,omitempty"`
 		Key               string   `json:"key"`
 		Label             string   `json:"label"`
 		Losses            int      `json:"losses"`
 		NetProfitDisplay  *string  `json:"net_profit_display,omitempty"`
-		NetProfitUsd      *float32 `json:"net_profit_usd,omitempty"`
+		NetProfitUsd      *float64 `json:"net_profit_usd,omitempty"`
 		Pending           int      `json:"pending"`
 		Picks             int      `json:"picks"`
 		PricedDecided     int      `json:"priced_decided"`
 		PricedInDisplay   *string  `json:"priced_in_display,omitempty"`
-		PricedInPct       *float32 `json:"priced_in_pct,omitempty"`
+		PricedInPct       *float64 `json:"priced_in_pct,omitempty"`
 		RoiDisplay        *string  `json:"roi_display,omitempty"`
-		RoiPct            *float32 `json:"roi_pct,omitempty"`
+		RoiPct            *float64 `json:"roi_pct,omitempty"`
 		Settled           int      `json:"settled"`
 		SmallSample       bool     `json:"small_sample"`
-		StakedUsd         float32  `json:"staked_usd"`
-		UnitScore         *float32 `json:"unit_score,omitempty"`
+		StakedUsd         float64  `json:"staked_usd"`
+		UnitScore         *float64 `json:"unit_score,omitempty"`
 		UnitScoreDisplay  *string  `json:"unit_score_display,omitempty"`
 		Void              int      `json:"void"`
 		WinRateDisplay    *string  `json:"win_rate_display,omitempty"`
-		WinRatePct        *float32 `json:"win_rate_pct,omitempty"`
+		WinRatePct        *float64 `json:"win_rate_pct,omitempty"`
 		Wins              int      `json:"wins"`
 	} `json:"market_types"`
 	Months []struct {
 		CanonicalCategory *string  `json:"canonical_category,omitempty"`
 		ClvAvgDisplay     *string  `json:"clv_avg_display,omitempty"`
-		ClvAvgPct         *float32 `json:"clv_avg_pct,omitempty"`
-		ClvAvgPp          *float32 `json:"clv_avg_pp,omitempty"`
+		ClvAvgPct         *float64 `json:"clv_avg_pct,omitempty"`
+		ClvAvgPp          *float64 `json:"clv_avg_pp,omitempty"`
 		ClvAvgPpDisplay   *string  `json:"clv_avg_pp_display,omitempty"`
 		ClvMeasured       int      `json:"clv_measured"`
 		EdgeDisplay       *string  `json:"edge_display,omitempty"`
-		EdgePp            *float32 `json:"edge_pp,omitempty"`
+		EdgePp            *float64 `json:"edge_pp,omitempty"`
 		Key               string   `json:"key"`
 		Label             string   `json:"label"`
 		Losses            int      `json:"losses"`
 		NetProfitDisplay  *string  `json:"net_profit_display,omitempty"`
-		NetProfitUsd      *float32 `json:"net_profit_usd,omitempty"`
+		NetProfitUsd      *float64 `json:"net_profit_usd,omitempty"`
 		Pending           int      `json:"pending"`
 		Picks             int      `json:"picks"`
 		PricedDecided     int      `json:"priced_decided"`
 		PricedInDisplay   *string  `json:"priced_in_display,omitempty"`
-		PricedInPct       *float32 `json:"priced_in_pct,omitempty"`
+		PricedInPct       *float64 `json:"priced_in_pct,omitempty"`
 		RoiDisplay        *string  `json:"roi_display,omitempty"`
-		RoiPct            *float32 `json:"roi_pct,omitempty"`
+		RoiPct            *float64 `json:"roi_pct,omitempty"`
 		Settled           int      `json:"settled"`
 		SmallSample       bool     `json:"small_sample"`
-		StakedUsd         float32  `json:"staked_usd"`
-		UnitScore         *float32 `json:"unit_score,omitempty"`
+		StakedUsd         float64  `json:"staked_usd"`
+		UnitScore         *float64 `json:"unit_score,omitempty"`
 		UnitScoreDisplay  *string  `json:"unit_score_display,omitempty"`
 		Void              int      `json:"void"`
 		WinRateDisplay    *string  `json:"win_rate_display,omitempty"`
-		WinRatePct        *float32 `json:"win_rate_pct,omitempty"`
+		WinRatePct        *float64 `json:"win_rate_pct,omitempty"`
 		Wins              int      `json:"wins"`
 	} `json:"months"`
 	OutcomeStats struct {
@@ -17293,47 +17581,47 @@ type PickOfTheDayStats struct {
 			RemainingValuedDecided   int      `json:"remaining_valued_decided"`
 			RemovedWins              int      `json:"removed_wins"`
 			RoiWithoutTopWinsDisplay *string  `json:"roi_without_top_wins_display"`
-			RoiWithoutTopWinsPct     *float32 `json:"roi_without_top_wins_pct"`
+			RoiWithoutTopWinsPct     *float64 `json:"roi_without_top_wins_pct"`
 			TargetWins               int      `json:"target_wins"`
 			TopWinsShareDisplay      *string  `json:"top_wins_share_display"`
-			TopWinsSharePct          *float32 `json:"top_wins_share_pct"`
+			TopWinsSharePct          *float64 `json:"top_wins_share_pct"`
 			ValuedDecided            int      `json:"valued_decided"`
 		} `json:"concentration"`
 		Drawdown struct {
 			CompletedDays          int                 `json:"completed_days"`
 			CurrentDaysBelowPeak   *int                `json:"current_days_below_peak"`
 			CurrentDrawdownDisplay *string             `json:"current_drawdown_display"`
-			CurrentDrawdownUnits   *float32            `json:"current_drawdown_units"`
+			CurrentDrawdownUnits   *float64            `json:"current_drawdown_units"`
 			DaysBelowPeak          *int                `json:"days_below_peak"`
 			ExcludedDays           int                 `json:"excluded_days"`
 			FromDate               *openapi_types.Date `json:"from_date"`
 			LongestDaysBelowPeak   *int                `json:"longest_days_below_peak"`
 			LongestRecoveryDays    *int                `json:"longest_recovery_days"`
 			MaxDrawdownDisplay     *string             `json:"max_drawdown_display"`
-			MaxDrawdownUnits       *float32            `json:"max_drawdown_units"`
+			MaxDrawdownUnits       *float64            `json:"max_drawdown_units"`
 			PeakDate               *openapi_types.Date `json:"peak_date"`
-			PeakNetProfitUsd       *float32            `json:"peak_net_profit_usd"`
+			PeakNetProfitUsd       *float64            `json:"peak_net_profit_usd"`
 			ThroughDate            *openapi_types.Date `json:"through_date"`
 		} `json:"drawdown"`
 		ProfitFactor struct {
 			Display        *string                                        `json:"display"`
-			GrossLossUsd   *float32                                       `json:"gross_loss_usd"`
-			GrossProfitUsd *float32                                       `json:"gross_profit_usd"`
+			GrossLossUsd   *float64                                       `json:"gross_loss_usd"`
+			GrossProfitUsd *float64                                       `json:"gross_profit_usd"`
 			State          PickOfTheDayStatsOutcomeStatsProfitFactorState `json:"state"`
-			Value          *float32                                       `json:"value"`
+			Value          *float64                                       `json:"value"`
 			ValuedDecided  int                                            `json:"valued_decided"`
 		} `json:"profit_factor"`
 		Rolling []struct {
 			FromDate       *openapi_types.Date `json:"from_date"`
 			Losses         int                 `json:"losses"`
 			RoiDisplay     *string             `json:"roi_display"`
-			RoiPct         *float32            `json:"roi_pct"`
+			RoiPct         *float64            `json:"roi_pct"`
 			ThroughDate    *openapi_types.Date `json:"through_date"`
-			Units          *float32            `json:"units"`
+			Units          *float64            `json:"units"`
 			UnitsDisplay   *string             `json:"units_display"`
 			ValuedDecided  int                 `json:"valued_decided"`
 			WinRateDisplay *string             `json:"win_rate_display"`
-			WinRatePct     *float32            `json:"win_rate_pct"`
+			WinRatePct     *float64            `json:"win_rate_pct"`
 			WindowSize     int                 `json:"window_size"`
 			Wins           int                 `json:"wins"`
 		} `json:"rolling"`
@@ -17341,32 +17629,32 @@ type PickOfTheDayStats struct {
 	PriceBands []struct {
 		CanonicalCategory *string  `json:"canonical_category,omitempty"`
 		ClvAvgDisplay     *string  `json:"clv_avg_display,omitempty"`
-		ClvAvgPct         *float32 `json:"clv_avg_pct,omitempty"`
-		ClvAvgPp          *float32 `json:"clv_avg_pp,omitempty"`
+		ClvAvgPct         *float64 `json:"clv_avg_pct,omitempty"`
+		ClvAvgPp          *float64 `json:"clv_avg_pp,omitempty"`
 		ClvAvgPpDisplay   *string  `json:"clv_avg_pp_display,omitempty"`
 		ClvMeasured       int      `json:"clv_measured"`
 		EdgeDisplay       *string  `json:"edge_display,omitempty"`
-		EdgePp            *float32 `json:"edge_pp,omitempty"`
+		EdgePp            *float64 `json:"edge_pp,omitempty"`
 		Key               string   `json:"key"`
 		Label             string   `json:"label"`
 		Losses            int      `json:"losses"`
 		NetProfitDisplay  *string  `json:"net_profit_display,omitempty"`
-		NetProfitUsd      *float32 `json:"net_profit_usd,omitempty"`
+		NetProfitUsd      *float64 `json:"net_profit_usd,omitempty"`
 		Pending           int      `json:"pending"`
 		Picks             int      `json:"picks"`
 		PricedDecided     int      `json:"priced_decided"`
 		PricedInDisplay   *string  `json:"priced_in_display,omitempty"`
-		PricedInPct       *float32 `json:"priced_in_pct,omitempty"`
+		PricedInPct       *float64 `json:"priced_in_pct,omitempty"`
 		RoiDisplay        *string  `json:"roi_display,omitempty"`
-		RoiPct            *float32 `json:"roi_pct,omitempty"`
+		RoiPct            *float64 `json:"roi_pct,omitempty"`
 		Settled           int      `json:"settled"`
 		SmallSample       bool     `json:"small_sample"`
-		StakedUsd         float32  `json:"staked_usd"`
-		UnitScore         *float32 `json:"unit_score,omitempty"`
+		StakedUsd         float64  `json:"staked_usd"`
+		UnitScore         *float64 `json:"unit_score,omitempty"`
 		UnitScoreDisplay  *string  `json:"unit_score_display,omitempty"`
 		Void              int      `json:"void"`
 		WinRateDisplay    *string  `json:"win_rate_display,omitempty"`
-		WinRatePct        *float32 `json:"win_rate_pct,omitempty"`
+		WinRatePct        *float64 `json:"win_rate_pct,omitempty"`
 		Wins              int      `json:"wins"`
 	} `json:"price_bands"`
 	Records struct {
@@ -17375,7 +17663,7 @@ type PickOfTheDayStats struct {
 			DateDisplay      string             `json:"date_display"`
 			Losses           int                `json:"losses"`
 			NetProfitDisplay string             `json:"net_profit_display"`
-			NetProfitUsd     float32            `json:"net_profit_usd"`
+			NetProfitUsd     float64            `json:"net_profit_usd"`
 			Picks            int                `json:"picks"`
 			Wins             int                `json:"wins"`
 		} `json:"best_day,omitempty"`
@@ -17385,13 +17673,13 @@ type PickOfTheDayStats struct {
 			DateDisplay      string             `json:"date_display"`
 			Matchup          string             `json:"matchup"`
 			NetProfitDisplay string             `json:"net_profit_display"`
-			NetProfitUsd     float32            `json:"net_profit_usd"`
+			NetProfitUsd     float64            `json:"net_profit_usd"`
 		} `json:"biggest_win,omitempty"`
 		LongestLosingDayStreak *struct {
 			Days             int                `json:"days"`
 			EndDate          openapi_types.Date `json:"end_date"`
 			NetProfitDisplay string             `json:"net_profit_display"`
-			NetProfitUsd     float32            `json:"net_profit_usd"`
+			NetProfitUsd     float64            `json:"net_profit_usd"`
 			RangeDisplay     string             `json:"range_display"`
 			StartDate        openapi_types.Date `json:"start_date"`
 		} `json:"longest_losing_day_streak,omitempty"`
@@ -17399,7 +17687,7 @@ type PickOfTheDayStats struct {
 			Days             int                `json:"days"`
 			EndDate          openapi_types.Date `json:"end_date"`
 			NetProfitDisplay string             `json:"net_profit_display"`
-			NetProfitUsd     float32            `json:"net_profit_usd"`
+			NetProfitUsd     float64            `json:"net_profit_usd"`
 			RangeDisplay     string             `json:"range_display"`
 			StartDate        openapi_types.Date `json:"start_date"`
 		} `json:"longest_winning_day_streak,omitempty"`
@@ -17425,7 +17713,7 @@ type PickOfTheDayStats struct {
 			Losing            int     `json:"losing"`
 			Settled           int     `json:"settled"`
 			Winning           int     `json:"winning"`
-			WinningPct        float32 `json:"winning_pct"`
+			WinningPct        float64 `json:"winning_pct"`
 			WinningPctDisplay string  `json:"winning_pct_display"`
 		} `json:"winning_days,omitempty"`
 		WorstDay *struct {
@@ -17433,7 +17721,7 @@ type PickOfTheDayStats struct {
 			DateDisplay      string             `json:"date_display"`
 			Losses           int                `json:"losses"`
 			NetProfitDisplay string             `json:"net_profit_display"`
-			NetProfitUsd     float32            `json:"net_profit_usd"`
+			NetProfitUsd     float64            `json:"net_profit_usd"`
 			Picks            int                `json:"picks"`
 			Wins             int                `json:"wins"`
 		} `json:"worst_day,omitempty"`
@@ -17441,32 +17729,32 @@ type PickOfTheDayStats struct {
 	Sports []struct {
 		CanonicalCategory *string  `json:"canonical_category,omitempty"`
 		ClvAvgDisplay     *string  `json:"clv_avg_display,omitempty"`
-		ClvAvgPct         *float32 `json:"clv_avg_pct,omitempty"`
-		ClvAvgPp          *float32 `json:"clv_avg_pp,omitempty"`
+		ClvAvgPct         *float64 `json:"clv_avg_pct,omitempty"`
+		ClvAvgPp          *float64 `json:"clv_avg_pp,omitempty"`
 		ClvAvgPpDisplay   *string  `json:"clv_avg_pp_display,omitempty"`
 		ClvMeasured       int      `json:"clv_measured"`
 		EdgeDisplay       *string  `json:"edge_display,omitempty"`
-		EdgePp            *float32 `json:"edge_pp,omitempty"`
+		EdgePp            *float64 `json:"edge_pp,omitempty"`
 		Key               string   `json:"key"`
 		Label             string   `json:"label"`
 		Losses            int      `json:"losses"`
 		NetProfitDisplay  *string  `json:"net_profit_display,omitempty"`
-		NetProfitUsd      *float32 `json:"net_profit_usd,omitempty"`
+		NetProfitUsd      *float64 `json:"net_profit_usd,omitempty"`
 		Pending           int      `json:"pending"`
 		Picks             int      `json:"picks"`
 		PricedDecided     int      `json:"priced_decided"`
 		PricedInDisplay   *string  `json:"priced_in_display,omitempty"`
-		PricedInPct       *float32 `json:"priced_in_pct,omitempty"`
+		PricedInPct       *float64 `json:"priced_in_pct,omitempty"`
 		RoiDisplay        *string  `json:"roi_display,omitempty"`
-		RoiPct            *float32 `json:"roi_pct,omitempty"`
+		RoiPct            *float64 `json:"roi_pct,omitempty"`
 		Settled           int      `json:"settled"`
 		SmallSample       bool     `json:"small_sample"`
-		StakedUsd         float32  `json:"staked_usd"`
-		UnitScore         *float32 `json:"unit_score,omitempty"`
+		StakedUsd         float64  `json:"staked_usd"`
+		UnitScore         *float64 `json:"unit_score,omitempty"`
 		UnitScoreDisplay  *string  `json:"unit_score_display,omitempty"`
 		Void              int      `json:"void"`
 		WinRateDisplay    *string  `json:"win_rate_display,omitempty"`
-		WinRatePct        *float32 `json:"win_rate_pct,omitempty"`
+		WinRatePct        *float64 `json:"win_rate_pct,omitempty"`
 		Wins              int      `json:"wins"`
 	} `json:"sports"`
 	Streaks struct {
@@ -17480,67 +17768,67 @@ type PickOfTheDayStats struct {
 	Tiers []struct {
 		CanonicalCategory *string  `json:"canonical_category,omitempty"`
 		ClvAvgDisplay     *string  `json:"clv_avg_display,omitempty"`
-		ClvAvgPct         *float32 `json:"clv_avg_pct,omitempty"`
-		ClvAvgPp          *float32 `json:"clv_avg_pp,omitempty"`
+		ClvAvgPct         *float64 `json:"clv_avg_pct,omitempty"`
+		ClvAvgPp          *float64 `json:"clv_avg_pp,omitempty"`
 		ClvAvgPpDisplay   *string  `json:"clv_avg_pp_display,omitempty"`
 		ClvMeasured       int      `json:"clv_measured"`
 		EdgeDisplay       *string  `json:"edge_display,omitempty"`
-		EdgePp            *float32 `json:"edge_pp,omitempty"`
+		EdgePp            *float64 `json:"edge_pp,omitempty"`
 		Key               string   `json:"key"`
 		Label             string   `json:"label"`
 		Losses            int      `json:"losses"`
 		NetProfitDisplay  *string  `json:"net_profit_display,omitempty"`
-		NetProfitUsd      *float32 `json:"net_profit_usd,omitempty"`
+		NetProfitUsd      *float64 `json:"net_profit_usd,omitempty"`
 		Pending           int      `json:"pending"`
 		Picks             int      `json:"picks"`
 		PricedDecided     int      `json:"priced_decided"`
 		PricedInDisplay   *string  `json:"priced_in_display,omitempty"`
-		PricedInPct       *float32 `json:"priced_in_pct,omitempty"`
+		PricedInPct       *float64 `json:"priced_in_pct,omitempty"`
 		RoiDisplay        *string  `json:"roi_display,omitempty"`
-		RoiPct            *float32 `json:"roi_pct,omitempty"`
+		RoiPct            *float64 `json:"roi_pct,omitempty"`
 		Settled           int      `json:"settled"`
 		SmallSample       bool     `json:"small_sample"`
-		StakedUsd         float32  `json:"staked_usd"`
-		UnitScore         *float32 `json:"unit_score,omitempty"`
+		StakedUsd         float64  `json:"staked_usd"`
+		UnitScore         *float64 `json:"unit_score,omitempty"`
 		UnitScoreDisplay  *string  `json:"unit_score_display,omitempty"`
 		Void              int      `json:"void"`
 		WinRateDisplay    *string  `json:"win_rate_display,omitempty"`
-		WinRatePct        *float32 `json:"win_rate_pct,omitempty"`
+		WinRatePct        *float64 `json:"win_rate_pct,omitempty"`
 		Wins              int      `json:"wins"`
 	} `json:"tiers"`
 	TotalSides []struct {
 		CanonicalCategory *string  `json:"canonical_category,omitempty"`
 		ClvAvgDisplay     *string  `json:"clv_avg_display,omitempty"`
-		ClvAvgPct         *float32 `json:"clv_avg_pct,omitempty"`
-		ClvAvgPp          *float32 `json:"clv_avg_pp,omitempty"`
+		ClvAvgPct         *float64 `json:"clv_avg_pct,omitempty"`
+		ClvAvgPp          *float64 `json:"clv_avg_pp,omitempty"`
 		ClvAvgPpDisplay   *string  `json:"clv_avg_pp_display,omitempty"`
 		ClvMeasured       int      `json:"clv_measured"`
 		EdgeDisplay       *string  `json:"edge_display,omitempty"`
-		EdgePp            *float32 `json:"edge_pp,omitempty"`
+		EdgePp            *float64 `json:"edge_pp,omitempty"`
 		Key               string   `json:"key"`
 		Label             string   `json:"label"`
 		Losses            int      `json:"losses"`
 		NetProfitDisplay  *string  `json:"net_profit_display,omitempty"`
-		NetProfitUsd      *float32 `json:"net_profit_usd,omitempty"`
+		NetProfitUsd      *float64 `json:"net_profit_usd,omitempty"`
 		Pending           int      `json:"pending"`
 		Picks             int      `json:"picks"`
 		PricedDecided     int      `json:"priced_decided"`
 		PricedInDisplay   *string  `json:"priced_in_display,omitempty"`
-		PricedInPct       *float32 `json:"priced_in_pct,omitempty"`
+		PricedInPct       *float64 `json:"priced_in_pct,omitempty"`
 		RoiDisplay        *string  `json:"roi_display,omitempty"`
-		RoiPct            *float32 `json:"roi_pct,omitempty"`
+		RoiPct            *float64 `json:"roi_pct,omitempty"`
 		Settled           int      `json:"settled"`
 		SmallSample       bool     `json:"small_sample"`
-		StakedUsd         float32  `json:"staked_usd"`
-		UnitScore         *float32 `json:"unit_score,omitempty"`
+		StakedUsd         float64  `json:"staked_usd"`
+		UnitScore         *float64 `json:"unit_score,omitempty"`
 		UnitScoreDisplay  *string  `json:"unit_score_display,omitempty"`
 		Void              int      `json:"void"`
 		WinRateDisplay    *string  `json:"win_rate_display,omitempty"`
-		WinRatePct        *float32 `json:"win_rate_pct,omitempty"`
+		WinRatePct        *float64 `json:"win_rate_pct,omitempty"`
 		Wins              int      `json:"wins"`
 	} `json:"total_sides"`
 	Voids []struct {
-		BackedPrice *float32           `json:"backed_price,omitempty"`
+		BackedPrice *float64           `json:"backed_price,omitempty"`
 		BackedSide  *string            `json:"backed_side,omitempty"`
 		Category    *string            `json:"category,omitempty"`
 		Matchup     *string            `json:"matchup,omitempty"`
@@ -17724,7 +18012,7 @@ type Platforms struct {
 // PnlCorrection A derived 0xinsider correction to Polymarket's P&L, never a Polymarket value. Polymarket misbooks neg-risk conversions, in both directions: it puts cost on placeholder YES outcomes minted by a conversion and never books it as a loss (negative amount), and its position records leave out shares the wallet really got, such as YES minted by a conversion, so it books no P&L on them (positive amount). Per neg-risk market the wallet converted in, 0xinsider measures Polymarket's own activity cash against the sum of its position P&L, and sums the difference over every measured market whose shares did not move by direct transfer: transferred shares have no activity row, so such a market keeps Polymarket's figure and is counted in markets_excluded. It is published once every neg-risk market with a sports or esports event that the wallet converted in is measured and checked for transfers, and stays as last published until then; a market with no sports or esports event is not measured, and counts only when it was measured before (on the trader body, pnl.correction_pending says so); a sum under $1 either way publishes nothing. The body's own P&L fields keep Polymarket's figures; this object adds the amount and the corrected figures. Money is truncated toward zero to cents.
 type PnlCorrection struct {
 	// Amount The correction in USD. Negative when Polymarket overstates the wallet.
-	Amount float32 `json:"amount"`
+	Amount float64 `json:"amount"`
 
 	// AsOf The newest measurement among the measured markets.
 	AsOf time.Time `json:"as_of"`
@@ -17739,10 +18027,10 @@ type PnlCorrection struct {
 	MarketsMeasured int `json:"markets_measured"`
 
 	// NetTotal Polymarket's net total P&L over every Polymarket market of the wallet, plus amount. Omitted when Polymarket's figure is, and on leaderboard entries.
-	NetTotal *float32 `json:"net_total,omitempty"`
+	NetTotal *float64 `json:"net_total,omitempty"`
 
 	// Realized Polymarket's net realized P&L plus amount. Since 2026-10-22 the grade reads this figure's sports and esports share. Omitted when Polymarket's figure is.
-	Realized *float32 `json:"realized,omitempty"`
+	Realized *float64 `json:"realized,omitempty"`
 }
 
 // PnlCorrectionBasis The correction method.
@@ -17751,13 +18039,13 @@ type PnlCorrectionBasis string
 // Position defines model for Position.
 type Position struct {
 	// AvgPrice Volume-weighted entry price for this leg.
-	AvgPrice *float32 `json:"avg_price,omitempty"`
+	AvgPrice *float64 `json:"avg_price,omitempty"`
 
 	// CashPnl Unrealized P&L for the open position (Polymarket `cashPnl`).
-	CashPnl *float32 `json:"cash_pnl,omitempty"`
+	CashPnl *float64 `json:"cash_pnl,omitempty"`
 
 	// CurrentValueUsd Current mark-to-market value in USD (always non-null on V1 — pre-reconcile rows are excluded).
-	CurrentValueUsd float32 `json:"current_value_usd"`
+	CurrentValueUsd float64 `json:"current_value_usd"`
 
 	// Exact Additive lossless source atoms for the display-safe position fields. Parse every `value` with decimal-safe arithmetic; never recover exact values from the numeric twins.
 	Exact *PositionExact `json:"exact,omitempty"`
@@ -17767,7 +18055,7 @@ type Position struct {
 
 	// Id Composite prefixed ID `pos_<wallet>:<condition_id>:<outcome_index>`.
 	Id              string   `json:"id"`
-	InitialValueUsd *float32 `json:"initial_value_usd,omitempty"`
+	InitialValueUsd *float64 `json:"initial_value_usd,omitempty"`
 
 	// LastReconciledAt Max updated_at across mirror legs for this pair.
 	LastReconciledAt *time.Time `json:"last_reconciled_at,omitempty"`
@@ -17791,10 +18079,10 @@ type Position struct {
 	Platform PositionPlatform `json:"platform"`
 
 	// RealizedPnl Closed-leg P&L rolled up (Polymarket `realizedPnl`).
-	RealizedPnl *float32 `json:"realized_pnl,omitempty"`
+	RealizedPnl *float64 `json:"realized_pnl,omitempty"`
 
 	// Shares Live share count from the wallet_positions mirror.
-	Shares float32 `json:"shares"`
+	Shares float64 `json:"shares"`
 
 	// Side Binary outcome side. Non-binary positions are not surfaced on V1.
 	Side PositionSide `json:"side"`
@@ -17809,7 +18097,7 @@ type Position struct {
 		Id string `json:"id"`
 
 		// InScopeRealizedPnl The wallet's realized P&L in USD on sports and esports markets, the figure the 0xinsider profile shows: the record behind pnl.in_scope.realized_pnl on GET /api/v1/trader/{address}, to cents. For a graded wallet it is read from the latest grading pass, so it can trail that figure until the next pass. Omitted until 0xinsider has computed the wallet's record (#29953).
-		InScopeRealizedPnl *float32 `json:"in_scope_realized_pnl,omitempty"`
+		InScopeRealizedPnl *float64 `json:"in_scope_realized_pnl,omitempty"`
 
 		// IsNewWallet True when wallet_age_days is under the new-wallet threshold (30 days), which means 0xinsider first recorded the wallet in the last 30 days. False when wallet_age_days is absent. This public V1 field is first-seen recency, not the wallet's on-chain age.
 		IsNewWallet bool `json:"is_new_wallet"`
@@ -17819,14 +18107,14 @@ type Position struct {
 
 		// Pnl Deprecated since 2026-10-27 and never sent. It was Polymarket's net total P&L over every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29953). Read trader.in_scope_realized_pnl.
 		// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-		Pnl      *float32 `json:"pnl,omitempty"`
+		Pnl      *float64 `json:"pnl,omitempty"`
 		Username *string  `json:"username,omitempty"`
 
 		// WalletAgeDays Days since the wallet's first-seen time. For a wallet 0xinsider first recorded on or after March 21, 2026, that is when 0xinsider recorded it. For a wallet recorded earlier, it is usually the wallet's first Polymarket activity, so the age can run to years. It is not the wallet's on-chain age or the time of its first trade. Absent when the first-seen time is unknown.
-		WalletAgeDays *float32 `json:"wallet_age_days,omitempty"`
+		WalletAgeDays *float64 `json:"wallet_age_days,omitempty"`
 
 		// WinRate Sports and esports win rate as a ratio from 0 to 1 (0.62 means 62%): wins over the decided sports and esports markets on the wallet's record, the same figure as pnl.in_scope.win_rate and stats.win_rate on GET /api/v1/trader/{address}. Since 2026-10-27 it no longer counts other markets (#29953). Absent when the wallet has no record or no decided market.
-		WinRate *float32 `json:"win_rate,omitempty"`
+		WinRate *float64 `json:"win_rate,omitempty"`
 	} `json:"trader"`
 
 	// Wallet Lowercased proxy wallet address.
@@ -17875,7 +18163,7 @@ type PositionTimelineEvent struct {
 	Action PositionTimelineEventAction `json:"action"`
 
 	// AmountDelta Signed share delta (+ on buy, − on sell).
-	AmountDelta float32 `json:"amount_delta"`
+	AmountDelta float64 `json:"amount_delta"`
 
 	// EventTimestamp ISO 8601 timestamp of the on-chain fill.
 	EventTimestamp time.Time `json:"event_timestamp"`
@@ -17885,13 +18173,13 @@ type PositionTimelineEvent struct {
 	OutcomeSide PositionTimelineEventOutcomeSide `json:"outcome_side"`
 
 	// Price Fill price in USDC per share, in [0,1].
-	Price float32 `json:"price"`
+	Price float64 `json:"price"`
 
 	// RunningAmount Cumulative signed stored-fill amount for this outcome after this fill, including older pages. Stable across limits/cursors for unchanged source history. Excludes split, merge, redemption and neg-risk activity; not complete holdings. Incomplete fill history can also leave a negative amount.
-	RunningAmount float32 `json:"running_amount"`
+	RunningAmount float64 `json:"running_amount"`
 
 	// RunningAvgPrice Cumulative buy-weighted average of stored fills for this outcome, including older pages; not provider current-position avgPrice. Sells do not change this value. 0 when no stored buys have occurred yet.
-	RunningAvgPrice float32 `json:"running_avg_price"`
+	RunningAvgPrice float64 `json:"running_avg_price"`
 
 	// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for this outcome; null when unavailable (e.g. unsynced markets).
 	TokenId *string `json:"token_id"`
@@ -17900,7 +18188,7 @@ type PositionTimelineEvent struct {
 	TxHash string `json:"tx_hash"`
 
 	// UsdcNotional Positive USDC notional of the fill.
-	UsdcNotional float32 `json:"usdc_notional"`
+	UsdcNotional float64 `json:"usdc_notional"`
 }
 
 // PositionTimelineEventAction The wallet's own side of this fill: buy or sell.
@@ -17980,10 +18268,10 @@ type ProofPendingPickSlot struct {
 // ReportPayload defines model for ReportPayload.
 type ReportPayload struct {
 	ActiveTraders    *int     `json:"active_traders"`
-	BiggestTradeSize *float32 `json:"biggest_trade_size"`
+	BiggestTradeSize *float64 `json:"biggest_trade_size"`
 	Categories       *[]struct {
 		Category        *string  `json:"category"`
-		CategoryVolume  *float32 `json:"category_volume"`
+		CategoryVolume  *float64 `json:"category_volume"`
 		LargeTradeCount *int     `json:"large_trade_count"`
 		WhaleTradeCount *int     `json:"whale_trade_count"`
 	} `json:"categories"`
@@ -18015,7 +18303,7 @@ type ReportPayload struct {
 		Platform *ReportPayloadTopLargeTradesPlatform `json:"platform"`
 
 		// Price Trade price in provider [0, 1] units.
-		Price *float32 `json:"price"`
+		Price *float64 `json:"price"`
 
 		// Pseudonym Trader pseudonym, when no display name is known.
 		Pseudonym *string `json:"pseudonym"`
@@ -18024,7 +18312,7 @@ type ReportPayload struct {
 		Side *string `json:"side"`
 
 		// Size Trade size in USD.
-		Size *float32 `json:"size"`
+		Size *float64 `json:"size"`
 
 		// Title Market title.
 		Title *string `json:"title"`
@@ -18055,7 +18343,7 @@ type ReportPayload struct {
 		Platform *ReportPayloadTopWhaleTradesPlatform `json:"platform"`
 
 		// Price Trade price in provider [0, 1] units.
-		Price *float32 `json:"price"`
+		Price *float64 `json:"price"`
 
 		// Pseudonym Trader pseudonym, when no display name is known.
 		Pseudonym *string `json:"pseudonym"`
@@ -18064,7 +18352,7 @@ type ReportPayload struct {
 		Side *string `json:"side"`
 
 		// Size Trade size in USD.
-		Size *float32 `json:"size"`
+		Size *float64 `json:"size"`
 
 		// Title Market title.
 		Title *string `json:"title"`
@@ -18080,12 +18368,12 @@ type ReportPayload struct {
 	} `json:"top_whale_trades"`
 
 	// TotalLargeTradeVolume Canonical key since #16304; total_whale_volume is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
-	TotalLargeTradeVolume *float32 `json:"total_large_trade_volume"`
+	TotalLargeTradeVolume *float64 `json:"total_large_trade_volume"`
 
 	// TotalLargeTrades Canonical key since #16304; total_whale_trades is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
 	TotalLargeTrades *int     `json:"total_large_trades"`
 	TotalWhaleTrades *int     `json:"total_whale_trades"`
-	TotalWhaleVolume *float32 `json:"total_whale_volume"`
+	TotalWhaleVolume *float64 `json:"total_whale_volume"`
 }
 
 // ReportPayloadGradeDistributionGrade defines model for ReportPayload.GradeDistribution.Grade.
@@ -18144,8 +18432,8 @@ type ReportSourceRangeTimezone string
 
 // ResolutionReport defines model for ResolutionReport.
 type ResolutionReport struct {
-	Accuracy           *float32                    `json:"accuracy"`
-	AllWalletsAccuracy *float32                    `json:"all_wallets_accuracy"`
+	Accuracy           *float64                    `json:"accuracy"`
+	AllWalletsAccuracy *float64                    `json:"all_wallets_accuracy"`
 	AllWalletsRight    *int                        `json:"all_wallets_right"`
 	AllWalletsWrong    *int                        `json:"all_wallets_wrong"`
 	Date               *string                     `json:"date"`
@@ -18156,7 +18444,7 @@ type ResolutionReport struct {
 		AllWalletsRight   *bool                            `json:"all_wallets_right"`
 		Category          *string                          `json:"category"`
 		ConditionId       *string                          `json:"condition_id"`
-		Confidence        *float32                         `json:"confidence"`
+		Confidence        *float64                         `json:"confidence"`
 		EventSlug         *string                          `json:"event_slug"`
 		OutOfProductScope bool                             `json:"out_of_product_scope"`
 		OutcomeNo         *string                          `json:"outcome_no"`
@@ -18167,19 +18455,19 @@ type ResolutionReport struct {
 		SmartTraderCount  *int                             `json:"smart_trader_count"`
 		TimeBasis         ResolutionReportMarketsTimeBasis `json:"time_basis"`
 		Title             *string                          `json:"title"`
-		TotalSmartPnl     *float32                         `json:"total_smart_pnl"`
+		TotalSmartPnl     *float64                         `json:"total_smart_pnl"`
 		Traders           []struct {
 			Address      *string                              `json:"address"`
 			Correct      *bool                                `json:"correct"`
-			Cost         *float32                             `json:"cost"`
+			Cost         *float64                             `json:"cost"`
 			Grade        *ResolutionReportMarketsTradersGrade `json:"grade"`
 			LastTradedAt *time.Time                           `json:"last_traded_at"`
-			Pnl          *float32                             `json:"pnl"`
+			Pnl          *float64                             `json:"pnl"`
 			Side         *string                              `json:"side"`
 			Username     *string                              `json:"username"`
 		} `json:"traders"`
-		WeightedNo     *float32 `json:"weighted_no"`
-		WeightedYes    *float32 `json:"weighted_yes"`
+		WeightedNo     *float64 `json:"weighted_no"`
+		WeightedYes    *float64 `json:"weighted_yes"`
 		WinningOutcome *int     `json:"winning_outcome"`
 	} `json:"markets,omitempty"`
 	MarketsWithoutSmartPositions *int `json:"markets_without_smart_positions"`
@@ -18194,7 +18482,7 @@ type ResolutionReport struct {
 		PolymarketGammaClosedTime int `json:"polymarket_gamma_closed_time"`
 	} `json:"time_basis_counts"`
 	TotalResolved      *int     `json:"total_resolved"`
-	TotalSmartPnl      *float32 `json:"total_smart_pnl"`
+	TotalSmartPnl      *float64 `json:"total_smart_pnl"`
 	WithSmartPositions *int     `json:"with_smart_positions"`
 }
 
@@ -18319,7 +18607,7 @@ type ScoreFormat string
 // SharpMoneyFlowDetectedData `sharp_money_flow_detected` data (Pro and Max): ranked-trader net flow on a market crossed the threshold. The deprecated spelling `smart_money_flow_detected` delivers the same object until its sunset on 2027-02-01 (#29352).
 type SharpMoneyFlowDetectedData struct {
 	// AbsNetFlowUsd Absolute value of `net_flow_usd`, the magnitude compared with the threshold.
-	AbsNetFlowUsd float32 `json:"abs_net_flow_usd"`
+	AbsNetFlowUsd float64 `json:"abs_net_flow_usd"`
 
 	// ConditionId Polymarket condition id of the market.
 	ConditionId string `json:"condition_id"`
@@ -18331,7 +18619,7 @@ type SharpMoneyFlowDetectedData struct {
 	GradeFloor SharpMoneyFlowDetectedDataGradeFloor `json:"grade_floor"`
 
 	// NetFlowUsd Signed ranked-trader net flow in USD over `window`: positive is net into YES, negative net into NO.
-	NetFlowUsd float32 `json:"net_flow_usd"`
+	NetFlowUsd float64 `json:"net_flow_usd"`
 
 	// WhaleTradeCount Ranked-trader large fills that make up the flow.
 	WhaleTradeCount int `json:"whale_trade_count"`
@@ -18361,13 +18649,13 @@ type SmartMoneyFlowMarket struct {
 
 	// SharpMoney Sharp-money flow aggregate for the market (canonical; smart_money is a deprecated byte-identical alias).
 	SharpMoney struct {
-		BuyVolumeUsd float32                                 `json:"buy_volume_usd"`
+		BuyVolumeUsd float64                                 `json:"buy_volume_usd"`
 		Direction    SmartMoneyFlowMarketSharpMoneyDirection `json:"direction"`
 
 		// LargeTradeCount Canonical key since #16304 (Polymarket's noun is large trade); whale_trade_count is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
 		LargeTradeCount int     `json:"large_trade_count"`
-		NetFlowUsd      float32 `json:"net_flow_usd"`
-		SellVolumeUsd   float32 `json:"sell_volume_usd"`
+		NetFlowUsd      float64 `json:"net_flow_usd"`
+		SellVolumeUsd   float64 `json:"sell_volume_usd"`
 
 		// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for the net-flow direction outcome; null when unavailable (e.g. unsynced markets).
 		TokenId *string `json:"token_id"`
@@ -18380,13 +18668,13 @@ type SmartMoneyFlowMarket struct {
 	// SmartMoney Deprecated alias of sharp_money; byte-identical. Sunset 2027-02-01 (#29352): removed from V1 on that date; read sharp_money.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	SmartMoney struct {
-		BuyVolumeUsd float32                                 `json:"buy_volume_usd"`
+		BuyVolumeUsd float64                                 `json:"buy_volume_usd"`
 		Direction    SmartMoneyFlowMarketSmartMoneyDirection `json:"direction"`
 
 		// LargeTradeCount Canonical key since #16304 (Polymarket's noun is large trade); whale_trade_count is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
 		LargeTradeCount int     `json:"large_trade_count"`
-		NetFlowUsd      float32 `json:"net_flow_usd"`
-		SellVolumeUsd   float32 `json:"sell_volume_usd"`
+		NetFlowUsd      float64 `json:"net_flow_usd"`
+		SellVolumeUsd   float64 `json:"sell_volume_usd"`
 
 		// TokenId The Polymarket CLOB token id (ERC1155 asset id, decimal string) for the net-flow direction outcome; null when unavailable (e.g. unsynced markets).
 		TokenId *string `json:"token_id"`
@@ -18460,7 +18748,7 @@ type SnapshotStateStorage string
 type SportLeaderboard struct {
 	AsOf        *time.Time `json:"as_of"`
 	Category    *string    `json:"category"`
-	EdgeAverage *float32   `json:"edge_average"`
+	EdgeAverage *float64   `json:"edge_average"`
 	League      *struct {
 		Name          string `json:"name"`
 		RankedTraders int    `json:"ranked_traders"`
@@ -18470,30 +18758,30 @@ type SportLeaderboard struct {
 	MinResolved int `json:"min_resolved"`
 	Rows        []struct {
 		Address             string                        `json:"address"`
-		Cost                *float32                      `json:"cost"`
+		Cost                *float64                      `json:"cost"`
 		EdgeHold            *SportLeaderboardRowsEdgeHold `json:"edge_hold"`
-		EdgeSkill           *float32                      `json:"edge_skill"`
+		EdgeSkill           *float64                      `json:"edge_skill"`
 		Grade               *SportLeaderboardRowsGrade    `json:"grade"`
 		Id                  string                        `json:"id"`
 		LastCategoryTradeAt *time.Time                    `json:"last_category_trade_at"`
 		Losses              int                           `json:"losses"`
 		NResolved           int                           `json:"n_resolved"`
 		Platform            SportLeaderboardRowsPlatform  `json:"platform"`
-		Pnl                 *float32                      `json:"pnl"`
+		Pnl                 *float64                      `json:"pnl"`
 		PriceEdge           *struct {
-			AvgPrice  float32                             `json:"avg_price"`
-			Edge      float32                             `json:"edge"`
-			EdgeLower float32                             `json:"edge_lower"`
-			HitRate   float32                             `json:"hit_rate"`
+			AvgPrice  float64                             `json:"avg_price"`
+			Edge      float64                             `json:"edge"`
+			EdgeLower float64                             `json:"edge_lower"`
+			HitRate   float64                             `json:"hit_rate"`
 			Markets   int                                 `json:"markets"`
 			Status    SportLeaderboardRowsPriceEdgeStatus `json:"status"`
 		} `json:"price_edge"`
 		Rank            int      `json:"rank"`
-		Roi             *float32 `json:"roi"`
+		Roi             *float64 `json:"roi"`
 		Username        *string  `json:"username"`
-		Volume          *float32 `json:"volume"`
-		WinRate         *float32 `json:"win_rate"`
-		WinRateWilsonLb *float32 `json:"win_rate_wilson_lb"`
+		Volume          *float64 `json:"volume"`
+		WinRate         *float64 `json:"win_rate"`
+		WinRateWilsonLb *float64 `json:"win_rate_wilson_lb"`
 		Wins            int      `json:"wins"`
 	} `json:"rows"`
 	Sort         SportLeaderboardSort        `json:"sort"`
@@ -18539,23 +18827,23 @@ type SuspiciousTrade struct {
 	} `json:"market"`
 	Scores struct {
 		// Edge Null because the live scorer does not record this component.
-		Edge *float32 `json:"edge"`
+		Edge *float64 `json:"edge"`
 
 		// FreshWallet Numeric evidence.fresh when recorded; otherwise null.
-		FreshWallet *float32 `json:"fresh_wallet"`
+		FreshWallet *float64 `json:"fresh_wallet"`
 
 		// Size Numeric evidence.size when recorded; otherwise null.
-		Size *float32 `json:"size"`
+		Size *float64 `json:"size"`
 
 		// Timing Null because the live scorer does not record this component.
-		Timing *float32 `json:"timing"`
+		Timing *float64 `json:"timing"`
 	} `json:"scores"`
 
 	// Severity The live scorer persists one threshold class.
 	Severity SuspiciousTradeSeverity `json:"severity"`
 
 	// SuspicionScore Stored score that met the live flag threshold.
-	SuspicionScore float32 `json:"suspicion_score"`
+	SuspicionScore float64 `json:"suspicion_score"`
 	Trader         struct {
 		Address  string  `json:"address"`
 		Id       string  `json:"id"`
@@ -18572,16 +18860,16 @@ type SuspiciousTradeFlaggedData struct {
 	ConditionId string `json:"condition_id"`
 
 	// Price Fill price of the flagged trade.
-	Price float32 `json:"price"`
+	Price float64 `json:"price"`
 
 	// Side Outcome side the flagged fill took.
 	Side SuspiciousTradeFlaggedDataSide `json:"side"`
 
 	// Size Share count of the flagged fill.
-	Size float32 `json:"size"`
+	Size float64 `json:"size"`
 
 	// SuspicionScore The suspicion score, 0 to 100, that crossed the threshold.
-	SuspicionScore float32 `json:"suspicion_score"`
+	SuspicionScore float64 `json:"suspicion_score"`
 
 	// Track The scoring track that raised the flag.
 	Track SuspiciousTradeFlaggedDataTrack `json:"track"`
@@ -18670,6 +18958,9 @@ type TennisRankingTour string
 type Trader struct {
 	Address string `json:"address"`
 
+	// Breakdowns The profile's strategy measures over the wallet's sports and esports markets: P&L and win rate by UTC hour, hold-time and first-trade-hour bands, position sizes with category concentration, and entry-price buckets (#32622). Present only when expand=breakdowns or expand[]=breakdowns is requested, on GET /api/v1/trader/{address} only: POST /api/v1/traders/batch refuses the expand. Computed on the read from the wallet's whole sports and esports history, so a large wallet can take seconds; a read that cannot finish answers 503 with Retry-After.
+	Breakdowns *TraderBreakdowns `json:"breakdowns,omitempty"`
+
 	// CategoryRecords Current evidence for observed and known categories (expand=categories or expand[]=categories). Omitted unless expanded. Includes insufficient, stale, unknown and degraded rows; absence of a category is not proof of skill. The global grade is unchanged. Sports and esports only (#28827): a category outside them is omitted, as on GET /api/v1/trader/{address}/categories.
 	CategoryRecords *[]CategorySkillV2 `json:"category_records,omitempty"`
 
@@ -18683,10 +18974,10 @@ type Trader struct {
 	DataQuality DataQuality `json:"data_quality"`
 
 	// ForecastEvidence Optional measured forecast context. Missing values remain unavailable rather than being inferred.
-	ForecastEvidence *float32 `json:"forecast_evidence,omitempty"`
+	ForecastEvidence *float64 `json:"forecast_evidence,omitempty"`
 
 	// ForecastScore Optional forecast score on the documented display scale. Null when unavailable.
-	ForecastScore *float32     `json:"forecast_score,omitempty"`
+	ForecastScore *float64     `json:"forecast_score,omitempty"`
 	Grade         *TraderGrade `json:"grade,omitempty"`
 
 	// Id Prefixed ID (trd_...).
@@ -18711,58 +19002,61 @@ type Trader struct {
 
 		// NetTotal Deprecated since 2026-10-27 and never sent. It was Polymarket's net total P&L over every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29830). Read pnl.in_scope.realized_pnl.
 		// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-		NetTotal *float32 `json:"net_total,omitempty"`
+		NetTotal *float64 `json:"net_total,omitempty"`
 
 		// Realized Deprecated since 2026-10-27 and never sent. It was native Polymarket realized P&L over every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29830). Read pnl.in_scope.realized_pnl.
 		// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-		Realized *float32 `json:"realized,omitempty"`
+		Realized *float64 `json:"realized,omitempty"`
 
 		// Total Deprecated since 2026-10-27 and never sent. It was Polymarket's all-time leaderboard P&L, which covered every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29830). Read pnl.in_scope.realized_pnl.
 		// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-		Total *float32 `json:"total,omitempty"`
+		Total *float64 `json:"total,omitempty"`
 
 		// Unrealized Unrealized (mark-to-market) P&L in USD of the wallet's open positions on its synced sports and esports markets: Polymarket's cashPnl, current value minus cost, summed over the positions still held, from the open-position aggregate (dated by the positions data_quality group). It is the same figure as position_summary.unrealized_mtm on GET /api/v1/trader/{address}/context. It leaves out the realized P&L of partial sells on those markets, which pnl.in_scope.realized_pnl already counts; until 2026-11-02 (#32459) it added it, so pnl.in_scope.realized_pnl plus pnl.unrealized counted those sells twice. Each open position's market is judged when the aggregate is read (#32119), so a stored position on a market of another category (one that moved out of sports and esports, or one stored before its category was known) is left out. Before 2026-10-27 (#29366) it covered every Polymarket market.
-		Unrealized *float32 `json:"unrealized,omitempty"`
+		Unrealized *float64 `json:"unrealized,omitempty"`
 	} `json:"pnl"`
+
+	// PriceEdge Edge over the price paid: the profile's Edge badge and the leaderboard's Edge measure (#32622). Present on every read of a wallet with at least one settled sports or esports market of $20 or more at a known entry price; omitted for a wallet with none, where there is nothing to measure.
+	PriceEdge *TraderPriceEdge `json:"price_edge,omitempty"`
 
 	// QuantMetrics Deprecated since 2026-10-27 and never sent. These advanced risk and performance metrics covered every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29589). expand=quant_metrics is still accepted and adds nothing. For the sports and esports record read pnl.in_scope here, and GET /api/v1/trader/{address}/pnl for its daily series. The member shape below is what the object held before; it is kept so existing type declarations still compile.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	QuantMetrics *struct {
 		// ConsistencyPercentile Cross-sectional percentile rank of edge consistency versus all traders, 0-100. null when insufficient history.
-		ConsistencyPercentile *float32 `json:"consistency_percentile"`
+		ConsistencyPercentile *float64 `json:"consistency_percentile"`
 
 		// CopyScore Copyability score, 0-100. Same base as smart_score minus penalties for traits that make a strategy hard to replicate: -20 if fewer than 50 markets traded, -15 if positions are highly concentrated, -15 if position sizing exceeds about 2x Kelly, -10 if the largest loss on one settled market exceeds 30% of the capital the wallet deployed across all its positions, -10 if edge is inconsistent; result clamped to 0-100. Higher means easier to follow. null when insufficient history.
-		CopyScore *float32 `json:"copy_score"`
+		CopyScore *float64 `json:"copy_score"`
 
 		// EdgeConsistency Share of the trader's last 30 days with realized P&L that closed positive, 0-1 (higher is more consistent). A day with no realized P&L is not one of them, so the window can span months. null below 10 such days; null never means 0.
-		EdgeConsistency *float32 `json:"edge_consistency"`
+		EdgeConsistency *float64 `json:"edge_consistency"`
 
 		// PfPercentile Cross-sectional percentile rank of profit factor versus all traders, 0-100. null when insufficient history.
-		PfPercentile *float32 `json:"pf_percentile"`
+		PfPercentile *float64 `json:"pf_percentile"`
 
 		// ProfitFactor Gross profit divided by gross loss; greater than 1 is profitable. Capped at 1000 when there are effectively no losses. null when insufficient history.
-		ProfitFactor *float32 `json:"profit_factor"`
+		ProfitFactor *float64 `json:"profit_factor"`
 
 		// Sharpe30d Sharpe ratio over the trailing 30 days (risk-adjusted return; higher is better). Magnitude can be large for small samples. null when insufficient history.
-		Sharpe30d *float32 `json:"sharpe_30d"`
+		Sharpe30d *float64 `json:"sharpe_30d"`
 
 		// Sharpe7d Sharpe ratio over the trailing 7 days (risk-adjusted return; higher is better). null when insufficient history.
-		Sharpe7d *float32 `json:"sharpe_7d"`
+		Sharpe7d *float64 `json:"sharpe_7d"`
 
 		// SharpePercentile Cross-sectional percentile rank of the trader's Sharpe ratio versus all traders, 0-100. null when insufficient history.
-		SharpePercentile *float32 `json:"sharpe_percentile"`
+		SharpePercentile *float64 `json:"sharpe_percentile"`
 
 		// SmartScore Trader smart score on a 0..100 display scale; higher is stronger. Null when unavailable.
-		SmartScore *float32 `json:"smart_score"`
+		SmartScore *float64 `json:"smart_score"`
 	} `json:"quant_metrics,omitempty"`
 	Rank  *int     `json:"rank,omitempty"`
-	Score *float32 `json:"score,omitempty"`
+	Score *float64 `json:"score,omitempty"`
 
 	// Stats Sports and esports markets only since 2026-10-27 (#29830): markets_traded and win_rate come from the wallet's sports and esports record (pnl.in_scope), and total_volume from its stored trade days. A wallet that traded no sports or esports market never gets a record: markets_traded is 0 and win_rate is omitted (since 2026-10-29, #30589, #30657). A wallet that trades only combos has no record either: both are omitted (since 2026-10-29, #30637).
 	Stats struct {
 		// DailyWinRate Deprecated since 2026-10-27 and never sent. It counted mark-to-market days over every Polymarket market of the wallet (#29830). Read stats.all.win_days and stats.all.loss_days from GET /api/v1/trader/{address}/pnl, which count sports and esports days.
 		// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-		DailyWinRate *float32 `json:"daily_win_rate,omitempty"`
+		DailyWinRate *float64 `json:"daily_win_rate,omitempty"`
 
 		// Exact Additive lossless counterpart to `total_volume`, present exactly when it is.
 		Exact *TraderStatsExact `json:"exact,omitempty"`
@@ -18771,13 +19065,13 @@ type Trader struct {
 		MarketsTraded *int `json:"markets_traded,omitempty"`
 
 		// TotalVolume Sports and esports USD volume, all time: the sum of every stored trade day's in-scope volume (trader_trade_daily_rollups.in_scope_volume_total), the profile's Volume traded. Dated by the volume data_quality group, which carries the trader sync clock. 0 for a synced wallet with no stored trade day. Omitted before the wallet's first completed sync and while any stored day's in-scope volume is not computed yet, so a partial sum is never served. Polymarket's full-history wallet-wide volume before 2026-10-27 (#29830).
-		TotalVolume *float32 `json:"total_volume,omitempty"`
+		TotalVolume *float64 `json:"total_volume,omitempty"`
 
 		// WinRate Won over decided sports and esports markets, 0 to 1: pnl.in_scope.win_rate truncated to four places, dated by the sports_record data_quality group. Omitted until the record is computed, while the wallet has no decided sports or esports market, for a wallet that traded no sports or esports market (#30589, #30657), and for one that trades only combos (#30637). Counted every Polymarket market before 2026-10-27.
-		WinRate *float32 `json:"win_rate,omitempty"`
+		WinRate *float64 `json:"win_rate,omitempty"`
 	} `json:"stats"`
 	Strategy *struct {
-		Confidence  *float32 `json:"confidence,omitempty"`
+		Confidence  *float64 `json:"confidence,omitempty"`
 		Description *string  `json:"description,omitempty"`
 
 		// StrategyType Observed trading style identifier. New rows use two_sided, category_focused, high_activity, diversified, mixed, or unclassified, counted over the wallet's sports and esports markets only. Historical identifiers remain readable during normal reclassification; style does not predict skill or intent.
@@ -18804,6 +19098,21 @@ type TraderGrade string
 // TraderStreakTier Hot-streak tier (trailing-7d cross-sectional percentile); a separate axis from the all-time grade. Omitted when there is no recent activity.
 type TraderStreakTier string
 
+// TraderBreakdowns The profile's strategy measures (expand=breakdowns, #32622), the same figures as the wallet profile's Insights and Performance breakdown cards. Every figure counts the wallet's sports and esports markets only, from the same read the profile makes.
+type TraderBreakdowns struct {
+	// EntryPriceAnalysis Results by the entry price the wallet paid for the side it held, over its sports and esports markets with a known held entry price.
+	EntryPriceAnalysis TraderEntryPriceAnalysis `json:"entry_price_analysis"`
+
+	// HourlyPerformance P&L and win rate by the UTC hour of the wallet's first trade in each settled sports or esports market.
+	HourlyPerformance TraderHourlyPerformance `json:"hourly_performance"`
+
+	// RiskMetrics Position sizes and category concentration. null when the wallet has no sports or esports position with trades, or its stored markets carry no freshness clock yet.
+	RiskMetrics *TraderRiskMetrics `json:"risk_metrics"`
+
+	// TimeBreakdowns The hold-time and first-trade-hour bands of the profile's Performance breakdown card, over the wallet's sports and esports markets with a realized P&L.
+	TimeBreakdowns TraderTimeBreakdowns `json:"time_breakdowns"`
+}
+
 // TraderCategoryRecord defines model for TraderCategoryRecord.
 type TraderCategoryRecord struct {
 	// Category Canonical category bucket, for example Soccer, Esports, Tennis. Esports is one bucket, and the Esports record carries its per-game records in games.
@@ -18819,7 +19128,7 @@ type TraderCategoryRecord struct {
 	Status TraderCategoryRecordStatus `json:"status"`
 
 	// WinRate wins / decided in [0,1], truncated to four decimals. Null when status is not_enough_data.
-	WinRate *float32 `json:"win_rate"`
+	WinRate *float64 `json:"win_rate"`
 
 	// Wins Markets in this category the wallet closed with a profit.
 	Wins int `json:"wins"`
@@ -18866,7 +19175,7 @@ type TraderContext struct {
 		AsOf *time.Time `json:"as_of"`
 
 		// CostBasisLocked Cost basis (USD) currently tied up in open positions in synced sports and esports markets (#32119).
-		CostBasisLocked float32 `json:"cost_basis_locked"`
+		CostBasisLocked float64 `json:"cost_basis_locked"`
 
 		// MarketsCombo Combo markets the wallet traded, as maker or taker, counted from the combo fills 0xinsider indexes from the chain (#30218); 0 when it traded none. Polymarket counts each combo as one market in markets_total, and no position read lists one, so a combo is in no other count here; sync_coverage adds it with markets_pruned and markets_unstored to markets_synced.
 		MarketsCombo int `json:"markets_combo"`
@@ -18893,24 +19202,60 @@ type TraderContext struct {
 		ResolvedDecided *int `json:"resolved_decided"`
 
 		// ResolvedWinRate Win rate as a percentage (0-100): resolved_wins over resolved_decided. A settled market that closed at exactly zero realized P&L (a void, a refund, a fully hedged position) is neither a win nor a loss and is not in the denominator, the same rule the leaderboard applies; null when no resolved market was decided. It is the rule of trader.stats.win_rate, read from the synced rows at request time; stats.win_rate is the stored figure the profile shows, refreshed by each sync and a few minutes after a closed-history write. context.md prints one Market win rate, stats.win_rate.
-		ResolvedWinRate *float32 `json:"resolved_win_rate"`
+		ResolvedWinRate *float64 `json:"resolved_win_rate"`
 
 		// ResolvedWins Settled markets that closed at positive realized P&L: the win-rate numerator. Additive; null only on a summary cached before the field existed.
 		ResolvedWins *int `json:"resolved_wins"`
 
 		// SyncCoverage markets_synced plus markets_pruned plus markets_unstored plus markets_combo, divided by markets_total when the provider total is known (capped at 1.0); 0.0-1.0. Both sides count every category: no Polymarket count of a wallet's sports and esports markets exists, so the ratio does not estimate one. When markets_total is unknown or not positive (null, 0, or negative), this is 1.0 if that sum is positive (else 0.0), so cross-check markets_total before treating 1.0 as full coverage.
-		SyncCoverage float32 `json:"sync_coverage"`
+		SyncCoverage float64 `json:"sync_coverage"`
 
 		// SyncedRealizedPnl Native net realized P&L (USD) over every Polymarket market of the wallet, including credited rebates, minus the stored realized component of synced open positions with positive current value. Rebates are credited to the account, not to a position, so every credited rebate stays in this figure. NUMERIC arithmetic precedes conversion to a JSON number.
-		SyncedRealizedPnl float32 `json:"synced_realized_pnl"`
+		SyncedRealizedPnl float64 `json:"synced_realized_pnl"`
 
 		// TotalRealizedPnl Native net realized P&L (USD) over every Polymarket market of the wallet, including credited rebates, read directly from the accounting snapshot. For the sports and esports figure read trader.pnl.in_scope.realized_pnl. Position sync_coverage is separate from this accounting basis.
-		TotalRealizedPnl float32 `json:"total_realized_pnl"`
+		TotalRealizedPnl float64 `json:"total_realized_pnl"`
 
 		// UnrealizedMtm Mark-to-market unrealized P&L (USD) on open positions in synced sports and esports markets (#32119): Polymarket's cashPnl summed over the positions still held, without the realized P&L of partial sells. The same figure as trader.pnl.unrealized, in this body and on GET /api/v1/trader/{address}, since 2026-11-02 (#32459).
-		UnrealizedMtm float32 `json:"unrealized_mtm"`
+		UnrealizedMtm float64 `json:"unrealized_mtm"`
 	} `json:"position_summary,omitempty"`
 	Trader Trader `json:"trader"`
+}
+
+// TraderEntryPriceAnalysis Results by the entry price the wallet paid for the side it held, over its sports and esports markets with a known held entry price.
+type TraderEntryPriceAnalysis struct {
+	// BestBucket The bucket with the highest win rate among buckets of at least 3 markets. null when no bucket has 3.
+	BestBucket *string `json:"best_bucket"`
+
+	// Buckets One bucket per price band that has a market, in bucket_order.
+	Buckets []TraderEntryPriceBucket `json:"buckets"`
+
+	// WorstBucket The bucket with the lowest win rate among buckets of at least 3 markets. null when no bucket has 3.
+	WorstBucket *string `json:"worst_bucket"`
+}
+
+// TraderEntryPriceBucket One entry-price band. Each measure is an analytic value: read state before value.
+type TraderEntryPriceBucket struct {
+	// AvgPnl Mean realized P&L of a market in the band, USD.
+	AvgPnl AnalyticNumber `json:"avg_pnl"`
+
+	// Bucket The band: $0.01-$0.19, $0.20-$0.39, $0.40-$0.59, $0.60-$0.79 or $0.80-$0.99. The last also holds any price below $0.01.
+	Bucket string `json:"bucket"`
+
+	// BucketOrder Display position, 0 first, from the lowest price up.
+	BucketOrder int `json:"bucket_order"`
+
+	// Markets Markets in the band.
+	Markets AnalyticInteger `json:"markets"`
+
+	// TotalPnl Realized P&L of the band's markets, USD.
+	TotalPnl AnalyticNumber `json:"total_pnl"`
+
+	// WinRate wins over decided markets (a nonzero P&L), as a percentage 0-100.
+	WinRate AnalyticNumber `json:"win_rate"`
+
+	// Wins Of those, the markets that made money.
+	Wins AnalyticInteger `json:"wins"`
 }
 
 // TraderEsportsGameRecord defines model for TraderEsportsGameRecord.
@@ -18928,7 +19273,7 @@ type TraderEsportsGameRecord struct {
 	Status TraderEsportsGameRecordStatus `json:"status"`
 
 	// WinRate wins / decided in [0,1], truncated to four decimals. Null when status is not_enough_data.
-	WinRate *float32 `json:"win_rate"`
+	WinRate *float64 `json:"win_rate"`
 
 	// Wins Markets in this game the wallet closed with a profit.
 	Wins int `json:"wins"`
@@ -19200,32 +19545,74 @@ type TraderGradeAtGrade string
 // TraderGradeAtStatus graded has a proven grade; ungraded is a proven null grade; unknown has no valid historical observation.
 type TraderGradeAtStatus string
 
+// TraderHourlyPerformance P&L and win rate by the UTC hour of the wallet's first trade in each settled sports or esports market.
+type TraderHourlyPerformance struct {
+	// BestHour The hour with the highest win_rate. null when no entry exists.
+	BestHour *int `json:"best_hour"`
+
+	// BestWinRate best_hour's win_rate, percentage 0-100. null exactly when best_hour is.
+	BestWinRate *float64 `json:"best_win_rate"`
+
+	// Entries One entry per UTC hour that has a settled market; an hour with none is absent.
+	Entries []struct {
+		// AvgPnl total_pnl over markets, USD.
+		AvgPnl float64 `json:"avg_pnl"`
+
+		// Hour UTC hour of the first trade, 0-23.
+		Hour int `json:"hour"`
+
+		// Markets Settled markets first traded in this hour.
+		Markets int `json:"markets"`
+
+		// TotalPnl Realized P&L of those markets, USD.
+		TotalPnl float64 `json:"total_pnl"`
+
+		// WinRate wins over the decided markets (settled with a nonzero P&L), as a percentage 0-100. 0 when no market of the hour is decided: read it with wins and markets.
+		WinRate float64 `json:"win_rate"`
+
+		// Wins Of those, the markets that made money at settlement.
+		Wins int `json:"wins"`
+	} `json:"entries"`
+
+	// IsApproximate true when at least 12 hours have markets and every one of them has the same P&L sign, so the hour-to-hour spread says little about timing.
+	IsApproximate bool `json:"is_approximate"`
+
+	// SpreadPp best_win_rate minus worst_win_rate, percentage points. null when either is null.
+	SpreadPp *float64 `json:"spread_pp"`
+
+	// WorstHour The hour with the lowest win_rate. null when no entry exists.
+	WorstHour *int `json:"worst_hour"`
+
+	// WorstWinRate worst_hour's win_rate, percentage 0-100. null exactly when worst_hour is.
+	WorstWinRate *float64 `json:"worst_win_rate"`
+}
+
 // TraderPnl A trader's sports and esports daily P&L object. `id`, `freshness_at`, `series_status` and `realized` are always present. The five sections -- `entries`, `stats`, `monthly`, `year_totals`, `drawdown` -- are present unless the request's `sections` parameter excluded them, so a request that sends no `sections` always carries all five. An excluded section is absent from the object, never null and never an empty array. While `series_status` is `pending` the sections are empty and never mean zero.
 type TraderPnl struct {
 	// Drawdown Underwater (drawdown) series. Present unless the request's `sections` excluded it, and clipped to `from`/`to` when either is set. The running peak behind each point is the full-history peak, so a clipped slice is not rebased; view.anchor.drawdown carries the value at the point before the window.
 	Drawdown *[]struct {
-		CumulativeProfit float32            `json:"cumulative_profit"`
+		CumulativeProfit float64            `json:"cumulative_profit"`
 		Date             openapi_types.Date `json:"date"`
-		Drawdown         float32            `json:"drawdown"`
+		Drawdown         float64            `json:"drawdown"`
 	} `json:"drawdown,omitempty"`
 
 	// Entries Sports and esports daily P&L series (oldest-first): one point for each UTC day with realized P&L or sports and esports volume. Present unless the request's `sections` excluded it, and clipped to `from`/`to` when either is set. cumulative_profit and total_pnl are the running sum of daily_change from the start of the history, so a clipped slice keeps the same economic meaning; view.anchor carries the point before the window.
 	Entries *[]struct {
 		// CumulativeProfit Running sum of daily_change through this day.
-		CumulativeProfit *float32 `json:"cumulative_profit,omitempty"`
+		CumulativeProfit *float64 `json:"cumulative_profit,omitempty"`
 
 		// DailyChange Realized P&L of the wallet's sports and esports markets dated to this UTC day: a settled market on its resolution day, else its last trade day; an open market's realized part on its last trade day. 0 on a day with volume and nothing realized.
-		DailyChange float32            `json:"daily_change"`
+		DailyChange float64            `json:"daily_change"`
 		Date        openapi_types.Date `json:"date"`
 
 		// MarketsTraded Sports and esports markets this wallet traded on this UTC day, counted from the fills 0xinsider stores for it. Omitted on a day whose stored fills include a market outside sports and esports (stored before October 2026), where the count would include it, and on a day above 20 times the wallet's median day.
 		MarketsTraded *int `json:"markets_traded,omitempty"`
 
 		// TotalPnl The same running sum as cumulative_profit.
-		TotalPnl *float32 `json:"total_pnl,omitempty"`
+		TotalPnl *float64 `json:"total_pnl,omitempty"`
 
 		// TotalVolume Volume in USD this wallet traded on this UTC day in sports and esports markets, buys and sells: each fill's size times its price, fees excluded, the measure of Polymarket user-volume `volume_usdc`, summed from the fills 0xinsider stores for it. A day stored before 2026-10-27 counts the cash each fill moved, fee included, until it is recomputed. Not Polymarket's share count, and not the full-history stats.total_volume on GET /api/v1/trader/{address}, which covers every market. Omitted on a day with realized P&L and no stored sports or esports fill, and, with markets_traded, on a day above 20 times the wallet's median day.
-		TotalVolume *float32 `json:"total_volume,omitempty"`
+		TotalVolume *float64 `json:"total_volume,omitempty"`
 	} `json:"entries,omitempty"`
 
 	// FreshnessAt RFC3339 served-freshness clock: when the wallet's sports and esports record, which this series is read from, was last computed, or, for a wallet that traded no sports or esports market (#30589, #30657) or trades only combos (#30637) and so has no record, its last completed sync; null while series_status is pending. Always present, so read it as a value that can be null rather than a key that can be missing.
@@ -19239,7 +19626,7 @@ type TraderPnl struct {
 		// MarketsTraded The month's entries[].markets_traded summed: a market traded on several days counts once a day. null when a day of the month has total_volume and no markets_traded, a day whose stored fills include a market outside sports and esports, where a sum would undercount. A day with no stored fill, or above 20 times the wallet's median day, adds 0.
 		MarketsTraded *int    `json:"markets_traded"`
 		Month         int     `json:"month"`
-		Pnl           float32 `json:"pnl"`
+		Pnl           float64 `json:"pnl"`
 		Year          int     `json:"year"`
 	} `json:"monthly,omitempty"`
 
@@ -19249,13 +19636,13 @@ type TraderPnl struct {
 		Basis TraderPnlRealizedBasis `json:"basis"`
 
 		// DatedPnl The sum of every day's daily_change over the full history, whatever from/to say.
-		DatedPnl float32 `json:"dated_pnl"`
+		DatedPnl float64 `json:"dated_pnl"`
 
 		// RealizedPnl The wallet's Sports P&L: pnl.in_scope.realized_pnl on GET /api/v1/trader/{address}. null when the wallet has no published realized figure.
-		RealizedPnl *float32 `json:"realized_pnl"`
+		RealizedPnl *float64 `json:"realized_pnl"`
 
 		// UndatedPnl realized_pnl less dated_pnl. realized_pnl starts from Polymarket's figures under either basis (its sports and esports figures, or its published figure for the whole wallet split by cost) and the days from the per-market record, so undated_pnl holds the wallet's share of Polymarket rebates, the in-scope part of the neg-risk conversion correction, any market with no trade date, and the difference between Polymarket's figure and the per-market record, which on some wallets is most of it. null exactly when realized_pnl is.
-		UndatedPnl *float32 `json:"undated_pnl"`
+		UndatedPnl *float64 `json:"undated_pnl"`
 	} `json:"realized"`
 
 	// SeriesStatus `ready` when the series is served; an empty one is a wallet with no sports or esports day, or one that traded no sports or esports market (#30589, #30657) or trades only combos (#30637). `pending` when the wallet's sports and esports record does not carry the daily series yet: every section is empty, realized is null, and the empty sections never mean zero. Retry later.
@@ -19264,55 +19651,55 @@ type TraderPnl struct {
 	// Stats Pre-derived period stats. Present unless the request's `sections` excluded it. Always the published all/90d/30d/7d windows over the full stored history; `from`/`to` never recompute them over the request's range.
 	Stats *struct {
 		All struct {
-			AvgDay       float32             `json:"avg_day"`
-			BestDay      float32             `json:"best_day"`
+			AvgDay       float64             `json:"avg_day"`
+			BestDay      float64             `json:"best_day"`
 			BestDayDate  *openapi_types.Date `json:"best_day_date,omitempty"`
-			Change       float32             `json:"change"`
-			ChangePct    float32             `json:"change_pct"`
-			Current      float32             `json:"current"`
+			Change       float64             `json:"change"`
+			ChangePct    float64             `json:"change_pct"`
+			Current      float64             `json:"current"`
 			LossDays     int                 `json:"loss_days"`
-			RebaseAnchor float32             `json:"rebase_anchor"`
+			RebaseAnchor float64             `json:"rebase_anchor"`
 			WinDays      int                 `json:"win_days"`
-			WorstDay     float32             `json:"worst_day"`
+			WorstDay     float64             `json:"worst_day"`
 			WorstDayDate *openapi_types.Date `json:"worst_day_date,omitempty"`
 		} `json:"all"`
 		D30 struct {
-			AvgDay       float32             `json:"avg_day"`
-			BestDay      float32             `json:"best_day"`
+			AvgDay       float64             `json:"avg_day"`
+			BestDay      float64             `json:"best_day"`
 			BestDayDate  *openapi_types.Date `json:"best_day_date,omitempty"`
-			Change       float32             `json:"change"`
-			ChangePct    float32             `json:"change_pct"`
-			Current      float32             `json:"current"`
+			Change       float64             `json:"change"`
+			ChangePct    float64             `json:"change_pct"`
+			Current      float64             `json:"current"`
 			LossDays     int                 `json:"loss_days"`
-			RebaseAnchor float32             `json:"rebase_anchor"`
+			RebaseAnchor float64             `json:"rebase_anchor"`
 			WinDays      int                 `json:"win_days"`
-			WorstDay     float32             `json:"worst_day"`
+			WorstDay     float64             `json:"worst_day"`
 			WorstDayDate *openapi_types.Date `json:"worst_day_date,omitempty"`
 		} `json:"d30"`
 		D7 struct {
-			AvgDay       float32             `json:"avg_day"`
-			BestDay      float32             `json:"best_day"`
+			AvgDay       float64             `json:"avg_day"`
+			BestDay      float64             `json:"best_day"`
 			BestDayDate  *openapi_types.Date `json:"best_day_date,omitempty"`
-			Change       float32             `json:"change"`
-			ChangePct    float32             `json:"change_pct"`
-			Current      float32             `json:"current"`
+			Change       float64             `json:"change"`
+			ChangePct    float64             `json:"change_pct"`
+			Current      float64             `json:"current"`
 			LossDays     int                 `json:"loss_days"`
-			RebaseAnchor float32             `json:"rebase_anchor"`
+			RebaseAnchor float64             `json:"rebase_anchor"`
 			WinDays      int                 `json:"win_days"`
-			WorstDay     float32             `json:"worst_day"`
+			WorstDay     float64             `json:"worst_day"`
 			WorstDayDate *openapi_types.Date `json:"worst_day_date,omitempty"`
 		} `json:"d7"`
 		D90 struct {
-			AvgDay       float32             `json:"avg_day"`
-			BestDay      float32             `json:"best_day"`
+			AvgDay       float64             `json:"avg_day"`
+			BestDay      float64             `json:"best_day"`
 			BestDayDate  *openapi_types.Date `json:"best_day_date,omitempty"`
-			Change       float32             `json:"change"`
-			ChangePct    float32             `json:"change_pct"`
-			Current      float32             `json:"current"`
+			Change       float64             `json:"change"`
+			ChangePct    float64             `json:"change_pct"`
+			Current      float64             `json:"current"`
 			LossDays     int                 `json:"loss_days"`
-			RebaseAnchor float32             `json:"rebase_anchor"`
+			RebaseAnchor float64             `json:"rebase_anchor"`
 			WinDays      int                 `json:"win_days"`
-			WorstDay     float32             `json:"worst_day"`
+			WorstDay     float64             `json:"worst_day"`
 			WorstDayDate *openapi_types.Date `json:"worst_day_date,omitempty"`
 		} `json:"d90"`
 	} `json:"stats,omitempty"`
@@ -19322,14 +19709,14 @@ type TraderPnl struct {
 		// Anchor The last daily point strictly before `from`: the cumulative baseline the window was cut away from. null when the request set no lower bound, or when the window starts at or before the first stored point and the slice already begins at the start of the history. Cumulative values in `entries` and `drawdown` are never rebased to the window, so this is the figure to subtract for a window-relative change.
 		Anchor *struct {
 			// CumulativeProfit Cumulative profit carried into the window; null when the stored point has none, the same nullability entries[].cumulative_profit has.
-			CumulativeProfit *float32           `json:"cumulative_profit"`
+			CumulativeProfit *float64           `json:"cumulative_profit"`
 			Date             openapi_types.Date `json:"date"`
 
 			// Drawdown Underwater value at the anchor date; null when that date has no drawdown point, which happens exactly when its cumulative_profit is null. The running peak behind the window is cumulative_profit minus drawdown (drawdown is zero or negative).
-			Drawdown *float32 `json:"drawdown"`
+			Drawdown *float64 `json:"drawdown"`
 
 			// TotalPnl Cumulative total P&L carried into the window; null on the same terms.
-			TotalPnl *float32 `json:"total_pnl"`
+			TotalPnl *float64 `json:"total_pnl"`
 		} `json:"anchor"`
 
 		// EntriesInWindow Points of the daily series inside the window. Equal to entries_total when no bound narrowed it, and reported whether or not entries was among the requested sections.
@@ -19350,7 +19737,7 @@ type TraderPnl struct {
 
 	// YearTotals Per-year P&L totals (ascending by year). Present unless the request's `sections` excluded it. Whole years over the full stored history, never clipped to `from`/`to`.
 	YearTotals *[]struct {
-		Pnl  float32 `json:"pnl"`
+		Pnl  float64 `json:"pnl"`
 		Year int     `json:"year"`
 	} `json:"year_totals,omitempty"`
 }
@@ -19390,10 +19777,61 @@ type TraderPnlInScope struct {
 	MarketsResolved int `json:"markets_resolved"`
 
 	// RealizedPnl Sports and esports realized P&L in USD, display-safe. null when the split basis has no published realized figure to split.
-	RealizedPnl *float32 `json:"realized_pnl"`
+	RealizedPnl *float64 `json:"realized_pnl"`
 
 	// WinRate Share of decided sports and esports markets the wallet won, 0 to 1. null with no decided market.
-	WinRate *float32 `json:"win_rate"`
+	WinRate *float64 `json:"win_rate"`
+}
+
+// TraderPriceEdge Edge over the price paid (#32270, #32622): how often the side a wallet bought won, minus the average price it paid, over its settled sports and esports markets of $20 or more at a known entry price. Probabilities throughout: edge 0.012 is 1.2 percentage points. The same figures as LeaderboardPriceEdge, plus the shrunk edge the profile badge and the leaderboard show. No hold: a hold is a fact of a leaderboard row, not of the wallet.
+type TraderPriceEdge struct {
+	// AvgPrice Mean entry price paid, 0-1.
+	AvgPrice float64 `json:"avg_price"`
+
+	// Edge hit_rate minus avg_price, full precision, before any shrink.
+	Edge float64 `json:"edge"`
+
+	// FieldAverage The mean edge of every ranked wallet that traded in the last 180 days, the value shrunk_edge is pulled toward. Present only with shrunk_edge.
+	FieldAverage *float64 `json:"field_average,omitempty"`
+
+	// HitRate Share of those markets whose bought side won, 0-1.
+	HitRate float64 `json:"hit_rate"`
+
+	// Markets Settled sports and esports markets of $20 or more at a known entry price that the edge is measured over.
+	Markets int `json:"markets"`
+
+	// ShrunkEdge The edge the profile badge shows and the leaderboard ranks: edge pulled toward field_average by how short the record is. A short record moves most of the way to the average; a long one keeps nearly all of its own edge. Present only when status is ranked.
+	ShrunkEdge *float64 `json:"shrunk_edge,omitempty"`
+
+	// Status Whether the edge ranks. ranked: at least 30 such markets, and the share of the decided ones that made money at settlement within 10 points of the win rate over the same markets. too_few_markets: fewer than 30. sample_mismatch: that share is more than 10 points away, so these markets do not describe the wallet's record.
+	Status TraderPriceEdgeStatus `json:"status"`
+}
+
+// TraderPriceEdgeStatus Whether the edge ranks. ranked: at least 30 such markets, and the share of the decided ones that made money at settlement within 10 points of the win rate over the same markets. too_few_markets: fewer than 30. sample_mismatch: that share is more than 10 points away, so these markets do not describe the wallet's record.
+type TraderPriceEdgeStatus string
+
+// TraderRiskMetrics Position sizes over the wallet's sports and esports positions with trades, and how concentrated its volume is across categories. Each measure is an analytic value: read state before value. The four size measures are not_computed while any position's cost is unknown; the counts are always measured.
+type TraderRiskMetrics struct {
+	// AvgPositionSize Mean cost basis of a position, USD.
+	AvgPositionSize AnalyticNumber `json:"avg_position_size"`
+
+	// Concentration Herfindahl index of the wallet's volume across sports and esports categories: each category's share of the volume, squared and summed. 1.0 is a single category; lower is more spread. not_computed while any category's cost is unknown, and no value without volume.
+	Concentration AnalyticNumber `json:"concentration"`
+
+	// LargePositionCount Positions whose cost is more than twice the mean.
+	LargePositionCount int `json:"large_position_count"`
+
+	// MaxPositionSize Largest cost basis of a position, USD.
+	MaxPositionSize AnalyticNumber `json:"max_position_size"`
+
+	// MedianPositionSize Median cost basis of a position, USD.
+	MedianPositionSize AnalyticNumber `json:"median_position_size"`
+
+	// PositionSizeStddev Population standard deviation of the cost basis, USD.
+	PositionSizeStddev AnalyticNumber `json:"position_size_stddev"`
+
+	// TotalPositions Sports and esports positions with trades.
+	TotalPositions int `json:"total_positions"`
 }
 
 // TraderStatsExact Lossless counterparts for trader statistics. The object is present exactly when stats.total_volume is.
@@ -19409,6 +19847,39 @@ type TraderSyncedData struct {
 
 	// Wallet Proxy wallet address.
 	Wallet string `json:"wallet"`
+}
+
+// TraderTimeBreakdownBand One band of a time breakdown.
+type TraderTimeBreakdownBand struct {
+	// CategoryValue The band's label.
+	CategoryValue string `json:"category_value"`
+
+	// Expectancy total_pnl over n_markets, USD.
+	Expectancy *float64 `json:"expectancy"`
+
+	// NMarkets Markets with a realized P&L in the band.
+	NMarkets int `json:"n_markets"`
+
+	// ProfitFactor Gross profit over gross loss. null when the band has no loss.
+	ProfitFactor *float64 `json:"profit_factor"`
+
+	// TotalPnl Realized P&L of the band's markets, USD.
+	TotalPnl *float64 `json:"total_pnl"`
+
+	// WinRate Resolved markets that made money over resolved markets with a nonzero P&L, 0-1. null when none is decided.
+	WinRate *float64 `json:"win_rate"`
+}
+
+// TraderTimeBreakdowns The hold-time and first-trade-hour bands of the profile's Performance breakdown card, over the wallet's sports and esports markets with a realized P&L.
+type TraderTimeBreakdowns struct {
+	// ByDuration One row per band of time from the wallet's first to its last trade in a market: < 1h, 1h – 1d, 1 – 3d, 3 – 7d, 1 – 4w, > 4w. A band with no market is absent.
+	ByDuration []TraderTimeBreakdownBand `json:"by_duration"`
+
+	// ByHourBucket One row per four-hour UTC band of the wallet's first trade in a market: 00-03, 04-07, 08-11, 12-15, 16-19, 20-23. A band with no market is absent.
+	ByHourBucket []TraderTimeBreakdownBand `json:"by_hour_bucket"`
+
+	// Insights One-line summaries keyed by breakdown (by_duration, by_hour_bucket), from bands of at least 5 markets with a known P&L. A key is present only when there is a summary.
+	Insights map[string]string `json:"insights"`
 }
 
 // TraderTrust Field-level trust metadata returned only when GET /api/v1/trader/{address} includes expand=trust.
@@ -19490,13 +19961,13 @@ type TrendingWallet struct {
 
 	// AllTimePnlUsd Deprecated since 2026-10-27 and never sent. It was Polymarket's net total P&L over every Polymarket market of the wallet, and wallet figures cover sports and esports markets only (#29971). Read in_scope_realized_pnl.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
-	AllTimePnlUsd *float32 `json:"all_time_pnl_usd,omitempty"`
-	AllTimeScore  *float32 `json:"all_time_score,omitempty"`
+	AllTimePnlUsd *float64 `json:"all_time_pnl_usd,omitempty"`
+	AllTimeScore  *float64 `json:"all_time_score,omitempty"`
 
 	// DailyPnlSeries The wallet's sports and esports realized P&L on each UTC day of the window, ascending, one point a day, pnl_usd 0 on a day with none: the same in-scope realized day series the trader P&L endpoint serves. Empty while daily_pnl_series_status is pending, which never means zero. It leaves out non-sports markets, so it does not sum to trending_pnl_usd, which is Polymarket's leaderboard figure across all markets.
 	DailyPnlSeries []struct {
 		Date   openapi_types.Date `json:"date"`
-		PnlUsd float32            `json:"pnl_usd"`
+		PnlUsd float64            `json:"pnl_usd"`
 	} `json:"daily_pnl_series"`
 
 	// DailyPnlSeriesStatus `ready` when daily_pnl_series is served; an all-zero one is a wallet with no sports or esports P&L in the window. `pending` when the wallet's sports and esports record does not carry its daily series yet, or the wallet is not in the 0xinsider database: daily_pnl_series is empty and never means zero. Retry later.
@@ -19509,7 +19980,7 @@ type TrendingWallet struct {
 	Id string `json:"id"`
 
 	// InScopeRealizedPnl Additive (#29971): the wallet's sports and esports realized P&L in USD, the same figure as pnl.in_scope.realized_pnl on GET /api/v1/trader/{address} and the 0xinsider profile's Sports P&L, as of the board's last rebuild. Context only: it does not affect the ranking, which follows trending_pnl_usd. Omitted when the wallet is not in the 0xinsider database or has no sports and esports record yet: absent means not computed, never zero.
-	InScopeRealizedPnl *float32   `json:"in_scope_realized_pnl,omitempty"`
+	InScopeRealizedPnl *float64   `json:"in_scope_realized_pnl,omitempty"`
 	LastSynced         *time.Time `json:"last_synced,omitempty"`
 
 	// Platform Real provider platform; surfaced, never coerced. Polymarket only.
@@ -19529,7 +20000,7 @@ type TrendingWallet struct {
 	StreakTier *TrendingWalletStreakTier `json:"streak_tier,omitempty"`
 
 	// TrendingPnlUsd Polymarket weekly/monthly P&L for the wallet in USD, taken from Polymarket's canonical leaderboard (data-api.polymarket.com/v2/leaderboard?time_period=week|month&sort_by=PNL). This is the ranking axis and the rows are returned in Polymarket's by-PNL order; it is the provider's number, not a locally summed realized-leaf total.
-	TrendingPnlUsd      float32 `json:"trending_pnl_usd"`
+	TrendingPnlUsd      float64 `json:"trending_pnl_usd"`
 	Username            *string `json:"username,omitempty"`
 	WindowMarketsTraded int     `json:"window_markets_traded"`
 
@@ -19537,10 +20008,10 @@ type TrendingWallet struct {
 	WindowTradeDays int `json:"window_trade_days"`
 
 	// WindowVolumeShares Both-sides traded volume over the window in SHARES, from the Polymarket leaderboard row, whose own schema states the figure is never USD. Omitted when the row carried none.
-	WindowVolumeShares *float32 `json:"window_volume_shares,omitempty"`
+	WindowVolumeShares *float64 `json:"window_volume_shares,omitempty"`
 
 	// WindowVolumeUsd Both-sides cash volume over the window in USD, from Polymarket GET /v2/user-volume (volume_usdc). Omitted when Polymarket served no volume for the wallet: an absent observation, never zero. Polymarket tracks volume in whole UTC days, so this window is the whole-day span covering the requested one, which is not the exact span trending_pnl_usd was scored over.
-	WindowVolumeUsd *float32 `json:"window_volume_usd,omitempty"`
+	WindowVolumeUsd *float64 `json:"window_volume_usd,omitempty"`
 }
 
 // TrendingWalletDailyPnlSeriesStatus `ready` when daily_pnl_series is served; an all-zero one is a wallet with no sports or esports P&L in the window. `pending` when the wallet's sports and esports record does not carry its daily series yet, or the wallet is not in the 0xinsider database: daily_pnl_series is empty and never means zero. Retry later.
@@ -19697,14 +20168,14 @@ type WalletGradeChangedData struct {
 	Direction WalletGradeChangedDataDirection `json:"direction"`
 
 	// FinalScore Final 0 to 100 score banded into the new grade.
-	FinalScore float32                        `json:"final_score"`
+	FinalScore float64                        `json:"final_score"`
 	NewGrade   WalletGradeChangedDataNewGrade `json:"new_grade"`
 
 	// OldGrade The grade before the move. Never equal to `new_grade`.
 	OldGrade WalletGradeChangedDataOldGrade `json:"old_grade"`
 
 	// SkillIndex Cohort skill index that drove the grade, 0 to 1.
-	SkillIndex float32 `json:"skill_index"`
+	SkillIndex float64 `json:"skill_index"`
 
 	// TraderId 0xinsider's numeric id for the wallet.
 	TraderId int `json:"trader_id"`
@@ -20357,7 +20828,7 @@ type SubmitWhaleDatasetJSONBody struct {
 	From        time.Time `json:"from"`
 
 	// MinSize USD minimum, normalized to cents like replay.
-	MinSize *float32  `json:"min_size,omitempty"`
+	MinSize *float64  `json:"min_size,omitempty"`
 	To      time.Time `json:"to"`
 }
 
@@ -20372,7 +20843,7 @@ type GetEdgeHunterParams struct {
 	// Cohort Required for view=observations; wider_holder, in_play or emerging_pile. Rejected for board and signals. wider_holder covers pregame markets that view=signals does not list at its widest selection (horizon_hours=48, min_grade=B, no selector), so until kickoff a market is read in one view or the other. A market view=signals lists leaves wider_holder as primary_slate_candidate, and is a wider_holder candidate again in the first refresh after view=signals stops listing it; signals_as_of names the view=signals snapshot each refresh read. Each refresh evaluates at most 8 markets per sport and cohort, wider_holder by soonest kickoff (most graded holders first among equal kickoffs) and in_play by most graded holders, so a market among a sport's 8 soonest stays evaluated until its game starts. wider_holder also evaluates up to 8 more markets per sport that kick off within 24 hours, most graded holders first, so the most-held markets appear up to a day before kickoff. Each of these keeps its place in later refreshes until its game starts while its holder page still shows a card or could not be read, so a more-held market waits for a free place instead of displacing it. Each row's admitted_by names its place, most_held or soonest_kickoff. The rest count in coverage.capacity_limited_markets. Emerging pile is a wider-holder projection with sharp_pct in [0.75,0.85), complete holder scans and future kickoff, not an independent population or arrival history.
 	Cohort *GetEdgeHunterParamsCohort `form:"cohort,omitempty" json:"cohort,omitempty"`
 
-	// Admission Opt-in admission rule for view=observations with cohort=wider_holder; rejected for every other view and cohort. most_held_48h returns the most-held selection instead of the default one: per sport, up to 8 wider_holder markets kicking off within 48 hours, most graded holders first, then most volume, then soonest kickoff, at most 4 per event. It is recomputed every refresh and keeps no place, so a more-held market displaces a less-held one; markets view=signals lists stay excluded. Every row carries admitted_by most_held_48h, including a market the default selection also evaluates, and the response echoes admission. funnel, coverage, degraded and degradation_reasons describe this selection: a wider_holder candidate it did not take counts as capacity_limited. Its markets that no default place covers are read after every default market, at most once per 10 minutes, so a row can rest on a holder page up to 15 minutes old (holder_snapshot_at). Omit for the default selection. Cursors and ETags bind it.
+	// Admission Opt-in admission rule for view=observations with cohort=wider_holder; rejected for every other view and cohort. most_held_48h returns the most-held selection instead of the default one: per sport, up to 8 wider_holder markets kicking off within 48 hours, most graded holders first, then most volume, then soonest kickoff, at most 4 per event. It is recomputed every refresh and keeps no place, so a more-held market displaces a less-held one; markets view=signals lists stay excluded. Every row carries admitted_by most_held_48h, including a market the default selection also evaluates, and the response echoes admission. funnel, coverage, degraded and degradation_reasons describe this selection: a wider_holder candidate it did not take counts as capacity_limited. Its markets that no default place covers are read after every default market, at most once per 10 minutes, so a row can rest on a holder page up to 15 minutes old (holder_snapshot_at). most_held_48h_by_type requires market_types and runs the same rule within each named type: per sport and market_context.market_type, up to 8 markets (4 per event), most graded holders first, then volume, then soonest kickoff, so a type whose markets hold fewer wallets than team-win markets still gets its own places. Its rows carry admitted_by most_held_48h_by_type and it has no departures. Its markets no other selection read are read after every default and most_held_48h market, at most once per 10 minutes. A market type not asked for in the last 30 minutes answers 503 read_model_warming with Retry-After 45 s while the next refresh computes it. Omit for the default selection. Cursors and ETags bind it.
 	Admission *GetEdgeHunterParamsAdmission `form:"admission,omitempty" json:"admission,omitempty"`
 
 	// MinGrade Board and signals: S, A or B, default B. Requires a piled-side holder at the selected grade floor or better, without removing other holders. Rejected for observations.
@@ -20660,7 +21131,7 @@ type ListInsiderRadarParams struct {
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// MinSuspicion Minimum suspicion score (0-100). The live flag floor of 60 also applies.
-	MinSuspicion *float32 `form:"min_suspicion,omitempty" json:"min_suspicion,omitempty"`
+	MinSuspicion *float64 `form:"min_suspicion,omitempty" json:"min_suspicion,omitempty"`
 
 	// Severity Compatible filter. flag selects live threshold crossings. watch returns no rows because no live watch policy exists.
 	Severity *ListInsiderRadarParamsSeverity `form:"severity,omitempty" json:"severity,omitempty"`
@@ -20711,7 +21182,7 @@ type ListLargePositionsParams struct {
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// MinSize Minimum position value in USD. Raises the feed's own floor of 50,000 USD; a smaller value does not lower it.
-	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
+	MinSize *float64 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// Category One RFC 4180 CSV record of exact current provider-backed market_canonical.category values. Legacy unquoted lists such as NBA,WNBA remain valid; values containing commas, quotes, or newlines are CSV-quoted. Matching is case-insensitive. Malformed quoted input fails closed as one unknown exact category. A value outside sports and esports returns 400 bad_request with param=category (#27305), as on GET /api/v1/markets/explore.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
@@ -20744,7 +21215,7 @@ type ListLargeTradesParams struct {
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// MinSize Minimum trade size in USD.
-	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
+	MinSize *float64 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// Category Filter by market category (case-insensitive). A canonical bucket name (e.g. Basketball) matches every provider member that folds into it (NBA, WNBA, NCAAB); a raw provider value also resolves to its bucket. Sports and esports only (#27430): a category outside them returns 400 bad_request with param category and names the accepted buckets.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
@@ -20756,7 +21227,7 @@ type ListLargeTradesParams struct {
 	SuspiciousOnly *bool `form:"suspicious_only,omitempty" json:"suspicious_only,omitempty"`
 
 	// MinMarketVolumeShare Keep only trades whose market_volume_share is known and at least this. A fraction, not a percent: 0.01 is one percent of the market's traded volume. A trade whose share is unavailable is never returned by a non-zero value, because an unavailable share cannot be said to clear a floor.
-	MinMarketVolumeShare *float32 `form:"min_market_volume_share,omitempty" json:"min_market_volume_share,omitempty"`
+	MinMarketVolumeShare *float64 `form:"min_market_volume_share,omitempty" json:"min_market_volume_share,omitempty"`
 
 	// Sort Order of the returned page. recent is newest first and is the default. market_volume_share ranks by each trade's share of its market's traded volume, biggest first, with a trade whose share is unavailable last. That ranking reads the last 30 days, because the share is computed for each request and an unbounded ranking cannot be served inside the documented latency budget. A cursor is bound to the order it was minted in, so a continuation cannot cross from one order into the other.
 	Sort *ListLargeTradesParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
@@ -20792,7 +21263,7 @@ type ListLargeTradeHistoryParams struct {
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// MinSize Minimum trade size in USD. The capture floor was 3,000 USD before 2026-07-06 and 10,000 USD from then (1,000 USD in earnings markets), so 10000 gives one size rule across the whole archive. From 2026-09-23 a fill must also be at least 0.1% of its market's recorded traded volume (Polymarket's own share count); rows written before that date were not re-filtered.
-	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
+	MinSize *float64 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// ConditionId Exact raw provider condition_id. Unknown markets return an empty list.
 	ConditionId *string `form:"condition_id,omitempty" json:"condition_id,omitempty"`
@@ -20819,7 +21290,7 @@ type ListLargeTradeHistoryParams struct {
 	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
 
 	// MinMarketVolumeShare Keep only trades whose market_volume_share is known and at least this. A fraction, not a percent: 0.01 is one percent of the market's traded volume. A trade whose share is unavailable is never returned by a non-zero value, because an unavailable share cannot be said to clear a floor.
-	MinMarketVolumeShare *float32 `form:"min_market_volume_share,omitempty" json:"min_market_volume_share,omitempty"`
+	MinMarketVolumeShare *float64 `form:"min_market_volume_share,omitempty" json:"min_market_volume_share,omitempty"`
 
 	// Sort Order of the returned page. recent is newest first and is the default. market_volume_share ranks by each trade's share of its market's traded volume, biggest first, with a trade whose share is unavailable last. That ranking reads from, or the last 30 days when from is omitted, for the same reason. A cursor is bound to the order it was minted in, so a continuation cannot cross from one order into the other.
 	Sort *ListLargeTradeHistoryParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
@@ -21510,7 +21981,7 @@ type CreateMcpJsonRpcResponseParamsMCPProtocolVersion string
 type CreateMcpJsonRpcResponseJSONBodyId0 = string
 
 // CreateMcpJsonRpcResponseJSONBodyId1 defines parameters for CreateMcpJsonRpcResponse.
-type CreateMcpJsonRpcResponseJSONBodyId1 = float32
+type CreateMcpJsonRpcResponseJSONBodyId1 = float64
 
 // CreateMcpJsonRpcResponseJSONBody_Id defines parameters for CreateMcpJsonRpcResponse.
 type CreateMcpJsonRpcResponseJSONBody_Id struct {
@@ -21533,7 +22004,7 @@ type CreateMcpJsonRpcResponse200JSONResponseBodyErrorData1 = []interface{}
 type CreateMcpJsonRpcResponse200JSONResponseBodyErrorData2 = string
 
 // CreateMcpJsonRpcResponse200JSONResponseBodyErrorData3 defines parameters for CreateMcpJsonRpcResponse.
-type CreateMcpJsonRpcResponse200JSONResponseBodyErrorData3 = float32
+type CreateMcpJsonRpcResponse200JSONResponseBodyErrorData3 = float64
 
 // CreateMcpJsonRpcResponse200JSONResponseBodyErrorData4 defines parameters for CreateMcpJsonRpcResponse.
 type CreateMcpJsonRpcResponse200JSONResponseBodyErrorData4 = bool
@@ -21547,7 +22018,7 @@ type CreateMcpJsonRpcResponse200JSONResponseBody_Error_Data struct {
 type CreateMcpJsonRpcResponse200JSONResponseBodyId0 = string
 
 // CreateMcpJsonRpcResponse200JSONResponseBodyId1 defines parameters for CreateMcpJsonRpcResponse.
-type CreateMcpJsonRpcResponse200JSONResponseBodyId1 = float32
+type CreateMcpJsonRpcResponse200JSONResponseBodyId1 = float64
 
 // CreateMcpJsonRpcResponse200JSONResponseBody_Id defines parameters for CreateMcpJsonRpcResponse.
 type CreateMcpJsonRpcResponse200JSONResponseBody_Id struct {
@@ -21682,7 +22153,7 @@ type ListPositionsParams struct {
 	Consistency *ListPositionsParamsConsistency `form:"consistency,omitempty" json:"consistency,omitempty"`
 
 	// MinSize Minimum current position value in USD. Defaults to 100 when omitted, or to 0 when wallet is present; send 0 to include every reconciled position.
-	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
+	MinSize *float64 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// Category Exact match against provider-backed market_canonical.category. Sports and esports only (#27311): a category outside them returns 400 bad_request with param category and names the accepted buckets.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
@@ -21862,7 +22333,7 @@ type ListSuspiciousTradesParams struct {
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// MinSuspicion Minimum suspicion score (0-100). The live flag floor of 60 also applies.
-	MinSuspicion *float32 `form:"min_suspicion,omitempty" json:"min_suspicion,omitempty"`
+	MinSuspicion *float64 `form:"min_suspicion,omitempty" json:"min_suspicion,omitempty"`
 
 	// Severity Compatible filter. flag selects live threshold crossings. watch returns no rows because no live watch policy exists.
 	Severity *ListSuspiciousTradesParamsSeverity `form:"severity,omitempty" json:"severity,omitempty"`
@@ -21906,7 +22377,7 @@ type GetSuspiciousTrade200JSONResponseBodyObject string
 
 // GetTraderParams defines parameters for GetTrader.
 type GetTraderParams struct {
-	// Expand Include heavy fields and trust metadata. Repeatable: strategy, categories, trust. quant_metrics is accepted and returns nothing since 2026-10-27.
+	// Expand Include heavy fields and trust metadata. Repeatable: strategy, categories, trust, breakdowns. breakdowns adds the profile's strategy measures (Trader.breakdowns), computed on the read, and is served on this route only. quant_metrics is accepted and returns nothing since 2026-10-27.
 	Expand *[]GetTraderParamsExpand `form:"expand,omitempty" json:"expand,omitempty"`
 
 	// MaxAgeS Opt into a whole-response freshness ceiling in seconds. The server returns 200 only when data_quality.status is fresh or stale and data_quality.as_of is no older than this value; otherwise it returns 409 with error.reason=freshness_ceiling_unsatisfied. No refresh or alternate read is attempted.
@@ -22104,7 +22575,7 @@ type GetPositionTimeline200JSONResponseBodyObject string
 
 // BatchGetTradersJSONBody defines parameters for BatchGetTraders.
 type BatchGetTradersJSONBody struct {
-	// Expand Shared expand flags applied to every trader item.
+	// Expand Shared expand flags applied to every trader item. breakdowns is refused with 400 (param expand): it computes on the read per wallet, so GET /api/v1/trader/{address} serves it one wallet at a time.
 	Expand *[]BatchGetTradersJSONBodyExpand `json:"expand,omitempty"`
 
 	// Traders Trader identities to resolve in input order.
@@ -22363,7 +22834,7 @@ type ListWhaleTradesParams struct {
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// MinSize Minimum trade size in USD.
-	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
+	MinSize *float64 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// Category Filter by market category (case-insensitive). A canonical bucket name (e.g. Basketball) matches every provider member that folds into it (NBA, WNBA, NCAAB); a raw provider value also resolves to its bucket. Sports and esports only (#27430): a category outside them returns 400 bad_request with param category and names the accepted buckets.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
@@ -22375,7 +22846,7 @@ type ListWhaleTradesParams struct {
 	SuspiciousOnly *bool `form:"suspicious_only,omitempty" json:"suspicious_only,omitempty"`
 
 	// MinMarketVolumeShare Keep only trades whose market_volume_share is known and at least this. A fraction, not a percent: 0.01 is one percent of the market's traded volume. A trade whose share is unavailable is never returned by a non-zero value, because an unavailable share cannot be said to clear a floor.
-	MinMarketVolumeShare *float32 `form:"min_market_volume_share,omitempty" json:"min_market_volume_share,omitempty"`
+	MinMarketVolumeShare *float64 `form:"min_market_volume_share,omitempty" json:"min_market_volume_share,omitempty"`
 
 	// Sort Order of the returned page. recent is newest first and is the default. market_volume_share ranks by each trade's share of its market's traded volume, biggest first, with a trade whose share is unavailable last. That ranking reads the last 30 days, because the share is computed for each request and an unbounded ranking cannot be served inside the documented latency budget. A cursor is bound to the order it was minted in, so a continuation cannot cross from one order into the other.
 	Sort *ListWhaleTradesParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
@@ -22417,7 +22888,7 @@ type ListWhaleTradeHistoryParams struct {
 	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
 
 	// MinSize Minimum trade size in USD.
-	MinSize *float32 `form:"min_size,omitempty" json:"min_size,omitempty"`
+	MinSize *float64 `form:"min_size,omitempty" json:"min_size,omitempty"`
 
 	// ConditionId Exact raw provider condition_id. Unknown markets return an empty list.
 	ConditionId *string `form:"condition_id,omitempty" json:"condition_id,omitempty"`
@@ -22444,7 +22915,7 @@ type ListWhaleTradeHistoryParams struct {
 	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
 
 	// MinMarketVolumeShare Keep only trades whose market_volume_share is known and at least this. A fraction, not a percent: 0.01 is one percent of the market's traded volume. A trade whose share is unavailable is never returned by a non-zero value, because an unavailable share cannot be said to clear a floor.
-	MinMarketVolumeShare *float32 `form:"min_market_volume_share,omitempty" json:"min_market_volume_share,omitempty"`
+	MinMarketVolumeShare *float64 `form:"min_market_volume_share,omitempty" json:"min_market_volume_share,omitempty"`
 
 	// Sort Order of the returned page. recent is newest first and is the default. market_volume_share ranks by each trade's share of its market's traded volume, biggest first, with a trade whose share is unavailable last. That ranking reads from, or the last 30 days when from is omitted, for the same reason. A cursor is bound to the order it was minted in, so a continuation cannot cross from one order into the other.
 	Sort *ListWhaleTradeHistoryParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
@@ -24587,14 +25058,14 @@ type ClientInterface interface {
 
 	// ListGames List covered games
 	//
-	// One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.
+	// One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. A tennis game also carries its tournament (tier, city and country, venue time zone, official dates) from the reviewed registry its page reads, omitted when the registry holds no single edition for it. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.
 	//
 	// Corresponds with GET /api/v1/games (the `ListGames` operationId).
 	ListGames(ctx context.Context, params *ListGamesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetGame Get one game
 	//
-	// The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume or liquidity. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.
+	// The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume, liquidity or tournament. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.
 	//
 	// Corresponds with GET /api/v1/games/{event_slug} (the `GetGame` operationId).
 	GetGame(ctx context.Context, eventSlug string, params *GetGameParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -25637,7 +26108,7 @@ func (c *Client) GetEventReplaySince(ctx context.Context, params *GetEventReplay
 
 // ListGames List covered games
 //
-// One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.
+// One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. A tennis game also carries its tournament (tier, city and country, venue time zone, official dates) from the reviewed registry its page reads, omitted when the registry holds no single edition for it. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.
 //
 // Corresponds with GET /api/v1/games (the `ListGames` operationId).
 func (c *Client) ListGames(ctx context.Context, params *ListGamesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -25654,7 +26125,7 @@ func (c *Client) ListGames(ctx context.Context, params *ListGamesParams, reqEdit
 
 // GetGame Get one game
 //
-// The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume or liquidity. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.
+// The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume, liquidity or tournament. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.
 //
 // Corresponds with GET /api/v1/games/{event_slug} (the `GetGame` operationId).
 func (c *Client) GetGame(ctx context.Context, eventSlug string, params *GetGameParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -36578,7 +37049,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListGamesWithResponse List covered games
 	//
-	// One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.
+	// One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. A tennis game also carries its tournament (tier, city and country, venue time zone, official dates) from the reviewed registry its page reads, omitted when the registry holds no single edition for it. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -36587,7 +37058,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetGameWithResponse Get one game
 	//
-	// The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume or liquidity. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.
+	// The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume, liquidity or tournament. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -39926,7 +40397,7 @@ type ListGameMarketsResponse struct {
 			EventSlug        string   `json:"event_slug"`
 			GroupItemTitle   *string  `json:"group_item_title,omitempty"`
 			Id               string   `json:"id"`
-			Line             *float32 `json:"line,omitempty"`
+			Line             *float64 `json:"line,omitempty"`
 			LineOutcomeIndex *int     `json:"line_outcome_index,omitempty"`
 			NegativeRisk     *bool    `json:"negative_risk,omitempty"`
 			Outcomes         []struct {
@@ -39939,7 +40410,7 @@ type ListGameMarketsResponse struct {
 				MoneyAsOf *time.Time `json:"money_as_of"`
 				Outcomes  []struct {
 					Index   int     `json:"index"`
-					Usd     float32 `json:"usd"`
+					Usd     float64 `json:"usd"`
 					Wallets struct {
 						A int `json:"a"`
 						B int `json:"b"`
@@ -40000,7 +40471,7 @@ func (r ListGameMarketsResponse) GetJSON200() *struct {
 		EventSlug        string   `json:"event_slug"`
 		GroupItemTitle   *string  `json:"group_item_title,omitempty"`
 		Id               string   `json:"id"`
-		Line             *float32 `json:"line,omitempty"`
+		Line             *float64 `json:"line,omitempty"`
 		LineOutcomeIndex *int     `json:"line_outcome_index,omitempty"`
 		NegativeRisk     *bool    `json:"negative_risk,omitempty"`
 		Outcomes         []struct {
@@ -40013,7 +40484,7 @@ func (r ListGameMarketsResponse) GetJSON200() *struct {
 			MoneyAsOf *time.Time `json:"money_as_of"`
 			Outcomes  []struct {
 				Index   int     `json:"index"`
-				Usd     float32 `json:"usd"`
+				Usd     float64 `json:"usd"`
 				Wallets struct {
 					A int `json:"a"`
 					B int `json:"b"`
@@ -54919,7 +55390,7 @@ func (c *ClientWithResponses) GetEventReplaySinceWithResponse(ctx context.Contex
 
 // ListGamesWithResponse List covered games
 //
-// One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.
+// One coherent game view per row: both sides with their provider ids and live scores, the UTC kickoff, the provider's own status, the esports series format, and the game's winner markets (the moneyline, or a soccer game's three 1X2 legs) with their condition ids and outcome token ids. Spreads, totals, team totals, period lines and player props are on GET /api/v1/games/{event_slug}/markets. Built from the same provider-first live and upcoming projections the site's sports boards use, so a request pays no provider fan-out of its own. A finished status (ended, cancelled, postponed) also lists the games the board has dropped, from their stored records (freshness.source stored, as GET /api/v1/games/{event_slug} serves them), for kickoffs from starts_after (default 7 days before starts_before) to starts_before (default and cap: now); such a page can hold fewer than limit games, or none, while has_more is true, so follow next_cursor until has_more is false. Ordered by kickoff, then by event_slug; games whose kickoff the provider has not published sort last. For what is on now, pass window=now: without it the list starts at the oldest game still open, which can be weeks old. coverage names the sports and leagues this deployment serves and any scope whose source was unavailable for the read, so an empty page is never ambiguous. A sport or status outside the published vocabulary returns an empty page rather than a 400. Carries the board's existing competitor-bound provider moneyline price state by default, with an observation clock and explicit incomplete or invalid state. Each game also carries its traded volume (volume: value, unit, basis, source, observed_at) and each market its provider liquidity, so games can be ranked by activity without a Gamma call; a figure the board does not hold is omitted, never 0. A tennis game also carries its tournament (tier, city and country, venue time zone, official dates) from the reviewed registry its page reads, omitted when the registry holds no single edition for it. It does not fetch another provider endpoint. Soccer 1X2 moneylines retain independent YES legs classified as home, draw and away; draw_offered is true when a classified draw leg is included. The event-level sharp-money split is opt-in through expand=sharp_money (Pro and Max); holder identities remain on their own gated routes.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -54934,7 +55405,7 @@ func (c *ClientWithResponses) ListGamesWithResponse(ctx context.Context, params 
 
 // GetGameWithResponse Get one game
 //
-// The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume or liquidity. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.
+// The same game object GET /api/v1/games returns, for one event_slug, including soccer 1X2 home, draw and away market sides and draw_offered. The slug is the identity the live_sports_updated webhook pulse carries, so a receiver can read the full game straight from a pulse. A slug outside the published coverage returns 404, including a real Polymarket event in a sport this deployment does not serve; GET /api/v1/games names what is covered. A finished game leaves GET /api/v1/games with the live board and stays readable here by its slug: once the provider reports it final, awarded, forfeited, cancelled or postponed, or every moneyline leg has resolved, it is served from its stored record with freshness.source stored, the final score when a live-score frame carried one, no prices, title, volume, liquidity or tournament. A game the board dropped while it was still in play returns 404. markets holds the winner markets only; GET /api/v1/games/{event_slug}/markets lists every other market of the event.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -60631,7 +61102,7 @@ func ParseListGameMarketsResponse(rsp *http.Response) (*ListGameMarketsResponse,
 				EventSlug        string   `json:"event_slug"`
 				GroupItemTitle   *string  `json:"group_item_title,omitempty"`
 				Id               string   `json:"id"`
-				Line             *float32 `json:"line,omitempty"`
+				Line             *float64 `json:"line,omitempty"`
 				LineOutcomeIndex *int     `json:"line_outcome_index,omitempty"`
 				NegativeRisk     *bool    `json:"negative_risk,omitempty"`
 				Outcomes         []struct {
@@ -60644,7 +61115,7 @@ func ParseListGameMarketsResponse(rsp *http.Response) (*ListGameMarketsResponse,
 					MoneyAsOf *time.Time `json:"money_as_of"`
 					Outcomes  []struct {
 						Index   int     `json:"index"`
-						Usd     float32 `json:"usd"`
+						Usd     float64 `json:"usd"`
 						Wallets struct {
 							A int `json:"a"`
 							B int `json:"b"`
