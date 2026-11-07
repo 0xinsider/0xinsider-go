@@ -125,6 +125,18 @@ for {
 }
 ```
 
+`frame.Data` unmarshals into the generated struct for its type. A `MarketSettled` frame (Pro and Max) and a `market_settled` webhook's `data` are both a `MarketSettledData`: a sports or esports game market settled, once per settled state. A market can settle twice, first as a resolved UMA question row whose `Settlement.Payouts` is nil and then as the condition row with payouts, so deduplicate on `SettlementId`. A game's end time is `GameStatus.EndedAt`, with `EndedAtSource` naming who observed it; both are nil when no end was observed, never inferred.
+
+```go
+if frame.Type == "MarketSettled" {
+	var settled oxinsider.MarketSettledData
+	if err := json.Unmarshal(frame.Data, &settled); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(settled.SettlementId, settled.ConditionId, settled.Settlement.WinningOutcomeIndex)
+}
+```
+
 A frame that breaks the SSE contract (not JSON, not an object, no usable sequence, a malformed `resync` marker, a `200` that is not `text/event-stream`, or a frame past the byte ceiling) ends the stream with a `*StreamProtocolError` whose `Reason`, `LastSeq` and `FrameID` say which frame and where to resume from; a malformed frame never moves `LastSeq`. Keep-alive comments are consumed silently, `retry:` is exposed as `RetryHint`, and the stream's headers are on `Response()`.
 
 The stream carries no total deadline: it is meant to stay open, and the ordinary-request bound above does not apply to it. It is bounded where it can stall instead. `WithStreamStartTimeout` (10s) bounds the wait for the response headers, and `WithStreamIdleTimeout` (60s) ends a connection that has sent nothing, not even a keep-alive; the API sends one every 5 seconds, so a minute of silence is twelve missed keep-alives and not a quiet feed. Either bound ends the call with a `*StreamTimeoutError` whose `Phase` says which one and whose `LastSeq` says where to resume; `0` removes either bound. The idle clock runs only while the reader is waiting for bytes, so taking your time between frames does not trip it.
