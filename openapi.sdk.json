@@ -11356,7 +11356,7 @@
                             "address": "0x0000000000000000000000000000000000000000",
                             "name": "swisstony",
                             "grade": "A",
-                            "last_traded_at": "2026-06-18T17:42:10Z",
+                            "last_traded_at": "2026-06-18T00:00:00Z",
                             "shares": 12500
                           }
                         ],
@@ -11365,7 +11365,7 @@
                             "address": "0x0000000000000000000000000000000000000000",
                             "name": "swisstony",
                             "grade": "A",
-                            "last_traded_at": "2026-06-18T17:42:10Z",
+                            "last_traded_at": "2026-06-18T00:00:00Z",
                             "shares": 12500,
                             "category_win_rate": 0.64,
                             "category_win_record": {
@@ -11378,7 +11378,7 @@
                             "address": "0x1111111111111111111111111111111111111111",
                             "name": "marketmaker",
                             "grade": "B",
-                            "last_traded_at": "2026-06-18T17:42:10Z",
+                            "last_traded_at": "2026-06-18T00:00:00Z",
                             "shares": 9800,
                             "category_win_rate_status": "not_enough_data"
                           }
@@ -15856,6 +15856,353 @@
           "milliseconds": 250,
           "measurement": "response-ready",
           "requirement": "engineering-budget"
+        }
+      }
+    },
+    "/api/v1/markets/settled": {
+      "get": {
+        "operationId": "listSettledMarkets",
+        "summary": "List settled game markets since a time",
+        "description": "Game markets Polymarket settled, as 0xinsider recorded them, oldest first by (settlement.observed_at, settlement_id): one row per market per settled state, the object the market_settled webhook delivers as data. It is the webhook's pull side: catch up after downtime from since, or poll with next_cursor instead of receiving pushes. A market can appear twice: once as a question row without payouts, then again with them, each with its own settlement_id. Each row carries condition_id, settlement_id, event_slug, game_id, league, sports_market_type, outcomes (labels at their outcome index, so payouts and winning_outcome_index index into it) and settlement: status observed, oracle_status resolved, settled true, payouts (micro-USDC per share per outcome index), result (outcome, or split for a 50-50), winning_outcome_index, was_disputed, resolved_at (null on a resolved UMA question row, which carries none), oracle_updated_at (Polymarket's last_update_timestamp, its latest lifecycle change, never a resolution time; on such a row, when UMA's answer settled the question), expected_settlement_time, settlement_time_basis and observed_at, when 0xinsider first saw this state. The filters are the webhook's settlement_filters without market or event names: sports_market_type (default moneyline, * for every type) and league. A polyv2 copy of a game whose original event has a moneyline market is left out, as the webhook leaves it out of such a filter, so copy_of_event_slug is always null here. Unlike the webhook, a state first recorded more than 6 hours after its market resolved is listed, and so is a state naming the winner an earlier state of its market named (Polymarket's payouts row after the ConditionalTokens payout). complete_through trails now by two minutes: rows observed at or before it are served, in this page or the ones after it, so a row is never passed before the settlement writer records it. has_more true means more rows up to complete_through remain: fetch next_cursor now. has_more false means the walk reached complete_through: keep next_cursor and read it again later for what is recorded after it. next_cursor is always present. A page can hold fewer than limit rows, or none, while has_more is true: a read that has not filled its page stops after about 120 ms of scanning and resumes on the next page. Every plan with an API key; push delivery (the webhook) is Pro and Max. Cost is 1.",
+        "tags": [
+          "Games"
+        ],
+        "parameters": [
+          {
+            "name": "X-Query-Validation",
+            "in": "header",
+            "required": false,
+            "description": "Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "strict"
+              ]
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "description": "RFC 3339 time, required without cursor. Rows whose settlement.observed_at is at or after it. With cursor, the cursor's position replaces it.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "sports_market_type",
+            "in": "query",
+            "required": false,
+            "description": "Comma-separated provider market types to keep, case-insensitive: moneyline, spreads, totals, a prop type; at most 64. Omitted: moneyline, or with cursor the cursor's filter. * keeps every type, including markets with no stored type.",
+            "schema": {
+              "type": "string",
+              "maxLength": 2048
+            }
+          },
+          {
+            "name": "league",
+            "in": "query",
+            "required": false,
+            "description": "Comma-separated leagues to keep, as the rows' league reports them (nba, epl, or pga for PGA Tour golf); at most 32, each starting with a letter and holding no hyphen. Omitted: every league, or with cursor the cursor's filter.",
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Page size. Out-of-range values are clamped to 1..100.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "Opaque stl_v1_ cursor from next_cursor. It replaces since and keeps the filters it was issued for: a sports_market_type or league sent with it must match them, or the read answers 400 with error.reason cursor_expired. A cursor this endpoint did not issue returns 400 with error.param=cursor.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "description": "Conditional GET using a weak semantic ETag from an earlier response. A matching payload returns 304 with an empty body; request_id and cost are excluded from the validator.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "label": "cURL",
+            "source": "curl -sS \\\n  -H \"Authorization: Bearer $OXINSIDER_API_KEY\" \\\n  'https://api.0xinsider.com/api/v1/markets/settled?since=2026-11-07T18:00:00Z&league=nba'"
+          }
+        ],
+        "x-latency-budget": {
+          "milliseconds": 250,
+          "measurement": "response-ready",
+          "requirement": "engineering-budget"
+        },
+        "responses": {
+          "200": {
+            "description": "One page of recorded settlements",
+            "headers": {
+              "X-Query-Ignored": {
+                "$ref": "#/components/headers/X-Query-Ignored"
+              },
+              "X-Effective-Query": {
+                "$ref": "#/components/headers/X-Effective-Query"
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/X-Request-Id"
+              },
+              "ETag": {
+                "$ref": "#/components/headers/ETag"
+              },
+              "X-Usage-Accounting": {
+                "$ref": "#/components/headers/X-Usage-Accounting"
+              },
+              "Server-Timing": {
+                "$ref": "#/components/headers/Server-Timing"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "complete_through": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/MarketSettledData"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/ResponseMeta"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    },
+                    "object": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "data",
+                    "has_more",
+                    "next_cursor",
+                    "complete_through",
+                    "meta"
+                  ]
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified. Returned when If-None-Match matches the current payload.",
+            "headers": {
+              "X-Query-Ignored": {
+                "$ref": "#/components/headers/X-Query-Ignored"
+              },
+              "X-Effective-Query": {
+                "$ref": "#/components/headers/X-Effective-Query"
+              },
+              "ETag": {
+                "$ref": "#/components/headers/ETag"
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/X-Request-Id"
+              },
+              "X-Usage-Accounting": {
+                "$ref": "#/components/headers/X-Usage-Accounting"
+              },
+              "Server-Timing": {
+                "$ref": "#/components/headers/Server-Timing"
+              }
+            },
+            "x-empty-body": true
+          },
+          "400": {
+            "description": "Bad request. error.param names the parameter: since missing without a cursor, or not an RFC 3339 time; sports_market_type or league with an empty value or more values than allowed; a league that does not start with a letter or holds a hyphen; limit that is not an integer; or a cursor this endpoint did not issue. error.reason cursor_expired: the cursor was issued for other sports_market_type or league filters; send the same filters with it, or start again with since.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "The handler did not answer inside the server's 30-second timeout. error.code is request_timeout. On GET and HEAD the response carries Retry-After and error.retry_at; on a mutation it carries neither, because the request may have completed on the server: check its state before repeating it, and reuse its Idempotency-Key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "423": {
+            "description": "Account is locked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Three independent budgets. (1) 100 requests/minute per user on Pro, 200 on Max (sliding window), on every authenticated route; RateLimit-Limit reports the caller's. On the remote MCP endpoint /api/v1/mcp only tools/call is counted: initialize, ping, tools/list, notifications, and the GET, HEAD and DELETE the endpoint answers 405 spend no per-minute request, no monthly quota and no pay-as-you-go usage, with or without a key. (2) On the BATCH routes only: 2500 batch item units/minute per user on Pro, 5000 on Max, reserved before any item is executed. A batch with N requested items costs N item units, including duplicate and invalid items. 2500 = 100 requests x 25 items per batch on Pro, 5000 = 200 x 25 on Max, which is the most item work a key can buy through the request limiter at all: a caller may spend their plan's entire request minute on full 25-item batches without the item budget being what stops them. The REQUEST budget is the effective ceiling, and batching is never the more expensive choice. The item budget can still deny at a sliding-window boundary (both counters carry the previous window forward with a floor, and the item counter runs 25x the request counter), so honor a 429 from either. Over-quota batches return 429 with Retry-After plus RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset before any item work is done. (3) The monthly quota: Pro includes 500,000 and Max includes 2,000,000 authenticated requests per UTC calendar month. Over the plan's included requests: with pay as you go on, the excess bills at USD 0.20 per 1,000 on a monthly invoice, up to four times the included allowance (2,000,000 requests for Pro); without it, from October 1, 2026, the next request answers 429 rate_limited with error.reason monthly_quota_exceeded and a Retry-After to the month's reset. Pay-as-you-go accounts receive the same refusal at their ceiling. A refused request is not counted. X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining, and X-Monthly-Quota-Reset (unix seconds, the first of next month) are on every response a route answers for a counted request, on the monthly-quota 429, and on GET /api/v1/me and GET /api/v1/usage, which read the month without spending it. Any other refusal or failure before the route runs, such as a per-minute 429 or a 401, carries none, nor does a remote MCP message other than tools/call. (4) The per-address budget: 1200 requests/minute per IP, shared by every caller behind one address and counted before authentication, on every route. A 429 from it carries error.reason ip_rate_limited and describes that bucket in RateLimit-*; a throttled address (sustained over-limit traffic) carries error.reason ip_throttled with a Retry-After of minutes to days, and a request before it does not shorten the cooldown. Every 429 is the standard error envelope with meta.request_id equal to X-Request-Id.",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until rate limit resets.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable. error.reason=database_unavailable means the read could not reach the database; retry after Retry-After. error.reason=read_model_warming means the first scan did not answer within the read deadline (a cold replica); retry after Retry-After. The authenticated rate limiter being unavailable answers the same status with its own per-process cooldown.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -21829,6 +22176,7 @@
                           "winning_outcome_index": 1,
                           "was_disputed": false,
                           "resolved_at": "2025-06-23T14:05:11Z",
+                          "oracle_updated_at": "2025-06-23T14:05:11Z",
                           "expected_settlement_time": null,
                           "settlement_time_basis": null,
                           "proposed_answer": null,
@@ -22845,6 +23193,400 @@
           "milliseconds": 250,
           "measurement": "response-ready",
           "requirement": "engineering-budget"
+        }
+      }
+    },
+    "/api/v1/market/{condition_id}/trades": {
+      "get": {
+        "operationId": "listMarketTrades",
+        "summary": "List a market's taker fills in a time window",
+        "description": "One market's taker fills of 100 USD or more, newest first by (traded_at, transaction_hash, log_index), from 0xinsider's own record of the exchange's on-chain fills. Each fill appears once: its id is the transaction hash and the log index of its fill event, so a walk can be deduplicated and joined to the chain. side is the taker's, BUY or SELL; price, shares and size_usd are the fill's own; outcome and token_id name the traded outcome token. Walk a window with from (inclusive) and to (exclusive) and page with next_cursor: has_more true means older fills in the window remain. coverage states what the record holds: fills under min_size_usd (100 USD) are not stored; recorded_from is where the record starts, the later of when recording began and 00:00 UTC on the day retention_days before today, so a window before it reads empty because it is outside the record, not because nothing traded; complete_through is how far the record is complete, a few minutes behind now, and a first page serves no fill after it; retention_days is how many days a stored fill is served before it is deleted. To follow a market, read again later with from at the last complete_through you read. For large trades with wallet grades and review scores, use GET /api/v1/large-trades/history?condition_id=. Every plan with an API key. Cost is 1.",
+        "tags": [
+          "Markets"
+        ],
+        "parameters": [
+          {
+            "name": "X-Query-Validation",
+            "in": "header",
+            "required": false,
+            "description": "Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "strict"
+              ]
+            }
+          },
+          {
+            "name": "condition_id",
+            "in": "path",
+            "required": true,
+            "description": "Market condition ID. Accepts the raw provider-backed condition_id returned by /api/v1/markets/search or /api/v1/markets/explore, or the mkt_-prefixed market.id emitted by V1 responses.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive RFC 3339 lower bound on traded_at. Omitted or earlier than coverage.recorded_from: the walk runs to the start of the record (coverage.recorded_from). With cursor, it must match the cursor's.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "description": "Exclusive RFC 3339 upper bound on traded_at. A first page ends at the earlier of to and coverage.complete_through. With cursor, it must match the cursor's.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Page size. Out-of-range values are clamped to 1..500.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 100
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "description": "Opaque mtr_v1_ cursor from next_cursor. It continues the walk before the last fill of the previous page and keeps the market, from and to it was issued for: another market, or a from or to that differs from the cursor's, answers 400 with error.reason cursor_expired. A cursor this endpoint did not issue returns 400 with error.param=cursor.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "description": "Conditional GET using a weak semantic ETag from an earlier response. A matching payload returns 304 with an empty body; request_id and cost are excluded from the validator.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "label": "cURL",
+            "source": "curl -sS \\\n  -H \"Authorization: Bearer $OXINSIDER_API_KEY\" \\\n  'https://api.0xinsider.com/api/v1/market/0xcad4c2f441ee2828f0a729fe45ae383b0422426055cd3377562b430479d316dd/trades?from=2026-11-07T00:00:00Z&limit=100'"
+          }
+        ],
+        "x-latency-budget": {
+          "milliseconds": 250,
+          "measurement": "response-ready",
+          "requirement": "engineering-budget"
+        },
+        "responses": {
+          "200": {
+            "description": "One page of a market's recorded taker fills",
+            "headers": {
+              "X-Query-Ignored": {
+                "$ref": "#/components/headers/X-Query-Ignored"
+              },
+              "X-Effective-Query": {
+                "$ref": "#/components/headers/X-Effective-Query"
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/X-Request-Id"
+              },
+              "ETag": {
+                "$ref": "#/components/headers/ETag"
+              },
+              "X-Usage-Accounting": {
+                "$ref": "#/components/headers/X-Usage-Accounting"
+              },
+              "Server-Timing": {
+                "$ref": "#/components/headers/Server-Timing"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "object",
+                    "data",
+                    "has_more",
+                    "next_cursor",
+                    "condition_id",
+                    "coverage",
+                    "meta"
+                  ],
+                  "properties": {
+                    "object": {
+                      "type": "string",
+                      "const": "list"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "Newest first by traded_at, then transaction_hash, then log_index.",
+                      "items": {
+                        "$ref": "#/components/schemas/MarketTrade"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean",
+                      "description": "True when older fills in the window remain: send next_cursor for them."
+                    },
+                    "next_cursor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "Opaque mtr_v1_ cursor for the next page; null when has_more is false."
+                    },
+                    "condition_id": {
+                      "type": "string",
+                      "description": "The market's raw condition_id, lowercase."
+                    },
+                    "coverage": {
+                      "type": "object",
+                      "description": "What the record holds. A window outside it reads empty because it is outside the record, not because nothing traded.",
+                      "required": [
+                        "min_size_usd",
+                        "recorded_from",
+                        "complete_through",
+                        "retention_days"
+                      ],
+                      "properties": {
+                        "min_size_usd": {
+                          "type": "integer",
+                          "description": "A fill smaller than this, in USD, is not stored: 100."
+                        },
+                        "recorded_from": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Where the record starts: the later of when recording began and 00:00 UTC on the day retention_days before today. No fill before this instant is served."
+                        },
+                        "complete_through": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Every fill at or before this instant is in the record, and a first page serves none after it. It trails now by a few minutes."
+                        },
+                        "retention_days": {
+                          "type": "integer",
+                          "description": "A stored fill is served at least this many days, then deleted."
+                        }
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/ResponseMeta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified. Returned when If-None-Match matches the current payload.",
+            "headers": {
+              "X-Query-Ignored": {
+                "$ref": "#/components/headers/X-Query-Ignored"
+              },
+              "X-Effective-Query": {
+                "$ref": "#/components/headers/X-Effective-Query"
+              },
+              "ETag": {
+                "$ref": "#/components/headers/ETag"
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/X-Request-Id"
+              },
+              "X-Usage-Accounting": {
+                "$ref": "#/components/headers/X-Usage-Accounting"
+              },
+              "Server-Timing": {
+                "$ref": "#/components/headers/Server-Timing"
+              }
+            },
+            "x-empty-body": true
+          },
+          "400": {
+            "description": "Bad request. error.param names the parameter: from or to that is not an RFC 3339 time, from not before to, limit that is not an integer, or a cursor this endpoint did not issue. error.reason cursor_expired: the cursor was issued for another market, from or to; send the same window with it, or start again without it.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Active Pro subscription required. The key is valid but the account has no paid access: error.reason is subscription_inactive when the Pro subscription has lapsed, or payment_overdue when the plan stands but its latest invoice is unpaid (#32592). error.billing_url and error.message name where a person clears it (https://0xinsider.com/billing). Permanent until a person acts: no Retry-After, never retry on a schedule.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown condition id: error.code not_found. A market outside sports and esports: 404 market_out_of_scope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "The handler did not answer inside the server's 30-second timeout. error.code is request_timeout. On GET and HEAD the response carries Retry-After and error.retry_at; on a mutation it carries neither, because the request may have completed on the server: check its state before repeating it, and reuse its Idempotency-Key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "423": {
+            "description": "Account is locked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Three independent budgets. (1) 100 requests/minute per user on Pro, 200 on Max (sliding window), on every authenticated route; RateLimit-Limit reports the caller's. On the remote MCP endpoint /api/v1/mcp only tools/call is counted: initialize, ping, tools/list, notifications, and the GET, HEAD and DELETE the endpoint answers 405 spend no per-minute request, no monthly quota and no pay-as-you-go usage, with or without a key. (2) On the BATCH routes only: 2500 batch item units/minute per user on Pro, 5000 on Max, reserved before any item is executed. A batch with N requested items costs N item units, including duplicate and invalid items. 2500 = 100 requests x 25 items per batch on Pro, 5000 = 200 x 25 on Max, which is the most item work a key can buy through the request limiter at all: a caller may spend their plan's entire request minute on full 25-item batches without the item budget being what stops them. The REQUEST budget is the effective ceiling, and batching is never the more expensive choice. The item budget can still deny at a sliding-window boundary (both counters carry the previous window forward with a floor, and the item counter runs 25x the request counter), so honor a 429 from either. Over-quota batches return 429 with Retry-After plus RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset before any item work is done. (3) The monthly quota: Pro includes 500,000 and Max includes 2,000,000 authenticated requests per UTC calendar month. Over the plan's included requests: with pay as you go on, the excess bills at USD 0.20 per 1,000 on a monthly invoice, up to four times the included allowance (2,000,000 requests for Pro); without it, from October 1, 2026, the next request answers 429 rate_limited with error.reason monthly_quota_exceeded and a Retry-After to the month's reset. Pay-as-you-go accounts receive the same refusal at their ceiling. A refused request is not counted. X-Monthly-Quota-Limit, X-Monthly-Quota-Remaining, and X-Monthly-Quota-Reset (unix seconds, the first of next month) are on every response a route answers for a counted request, on the monthly-quota 429, and on GET /api/v1/me and GET /api/v1/usage, which read the month without spending it. Any other refusal or failure before the route runs, such as a per-minute 429 or a 401, carries none, nor does a remote MCP message other than tools/call. (4) The per-address budget: 1200 requests/minute per IP, shared by every caller behind one address and counted before authentication, on every route. A 429 from it carries error.reason ip_rate_limited and describes that bucket in RateLimit-*; a throttled address (sustained over-limit traffic) carries error.reason ip_throttled with a Retry-After of minutes to days, and a request before it does not shorten the cooldown. Every 429 is the standard error envelope with meta.request_id equal to X-Request-Id.",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until rate limit resets.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable. error.reason=database_unavailable means the read could not reach the database; retry after Retry-After. error.reason=read_model_warming means the read did not answer within its deadline (a cold replica); retry after Retry-After. The authenticated rate limiter being unavailable answers the same status with its own per-process cooldown.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -24926,7 +25668,7 @@
       "get": {
         "operationId": "listGameMarkets",
         "summary": "List a game's markets",
-        "description": "Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts only; was_disputed; resolved_at; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (each game market is read within about 30 seconds of resolving) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.",
+        "description": "Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts, or on a resolved UMA question row, which carries no payouts (payouts stays null), off the payout Polymarket's ConditionalTokens contract reported on chain, which 0xinsider reads once per such market (null until it has paid); was_disputed; resolved_at, null on a resolved UMA question row, which carries none; oracle_updated_at, Polymarket's last_update_timestamp, its latest lifecycle change and never a resolution time: on a resolved UMA question row, when UMA's answer settled the question; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (usually about 12 seconds after resolved_at and within about 25 seconds for 95 in 100; a game market the resolution scan misses can take up to about 5 minutes) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.",
         "tags": [
           "Games"
         ],
@@ -25371,7 +26113,8 @@
                               "expected_settlement_time",
                               "settlement_time_basis",
                               "proposed_answer",
-                              "observed_at"
+                              "observed_at",
+                              "oracle_updated_at"
                             ],
                             "properties": {
                               "expected_settlement_time": {
@@ -25471,6 +26214,13 @@
                                   "integer",
                                   "null"
                                 ]
+                              },
+                              "oracle_updated_at": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ],
+                                "format": "date-time"
                               }
                             }
                           },
@@ -25707,6 +26457,7 @@
                         "winning_outcome_index": 0,
                         "was_disputed": false,
                         "resolved_at": "2026-11-01T23:19:04Z",
+                        "oracle_updated_at": "2026-11-01T23:19:04Z",
                         "expected_settlement_time": null,
                         "settlement_time_basis": null,
                         "proposed_answer": null,
@@ -25749,6 +26500,7 @@
                         "winning_outcome_index": 1,
                         "was_disputed": false,
                         "resolved_at": "2026-11-01T23:18:48Z",
+                        "oracle_updated_at": "2026-11-01T23:18:48Z",
                         "expected_settlement_time": null,
                         "settlement_time_basis": null,
                         "proposed_answer": null,
@@ -33383,7 +34135,7 @@
       "post": {
         "operationId": "createMcpJsonRpcResponse",
         "summary": "Remote MCP endpoint (JSON-RPC)",
-        "description": "Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 72 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.",
+        "description": "Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 74 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, list_settled_markets, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_trades, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.",
         "tags": [
           "MCP"
         ],
@@ -35645,7 +36397,7 @@
       "get": {
         "operationId": "getResolutionReport",
         "summary": "Get the daily resolution report",
-        "description": "One UTC day of resolved sports and esports markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.",
+        "description": "One UTC day's resolved markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A day from 2026-10-21 counts sports and esports markets only; an earlier day counts every resolved Polymarket market, and `market_scope` says which. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.",
         "tags": [
           "Reports"
         ],
@@ -41715,7 +42467,7 @@
             "name": "admission",
             "in": "query",
             "required": false,
-            "description": "Opt-in admission rule for view=observations with cohort=wider_holder; rejected for every other view and cohort. most_held_48h returns the most-held selection instead of the default one: per sport, up to 8 wider_holder markets kicking off within 48 hours, most graded holders first, then most volume, then soonest kickoff, at most 4 per event. It is recomputed every refresh and keeps no place, so a more-held market displaces a less-held one; markets view=signals lists stay excluded. Every row carries admitted_by most_held_48h, including a market the default selection also evaluates, and the response echoes admission. funnel, coverage, degraded and degradation_reasons describe this selection: a wider_holder candidate it did not take counts as capacity_limited. Its markets that no default place covers are read after every default market, at most once per 10 minutes, so a row can rest on a holder page up to 15 minutes old (holder_snapshot_at). most_held_48h_by_type requires market_types and runs the same rule within each named type: per sport and market_context.market_type, up to 8 markets (4 per event), most graded holders first, then volume, then soonest kickoff, so a type whose markets hold fewer wallets than team-win markets still gets its own places. Its rows carry admitted_by most_held_48h_by_type and it has no departures. Its markets no other selection read are read after every default and most_held_48h market, at most once per 10 minutes. A market type not asked for in the last 30 minutes answers 503 read_model_warming with Retry-After 45 s while the next refresh computes it. Omit for the default selection. Cursors and ETags bind it.",
+            "description": "Opt-in admission rule for view=observations with cohort=wider_holder; rejected for every other view and cohort. most_held_48h returns the most-held selection instead of the default one: per sport, up to 8 wider_holder markets kicking off within 48 hours, most indexed_graded_holders first, then most volume, then soonest kickoff, at most 4 per event. indexed_graded_holders, on every row, counts the S, A and B wallets in the 0xinsider index holding either outcome; graded_holders counts the piled side of the provider's holder page and can be larger or smaller, so check the selection against indexed_graded_holders. rank orders the admitted rows by directional_rank_score, as in the default selection, not by either count. It is recomputed every refresh and keeps no place, so a more-held market displaces a less-held one; markets view=signals lists stay excluded. Every row carries admitted_by most_held_48h, including a market the default selection also evaluates, and the response echoes admission. funnel, coverage, degraded and degradation_reasons describe this selection: a wider_holder candidate it did not take counts as capacity_limited, and one it skips counts as provider_excluded. It skips every market of a game the provider marks postponed, cancelled, suspended or final, its exact-score, half-time and other side events included, and a market of the game's main event at a Yes price of 0.02 or lower, or 0.98 or higher. Its markets that no default place covers are read at most once per 10 minutes, one with no holder page to serve right after every default market with none, so a row can rest on a holder page up to 15 minutes old, or up to 30 minutes for a market more than an hour before kickoff that has not traded since that page (holder_snapshot_at). most_held_48h_by_type requires market_types and runs the same rule within each named type: per sport and market_context.market_type, up to 8 markets (4 per event), most indexed_graded_holders first, then volume, then soonest kickoff, so a type whose markets hold fewer wallets than team-win markets still gets its own places. Its rows carry admitted_by most_held_48h_by_type and it has no departures. Its markets no other selection read take turns with the most_held_48h ones in that same order, at most once per 10 minutes. A market type not asked for in the last 30 minutes answers 503 read_model_warming with Retry-After 45 s while the next refresh computes it. Omit for the default selection. Cursors and ETags bind it.",
             "schema": {
               "type": "string",
               "enum": [
@@ -43424,7 +44176,7 @@
     "market_settled": {
       "post": {
         "summary": "market_settled",
-        "description": "Fires once per settled state when a sports or esports game market settles, the first time 0xinsider records Polymarket's resolution of it: usually within a few minutes. A market can settle twice, first as a resolved oracle question without payouts and then with them; each state fires once, with its own settlement_id. Carries the game, its league, the market type, the outcome names and the settlement object the game markets routes serve: payouts per share in micro-USDC, result (outcome or split), the winning outcome index, whether it was disputed, and when it resolved. settlement_filters narrows it by league, market type, game or market, and defaults to moneyline (game winner) markets; most settling markets are props, spreads and totals. A state first seen more than 6 hours after it resolved is not sent. Pro and Max only.",
+        "description": "Fires once per settled state when a sports or esports game market settles, the first time 0xinsider records Polymarket's resolution of it: usually within a few minutes. A market can settle in more than one state: a resolved oracle question with no winner yet, the same question with the winner Polymarket's ConditionalTokens contract paid on chain, and the provider's row with payouts; each state fires once, with its own settlement_id, except one naming the winner an earlier state named. Carries the game, its league, the market type, the outcome names and the settlement object the game markets routes serve: payouts per share in micro-USDC, result (outcome or split), the winning outcome index, whether it was disputed, and when it resolved. settlement_filters narrows it by league, market type, game or market, and defaults to the markets Polymarket labels moneyline: each head-to-head game's winner market, but in golf and other field events every player market (winner, make the cut, round leader), so one tournament can send hundreds of states; scope it with leagues or condition_ids. Most settling markets are props, spreads and totals. A state first seen more than 6 hours after it resolved is not sent. Pro and Max only.",
         "tags": [
           "Webhooks"
         ],
@@ -43514,6 +44266,7 @@
                         "winning_outcome_index": 0,
                         "was_disputed": false,
                         "resolved_at": "2026-11-07T17:18:19Z",
+                        "oracle_updated_at": "2026-11-07T17:18:19Z",
                         "expected_settlement_time": null,
                         "settlement_time_basis": null,
                         "proposed_answer": null,
@@ -48025,7 +48778,7 @@
       "SettlementSubscriptionFilters": {
         "type": "object",
         "additionalProperties": false,
-        "description": "Settings for market_settled; every set field must match. Optional: subscribing without it stores {\"sports_market_types\": [\"moneyline\"]}, each game's winner market, and sending it without the event is refused (400). A PATCH without it keeps the stored settings while the event stays subscribed; removing the event clears them. Stored as the API normalized it: trimmed and deduplicated, leagues, market types and condition IDs lowercased, and sports_market_types filled in when omitted.",
+        "description": "Settings for market_settled; every set field must match. Optional: subscribing without it stores {\"sports_market_types\": [\"moneyline\"]}, every market Polymarket labels moneyline, and sending it without the event is refused (400). That label is each head-to-head game's winner market, but in golf and other field events Polymarket labels every player market moneyline (winner, make the cut, round leader), so one tournament can send hundreds of states. Narrow it with leagues, which no market outside the list matches, including one whose league is null (a golf event slug that starts with a year, such as 2026-world-wide-technology-championship), or with condition_ids. A PATCH without it keeps the stored settings while the event stays subscribed; removing the event clears them. Stored as the API normalized it: trimmed and deduplicated, leagues, market types and condition IDs lowercased, and sports_market_types filled in when omitted.",
         "properties": {
           "leagues": {
             "type": "array",
@@ -48034,7 +48787,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Event slug league prefixes such as nba or epl, matched case-insensitively; any one matches. A polyv2 copy's league is read after its polyv2 prefix."
+            "description": "Event slug league prefixes such as nba or epl, matched case-insensitively; any one matches. A polyv2 copy's league is read after its polyv2 prefix. PGA Tour golf, whose event slugs start with the year, is pga."
           },
           "sports_market_types": {
             "type": "array",
@@ -49729,6 +50482,85 @@
           }
         }
       },
+      "MarketTrade": {
+        "type": "object",
+        "description": "One taker fill of 100 USD or more on a market, from the exchange's on-chain fill events.",
+        "required": [
+          "id",
+          "traded_at",
+          "side",
+          "outcome",
+          "outcome_index",
+          "token_id",
+          "price",
+          "shares",
+          "size_usd",
+          "taker",
+          "transaction_hash",
+          "log_index"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "{transaction_hash}:{log_index}: one fill event, listed once. Deduplicate on it across reads."
+          },
+          "traded_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The fill's block time, to the second."
+          },
+          "side": {
+            "type": "string",
+            "enum": [
+              "BUY",
+              "SELL"
+            ],
+            "description": "The taker's side: BUY took outcome shares, SELL gave them."
+          },
+          "outcome": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The traded outcome's label; null when the market names none."
+          },
+          "outcome_index": {
+            "type": "integer",
+            "description": "0 for the first (Yes) outcome token, 1 for the second (No)."
+          },
+          "token_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The traded outcome token's id (decimal string); null when the market holds none for that outcome."
+          },
+          "price": {
+            "type": "number",
+            "description": "Fill price per share, 0 to 1."
+          },
+          "shares": {
+            "type": "number",
+            "description": "Outcome shares filled."
+          },
+          "size_usd": {
+            "type": "number",
+            "description": "USDC notional of the fill."
+          },
+          "taker": {
+            "type": "string",
+            "description": "The taker's wallet, lowercase."
+          },
+          "transaction_hash": {
+            "type": "string",
+            "description": "The fill's transaction, lowercase 0x hex."
+          },
+          "log_index": {
+            "type": "integer",
+            "description": "The fill event's log index in its transaction."
+          }
+        }
+      },
       "GameMarketPriceCompetitor": {
         "type": "object",
         "description": "One competitor-bound provider moneyline price. No YES/NO inference is required.",
@@ -50020,7 +50852,8 @@
               "expected_settlement_time",
               "settlement_time_basis",
               "proposed_answer",
-              "observed_at"
+              "observed_at",
+              "oracle_updated_at"
             ],
             "properties": {
               "expected_settlement_time": {
@@ -50120,6 +50953,13 @@
                   "integer",
                   "null"
                 ]
+              },
+              "oracle_updated_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
               }
             }
           }
@@ -51130,7 +51970,7 @@
       },
       "MarketSettledData": {
         "type": "object",
-        "description": "`market_settled` data, also the MarketSettled frame on GET /api/v1/stream: a sports or esports game market settled, sent once per settled state the first time 0xinsider records it. A market can settle in two states, a resolved UMA question row without payouts and then the condition row with them; each is its own event with its own settlement_id.",
+        "description": "`market_settled` data, also the MarketSettled frame on GET /api/v1/stream: a sports or esports game market settled, sent once per settled state the first time 0xinsider records it. A market can settle in more than one state: a resolved UMA question row with no winner yet, the same row with the winner ConditionalTokens paid on chain, and the condition row with the provider's payouts; each is its own event with its own settlement_id, except a state naming the winner an earlier event named, which is not sent.",
         "required": [
           "condition_id",
           "settlement_id",
@@ -51171,7 +52011,7 @@
               "string",
               "null"
             ],
-            "description": "The event slug league prefix (nba in nba-lal-gsw-2026-11-01), lowercase, read after a polyv2 copy prefix; null when the slug has none."
+            "description": "The event slug league prefix (nba in nba-lal-gsw-2026-11-01), lowercase, read after a polyv2 copy prefix. A PGA Tour golf slug starts with the year, so its markets are pga, from their series. null when neither names a league."
           },
           "sports_market_type": {
             "type": [
@@ -51195,7 +52035,7 @@
             "description": "Set on a Polymarket polyv2 copy of a game whose original event has a moneyline market: the original event slug, which GET /api/v1/games serves. Such a copy reaches a webhook only when its settlement_filters name its condition ID or its own event slug."
           },
           "settlement": {
-            "description": "The settled state, the block GET /api/v1/games/{event_slug}/markets serves as settlement: status observed, oracle_status resolved, settled true. payouts is null on a resolved UMA question row and set on the condition row that follows, which is sent as its own event. observed_at is when 0xinsider first saw this state.",
+            "description": "The settled state, the block GET /api/v1/games/{event_slug}/markets serves as settlement: status observed, oracle_status resolved, settled true. payouts is null on a resolved UMA question row, whose result and winning_outcome_index come from the payout ConditionalTokens reported on chain (null in an event sent before it paid), and set on the condition row that follows, sent as its own event unless it names a winner already sent. observed_at is when 0xinsider first saw this state.",
             "type": "object",
             "required": [
               "status",
@@ -51209,7 +52049,8 @@
               "expected_settlement_time",
               "settlement_time_basis",
               "proposed_answer",
-              "observed_at"
+              "observed_at",
+              "oracle_updated_at"
             ],
             "properties": {
               "expected_settlement_time": {
@@ -51309,6 +52150,13 @@
                   "integer",
                   "null"
                 ]
+              },
+              "oracle_updated_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
               }
             }
           }
@@ -54314,7 +55162,7 @@
               "null"
             ],
             "format": "date-time",
-            "description": "The wallet's most recent recorded trade time, stamped at serve time from its current trader record rather than frozen with the pick. Always sent; null when no trade time is recorded."
+            "description": "The UTC day of the wallet's most recent recorded trade, served as that day's 00:00:00Z, stamped at serve time from its current trader record rather than frozen with the pick. It changes at most once a day per wallet, so the pick's ETag holds between polls. Always sent; null when no trade time is recorded."
           },
           "profile_segment": {
             "type": "string",
@@ -54384,7 +55232,7 @@
               "number",
               "null"
             ],
-            "description": "Whole days since this wallet's first trade, rounded down (3.6 days reads 3), so it changes once a day, not on every request, and the pick's ETag holds between requests. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped."
+            "description": "Whole UTC calendar days since this wallet's first trade: the number of UTC dates from the first trade's date to today, so a first trade at 23:00 UTC reads 1 an hour later. Every wallet's age changes at 00:00 UTC, once a day, not on every request, and the pick's ETag holds between requests. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped."
           },
           "is_new_wallet": {
             "type": "boolean",
@@ -54407,6 +55255,22 @@
               "null"
             ],
             "description": "The wallet's X handle from its Polymarket profile, normalized to 1-15 characters of [A-Za-z0-9_] with no `@`. Link it as `https://x.com/<handle>`. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped."
+          },
+          "category_price_edge": {
+            "$ref": "#/components/schemas/PickHolderPriceEdge",
+            "description": "The wallet's edge over the price it paid in the pick's canonical category (`category`): how often the side it bought won, minus the average price it paid, over its settled markets there of $20 or more at a known entry price. The rule the site's sport leaderboards use for their Edge column, and the figure the pick card prints on the sport's line. Not `category_win_rate` minus `category_avg_price`: the edge counts its own sample. Present only with `category_win_rate_status` = `measured`, when the edge ranks (30 or more such markets, and the share of the decided ones that made money at settlement within 10 points of the win rate) and the wallet's realized P&L over them is above zero; otherwise `category_price_edge_hold` says why. Beside `category_win_rate_game` it is still the whole category's edge; the game's or league's is `category_scope_price_edge`. Recomputed at serve time from the daily record rebuild, not frozen with the pick. Absent otherwise and on payloads predating the field."
+          },
+          "category_scope_price_edge": {
+            "$ref": "#/components/schemas/PickHolderPriceEdge",
+            "description": "The same edge over the markets of the game or league `category_win_rate_game` names alone: the edge the pick card prints beside a game or league win rate (for example `-17.1 pp` in the Premier League). Present only beside `category_win_rate_game`, under the same rule over that game's or league's markets and the wallet's realized P&L there; otherwise, beside a game or league rate, `category_scope_price_edge_hold` says why. Never the whole category's edge in its place. Recomputed at serve time, not frozen with the pick. Absent otherwise and on payloads predating the field."
+          },
+          "category_price_edge_hold": {
+            "$ref": "#/components/schemas/PickHolderPriceEdgeHold",
+            "description": "Why there is no `category_price_edge` for a wallet with a measured rate, with the rule's figures when it has them. Present only with `category_win_rate_status` = `measured`, and never beside `category_price_edge`. Absent otherwise and on payloads predating the field."
+          },
+          "category_scope_price_edge_hold": {
+            "$ref": "#/components/schemas/PickHolderPriceEdgeHold",
+            "description": "Why there is no `category_scope_price_edge` beside a game or league rate, with the rule's figures when it has them. Present only beside `category_win_rate_game`, and never beside `category_scope_price_edge`. Absent otherwise and on payloads predating the field."
           }
         }
       },
@@ -54544,7 +55408,7 @@
           },
           "game_ended": {
             "type": "boolean",
-            "description": "Whether the backed game is over according to the cached live scoreboard, read at serve time. Tells a finished game from one still in play before `outcome` settles. Omitted when the pick has no event slug or no scoreboard is cached for it; absence is unknown, never false."
+            "description": "Whether the backed game is over, from the game's scoreboard. Once the game is recorded as finished it stays true, on later reads and on past days. A pick settled `win` or `loss` reads true unless the live scoreboard shows the game still in play. Tells a finished game from one still in play before `outcome` settles. Omitted when the game's state is unknown; absence is unknown, never false."
           },
           "outcome": {
             "type": "string",
@@ -57308,7 +58172,7 @@
               "number",
               "null"
             ],
-            "description": "Whole days since this wallet's first trade, rounded down (3.6 days reads 3), so it changes once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge."
+            "description": "Whole UTC calendar days since this wallet's first trade: the number of UTC dates from the first trade's date to today, so a first trade at 23:00 UTC reads 1 an hour later. Every wallet's age changes at 00:00 UTC, once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge."
           },
           "is_new_wallet": {
             "type": "boolean",
@@ -57728,7 +58592,7 @@
               "number",
               "null"
             ],
-            "description": "Whole days since this wallet's first trade, rounded down (3.6 days reads 3), so it changes once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge."
+            "description": "Whole UTC calendar days since this wallet's first trade: the number of UTC dates from the first trade's date to today, so a first trade at 23:00 UTC reads 1 an hour later. Every wallet's age changes at 00:00 UTC, once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge."
           },
           "is_new_wallet": {
             "type": "boolean",
@@ -58701,7 +59565,8 @@
               "expected_settlement_time",
               "settlement_time_basis",
               "proposed_answer",
-              "observed_at"
+              "observed_at",
+              "oracle_updated_at"
             ],
             "properties": {
               "expected_settlement_time": {
@@ -58801,6 +59666,13 @@
                   "integer",
                   "null"
                 ]
+              },
+              "oracle_updated_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
               }
             }
           }
@@ -59984,7 +60856,7 @@
               "all_markets",
               "sports_and_esports"
             ],
-            "description": "Which markets the report counts. sports_and_esports for a period that ends on or after 2026-10-21: totals, categories, top trades and the grade cohort cover sports and esports markets only. all_markets for an earlier period, whose stored report keeps every Polymarket market it published."
+            "description": "Which markets the report counts. sports_and_esports: totals, categories, top trades and the grade cohort cover sports and esports markets only. Every period that ends on or after 2026-10-21 and every custom from/to range says so, as does an earlier stored period first built after 2026-10-24. all_markets: an earlier stored period built before then, which keeps every Polymarket market it published. A custom range can therefore count fewer trades than the stored report of the same dates."
           }
         }
       },
@@ -63964,6 +64836,57 @@
           }
         }
       },
+      "PickHolderPriceEdge": {
+        "type": "object",
+        "description": "Edge over the price paid in one category, game or league: how often the side a wallet bought won, minus the average price it paid, over its settled markets there of $20 or more at a known entry price. Probabilities throughout: edge -0.171 is -17.1 percentage points. A market bought on both sides counts by its shares: the winning side's share of the shares bought is its hit, the cost over those shares its price. Figures from the daily record rebuild.",
+        "required": [
+          "markets",
+          "hit_rate",
+          "avg_price",
+          "edge"
+        ],
+        "properties": {
+          "markets": {
+            "type": "integer",
+            "description": "Settled markets of $20 or more at a known entry price that the edge is measured over."
+          },
+          "hit_rate": {
+            "type": "number",
+            "description": "Share of those markets whose bought side won, 0-1."
+          },
+          "avg_price": {
+            "type": "number",
+            "description": "Mean entry price paid over the same markets, 0-1. Its sample is these markets, so it can differ from `category_avg_price` and `category_scope_avg_price`."
+          },
+          "edge": {
+            "type": "number",
+            "description": "hit_rate minus avg_price, full precision."
+          }
+        }
+      },
+      "PickHolderPriceEdgeHold": {
+        "type": "object",
+        "description": "An edge the holder row does not show, and why.",
+        "required": [
+          "hold"
+        ],
+        "properties": {
+          "hold": {
+            "type": "string",
+            "enum": [
+              "category_loss",
+              "too_few_markets",
+              "sample_mismatch",
+              "no_markets"
+            ],
+            "description": "category_loss: the edge ranks, and the wallet's realized P&L over the same markets is zero or below. too_few_markets: fewer than 30 counted markets. sample_mismatch: the share of the decided markets that made money at settlement is more than 10 points from the win rate over the same markets, so these markets do not describe the wallet's record. no_markets: no settled market of $20 or more at a known entry price."
+          },
+          "record": {
+            "$ref": "#/components/schemas/PickHolderPriceEdge",
+            "description": "The rule's figures, as a shown edge carries them. Omitted for no_markets, and for too_few_markets when the wallet has fewer than 5 such markets."
+          }
+        }
+      },
       "PickLeadBacker": {
         "type": "object",
         "description": "Recorded lead wallet facts on a full response when available. Position and category history are frozen at publication; they are not live balances or pick win probabilities.",
@@ -65893,7 +66816,8 @@
           "side",
           "backing_score",
           "side_share",
-          "market_context"
+          "market_context",
+          "indexed_graded_holders"
         ],
         "properties": {
           "side": {
@@ -66150,7 +67074,7 @@
           "rank": {
             "type": "integer",
             "minimum": 1,
-            "description": "1-based rank within this observation cohort and snapshot."
+            "description": "1-based rank within this observation cohort and snapshot: directional_rank_score descending, then conviction_score descending, then category and condition_id. Admission decides which markets a response holds, not their rank, so under admission=most_held_48h or most_held_48h_by_type rank does not follow indexed_graded_holders."
           },
           "market_context": {
             "oneOf": [
@@ -66162,6 +67086,14 @@
               }
             ],
             "description": "Required nullable frozen metadata context. Null only during the legacy-generation transition; selected reads require sidecar readiness and fail closed with 503 instead."
+          },
+          "indexed_graded_holders": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "S, A and B graded wallets in the 0xinsider index holding either outcome of the market, as the stored market universe last counted them. Every most-held place ranks by this count: admission=most_held_48h and most_held_48h_by_type, the default selection's most_held places and in_play slots. It can be larger or smaller than graded_holders, which counts the piled side of the provider's holder page. Null only on a row of a generation computed before this field existed."
           }
         }
       },

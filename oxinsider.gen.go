@@ -5572,6 +5572,24 @@ func (e MarketTopHoldersProfilesStatus) Valid() bool {
 	}
 }
 
+// Defines values for MarketTradeSide.
+const (
+	MarketTradeSideBUY  MarketTradeSide = "BUY"
+	MarketTradeSideSELL MarketTradeSide = "SELL"
+)
+
+// Valid indicates whether the value is a known member of the MarketTradeSide enum.
+func (e MarketTradeSide) Valid() bool {
+	switch e {
+	case MarketTradeSideBUY:
+		return true
+	case MarketTradeSideSELL:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for MarketWalletsInOutNetBuyersGrade.
 const (
 	MarketWalletsInOutNetBuyersGradeA MarketWalletsInOutNetBuyersGrade = "A"
@@ -5683,6 +5701,30 @@ func (e PickHolderCategoryWinRateStatus) Valid() bool {
 	case PickHolderCategoryWinRateStatusUnavailable:
 		return true
 	case PickHolderCategoryWinRateStatusUntracked:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PickHolderPriceEdgeHoldHold.
+const (
+	PickHolderPriceEdgeHoldHoldCategoryLoss   PickHolderPriceEdgeHoldHold = "category_loss"
+	PickHolderPriceEdgeHoldHoldNoMarkets      PickHolderPriceEdgeHoldHold = "no_markets"
+	PickHolderPriceEdgeHoldHoldSampleMismatch PickHolderPriceEdgeHoldHold = "sample_mismatch"
+	PickHolderPriceEdgeHoldHoldTooFewMarkets  PickHolderPriceEdgeHoldHold = "too_few_markets"
+)
+
+// Valid indicates whether the value is a known member of the PickHolderPriceEdgeHoldHold enum.
+func (e PickHolderPriceEdgeHoldHold) Valid() bool {
+	switch e {
+	case PickHolderPriceEdgeHoldHoldCategoryLoss:
+		return true
+	case PickHolderPriceEdgeHoldHoldNoMarkets:
+		return true
+	case PickHolderPriceEdgeHoldHoldSampleMismatch:
+		return true
+	case PickHolderPriceEdgeHoldHoldTooFewMarkets:
 		return true
 	default:
 		return false
@@ -11116,6 +11158,36 @@ func (e GetMarketTopHolders200JSONResponseBodyObject) Valid() bool {
 	}
 }
 
+// Defines values for ListMarketTradesParamsXQueryValidation.
+const (
+	ListMarketTradesParamsXQueryValidationStrict ListMarketTradesParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListMarketTradesParamsXQueryValidation enum.
+func (e ListMarketTradesParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListMarketTradesParamsXQueryValidationStrict:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListMarketTrades200JSONResponseBodyObject.
+const (
+	ListMarketTrades200JSONResponseBodyObjectList ListMarketTrades200JSONResponseBodyObject = "list"
+)
+
+// Valid indicates whether the value is a known member of the ListMarketTrades200JSONResponseBodyObject enum.
+func (e ListMarketTrades200JSONResponseBodyObject) Valid() bool {
+	switch e {
+	case ListMarketTrades200JSONResponseBodyObjectList:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetMarketWalletsInOutParamsWindow.
 const (
 	GetMarketWalletsInOutParamsWindowN24h GetMarketWalletsInOutParamsWindow = "24h"
@@ -11446,6 +11518,21 @@ const (
 func (e SearchMarkets200JSONResponseBodyObject) Valid() bool {
 	switch e {
 	case SearchMarkets200JSONResponseBodyObjectList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListSettledMarketsParamsXQueryValidation.
+const (
+	ListSettledMarketsParamsXQueryValidationStrict ListSettledMarketsParamsXQueryValidation = "strict"
+)
+
+// Valid indicates whether the value is a known member of the ListSettledMarketsParamsXQueryValidation enum.
+func (e ListSettledMarketsParamsXQueryValidation) Valid() bool {
+	switch e {
+	case ListSettledMarketsParamsXQueryValidationStrict:
 		return true
 	default:
 		return false
@@ -15018,7 +15105,7 @@ type CreateWebhookRequest struct {
 	// PriceMoveFilters Settings for market_price_moved: required when event_types includes it, refused (400) when it does not. A PATCH without it keeps the stored settings; removing the event clears them. A subscription receives at most one delivery per market per window: the one level step whose (previous_level_cents, level_cents] holds min_move_cents.
 	PriceMoveFilters *PriceMoveSubscriptionFilters `json:"price_move_filters,omitempty"`
 
-	// SettlementFilters Settings for market_settled; every set field must match. Optional: subscribing without it stores {"sports_market_types": ["moneyline"]}, each game's winner market, and sending it without the event is refused (400). A PATCH without it keeps the stored settings while the event stays subscribed; removing the event clears them. Stored as the API normalized it: trimmed and deduplicated, leagues, market types and condition IDs lowercased, and sports_market_types filled in when omitted.
+	// SettlementFilters Settings for market_settled; every set field must match. Optional: subscribing without it stores {"sports_market_types": ["moneyline"]}, every market Polymarket labels moneyline, and sending it without the event is refused (400). That label is each head-to-head game's winner market, but in golf and other field events Polymarket labels every player market moneyline (winner, make the cut, round leader), so one tournament can send hundreds of states. Narrow it with leagues, which no market outside the list matches, including one whose league is null (a golf event slug that starts with a year, such as 2026-world-wide-technology-championship), or with condition_ids. A PATCH without it keeps the stored settings while the event stays subscribed; removing the event clears them. Stored as the API normalized it: trimmed and deduplicated, leagues, market types and condition IDs lowercased, and sports_market_types filled in when omitted.
 	SettlementFilters *SettlementSubscriptionFilters `json:"settlement_filters,omitempty"`
 
 	// TradeFilters All present fields narrow large_trade_inserted_v2 delivery. min_grade reads the payload's grade, observed at publication; min_grade_at_trade reads its grade_at_trade, the grade when the trade filled. Send one of the two, not both (400). An empty object matches every large trade.
@@ -15234,6 +15321,9 @@ type EdgeHunterObservation struct {
 	// HolderSnapshotAt Proven provider holder observation time. A warm cache hit uses only the original provider completion time from its companion metadata, never cache-read time. A wider_holder or emerging_pile row whose holder read did not finish or failed in the current pass may reuse that market's last pregame holder page for up to 15 minutes; an in_play row may reuse its last in-play page, read after the provider reported the game live and never before that market's own kickoff, for up to 10 minutes. Both ages are counted when the snapshot is computed. Either reuse carries that page's original time here and provider_read_source cached. A pregame market more than an hour before kickoff reuses its last page the same way until that page is 10 minutes old, and only then is read again; while that market has had no trade since the page, it keeps reusing the page until it is 30 minutes old. Once that market's own kickoff has passed, an in_play row with provider_read_source cached, a warm hit or a reuse, never carries a page read before it. Null, malformed, future, or stale holder time fails in-play closed.
 	HolderSnapshotAt *time.Time `json:"holder_snapshot_at"`
 
+	// IndexedGradedHolders S, A and B graded wallets in the 0xinsider index holding either outcome of the market, as the stored market universe last counted them. Every most-held place ranks by this count: admission=most_held_48h and most_held_48h_by_type, the default selection's most_held places and in_play slots. It can be larger or smaller than graded_holders, which counts the piled side of the provider's holder page. Null only on a row of a generation computed before this field existed.
+	IndexedGradedHolders *int `json:"indexed_graded_holders"`
+
 	// MarketContext Required nullable frozen metadata context. Null only during the legacy-generation transition; selected reads require sidecar readiness and fail closed with 503 instead.
 	MarketContext *EdgeHunterMarketContext `json:"market_context"`
 
@@ -15258,7 +15348,7 @@ type EdgeHunterObservation struct {
 	// ProviderReadSource Whether the provider holder page came from the shared cache or a live provider read.
 	ProviderReadSource EdgeHunterObservationProviderReadSource `json:"provider_read_source"`
 
-	// Rank 1-based rank within this observation cohort and snapshot.
+	// Rank 1-based rank within this observation cohort and snapshot: directional_rank_score descending, then conviction_score descending, then category and condition_id. Admission decides which markets a response holds, not their rank, so under admission=most_held_48h or most_held_48h_by_type rank does not follow indexed_graded_holders.
 	Rank int `json:"rank"`
 
 	// RawCategory Raw provider category as stored.
@@ -16456,6 +16546,7 @@ type GameMarket struct {
 		ExpectedSettlementTime *time.Time                          `json:"expected_settlement_time"`
 		ObservedAt             *time.Time                          `json:"observed_at"`
 		OracleStatus           *string                             `json:"oracle_status"`
+		OracleUpdatedAt        *time.Time                          `json:"oracle_updated_at"`
 		Payouts                *[]int                              `json:"payouts"`
 		ProposedAnswer         *GameMarketSettlementProposedAnswer `json:"proposed_answer"`
 		ResolvedAt             *time.Time                          `json:"resolved_at"`
@@ -17896,7 +17987,7 @@ type MarketHolder struct {
 	// TraderId `trd_`-prefixed trader id, accepted by `GET /api/v1/trader/{address}`.
 	TraderId string `json:"trader_id"`
 
-	// WalletAgeDays Whole days since this wallet's first trade, rounded down (3.6 days reads 3), so it changes once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge.
+	// WalletAgeDays Whole UTC calendar days since this wallet's first trade: the number of UTC dates from the first trade's date to today, so a first trade at 23:00 UTC reads 1 an hour later. Every wallet's age changes at 00:00 UTC, once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge.
 	WalletAgeDays *float64 `json:"wallet_age_days,omitempty"`
 
 	// XUsername The wallet's X handle without the @, when linked.
@@ -18100,7 +18191,7 @@ type MarketSearchResultPlatform string
 // MarketSearchResultStatus closed once Polymarket has closed trading or the market has resolved; active otherwise. The same rule labels a market on markets/search, markets/explore and market/{condition_id}/snapshot.
 type MarketSearchResultStatus string
 
-// MarketSettledData `market_settled` data, also the MarketSettled frame on GET /api/v1/stream: a sports or esports game market settled, sent once per settled state the first time 0xinsider records it. A market can settle in two states, a resolved UMA question row without payouts and then the condition row with them; each is its own event with its own settlement_id.
+// MarketSettledData `market_settled` data, also the MarketSettled frame on GET /api/v1/stream: a sports or esports game market settled, sent once per settled state the first time 0xinsider records it. A market can settle in more than one state: a resolved UMA question row with no winner yet, the same row with the winner ConditionalTokens paid on chain, and the condition row with the provider's payouts; each is its own event with its own settlement_id, except a state naming the winner an earlier event named, which is not sent.
 type MarketSettledData struct {
 	// ConditionId Polymarket condition ID of the market, lowercase.
 	ConditionId string `json:"condition_id"`
@@ -18114,17 +18205,18 @@ type MarketSettledData struct {
 	// GameId Polymarket game ID for the event as a string, the game_id of GET /api/v1/games, or null when the market stores none.
 	GameId *string `json:"game_id"`
 
-	// League The event slug league prefix (nba in nba-lal-gsw-2026-11-01), lowercase, read after a polyv2 copy prefix; null when the slug has none.
+	// League The event slug league prefix (nba in nba-lal-gsw-2026-11-01), lowercase, read after a polyv2 copy prefix. A PGA Tour golf slug starts with the year, so its markets are pga, from their series. null when neither names a league.
 	League *string `json:"league"`
 
 	// Outcomes Outcome names, each at its outcome index: settlement.payouts and settlement.winning_outcome_index index into it. Empty when the market stores none; an outcome Polymarket labels blank is an empty string.
 	Outcomes []string `json:"outcomes"`
 
-	// Settlement The settled state, the block GET /api/v1/games/{event_slug}/markets serves as settlement: status observed, oracle_status resolved, settled true. payouts is null on a resolved UMA question row and set on the condition row that follows, which is sent as its own event. observed_at is when 0xinsider first saw this state.
+	// Settlement The settled state, the block GET /api/v1/games/{event_slug}/markets serves as settlement: status observed, oracle_status resolved, settled true. payouts is null on a resolved UMA question row, whose result and winning_outcome_index come from the payout ConditionalTokens reported on chain (null in an event sent before it paid), and set on the condition row that follows, sent as its own event unless it names a winner already sent. observed_at is when 0xinsider first saw this state.
 	Settlement struct {
 		ExpectedSettlementTime *time.Time                                 `json:"expected_settlement_time"`
 		ObservedAt             *time.Time                                 `json:"observed_at"`
 		OracleStatus           *string                                    `json:"oracle_status"`
+		OracleUpdatedAt        *time.Time                                 `json:"oracle_updated_at"`
 		Payouts                *[]int                                     `json:"payouts"`
 		ProposedAnswer         *MarketSettledDataSettlementProposedAnswer `json:"proposed_answer"`
 		ResolvedAt             *time.Time                                 `json:"resolved_at"`
@@ -18218,6 +18310,7 @@ type MarketSnapshot struct {
 		ExpectedSettlementTime *time.Time                              `json:"expected_settlement_time"`
 		ObservedAt             *time.Time                              `json:"observed_at"`
 		OracleStatus           *string                                 `json:"oracle_status"`
+		OracleUpdatedAt        *time.Time                              `json:"oracle_updated_at"`
 		Payouts                *[]int                                  `json:"payouts"`
 		ProposedAnswer         *MarketSnapshotSettlementProposedAnswer `json:"proposed_answer"`
 		ResolvedAt             *time.Time                              `json:"resolved_at"`
@@ -18385,7 +18478,7 @@ type MarketTopHolder struct {
 	// TraderId `trd_`-prefixed trader id, accepted by `GET /api/v1/trader/{address}`.
 	TraderId string `json:"trader_id"`
 
-	// WalletAgeDays Whole days since this wallet's first trade, rounded down (3.6 days reads 3), so it changes once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge.
+	// WalletAgeDays Whole UTC calendar days since this wallet's first trade: the number of UTC dates from the first trade's date to today, so a first trade at 23:00 UTC reads 1 an hour later. Every wallet's age changes at 00:00 UTC, once a day, not on every request. The five badge fields are present together, only for a wallet that draws at least one badge.
 	WalletAgeDays *float64 `json:"wallet_age_days,omitempty"`
 
 	// XUsername The wallet's X handle without the @, when linked.
@@ -18444,6 +18537,48 @@ type MarketTopHoldersTotals struct {
 	// YesShares Shares summed over the YES sample.
 	YesShares float64 `json:"yes_shares"`
 }
+
+// MarketTrade One taker fill of 100 USD or more on a market, from the exchange's on-chain fill events.
+type MarketTrade struct {
+	// Id {transaction_hash}:{log_index}: one fill event, listed once. Deduplicate on it across reads.
+	Id string `json:"id"`
+
+	// LogIndex The fill event's log index in its transaction.
+	LogIndex int `json:"log_index"`
+
+	// Outcome The traded outcome's label; null when the market names none.
+	Outcome *string `json:"outcome"`
+
+	// OutcomeIndex 0 for the first (Yes) outcome token, 1 for the second (No).
+	OutcomeIndex int `json:"outcome_index"`
+
+	// Price Fill price per share, 0 to 1.
+	Price float64 `json:"price"`
+
+	// Shares Outcome shares filled.
+	Shares float64 `json:"shares"`
+
+	// Side The taker's side: BUY took outcome shares, SELL gave them.
+	Side MarketTradeSide `json:"side"`
+
+	// SizeUsd USDC notional of the fill.
+	SizeUsd float64 `json:"size_usd"`
+
+	// Taker The taker's wallet, lowercase.
+	Taker string `json:"taker"`
+
+	// TokenId The traded outcome token's id (decimal string); null when the market holds none for that outcome.
+	TokenId *string `json:"token_id"`
+
+	// TradedAt The fill's block time, to the second.
+	TradedAt time.Time `json:"traded_at"`
+
+	// TransactionHash The fill's transaction, lowercase 0x hex.
+	TransactionHash string `json:"transaction_hash"`
+}
+
+// MarketTradeSide The taker's side: BUY took outcome shares, SELL gave them.
+type MarketTradeSide string
 
 // MarketWalletsInOut One market's net buyers and net sellers over a 24h or 7d window, as the market page's wallets in/out panel shows a Pro viewer.
 type MarketWalletsInOut struct {
@@ -18591,8 +18726,20 @@ type PickHolder struct {
 	// CategoryAvgPrice The wallet's average entry price in the pick's canonical category, as a 0..1 fraction of $1 (0.98 is 98 cents). Its sample is the wallet's markets in that category that resolved to a winning side, of $20 or more where it bought one side at a known price, so it can differ from the `category_win_record` sample. A wallet that buys near-certain outcomes wins almost every time, so read the win rate beside this price. Present only with `category_win_rate_status` = `measured`, and only when that sample has at least 5 markets. When `category_win_rate_game` is present the price is still the whole `category` bucket's; the game's or league's own price is `category_scope_avg_price`. Absent otherwise and on payloads predating the field.
 	CategoryAvgPrice *float64 `json:"category_avg_price,omitempty"`
 
+	// CategoryPriceEdge The wallet's edge over the price it paid in the pick's canonical category (`category`): how often the side it bought won, minus the average price it paid, over its settled markets there of $20 or more at a known entry price. The rule the site's sport leaderboards use for their Edge column, and the figure the pick card prints on the sport's line. Not `category_win_rate` minus `category_avg_price`: the edge counts its own sample. Present only with `category_win_rate_status` = `measured`, when the edge ranks (30 or more such markets, and the share of the decided ones that made money at settlement within 10 points of the win rate) and the wallet's realized P&L over them is above zero; otherwise `category_price_edge_hold` says why. Beside `category_win_rate_game` it is still the whole category's edge; the game's or league's is `category_scope_price_edge`. Recomputed at serve time from the daily record rebuild, not frozen with the pick. Absent otherwise and on payloads predating the field.
+	CategoryPriceEdge *PickHolderPriceEdge `json:"category_price_edge,omitempty"`
+
+	// CategoryPriceEdgeHold Why there is no `category_price_edge` for a wallet with a measured rate, with the rule's figures when it has them. Present only with `category_win_rate_status` = `measured`, and never beside `category_price_edge`. Absent otherwise and on payloads predating the field.
+	CategoryPriceEdgeHold *PickHolderPriceEdgeHold `json:"category_price_edge_hold,omitempty"`
+
 	// CategoryScopeAvgPrice The wallet's average entry price in the game or league `category_win_rate_game` names, as a 0..1 fraction of $1: `category_avg_price` over that game's or league's markets only, under the same sample rules and the same 5-market floor. Read `category_win_rate` against this price when both are present; the difference is the wallet's edge there. Present only beside `category_win_rate_game`, and only when that sample clears the floor; recomputed at serve time, not frozen with the pick. Absent otherwise and on payloads predating the field.
 	CategoryScopeAvgPrice *float64 `json:"category_scope_avg_price,omitempty"`
+
+	// CategoryScopePriceEdge The same edge over the markets of the game or league `category_win_rate_game` names alone: the edge the pick card prints beside a game or league win rate (for example `-17.1 pp` in the Premier League). Present only beside `category_win_rate_game`, under the same rule over that game's or league's markets and the wallet's realized P&L there; otherwise, beside a game or league rate, `category_scope_price_edge_hold` says why. Never the whole category's edge in its place. Recomputed at serve time, not frozen with the pick. Absent otherwise and on payloads predating the field.
+	CategoryScopePriceEdge *PickHolderPriceEdge `json:"category_scope_price_edge,omitempty"`
+
+	// CategoryScopePriceEdgeHold Why there is no `category_scope_price_edge` beside a game or league rate, with the rule's figures when it has them. Present only beside `category_win_rate_game`, and never beside `category_scope_price_edge`. Absent otherwise and on payloads predating the field.
+	CategoryScopePriceEdgeHold *PickHolderPriceEdgeHold `json:"category_scope_price_edge_hold,omitempty"`
 
 	// CategoryWinRate This wallet's win rate in the pick's canonical category bucket (the pick's `category` field, e.g. Basketball -- label the rate with it, never with the narrower `display_category` league, except when `category_win_rate_game` is present, in which case the rate is that game's or league's and is labelled with it): the share of the wallet's settled markets in that category (it closed its position by selling out, or the market resolved) whose realized P&L closed positive, as a 0..1 fraction. Present only with `category_win_rate_status` = `measured`, on `display_holders` entries, and only when the wallet clears the settled-market floor; recomputed at serve time from the current category read model, not frozen with the pick. Absent on `holders` entries, legacy rows, and payloads predating the field.
 	CategoryWinRate *float64 `json:"category_win_rate,omitempty"`
@@ -18624,7 +18771,7 @@ type PickHolder struct {
 	// IsNewWallet True when the wallet's first trade was under 30 days ago. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
 	IsNewWallet *bool `json:"is_new_wallet,omitempty"`
 
-	// LastTradedAt The wallet's most recent recorded trade time, stamped at serve time from its current trader record rather than frozen with the pick. Always sent; null when no trade time is recorded.
+	// LastTradedAt The UTC day of the wallet's most recent recorded trade, served as that day's 00:00:00Z, stamped at serve time from its current trader record rather than frozen with the pick. It changes at most once a day per wallet, so the pick's ETag holds between polls. Always sent; null when no trade time is recorded.
 	LastTradedAt *time.Time `json:"last_traded_at"`
 
 	// MarketsTraded Distinct markets this wallet has traded. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
@@ -18635,7 +18782,7 @@ type PickHolder struct {
 	ProfileSegment *string `json:"profile_segment,omitempty"`
 	Shares         float64 `json:"shares"`
 
-	// WalletAgeDays Whole days since this wallet's first trade, rounded down (3.6 days reads 3), so it changes once a day, not on every request, and the pick's ETag holds between requests. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
+	// WalletAgeDays Whole UTC calendar days since this wallet's first trade: the number of UTC dates from the first trade's date to today, so a first trade at 23:00 UTC reads 1 an hour later. Every wallet's age changes at 00:00 UTC, once a day, not on every request, and the pick's ETag holds between requests. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
 	WalletAgeDays *float64 `json:"wallet_age_days,omitempty"`
 
 	// XUsername The wallet's X handle from its Polymarket profile, normalized to 1-15 characters of [A-Za-z0-9_] with no `@`. Link it as `https://x.com/<handle>`. Stamped at serve time from the wallet's current trader record, never frozen with the pick. The five badge fields are present together, and only for a wallet that carries at least one badge; all absent means no badge, or a body cached before the fields shipped.
@@ -18644,6 +18791,33 @@ type PickHolder struct {
 
 // PickHolderCategoryWinRateStatus Why `category_win_rate` is present or absent on a `display_holders` entry: `measured` (rate present), `not_enough_data` (the wallet is below the settled-market floor of 5 in the category), or `unavailable` (the annotation read failed; retry later). Never `untracked`: every recorded holder is a graded wallet 0xinsider has on file. Absent entirely on `holders` entries, legacy rows, and payloads predating the field -- absence means the roster was never annotated, not a small sample.
 type PickHolderCategoryWinRateStatus string
+
+// PickHolderPriceEdge Edge over the price paid in one category, game or league: how often the side a wallet bought won, minus the average price it paid, over its settled markets there of $20 or more at a known entry price. Probabilities throughout: edge -0.171 is -17.1 percentage points. A market bought on both sides counts by its shares: the winning side's share of the shares bought is its hit, the cost over those shares its price. Figures from the daily record rebuild.
+type PickHolderPriceEdge struct {
+	// AvgPrice Mean entry price paid over the same markets, 0-1. Its sample is these markets, so it can differ from `category_avg_price` and `category_scope_avg_price`.
+	AvgPrice float64 `json:"avg_price"`
+
+	// Edge hit_rate minus avg_price, full precision.
+	Edge float64 `json:"edge"`
+
+	// HitRate Share of those markets whose bought side won, 0-1.
+	HitRate float64 `json:"hit_rate"`
+
+	// Markets Settled markets of $20 or more at a known entry price that the edge is measured over.
+	Markets int `json:"markets"`
+}
+
+// PickHolderPriceEdgeHold An edge the holder row does not show, and why.
+type PickHolderPriceEdgeHold struct {
+	// Hold category_loss: the edge ranks, and the wallet's realized P&L over the same markets is zero or below. too_few_markets: fewer than 30 counted markets. sample_mismatch: the share of the decided markets that made money at settlement is more than 10 points from the win rate over the same markets, so these markets do not describe the wallet's record. no_markets: no settled market of $20 or more at a known entry price.
+	Hold PickHolderPriceEdgeHoldHold `json:"hold"`
+
+	// Record The rule's figures, as a shown edge carries them. Omitted for no_markets, and for too_few_markets when the wallet has fewer than 5 such markets.
+	Record *PickHolderPriceEdge `json:"record,omitempty"`
+}
+
+// PickHolderPriceEdgeHoldHold category_loss: the edge ranks, and the wallet's realized P&L over the same markets is zero or below. too_few_markets: fewer than 30 counted markets. sample_mismatch: the share of the decided markets that made money at settlement is more than 10 points from the win rate over the same markets, so these markets do not describe the wallet's record. no_markets: no settled market of $20 or more at a known entry price.
+type PickHolderPriceEdgeHoldHold string
 
 // PickLeadBacker Recorded lead wallet facts on a full response when available. Position and category history are frozen at publication; they are not live balances or pick win probabilities.
 type PickLeadBacker struct {
@@ -18737,7 +18911,7 @@ type PickOfTheDay struct {
 	// EventSlug The canonical /event game-page slug (one neutral page per game); omitted when the game has no neutral event page.
 	EventSlug *string `json:"event_slug,omitempty"`
 
-	// GameEnded Whether the backed game is over according to the cached live scoreboard, read at serve time. Tells a finished game from one still in play before `outcome` settles. Omitted when the pick has no event slug or no scoreboard is cached for it; absence is unknown, never false.
+	// GameEnded Whether the backed game is over, from the game's scoreboard. Once the game is recorded as finished it stays true, on later reads and on past days. A pick settled `win` or `loss` reads true unless the live scoreboard shows the game still in play. Tells a finished game from one still in play before `outcome` settles. Omitted when the game's state is unknown; absence is unknown, never false.
 	GameEnded *bool `json:"game_ended,omitempty"`
 
 	// GameStarted True once the backed game's kickoff has passed (kickoff <= now). When true the snapshotted pre-game price is no longer actionable. Absent for a legacy pick with no stored kickoff (treat as not-started).
@@ -20919,7 +21093,7 @@ type ReportPayload struct {
 		Grade *ReportPayloadGradeDistributionGrade `json:"grade"`
 	} `json:"grade_distribution"`
 
-	// MarketScope Which markets the report counts. sports_and_esports for a period that ends on or after 2026-10-21: totals, categories, top trades and the grade cohort cover sports and esports markets only. all_markets for an earlier period, whose stored report keeps every Polymarket market it published.
+	// MarketScope Which markets the report counts. sports_and_esports: totals, categories, top trades and the grade cohort cover sports and esports markets only. Every period that ends on or after 2026-10-21 and every custom from/to range says so, as does an earlier stored period first built after 2026-10-24. all_markets: an earlier stored period built before then, which keeps every Polymarket market it published. A custom range can therefore count fewer trades than the stored report of the same dates.
 	MarketScope ReportPayloadMarketScope `json:"market_scope"`
 
 	// TopLargeTrades Canonical key since #16304; top_whale_trades is its deprecated spelling, emitted beside it with the same value until its sunset on 2027-02-01 (#29352).
@@ -21016,7 +21190,7 @@ type ReportPayload struct {
 // ReportPayloadGradeDistributionGrade defines model for ReportPayload.GradeDistribution.Grade.
 type ReportPayloadGradeDistributionGrade string
 
-// ReportPayloadMarketScope Which markets the report counts. sports_and_esports for a period that ends on or after 2026-10-21: totals, categories, top trades and the grade cohort cover sports and esports markets only. all_markets for an earlier period, whose stored report keeps every Polymarket market it published.
+// ReportPayloadMarketScope Which markets the report counts. sports_and_esports: totals, categories, top trades and the grade cohort cover sports and esports markets only. Every period that ends on or after 2026-10-21 and every custom from/to range says so, as does an earlier stored period first built after 2026-10-24. all_markets: an earlier stored period built before then, which keeps every Polymarket market it published. A custom range can therefore count fewer trades than the stored report of the same dates.
 type ReportPayloadMarketScope string
 
 // ReportPayloadTopLargeTradesPlatform Always polymarket, or null when the row carries no stored value.
@@ -21244,7 +21418,7 @@ type ScoreCell struct {
 // ScoreFormat Shape the provider score string was parsed into. `two_side` is one aggregate per side (basketball `105-98`), `multi_set` is per-set columns (tennis `6-7(5-7), 6-0, 1-0`), `esports_series` is a maps/sets/format triplet (`000-000|2-0|Bo3`). Omitted when the score could not be parsed.
 type ScoreFormat string
 
-// SettlementSubscriptionFilters Settings for market_settled; every set field must match. Optional: subscribing without it stores {"sports_market_types": ["moneyline"]}, each game's winner market, and sending it without the event is refused (400). A PATCH without it keeps the stored settings while the event stays subscribed; removing the event clears them. Stored as the API normalized it: trimmed and deduplicated, leagues, market types and condition IDs lowercased, and sports_market_types filled in when omitted.
+// SettlementSubscriptionFilters Settings for market_settled; every set field must match. Optional: subscribing without it stores {"sports_market_types": ["moneyline"]}, every market Polymarket labels moneyline, and sending it without the event is refused (400). That label is each head-to-head game's winner market, but in golf and other field events Polymarket labels every player market moneyline (winner, make the cut, round leader), so one tournament can send hundreds of states. Narrow it with leagues, which no market outside the list matches, including one whose league is null (a golf event slug that starts with a year, such as 2026-world-wide-technology-championship), or with condition_ids. A PATCH without it keeps the stored settings while the event stays subscribed; removing the event clears them. Stored as the API normalized it: trimmed and deduplicated, leagues, market types and condition IDs lowercased, and sports_market_types filled in when omitted.
 type SettlementSubscriptionFilters struct {
 	// ConditionIds Market condition IDs, raw or mkt_-prefixed; any one matches.
 	ConditionIds *[]string `json:"condition_ids,omitempty"`
@@ -21252,7 +21426,7 @@ type SettlementSubscriptionFilters struct {
 	// EventSlugs Polymarket event (game) slugs; any one matches.
 	EventSlugs *[]string `json:"event_slugs,omitempty"`
 
-	// Leagues Event slug league prefixes such as nba or epl, matched case-insensitively; any one matches. A polyv2 copy's league is read after its polyv2 prefix.
+	// Leagues Event slug league prefixes such as nba or epl, matched case-insensitively; any one matches. A polyv2 copy's league is read after its polyv2 prefix. PGA Tour golf, whose event slugs start with the year, is pga.
 	Leagues *[]string `json:"leagues,omitempty"`
 
 	// SportsMarketTypes Polymarket sportsMarketType values such as moneyline, spreads, totals or a prop type, matched case-insensitively; any one matches, and * matches every type. Omitted, it is ["moneyline"], or ["*"] when condition_ids names the markets.
@@ -22947,7 +23121,7 @@ type UpdateWebhookRequest struct {
 	// PriceMoveFilters Settings for market_price_moved: required when event_types includes it, refused (400) when it does not. A PATCH without it keeps the stored settings; removing the event clears them. A subscription receives at most one delivery per market per window: the one level step whose (previous_level_cents, level_cents] holds min_move_cents.
 	PriceMoveFilters *PriceMoveSubscriptionFilters `json:"price_move_filters,omitempty"`
 
-	// SettlementFilters Settings for market_settled; every set field must match. Optional: subscribing without it stores {"sports_market_types": ["moneyline"]}, each game's winner market, and sending it without the event is refused (400). A PATCH without it keeps the stored settings while the event stays subscribed; removing the event clears them. Stored as the API normalized it: trimmed and deduplicated, leagues, market types and condition IDs lowercased, and sports_market_types filled in when omitted.
+	// SettlementFilters Settings for market_settled; every set field must match. Optional: subscribing without it stores {"sports_market_types": ["moneyline"]}, every market Polymarket labels moneyline, and sending it without the event is refused (400). That label is each head-to-head game's winner market, but in golf and other field events Polymarket labels every player market moneyline (winner, make the cut, round leader), so one tournament can send hundreds of states. Narrow it with leagues, which no market outside the list matches, including one whose league is null (a golf event slug that starts with a year, such as 2026-world-wide-technology-championship), or with condition_ids. A PATCH without it keeps the stored settings while the event stays subscribed; removing the event clears them. Stored as the API normalized it: trimmed and deduplicated, leagues, market types and condition IDs lowercased, and sports_market_types filled in when omitted.
 	SettlementFilters *SettlementSubscriptionFilters `json:"settlement_filters,omitempty"`
 
 	// TradeFilters All present fields narrow large_trade_inserted_v2 delivery. min_grade reads the payload's grade, observed at publication; min_grade_at_trade reads its grade_at_trade, the grade when the trade filled. Send one of the two, not both (400). An empty object matches every large trade.
@@ -23746,7 +23920,7 @@ type GetEdgeHunterParams struct {
 	// Cohort Required for view=observations; wider_holder, in_play or emerging_pile. Rejected for board and signals. wider_holder covers pregame markets that view=signals does not list at its widest selection (horizon_hours=48, min_grade=B, no selector), so until kickoff a market is read in one view or the other. A market view=signals lists leaves wider_holder as primary_slate_candidate, and is a wider_holder candidate again in the first refresh after view=signals stops listing it; signals_as_of names the view=signals snapshot each refresh read. Each refresh evaluates at most 8 markets per sport and cohort, wider_holder by soonest kickoff (most graded holders first among equal kickoffs) and in_play by most graded holders, so a market among a sport's 8 soonest stays evaluated until its game starts. wider_holder also evaluates up to 8 more markets per sport that kick off within 24 hours, most graded holders first, so the most-held markets appear up to a day before kickoff. Each of these keeps its place in later refreshes until its game starts while its holder page still shows a card or could not be read, so a more-held market waits for a free place instead of displacing it. Each row's admitted_by names its place, most_held or soonest_kickoff. The rest count in coverage.capacity_limited_markets. Emerging pile is a wider-holder projection with sharp_pct in [0.75,0.85), complete holder scans and future kickoff, not an independent population or arrival history.
 	Cohort *GetEdgeHunterParamsCohort `form:"cohort,omitempty" json:"cohort,omitempty"`
 
-	// Admission Opt-in admission rule for view=observations with cohort=wider_holder; rejected for every other view and cohort. most_held_48h returns the most-held selection instead of the default one: per sport, up to 8 wider_holder markets kicking off within 48 hours, most graded holders first, then most volume, then soonest kickoff, at most 4 per event. It is recomputed every refresh and keeps no place, so a more-held market displaces a less-held one; markets view=signals lists stay excluded. Every row carries admitted_by most_held_48h, including a market the default selection also evaluates, and the response echoes admission. funnel, coverage, degraded and degradation_reasons describe this selection: a wider_holder candidate it did not take counts as capacity_limited. Its markets that no default place covers are read after every default market, at most once per 10 minutes, so a row can rest on a holder page up to 15 minutes old (holder_snapshot_at). most_held_48h_by_type requires market_types and runs the same rule within each named type: per sport and market_context.market_type, up to 8 markets (4 per event), most graded holders first, then volume, then soonest kickoff, so a type whose markets hold fewer wallets than team-win markets still gets its own places. Its rows carry admitted_by most_held_48h_by_type and it has no departures. Its markets no other selection read are read after every default and most_held_48h market, at most once per 10 minutes. A market type not asked for in the last 30 minutes answers 503 read_model_warming with Retry-After 45 s while the next refresh computes it. Omit for the default selection. Cursors and ETags bind it.
+	// Admission Opt-in admission rule for view=observations with cohort=wider_holder; rejected for every other view and cohort. most_held_48h returns the most-held selection instead of the default one: per sport, up to 8 wider_holder markets kicking off within 48 hours, most indexed_graded_holders first, then most volume, then soonest kickoff, at most 4 per event. indexed_graded_holders, on every row, counts the S, A and B wallets in the 0xinsider index holding either outcome; graded_holders counts the piled side of the provider's holder page and can be larger or smaller, so check the selection against indexed_graded_holders. rank orders the admitted rows by directional_rank_score, as in the default selection, not by either count. It is recomputed every refresh and keeps no place, so a more-held market displaces a less-held one; markets view=signals lists stay excluded. Every row carries admitted_by most_held_48h, including a market the default selection also evaluates, and the response echoes admission. funnel, coverage, degraded and degradation_reasons describe this selection: a wider_holder candidate it did not take counts as capacity_limited, and one it skips counts as provider_excluded. It skips every market of a game the provider marks postponed, cancelled, suspended or final, its exact-score, half-time and other side events included, and a market of the game's main event at a Yes price of 0.02 or lower, or 0.98 or higher. Its markets that no default place covers are read at most once per 10 minutes, one with no holder page to serve right after every default market with none, so a row can rest on a holder page up to 15 minutes old, or up to 30 minutes for a market more than an hour before kickoff that has not traded since that page (holder_snapshot_at). most_held_48h_by_type requires market_types and runs the same rule within each named type: per sport and market_context.market_type, up to 8 markets (4 per event), most indexed_graded_holders first, then volume, then soonest kickoff, so a type whose markets hold fewer wallets than team-win markets still gets its own places. Its rows carry admitted_by most_held_48h_by_type and it has no departures. Its markets no other selection read take turns with the most_held_48h ones in that same order, at most once per 10 minutes. A market type not asked for in the last 30 minutes answers 503 read_model_warming with Retry-After 45 s while the next refresh computes it. Omit for the default selection. Cursors and ETags bind it.
 	Admission *GetEdgeHunterParamsAdmission `form:"admission,omitempty" json:"admission,omitempty"`
 
 	// MinGrade Board and signals: S, A or B, default B. Requires a piled-side holder at the selected grade floor or better, without removing other holders. Rejected for observations.
@@ -24640,6 +24814,33 @@ type GetMarketTopHoldersParamsXQueryValidation string
 // GetMarketTopHolders200JSONResponseBodyObject defines parameters for GetMarketTopHolders.
 type GetMarketTopHolders200JSONResponseBodyObject string
 
+// ListMarketTradesParams defines parameters for ListMarketTrades.
+type ListMarketTradesParams struct {
+	// From Inclusive RFC 3339 lower bound on traded_at. Omitted or earlier than coverage.recorded_from: the walk runs to the start of the record (coverage.recorded_from). With cursor, it must match the cursor's.
+	From *time.Time `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Exclusive RFC 3339 upper bound on traded_at. A first page ends at the earlier of to and coverage.complete_through. With cursor, it must match the cursor's.
+	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
+
+	// Limit Page size. Out-of-range values are clamped to 1..500.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Cursor Opaque mtr_v1_ cursor from next_cursor. It continues the walk before the last fill of the previous page and keeps the market, from and to it was issued for: another market, or a from or to that differs from the cursor's, answers 400 with error.reason cursor_expired. A cursor this endpoint did not issue returns 400 with error.param=cursor.
+	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs, including when its percent escape is incomplete.
+	XQueryValidation *ListMarketTradesParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
+	// IfNoneMatch Conditional GET using a weak semantic ETag from an earlier response. A matching payload returns 304 with an empty body; request_id and cost are excluded from the validator.
+	IfNoneMatch *string `json:"If-None-Match,omitempty"`
+}
+
+// ListMarketTradesParamsXQueryValidation defines parameters for ListMarketTrades.
+type ListMarketTradesParamsXQueryValidation string
+
+// ListMarketTrades200JSONResponseBodyObject defines parameters for ListMarketTrades.
+type ListMarketTrades200JSONResponseBodyObject string
+
 // GetMarketWalletsInOutParams defines parameters for GetMarketWalletsInOut.
 type GetMarketWalletsInOutParams struct {
 	// Window The window the nets are summed over, ending at the read's clock: 24h (the default) or 7d.
@@ -24801,6 +25002,33 @@ type SearchMarketsParamsXQueryValidation string
 
 // SearchMarkets200JSONResponseBodyObject defines parameters for SearchMarkets.
 type SearchMarkets200JSONResponseBodyObject string
+
+// ListSettledMarketsParams defines parameters for ListSettledMarkets.
+type ListSettledMarketsParams struct {
+	// Since RFC 3339 time, required without cursor. Rows whose settlement.observed_at is at or after it. With cursor, the cursor's position replaces it.
+	Since *time.Time `form:"since,omitempty" json:"since,omitempty"`
+
+	// SportsMarketType Comma-separated provider market types to keep, case-insensitive: moneyline, spreads, totals, a prop type; at most 64. Omitted: moneyline, or with cursor the cursor's filter. * keeps every type, including markets with no stored type.
+	SportsMarketType *string `form:"sports_market_type,omitempty" json:"sports_market_type,omitempty"`
+
+	// League Comma-separated leagues to keep, as the rows' league reports them (nba, epl, or pga for PGA Tour golf); at most 32, each starting with a letter and holding no hyphen. Omitted: every league, or with cursor the cursor's filter.
+	League *string `form:"league,omitempty" json:"league,omitempty"`
+
+	// Limit Page size. Out-of-range values are clamped to 1..100.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Cursor Opaque stl_v1_ cursor from next_cursor. It replaces since and keeps the filters it was issued for: a sports_market_type or league sent with it must match them, or the read answers 400 with error.reason cursor_expired. A cursor this endpoint did not issue returns 400 with error.param=cursor.
+	Cursor *string `form:"cursor,omitempty" json:"cursor,omitempty"`
+
+	// XQueryValidation Opt into strict query-name validation. The default is compatible: unknown names are ignored and reported in X-Query-Ignored. With strict, an unknown name returns 400 bad_request with error.reason unknown_query_parameter before the handler runs.
+	XQueryValidation *ListSettledMarketsParamsXQueryValidation `json:"X-Query-Validation,omitempty"`
+
+	// IfNoneMatch Conditional GET using a weak semantic ETag from an earlier response. A matching payload returns 304 with an empty body; request_id and cost are excluded from the validator.
+	IfNoneMatch *string `json:"If-None-Match,omitempty"`
+}
+
+// ListSettledMarketsParamsXQueryValidation defines parameters for ListSettledMarkets.
+type ListSettledMarketsParamsXQueryValidation string
 
 // ListSharpMoneyFlowsParams defines parameters for ListSharpMoneyFlows.
 type ListSharpMoneyFlowsParams struct {
@@ -26589,7 +26817,7 @@ type MarketSettledJSONBody struct {
 	// CreatedAt When the producer recorded the event; for a trade event, the fill time. Retries resend the same body, so it is not the time of the attempt.
 	CreatedAt time.Time `json:"created_at"`
 
-	// Data `market_settled` data, also the MarketSettled frame on GET /api/v1/stream: a sports or esports game market settled, sent once per settled state the first time 0xinsider records it. A market can settle in two states, a resolved UMA question row without payouts and then the condition row with them; each is its own event with its own settlement_id.
+	// Data `market_settled` data, also the MarketSettled frame on GET /api/v1/stream: a sports or esports game market settled, sent once per settled state the first time 0xinsider records it. A market can settle in more than one state: a resolved UMA question row with no winner yet, the same row with the winner ConditionalTokens paid on chain, and the condition row with the provider's payouts; each is its own event with its own settlement_id, except a state naming the winner an earlier event named, which is not sent.
 	Data MarketSettledData `json:"data"`
 
 	// Id Stable event id, identical across retries of the same logical event.
@@ -28518,7 +28746,7 @@ type ClientInterface interface {
 
 	// ListGameMarkets List a game's markets
 	//
-	// Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts only; was_disputed; resolved_at; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (each game market is read within about 30 seconds of resolving) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.
+	// Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts, or on a resolved UMA question row, which carries no payouts (payouts stays null), off the payout Polymarket's ConditionalTokens contract reported on chain, which 0xinsider reads once per such market (null until it has paid); was_disputed; resolved_at, null on a resolved UMA question row, which carries none; oracle_updated_at, Polymarket's last_update_timestamp, its latest lifecycle change and never a resolution time: on a resolved UMA question row, when UMA's answer settled the question; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (usually about 12 seconds after resolved_at and within about 25 seconds for 95 in 100; a game market the resolution scan misses can take up to about 5 minutes) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.
 	//
 	// Corresponds with GET /api/v1/games/{event_slug}/markets (the `ListGameMarkets` operationId).
 	ListGameMarkets(ctx context.Context, eventSlug string, params *ListGameMarketsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -28704,6 +28932,13 @@ type ClientInterface interface {
 	// Corresponds with GET /api/v1/market/{condition_id}/top-holders (the `GetMarketTopHolders` operationId).
 	GetMarketTopHolders(ctx context.Context, conditionId string, params *GetMarketTopHoldersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListMarketTrades List a market's taker fills in a time window
+	//
+	// One market's taker fills of 100 USD or more, newest first by (traded_at, transaction_hash, log_index), from 0xinsider's own record of the exchange's on-chain fills. Each fill appears once: its id is the transaction hash and the log index of its fill event, so a walk can be deduplicated and joined to the chain. side is the taker's, BUY or SELL; price, shares and size_usd are the fill's own; outcome and token_id name the traded outcome token. Walk a window with from (inclusive) and to (exclusive) and page with next_cursor: has_more true means older fills in the window remain. coverage states what the record holds: fills under min_size_usd (100 USD) are not stored; recorded_from is where the record starts, the later of when recording began and 00:00 UTC on the day retention_days before today, so a window before it reads empty because it is outside the record, not because nothing traded; complete_through is how far the record is complete, a few minutes behind now, and a first page serves no fill after it; retention_days is how many days a stored fill is served before it is deleted. To follow a market, read again later with from at the last complete_through you read. For large trades with wallet grades and review scores, use GET /api/v1/large-trades/history?condition_id=. Every plan with an API key. Cost is 1.
+	//
+	// Corresponds with GET /api/v1/market/{condition_id}/trades (the `ListMarketTrades` operationId).
+	ListMarketTrades(ctx context.Context, conditionId string, params *ListMarketTradesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetMarketWalletsInOut Get a market's net buyers and sellers
 	//
 	// One market's net buyers and net sellers over the last 24 hours or 7 days, live: the body the 0xinsider market page's wallets in/out panel reads for a Pro viewer, from the same aggregate and cache (reads are cached for up to 60 seconds). A wallet's net is its buys minus its sells in the window across both outcomes, in USD of matched notional, fees excluded. summary counts every wallet that traded the market in the window; net_buyers and net_sellers list the top 25 on each side. A wallet that bought and sold the same amount nets zero and is on neither list.
@@ -28783,6 +29018,13 @@ type ClientInterface interface {
 	// Corresponds with GET /api/v1/markets/search (the `SearchMarkets` operationId).
 	SearchMarkets(ctx context.Context, params *SearchMarketsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListSettledMarkets List settled game markets since a time
+	//
+	// Game markets Polymarket settled, as 0xinsider recorded them, oldest first by (settlement.observed_at, settlement_id): one row per market per settled state, the object the market_settled webhook delivers as data. It is the webhook's pull side: catch up after downtime from since, or poll with next_cursor instead of receiving pushes. A market can appear twice: once as a question row without payouts, then again with them, each with its own settlement_id. Each row carries condition_id, settlement_id, event_slug, game_id, league, sports_market_type, outcomes (labels at their outcome index, so payouts and winning_outcome_index index into it) and settlement: status observed, oracle_status resolved, settled true, payouts (micro-USDC per share per outcome index), result (outcome, or split for a 50-50), winning_outcome_index, was_disputed, resolved_at (null on a resolved UMA question row, which carries none), oracle_updated_at (Polymarket's last_update_timestamp, its latest lifecycle change, never a resolution time; on such a row, when UMA's answer settled the question), expected_settlement_time, settlement_time_basis and observed_at, when 0xinsider first saw this state. The filters are the webhook's settlement_filters without market or event names: sports_market_type (default moneyline, * for every type) and league. A polyv2 copy of a game whose original event has a moneyline market is left out, as the webhook leaves it out of such a filter, so copy_of_event_slug is always null here. Unlike the webhook, a state first recorded more than 6 hours after its market resolved is listed, and so is a state naming the winner an earlier state of its market named (Polymarket's payouts row after the ConditionalTokens payout). complete_through trails now by two minutes: rows observed at or before it are served, in this page or the ones after it, so a row is never passed before the settlement writer records it. has_more true means more rows up to complete_through remain: fetch next_cursor now. has_more false means the walk reached complete_through: keep next_cursor and read it again later for what is recorded after it. next_cursor is always present. A page can hold fewer than limit rows, or none, while has_more is true: a read that has not filled its page stops after about 120 ms of scanning and resumes on the next page. Every plan with an API key; push delivery (the webhook) is Pro and Max. Cost is 1.
+	//
+	// Corresponds with GET /api/v1/markets/settled (the `ListSettledMarkets` operationId).
+	ListSettledMarkets(ctx context.Context, params *ListSettledMarketsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListSharpMoneyFlows List ranked sharp-money flows
 	//
 	// Canonical path for ranked sharp-money flows; /api/v1/markets/smart-money-flows remains live as a deprecated byte-identical alias of it. Ranks sports and esports markets (#27306) by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/flow. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again.
@@ -28808,7 +29050,7 @@ type ClientInterface interface {
 
 	// CreateMcpJsonRpcResponseWithBody Remote MCP endpoint (JSON-RPC)
 	//
-	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 72 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
+	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 74 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, list_settled_markets, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_trades, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -28817,7 +29059,7 @@ type ClientInterface interface {
 
 	// CreateMcpJsonRpcResponse Remote MCP endpoint (JSON-RPC)
 	//
-	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 72 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
+	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 74 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, list_settled_markets, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_trades, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -28953,7 +29195,7 @@ type ClientInterface interface {
 
 	// GetResolutionReport Get the daily resolution report
 	//
-	// One UTC day of resolved sports and esports markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.
+	// One UTC day's resolved markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A day from 2026-10-21 counts sports and esports markets only; an earlier day counts every resolved Polymarket market, and `market_scope` says which. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.
 	//
 	// Corresponds with GET /api/v1/reports/resolutions (the `GetResolutionReport` operationId).
 	GetResolutionReport(ctx context.Context, params *GetResolutionReportParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -29643,7 +29885,7 @@ func (c *Client) GetGameHolders(ctx context.Context, eventSlug string, params *G
 
 // ListGameMarkets List a game's markets
 //
-// Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts only; was_disputed; resolved_at; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (each game market is read within about 30 seconds of resolving) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.
+// Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts, or on a resolved UMA question row, which carries no payouts (payouts stays null), off the payout Polymarket's ConditionalTokens contract reported on chain, which 0xinsider reads once per such market (null until it has paid); was_disputed; resolved_at, null on a resolved UMA question row, which carries none; oracle_updated_at, Polymarket's last_update_timestamp, its latest lifecycle change and never a resolution time: on a resolved UMA question row, when UMA's answer settled the question; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (usually about 12 seconds after resolved_at and within about 25 seconds for 95 in 100; a game market the resolution scan misses can take up to about 5 minutes) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.
 //
 // Corresponds with GET /api/v1/games/{event_slug}/markets (the `ListGameMarkets` operationId).
 func (c *Client) ListGameMarkets(ctx context.Context, eventSlug string, params *ListGameMarketsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -30086,6 +30328,23 @@ func (c *Client) GetMarketTopHolders(ctx context.Context, conditionId string, pa
 	return c.Client.Do(req)
 }
 
+// ListMarketTrades List a market's taker fills in a time window
+//
+// One market's taker fills of 100 USD or more, newest first by (traded_at, transaction_hash, log_index), from 0xinsider's own record of the exchange's on-chain fills. Each fill appears once: its id is the transaction hash and the log index of its fill event, so a walk can be deduplicated and joined to the chain. side is the taker's, BUY or SELL; price, shares and size_usd are the fill's own; outcome and token_id name the traded outcome token. Walk a window with from (inclusive) and to (exclusive) and page with next_cursor: has_more true means older fills in the window remain. coverage states what the record holds: fills under min_size_usd (100 USD) are not stored; recorded_from is where the record starts, the later of when recording began and 00:00 UTC on the day retention_days before today, so a window before it reads empty because it is outside the record, not because nothing traded; complete_through is how far the record is complete, a few minutes behind now, and a first page serves no fill after it; retention_days is how many days a stored fill is served before it is deleted. To follow a market, read again later with from at the last complete_through you read. For large trades with wallet grades and review scores, use GET /api/v1/large-trades/history?condition_id=. Every plan with an API key. Cost is 1.
+//
+// Corresponds with GET /api/v1/market/{condition_id}/trades (the `ListMarketTrades` operationId).
+func (c *Client) ListMarketTrades(ctx context.Context, conditionId string, params *ListMarketTradesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListMarketTradesRequest(c.Server, conditionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // GetMarketWalletsInOut Get a market's net buyers and sellers
 //
 // One market's net buyers and net sellers over the last 24 hours or 7 days, live: the body the 0xinsider market page's wallets in/out panel reads for a Pro viewer, from the same aggregate and cache (reads are cached for up to 60 seconds). A wallet's net is its buys minus its sells in the window across both outcomes, in USD of matched notional, fees excluded. summary counts every wallet that traded the market in the window; net_buyers and net_sellers list the top 25 on each side. A wallet that bought and sold the same amount nets zero and is on neither list.
@@ -30253,6 +30512,23 @@ func (c *Client) SearchMarkets(ctx context.Context, params *SearchMarketsParams,
 	return c.Client.Do(req)
 }
 
+// ListSettledMarkets List settled game markets since a time
+//
+// Game markets Polymarket settled, as 0xinsider recorded them, oldest first by (settlement.observed_at, settlement_id): one row per market per settled state, the object the market_settled webhook delivers as data. It is the webhook's pull side: catch up after downtime from since, or poll with next_cursor instead of receiving pushes. A market can appear twice: once as a question row without payouts, then again with them, each with its own settlement_id. Each row carries condition_id, settlement_id, event_slug, game_id, league, sports_market_type, outcomes (labels at their outcome index, so payouts and winning_outcome_index index into it) and settlement: status observed, oracle_status resolved, settled true, payouts (micro-USDC per share per outcome index), result (outcome, or split for a 50-50), winning_outcome_index, was_disputed, resolved_at (null on a resolved UMA question row, which carries none), oracle_updated_at (Polymarket's last_update_timestamp, its latest lifecycle change, never a resolution time; on such a row, when UMA's answer settled the question), expected_settlement_time, settlement_time_basis and observed_at, when 0xinsider first saw this state. The filters are the webhook's settlement_filters without market or event names: sports_market_type (default moneyline, * for every type) and league. A polyv2 copy of a game whose original event has a moneyline market is left out, as the webhook leaves it out of such a filter, so copy_of_event_slug is always null here. Unlike the webhook, a state first recorded more than 6 hours after its market resolved is listed, and so is a state naming the winner an earlier state of its market named (Polymarket's payouts row after the ConditionalTokens payout). complete_through trails now by two minutes: rows observed at or before it are served, in this page or the ones after it, so a row is never passed before the settlement writer records it. has_more true means more rows up to complete_through remain: fetch next_cursor now. has_more false means the walk reached complete_through: keep next_cursor and read it again later for what is recorded after it. next_cursor is always present. A page can hold fewer than limit rows, or none, while has_more is true: a read that has not filled its page stops after about 120 ms of scanning and resumes on the next page. Every plan with an API key; push delivery (the webhook) is Pro and Max. Cost is 1.
+//
+// Corresponds with GET /api/v1/markets/settled (the `ListSettledMarkets` operationId).
+func (c *Client) ListSettledMarkets(ctx context.Context, params *ListSettledMarketsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSettledMarketsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // ListSharpMoneyFlows List ranked sharp-money flows
 //
 // Canonical path for ranked sharp-money flows; /api/v1/markets/smart-money-flows remains live as a deprecated byte-identical alias of it. Ranks sports and esports markets (#27306) by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/flow. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again.
@@ -30307,7 +30583,7 @@ func (c *Client) OpenMcpEventStream(ctx context.Context, params *OpenMcpEventStr
 
 // CreateMcpJsonRpcResponseWithBody Remote MCP endpoint (JSON-RPC)
 //
-// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 72 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
+// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 74 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, list_settled_markets, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_trades, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
 //
 // Takes any type of body and a specified content type.
 //
@@ -30326,7 +30602,7 @@ func (c *Client) CreateMcpJsonRpcResponseWithBody(ctx context.Context, params *C
 
 // CreateMcpJsonRpcResponse Remote MCP endpoint (JSON-RPC)
 //
-// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 72 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
+// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 74 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, list_settled_markets, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_trades, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -30601,7 +30877,7 @@ func (c *Client) GetMonthlyReportSnapshot(ctx context.Context, params *GetMonthl
 
 // GetResolutionReport Get the daily resolution report
 //
-// One UTC day of resolved sports and esports markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.
+// One UTC day's resolved markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A day from 2026-10-21 counts sports and esports markets only; an earlier day counts every resolved Polymarket market, and `market_scope` says which. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.
 //
 // Corresponds with GET /api/v1/reports/resolutions (the `GetResolutionReport` operationId).
 func (c *Client) GetResolutionReport(ctx context.Context, params *GetResolutionReportParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -35482,6 +35758,129 @@ func NewGetMarketTopHoldersRequest(server string, conditionId string, params *Ge
 	return req, nil
 }
 
+// NewListMarketTradesRequest constructs an http.Request for the ListMarketTrades method
+func NewListMarketTradesRequest(server string, conditionId string, params *ListMarketTradesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "condition_id", conditionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/market/%s/trades", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Cursor != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "cursor", *params.Cursor, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewGetMarketWalletsInOutRequest constructs an http.Request for the GetMarketWalletsInOut method
 func NewGetMarketWalletsInOutRequest(server string, conditionId string, params *GetMarketWalletsInOutParams) (*http.Request, error) {
 	var err error
@@ -35992,6 +36391,134 @@ func NewSearchMarketsRequest(server string, params *SearchMarketsParams) (*http.
 			}
 
 			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListSettledMarketsRequest constructs an http.Request for the ListSettledMarkets method
+func NewListSettledMarketsRequest(server string, params *ListSettledMarketsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/markets/settled")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "since", *params.Since, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SportsMarketType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sports_market_type", *params.SportsMarketType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.League != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "league", *params.League, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Cursor != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "cursor", *params.Cursor, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XQueryValidation != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Query-Validation", *params.XQueryValidation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Query-Validation", headerParam0)
+		}
+
+		if params.IfNoneMatch != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "If-None-Match", *params.IfNoneMatch, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("If-None-Match", headerParam1)
 		}
 
 	}
@@ -41311,7 +41838,7 @@ type ClientWithResponsesInterface interface {
 
 	// ListGameMarketsWithResponse List a game's markets
 	//
-	// Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts only; was_disputed; resolved_at; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (each game market is read within about 30 seconds of resolving) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.
+	// Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts, or on a resolved UMA question row, which carries no payouts (payouts stays null), off the payout Polymarket's ConditionalTokens contract reported on chain, which 0xinsider reads once per such market (null until it has paid); was_disputed; resolved_at, null on a resolved UMA question row, which carries none; oracle_updated_at, Polymarket's last_update_timestamp, its latest lifecycle change and never a resolution time: on a resolved UMA question row, when UMA's answer settled the question; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (usually about 12 seconds after resolved_at and within about 25 seconds for 95 in 100; a game market the resolution scan misses can take up to about 5 minutes) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -41549,6 +42076,15 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /api/v1/market/{condition_id}/top-holders (the `GetMarketTopHolders` operationId).
 	GetMarketTopHoldersWithResponse(ctx context.Context, conditionId string, params *GetMarketTopHoldersParams, reqEditors ...RequestEditorFn) (*GetMarketTopHoldersResponse, error)
 
+	// ListMarketTradesWithResponse List a market's taker fills in a time window
+	//
+	// One market's taker fills of 100 USD or more, newest first by (traded_at, transaction_hash, log_index), from 0xinsider's own record of the exchange's on-chain fills. Each fill appears once: its id is the transaction hash and the log index of its fill event, so a walk can be deduplicated and joined to the chain. side is the taker's, BUY or SELL; price, shares and size_usd are the fill's own; outcome and token_id name the traded outcome token. Walk a window with from (inclusive) and to (exclusive) and page with next_cursor: has_more true means older fills in the window remain. coverage states what the record holds: fills under min_size_usd (100 USD) are not stored; recorded_from is where the record starts, the later of when recording began and 00:00 UTC on the day retention_days before today, so a window before it reads empty because it is outside the record, not because nothing traded; complete_through is how far the record is complete, a few minutes behind now, and a first page serves no fill after it; retention_days is how many days a stored fill is served before it is deleted. To follow a market, read again later with from at the last complete_through you read. For large trades with wallet grades and review scores, use GET /api/v1/large-trades/history?condition_id=. Every plan with an API key. Cost is 1.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/market/{condition_id}/trades (the `ListMarketTrades` operationId).
+	ListMarketTradesWithResponse(ctx context.Context, conditionId string, params *ListMarketTradesParams, reqEditors ...RequestEditorFn) (*ListMarketTradesResponse, error)
+
 	// GetMarketWalletsInOutWithResponse Get a market's net buyers and sellers
 	//
 	// One market's net buyers and net sellers over the last 24 hours or 7 days, live: the body the 0xinsider market page's wallets in/out panel reads for a Pro viewer, from the same aggregate and cache (reads are cached for up to 60 seconds). A wallet's net is its buys minus its sells in the window across both outcomes, in USD of matched notional, fees excluded. summary counts every wallet that traded the market in the window; net_buyers and net_sellers list the top 25 on each side. A wallet that bought and sold the same amount nets zero and is on neither list.
@@ -41634,6 +42170,15 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /api/v1/markets/search (the `SearchMarkets` operationId).
 	SearchMarketsWithResponse(ctx context.Context, params *SearchMarketsParams, reqEditors ...RequestEditorFn) (*SearchMarketsResponse, error)
 
+	// ListSettledMarketsWithResponse List settled game markets since a time
+	//
+	// Game markets Polymarket settled, as 0xinsider recorded them, oldest first by (settlement.observed_at, settlement_id): one row per market per settled state, the object the market_settled webhook delivers as data. It is the webhook's pull side: catch up after downtime from since, or poll with next_cursor instead of receiving pushes. A market can appear twice: once as a question row without payouts, then again with them, each with its own settlement_id. Each row carries condition_id, settlement_id, event_slug, game_id, league, sports_market_type, outcomes (labels at their outcome index, so payouts and winning_outcome_index index into it) and settlement: status observed, oracle_status resolved, settled true, payouts (micro-USDC per share per outcome index), result (outcome, or split for a 50-50), winning_outcome_index, was_disputed, resolved_at (null on a resolved UMA question row, which carries none), oracle_updated_at (Polymarket's last_update_timestamp, its latest lifecycle change, never a resolution time; on such a row, when UMA's answer settled the question), expected_settlement_time, settlement_time_basis and observed_at, when 0xinsider first saw this state. The filters are the webhook's settlement_filters without market or event names: sports_market_type (default moneyline, * for every type) and league. A polyv2 copy of a game whose original event has a moneyline market is left out, as the webhook leaves it out of such a filter, so copy_of_event_slug is always null here. Unlike the webhook, a state first recorded more than 6 hours after its market resolved is listed, and so is a state naming the winner an earlier state of its market named (Polymarket's payouts row after the ConditionalTokens payout). complete_through trails now by two minutes: rows observed at or before it are served, in this page or the ones after it, so a row is never passed before the settlement writer records it. has_more true means more rows up to complete_through remain: fetch next_cursor now. has_more false means the walk reached complete_through: keep next_cursor and read it again later for what is recorded after it. next_cursor is always present. A page can hold fewer than limit rows, or none, while has_more is true: a read that has not filled its page stops after about 120 ms of scanning and resumes on the next page. Every plan with an API key; push delivery (the webhook) is Pro and Max. Cost is 1.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /api/v1/markets/settled (the `ListSettledMarkets` operationId).
+	ListSettledMarketsWithResponse(ctx context.Context, params *ListSettledMarketsParams, reqEditors ...RequestEditorFn) (*ListSettledMarketsResponse, error)
+
 	// ListSharpMoneyFlowsWithResponse List ranked sharp-money flows
 	//
 	// Canonical path for ranked sharp-money flows; /api/v1/markets/smart-money-flows remains live as a deprecated byte-identical alias of it. Ranks sports and esports markets (#27306) by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/flow. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again.
@@ -41665,7 +42210,7 @@ type ClientWithResponsesInterface interface {
 
 	// CreateMcpJsonRpcResponseWithBodyWithResponse Remote MCP endpoint (JSON-RPC)
 	//
-	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 72 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
+	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 74 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, list_settled_markets, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_trades, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -41674,7 +42219,7 @@ type ClientWithResponsesInterface interface {
 
 	// CreateMcpJsonRpcResponseWithResponse Remote MCP endpoint (JSON-RPC)
 	//
-	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 72 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
+	// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 74 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, list_settled_markets, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_trades, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -41836,7 +42381,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetResolutionReportWithResponse Get the daily resolution report
 	//
-	// One UTC day of resolved sports and esports markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.
+	// One UTC day's resolved markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A day from 2026-10-21 counts sports and esports markets only; an earlier day counts every resolved Polymarket market, and `market_scope` says which. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -44713,6 +45258,7 @@ type ListGameMarketsResponse struct {
 				ExpectedSettlementTime *time.Time                                                      `json:"expected_settlement_time"`
 				ObservedAt             *time.Time                                                      `json:"observed_at"`
 				OracleStatus           *string                                                         `json:"oracle_status"`
+				OracleUpdatedAt        *time.Time                                                      `json:"oracle_updated_at"`
 				Payouts                *[]int                                                          `json:"payouts"`
 				ProposedAnswer         *ListGameMarkets200JSONResponseBodyDataSettlementProposedAnswer `json:"proposed_answer"`
 				ResolvedAt             *time.Time                                                      `json:"resolved_at"`
@@ -44838,6 +45384,7 @@ func (r ListGameMarketsResponse) GetJSON200() *struct {
 			ExpectedSettlementTime *time.Time                                                      `json:"expected_settlement_time"`
 			ObservedAt             *time.Time                                                      `json:"observed_at"`
 			OracleStatus           *string                                                         `json:"oracle_status"`
+			OracleUpdatedAt        *time.Time                                                      `json:"oracle_updated_at"`
 			Payouts                *[]int                                                          `json:"payouts"`
 			ProposedAnswer         *ListGameMarkets200JSONResponseBodyDataSettlementProposedAnswer `json:"proposed_answer"`
 			ResolvedAt             *time.Time                                                      `json:"resolved_at"`
@@ -49405,6 +49952,225 @@ func (r GetMarketTopHoldersResponse) ContentType() string {
 	return ""
 }
 
+// ListMarketTradesResponse200Headers the declared response headers of an HTTP 200 response for ListMarketTrades
+type ListMarketTradesResponse200Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// ListMarketTradesResponse304Headers the declared response headers of an HTTP 304 response for ListMarketTrades
+type ListMarketTradesResponse304Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// ListMarketTradesResponse429Headers the declared response headers of an HTTP 429 response for ListMarketTrades
+type ListMarketTradesResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+type ListMarketTradesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		// ConditionId The market's raw condition_id, lowercase.
+		ConditionId string `json:"condition_id"`
+
+		// Coverage What the record holds. A window outside it reads empty because it is outside the record, not because nothing traded.
+		Coverage struct {
+			// CompleteThrough Every fill at or before this instant is in the record, and a first page serves none after it. It trails now by a few minutes.
+			CompleteThrough time.Time `json:"complete_through"`
+
+			// MinSizeUsd A fill smaller than this, in USD, is not stored: 100.
+			MinSizeUsd int `json:"min_size_usd"`
+
+			// RecordedFrom Where the record starts: the later of when recording began and 00:00 UTC on the day retention_days before today. No fill before this instant is served.
+			RecordedFrom time.Time `json:"recorded_from"`
+
+			// RetentionDays A stored fill is served at least this many days, then deleted.
+			RetentionDays int `json:"retention_days"`
+		} `json:"coverage"`
+
+		// Data Newest first by traded_at, then transaction_hash, then log_index.
+		Data []MarketTrade `json:"data"`
+
+		// HasMore True when older fills in the window remain: send next_cursor for them.
+		HasMore bool         `json:"has_more"`
+		Meta    ResponseMeta `json:"meta"`
+
+		// NextCursor Opaque mtr_v1_ cursor for the next page; null when has_more is false.
+		NextCursor *string                                   `json:"next_cursor"`
+		Object     ListMarketTrades200JSONResponseBodyObject `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *ListMarketTradesResponse200Headers
+	// Headers304 the parsed response headers for an HTTP 304 response
+	Headers304 *ListMarketTradesResponse304Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *ListMarketTradesResponse429Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListMarketTradesResponse) GetJSON200() *struct {
+	// ConditionId The market's raw condition_id, lowercase.
+	ConditionId string `json:"condition_id"`
+
+	// Coverage What the record holds. A window outside it reads empty because it is outside the record, not because nothing traded.
+	Coverage struct {
+		// CompleteThrough Every fill at or before this instant is in the record, and a first page serves none after it. It trails now by a few minutes.
+		CompleteThrough time.Time `json:"complete_through"`
+
+		// MinSizeUsd A fill smaller than this, in USD, is not stored: 100.
+		MinSizeUsd int `json:"min_size_usd"`
+
+		// RecordedFrom Where the record starts: the later of when recording began and 00:00 UTC on the day retention_days before today. No fill before this instant is served.
+		RecordedFrom time.Time `json:"recorded_from"`
+
+		// RetentionDays A stored fill is served at least this many days, then deleted.
+		RetentionDays int `json:"retention_days"`
+	} `json:"coverage"`
+
+	// Data Newest first by traded_at, then transaction_hash, then log_index.
+	Data []MarketTrade `json:"data"`
+
+	// HasMore True when older fills in the window remain: send next_cursor for them.
+	HasMore bool         `json:"has_more"`
+	Meta    ResponseMeta `json:"meta"`
+
+	// NextCursor Opaque mtr_v1_ cursor for the next page; null when has_more is false.
+	NextCursor *string                                   `json:"next_cursor"`
+	Object     ListMarketTrades200JSONResponseBodyObject `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListMarketTradesResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListMarketTradesResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r ListMarketTradesResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r ListMarketTradesResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r ListMarketTradesResponse) GetJSON404() *ApiError {
+	return r.JSON404
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListMarketTradesResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r ListMarketTradesResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r ListMarketTradesResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListMarketTradesResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r ListMarketTradesResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r ListMarketTradesResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListMarketTradesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListMarketTradesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListMarketTradesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // GetMarketWalletsInOutResponse200Headers the declared response headers of an HTTP 200 response for GetMarketWalletsInOut
 type GetMarketWalletsInOutResponse200Headers struct {
 	ETag                *string
@@ -50441,6 +51207,174 @@ func (r SearchMarketsResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r SearchMarketsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+// ListSettledMarketsResponse200Headers the declared response headers of an HTTP 200 response for ListSettledMarkets
+type ListSettledMarketsResponse200Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// ListSettledMarketsResponse304Headers the declared response headers of an HTTP 304 response for ListSettledMarkets
+type ListSettledMarketsResponse304Headers struct {
+	ETag                *string
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	ServerTiming        *string
+	XEffectiveQuery     *string
+	XQueryIgnored       *string
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+	XUsageAccounting    *string
+}
+
+// ListSettledMarketsResponse429Headers the declared response headers of an HTTP 429 response for ListSettledMarkets
+type ListSettledMarketsResponse429Headers struct {
+	RateLimitLimit      *int
+	RateLimitRemaining  *int
+	RateLimitReset      *int
+	RetryAfter          *int
+	XRateLimitLimit     *int
+	XRateLimitRemaining *int
+	XRateLimitReset     *int
+	XRequestId          *string
+}
+
+type ListSettledMarketsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *struct {
+		CompleteThrough time.Time           `json:"complete_through"`
+		Data            []MarketSettledData `json:"data"`
+		HasMore         bool                `json:"has_more"`
+		Meta            ResponseMeta        `json:"meta"`
+		NextCursor      string              `json:"next_cursor"`
+		Object          string              `json:"object"`
+	}
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *ApiError
+	// JSON401 the response for an HTTP 401 `application/json` response
+	JSON401 *ApiError
+	// JSON402 the response for an HTTP 402 `application/json` response
+	JSON402 *ApiError
+	// JSON403 the response for an HTTP 403 `application/json` response
+	JSON403 *ApiError
+	// JSON408 the response for an HTTP 408 `application/json` response
+	JSON408 *ApiError
+	// JSON423 the response for an HTTP 423 `application/json` response
+	JSON423 *ApiError
+	// JSON429 the response for an HTTP 429 `application/json` response
+	JSON429 *ApiError
+	// JSON500 the response for an HTTP 500 `application/json` response
+	JSON500 *ApiError
+	// JSON503 the response for an HTTP 503 `application/json` response
+	JSON503 *ApiError
+	// Headers200 the parsed response headers for an HTTP 200 response
+	Headers200 *ListSettledMarketsResponse200Headers
+	// Headers304 the parsed response headers for an HTTP 304 response
+	Headers304 *ListSettledMarketsResponse304Headers
+	// Headers429 the parsed response headers for an HTTP 429 response
+	Headers429 *ListSettledMarketsResponse429Headers
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON200() *struct {
+	CompleteThrough time.Time           `json:"complete_through"`
+	Data            []MarketSettledData `json:"data"`
+	HasMore         bool                `json:"has_more"`
+	Meta            ResponseMeta        `json:"meta"`
+	NextCursor      string              `json:"next_cursor"`
+	Object          string              `json:"object"`
+} {
+	return r.JSON200
+}
+
+// GetJSON400 returns the response for an HTTP 400 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON400() *ApiError {
+	return r.JSON400
+}
+
+// GetJSON401 returns the response for an HTTP 401 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON401() *ApiError {
+	return r.JSON401
+}
+
+// GetJSON402 returns the response for an HTTP 402 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON402() *ApiError {
+	return r.JSON402
+}
+
+// GetJSON403 returns the response for an HTTP 403 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON403() *ApiError {
+	return r.JSON403
+}
+
+// GetJSON408 returns the response for an HTTP 408 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON408() *ApiError {
+	return r.JSON408
+}
+
+// GetJSON423 returns the response for an HTTP 423 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON423() *ApiError {
+	return r.JSON423
+}
+
+// GetJSON429 returns the response for an HTTP 429 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON429() *ApiError {
+	return r.JSON429
+}
+
+// GetJSON500 returns the response for an HTTP 500 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON500() *ApiError {
+	return r.JSON500
+}
+
+// GetJSON503 returns the response for an HTTP 503 `application/json` response
+func (r ListSettledMarketsResponse) GetJSON503() *ApiError {
+	return r.JSON503
+}
+
+// GetBody returns the raw response body bytes
+func (r ListSettledMarketsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSettledMarketsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSettledMarketsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSettledMarketsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -60616,7 +61550,7 @@ func (c *ClientWithResponses) GetGameHoldersWithResponse(ctx context.Context, ev
 
 // ListGameMarketsWithResponse List a game's markets
 //
-// Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts only; was_disputed; resolved_at; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (each game market is read within about 30 seconds of resolving) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.
+// Every stored Polymarket market of one event_slug: the moneyline, spreads, totals, team totals, half and quarter lines, player props and the rest, plus the markets of the event's child events (a soccer game's exact score, halftime result and more-markets events), each with its own event_slug. The game object on GET /api/v1/games carries only the winner markets the sports board binds to the two sides; this read lists the rest. Each row carries the condition_id, the provider's sports_market_type, groupItemTitle and typed line, the outcome index the line belongs to when the provider states it, both outcome labels with their CLOB token ids, active or closed status, and settlement. families lists every market type the event holds with its counts, whatever the filters. Ordered by sports_market_type, then line, then condition_id. Live, upcoming and settled events all answer. settlement is how Polymarket's oracle settled or is settling the market, read from Polymarket's /v2/resolutions and stored per game: status observed (the provider's row is below), not_posed (no oracle request yet; settled false) or unavailable (no read in hand and no recorded settlement; every other field null, and a read a moment later may answer); oracle_status, the provider lifecycle state verbatim (posed, proposed, challenged, reproposed, disputed, arbitration, resolved); settled; payouts, the provider's payout per share per outcome index in micro-USDC (1000000 is $1), only on a resolved row that carries them; result, outcome or split (Polymarket's 50-50), and winning_outcome_index, both read off payouts, or on a resolved UMA question row, which carries no payouts (payouts stays null), off the payout Polymarket's ConditionalTokens contract reported on chain, which 0xinsider reads once per such market (null until it has paid); was_disputed; resolved_at, null on a resolved UMA question row, which carries none; oracle_updated_at, Polymarket's last_update_timestamp, its latest lifecycle change and never a resolution time: on a resolved UMA question row, when UMA's answer settled the question; expected_settlement_time and settlement_time_basis, the provider's earliest-settlement estimate for a pending market, never a deadline; proposed_answer (outcome_0, outcome_1, split, too_early), the newest proposal of a pending round; observed_at, our clock: on a settled market when 0xinsider first saw the settlement, recorded once (usually about 12 seconds after resolved_at and within about 25 seconds for 95 in 100; a game market the resolution scan misses can take up to about 5 minutes) and the same on every later read, otherwise when the provider answered the read behind the block. Every key is present; a null is unknown. A settled read is refreshed every 10 minutes, any other every minute. expand=sharp_money adds each row's sharp-money split (side USD and S, A and B wallet counts per outcome) from the game page's per-line owner: computed for a line in the game's prop frame, not_computed for a line outside it (a player prop, a line beyond the seven around its family's main line, a closed or settled line), unavailable when the read failed or held no observation of the line within 120 ms. While the frame is being built, a line the game's stored split holds is computed and dated by money_as_of. Each read starts the game's split refilling: read again after a minute or two for the lines it could not answer. expand=quotes adds each outcome's quote, the cached figures GET /api/v1/market/{condition_id}/snapshot serves, for the whole page in one cache read, on every plan, for 1 more unit of cost: status observed (the cache holds the outcome's price, its book or both; a null beside it is a figure the cache does not hold, but a null best_bid or best_ask beside a book_observed_at is a side with no orders, so a book with one side or none is observed), no_orderbook (the provider confirmed the outcome has no book and no price is cached) or unavailable (nothing cached; every figure null); price, 0 to 1, the price Polymarket shows, with price_basis midpoint (the best bid and ask are at most $0.10 apart) or last_trade, and price_observed_at, when its quote and trade state became observable; best_bid and best_ask with book_observed_at, when their CLOB frame was observed, and book_source, clob_stream (the market websocket) or clob_rest (a CLOB books read); book_depth_within_2c, the USD resting on each side within 2 cents of the midpoint (bid_usd: bids at or above the midpoint minus 0.02; ask_usd: asks at or below the midpoint plus 0.02; price times size, from the whole book, recomputed with the book), null when no depth is cached for the book; book_unavailable_reason, null when book_observed_at is set, else cache_miss, cache_unavailable, stream_capacity, no_orderbook or missing_provider_token_id. Each read keeps the page's open markets covered, so an outcome that reads cache_miss usually answers a few seconds later, as does cache_unavailable (we could not read the book from the cache this time); stream_capacity means the market is not streamed and API reads already hold every live book they may open, so it answers only once fewer markets are read. With expand=quotes the ETag moves whenever a quote does. expand=trading_terms adds each row's trading_terms, the market's terms from its Gamma record passed through unchanged, on every plan, for 1 more unit of cost: status observed (Gamma's record was read at observed_at; a null figure is one the record does not carry), not_listed (Gamma's market list returned no record for the market) or unavailable (no read in hand; every figure null); fees_enabled; fee_schedule with rate, exponent, taker_only and rebate_rate, the fraction of taker fees rebated to the resting maker; rewards_min_size, in shares, and rewards_max_spread, in cents from the midpoint; reward_allocations, the dated allocations with rewards_amount, rewards_daily_rate, start_date and end_date; seconds_delay, the delay before a newly placed marketable order can match; tick_size, the minimum price increment for limit orders; and min_order_size_shares, the smallest order the CLOB accepts, in shares (Polymarket's market reference calls this figure USDC, and the CLOB enforces it on an order's share count). Each market's read serves for a minute and then refreshes off the request path, so a market that reads unavailable usually answers a few seconds later and the ETag moves about once a minute. Without expand=quotes no price, and never a holder identity: GET /api/v1/games/{event_slug}/holders reads the holders of up to 25 of these markets in one call, and GET /api/v1/market/{condition_id}/holders or /snapshot reads one.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -61010,6 +61944,21 @@ func (c *ClientWithResponses) GetMarketTopHoldersWithResponse(ctx context.Contex
 	return ParseGetMarketTopHoldersResponse(rsp)
 }
 
+// ListMarketTradesWithResponse List a market's taker fills in a time window
+//
+// One market's taker fills of 100 USD or more, newest first by (traded_at, transaction_hash, log_index), from 0xinsider's own record of the exchange's on-chain fills. Each fill appears once: its id is the transaction hash and the log index of its fill event, so a walk can be deduplicated and joined to the chain. side is the taker's, BUY or SELL; price, shares and size_usd are the fill's own; outcome and token_id name the traded outcome token. Walk a window with from (inclusive) and to (exclusive) and page with next_cursor: has_more true means older fills in the window remain. coverage states what the record holds: fills under min_size_usd (100 USD) are not stored; recorded_from is where the record starts, the later of when recording began and 00:00 UTC on the day retention_days before today, so a window before it reads empty because it is outside the record, not because nothing traded; complete_through is how far the record is complete, a few minutes behind now, and a first page serves no fill after it; retention_days is how many days a stored fill is served before it is deleted. To follow a market, read again later with from at the last complete_through you read. For large trades with wallet grades and review scores, use GET /api/v1/large-trades/history?condition_id=. Every plan with an API key. Cost is 1.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/market/{condition_id}/trades (the `ListMarketTrades` operationId).
+func (c *ClientWithResponses) ListMarketTradesWithResponse(ctx context.Context, conditionId string, params *ListMarketTradesParams, reqEditors ...RequestEditorFn) (*ListMarketTradesResponse, error) {
+	rsp, err := c.ListMarketTrades(ctx, conditionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListMarketTradesResponse(rsp)
+}
+
 // GetMarketWalletsInOutWithResponse Get a market's net buyers and sellers
 //
 // One market's net buyers and net sellers over the last 24 hours or 7 days, live: the body the 0xinsider market page's wallets in/out panel reads for a Pro viewer, from the same aggregate and cache (reads are cached for up to 60 seconds). A wallet's net is its buys minus its sells in the window across both outcomes, in USD of matched notional, fees excluded. summary counts every wallet that traded the market in the window; net_buyers and net_sellers list the top 25 on each side. A wallet that bought and sold the same amount nets zero and is on neither list.
@@ -61148,6 +62097,21 @@ func (c *ClientWithResponses) SearchMarketsWithResponse(ctx context.Context, par
 	return ParseSearchMarketsResponse(rsp)
 }
 
+// ListSettledMarketsWithResponse List settled game markets since a time
+//
+// Game markets Polymarket settled, as 0xinsider recorded them, oldest first by (settlement.observed_at, settlement_id): one row per market per settled state, the object the market_settled webhook delivers as data. It is the webhook's pull side: catch up after downtime from since, or poll with next_cursor instead of receiving pushes. A market can appear twice: once as a question row without payouts, then again with them, each with its own settlement_id. Each row carries condition_id, settlement_id, event_slug, game_id, league, sports_market_type, outcomes (labels at their outcome index, so payouts and winning_outcome_index index into it) and settlement: status observed, oracle_status resolved, settled true, payouts (micro-USDC per share per outcome index), result (outcome, or split for a 50-50), winning_outcome_index, was_disputed, resolved_at (null on a resolved UMA question row, which carries none), oracle_updated_at (Polymarket's last_update_timestamp, its latest lifecycle change, never a resolution time; on such a row, when UMA's answer settled the question), expected_settlement_time, settlement_time_basis and observed_at, when 0xinsider first saw this state. The filters are the webhook's settlement_filters without market or event names: sports_market_type (default moneyline, * for every type) and league. A polyv2 copy of a game whose original event has a moneyline market is left out, as the webhook leaves it out of such a filter, so copy_of_event_slug is always null here. Unlike the webhook, a state first recorded more than 6 hours after its market resolved is listed, and so is a state naming the winner an earlier state of its market named (Polymarket's payouts row after the ConditionalTokens payout). complete_through trails now by two minutes: rows observed at or before it are served, in this page or the ones after it, so a row is never passed before the settlement writer records it. has_more true means more rows up to complete_through remain: fetch next_cursor now. has_more false means the walk reached complete_through: keep next_cursor and read it again later for what is recorded after it. next_cursor is always present. A page can hold fewer than limit rows, or none, while has_more is true: a read that has not filled its page stops after about 120 ms of scanning and resumes on the next page. Every plan with an API key; push delivery (the webhook) is Pro and Max. Cost is 1.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /api/v1/markets/settled (the `ListSettledMarkets` operationId).
+func (c *ClientWithResponses) ListSettledMarketsWithResponse(ctx context.Context, params *ListSettledMarketsParams, reqEditors ...RequestEditorFn) (*ListSettledMarketsResponse, error) {
+	rsp, err := c.ListSettledMarkets(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSettledMarketsResponse(rsp)
+}
+
 // ListSharpMoneyFlowsWithResponse List ranked sharp-money flows
 //
 // Canonical path for ranked sharp-money flows; /api/v1/markets/smart-money-flows remains live as a deprecated byte-identical alias of it. Ranks sports and esports markets (#27306) by absolute net S/A/B-grade whale flow over a requested timeframe. Use this discovery endpoint to answer where sharp money is flowing before drilling into a specific market with /api/v1/market/{condition_id}/flow. Pagination is anchored by an opaque cursor carrying the first-page as_of timestamp, normalized effective filters, ranking revision and aggregate collection revision; a changed filter or collection returns `cursor_expired` so callers request the first page again.
@@ -61197,7 +62161,7 @@ func (c *ClientWithResponses) OpenMcpEventStreamWithResponse(ctx context.Context
 
 // CreateMcpJsonRpcResponseWithBodyWithResponse Remote MCP endpoint (JSON-RPC)
 //
-// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 72 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
+// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 74 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, list_settled_markets, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_trades, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -61212,7 +62176,7 @@ func (c *ClientWithResponses) CreateMcpJsonRpcResponseWithBodyWithResponse(ctx c
 
 // CreateMcpJsonRpcResponseWithResponse Remote MCP endpoint (JSON-RPC)
 //
-// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 72 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
+// Model Context Protocol (MCP) Streamable HTTP transport. Accepts one JSON-RPC 2.0 request or notification. ID-bearing initialize, ping, tools/list, and tools/call requests (and server/discover on revision 2026-07-28) receive one same-ID JSON-RPC response; an unknown method, or a notification method sent with an id, answers JSON-RPC error -32601. Every ID-less message (a notification, known or not) receives HTTP 202 with no body and runs nothing; an unsolicited response message receives HTTP 400 with a JSON-RPC -32600 body and no id. Unknown cancellation IDs are ignored; cancellation does not stop running tool work. Only tools/call is counted against the per-minute request budget, the monthly quota and pay-as-you-go usage; every other message, with or without a key, spends none of them and reports the per-IP budget in RateLimit-* (since 2026-10-18). Remote MCP exposes 74 tools for public V1 read operations: get_leaderboard, get_trader, batch_get_traders, get_large_trades, get_large_trade, get_large_trades_history, get_whale_trades, get_whale_trade, get_whale_trades_history, get_edge_hunter, list_games, get_game, list_game_markets, list_props, list_settled_markets, get_game_sharp_money, get_game_trades, get_game_holders, get_market_flow, batch_get_market_flow, get_market_intel, batch_get_market_intel, get_sharp_money_flows, get_smart_money_flows, get_market_snapshot, get_suspicious_trades, get_suspicious_trade, get_insider_radar, get_insider_radar_flag, get_positions, get_position_timeline, get_position_timeline_by_id, search_markets, search_content, explore_markets, get_event_replay_since, list_webhooks, get_webhook, get_daily_report_snapshot, get_weekly_report_snapshot, get_monthly_report_snapshot, get_resolution_report, get_report, get_trader_export_snapshot, get_coverage, get_platforms, get_usage, get_account, get_large_positions, get_trending_wallets, get_leaderboard_leagues, get_sport_leaderboard, list_category_leaders, get_category_leaderboard, get_trader_pnl, get_pick_of_the_day, get_pick_of_the_day_ledger_entry, get_pick_of_the_day_archive, get_pick_of_the_day_stats, get_trader_context, get_trader_categories, get_trader_grade_at, get_trader_clv, get_market_holders, get_market_top_holders, get_market_candles, get_market_close, get_market_trades, get_market_wallets_in_out, get_combo_fills, get_combos_summary, get_combo, get_large_trade_counterparty_executions, get_large_trade_counterparty_makers. Webhook create/update/delete/verify/rotate operations are intentionally not exposed as remote MCP tools. The remote endpoint advertises tools only; it does not implement resources/list, resources/read, prompts/list, or prompts/get. Each tool dispatches to the matching /api/v1/* handler in-process so auth, rate limits, and payload shape match. initialize, notifications/initialized, ping and tools/list answer without a credential; tools/call (and any GET) need Authorization: Bearer <token> with an OAuth 2.1 access token (see the oauth2 security scheme; a tool outside the token's scopes returns isError) or an API key, and without one answer HTTP 401 with a WWW-Authenticate challenge whose resource_metadata names the RFC 9728 document at /.well-known/oauth-protected-resource/api/v1/mcp. A key in a ?token= query parameter is rejected on every authenticated route (the public routes ignore it) with 401 invalid_api_key and error.reason api_key_in_query, because URLs land in shell history, browser history, and logs; a client that can only take a URL can run the @0xinsider/mcp stdio package. The endpoint is stateless: it mints no Mcp-Session-Id and ignores one a client sends. Origin header, when present, is validated against the 0xinsider + localhost allowlist. tools/call arguments are validated against the tool's advertised inputSchema before anything runs: an unknown key, a wrong type, an out-of-range number, a value outside an enum or an argument combination outside a oneOf answers a tool result with isError true whose text names the field, never a query built from the arguments that fit; a tools/call without name, or whose arguments is not an object, answers JSON-RPC error -32602 and runs nothing. Every tools/call result carries the REST envelope's meta verbatim (request_id, cached, cache_age_s, cost, and the route's provenance such as source and completeness on get_whale_trades_history or ranking_source and directional_source on get_edge_hunter) as structuredContent.meta beside the payload's own keys, and a tool failure carries structuredContent.error with the REST error fields verbatim (code, reason, param, doc_url, retry_at) plus retry_after_seconds, request_id and status, beside its text. The MCP-Protocol-Version request header is checked on every POST: a value outside 2026-07-28, 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05 answers HTTP 400 with the standard error envelope (error.code bad_request); an absent header is served as 2025-03-26, the transport specification's compatibility default. Revision 2026-07-28 also requires the Mcp-Method header (JSON-RPC error -32020 without it) and adds resultType to every result. Browser preflight allows MCP-Protocol-Version, Mcp-Method and Mcp-Name.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -61458,7 +62422,7 @@ func (c *ClientWithResponses) GetMonthlyReportSnapshotWithResponse(ctx context.C
 
 // GetResolutionReportWithResponse Get the daily resolution report
 //
-// One UTC day of resolved sports and esports markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.
+// One UTC day's resolved markets: how often the side the profitable (S, A and B grade) wallets held won, beside how often every qualifying wallet's side won, one vote each. `markets` lists each market they held a position in, with the consensus side, its confidence, and the full roster of wallets, their side, cost and realized P&L; `view=totals` drops it. Counts cover the whole day before that list is filtered. A day from 2026-10-21 counts sports and esports markets only; an earlier day counts every resolved Polymarket market, and `market_scope` says which. A past day is served from its retained build: `generated_at` says when it was built and `source_updates_pending` that a newer build has been requested. 503 read_model_warming while the day has no build yet; one has been requested.
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -66406,6 +67370,7 @@ func ParseListGameMarketsResponse(rsp *http.Response) (*ListGameMarketsResponse,
 					ExpectedSettlementTime *time.Time                                                      `json:"expected_settlement_time"`
 					ObservedAt             *time.Time                                                      `json:"observed_at"`
 					OracleStatus           *string                                                         `json:"oracle_status"`
+					OracleUpdatedAt        *time.Time                                                      `json:"oracle_updated_at"`
 					Payouts                *[]int                                                          `json:"payouts"`
 					ProposedAnswer         *ListGameMarkets200JSONResponseBodyDataSettlementProposedAnswer `json:"proposed_answer"`
 					ResolvedAt             *time.Time                                                      `json:"resolved_at"`
@@ -75508,6 +76473,370 @@ func ParseGetMarketTopHoldersResponse(rsp *http.Response) (*GetMarketTopHoldersR
 	return response, nil
 }
 
+// ParseListMarketTradesResponse parses an HTTP response from a ListMarketTradesWithResponse call
+func ParseListMarketTradesResponse(rsp *http.Response) (*ListMarketTradesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListMarketTradesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			// ConditionId The market's raw condition_id, lowercase.
+			ConditionId string `json:"condition_id"`
+
+			// Coverage What the record holds. A window outside it reads empty because it is outside the record, not because nothing traded.
+			Coverage struct {
+				// CompleteThrough Every fill at or before this instant is in the record, and a first page serves none after it. It trails now by a few minutes.
+				CompleteThrough time.Time `json:"complete_through"`
+
+				// MinSizeUsd A fill smaller than this, in USD, is not stored: 100.
+				MinSizeUsd int `json:"min_size_usd"`
+
+				// RecordedFrom Where the record starts: the later of when recording began and 00:00 UTC on the day retention_days before today. No fill before this instant is served.
+				RecordedFrom time.Time `json:"recorded_from"`
+
+				// RetentionDays A stored fill is served at least this many days, then deleted.
+				RetentionDays int `json:"retention_days"`
+			} `json:"coverage"`
+
+			// Data Newest first by traded_at, then transaction_hash, then log_index.
+			Data []MarketTrade `json:"data"`
+
+			// HasMore True when older fills in the window remain: send next_cursor for them.
+			HasMore bool         `json:"has_more"`
+			Meta    ResponseMeta `json:"meta"`
+
+			// NextCursor Opaque mtr_v1_ cursor for the next page; null when has_more is false.
+			NextCursor *string                                   `json:"next_cursor"`
+			Object     ListMarketTrades200JSONResponseBodyObject `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 304:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers ListMarketTradesResponse200Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 304:
+		var headers ListMarketTradesResponse304Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers304 = &headers
+	case rsp.StatusCode == 429:
+		var headers ListMarketTradesResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
+	}
+
+	return response, nil
+}
+
 // ParseGetMarketWalletsInOutResponse parses an HTTP response from a GetMarketWalletsInOutWithResponse call
 func ParseGetMarketWalletsInOutResponse(rsp *http.Response) (*GetMarketWalletsInOutResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -77380,6 +78709,341 @@ func ParseSearchMarketsResponse(rsp *http.Response) (*SearchMarketsResponse, err
 			headers.XRequestId = &value
 		}
 		response.Headers503 = &headers
+	}
+
+	return response, nil
+}
+
+// ParseListSettledMarketsResponse parses an HTTP response from a ListSettledMarketsWithResponse call
+func ParseListSettledMarketsResponse(rsp *http.Response) (*ListSettledMarketsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListSettledMarketsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest struct {
+			CompleteThrough time.Time           `json:"complete_through"`
+			Data            []MarketSettledData `json:"data"`
+			HasMore         bool                `json:"has_more"`
+			Meta            ResponseMeta        `json:"meta"`
+			NextCursor      string              `json:"next_cursor"`
+			Object          string              `json:"object"`
+		}
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 304:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 408:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON408 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 423:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON423 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ApiError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	switch {
+	case rsp.StatusCode == 200:
+		var headers ListSettledMarketsResponse200Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers200 = &headers
+	case rsp.StatusCode == 304:
+		var headers ListSettledMarketsResponse304Headers
+		if values := rsp.Header.Values("ETag"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "ETag", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ETag = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Server-Timing"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "Server-Timing", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.ServerTiming = &value
+		}
+		if values := rsp.Header.Values("X-Effective-Query"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Effective-Query", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XEffectiveQuery = &value
+		}
+		if values := rsp.Header.Values("X-Query-Ignored"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Query-Ignored", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XQueryIgnored = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		if values := rsp.Header.Values("X-Usage-Accounting"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Usage-Accounting", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XUsageAccounting = &value
+		}
+		response.Headers304 = &headers
+	case rsp.StatusCode == 429:
+		var headers ListSettledMarketsResponse429Headers
+		if values := rsp.Header.Values("RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RateLimitReset = &value
+		}
+		if values := rsp.Header.Values("Retry-After"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "Retry-After", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.RetryAfter = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Limit"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Limit", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitLimit = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Remaining"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Remaining", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitRemaining = &value
+		}
+		if values := rsp.Header.Values("X-RateLimit-Reset"); len(values) > 0 {
+			var value int
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-RateLimit-Reset", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRateLimitReset = &value
+		}
+		if values := rsp.Header.Values("X-Request-Id"); len(values) > 0 {
+			var value string
+			if err := runtime.BindStyledParameterWithOptions("simple", "X-Request-Id", values[0], &value, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			}
+			headers.XRequestId = &value
+		}
+		response.Headers429 = &headers
 	}
 
 	return response, nil
